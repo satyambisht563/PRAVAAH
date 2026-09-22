@@ -1,0 +1,82 @@
+[
+  {
+    "staff_id": "STF-1001",
+    "name": "Rajesh Kumar Sharma",
+    "role": "Train Superintendent",
+    "zone": "NR",
+    "contact_ext": "401",
+    "badge": "TS-772"
+  },
+  {
+    "staff_id": "STF-1002",
+    "name": "Amitabh Sengupta",
+    "role": "Head TTE (Travelling Ticket Examiner)",
+    "zone": "ER",
+    "contact_ext": "402",
+    "badge": "TTE-319"
+  },
+  {
+    "staff_id": "STF-1003",
+    "name": "Vikram Singh Chauhan",
+    "role": "TTE (AC Coaches)",
+    "zone": "NCR",
+    "contact_ext": "403",
+    "badge": "TTE-482"
+  },
+  {
+    "staff_id": "STF-1004",
+    "name": "Pradeep R. Nair",
+    "role": "TTE (Sleeper Coaches)",
+    "zone": "SR",
+    "contact_ext": "404",
+    "badge": "TTE-621"
+  },
+  {
+    "staff_id": "STF-1005",
+    "name": "Manoj Paswan",
+    "role": "OBHS Lead (Housekeeping Supervisor)",
+    "zone": "ECR",
+    "contact_ext": "405",
+    "badge": "OBHS-104"
+  },
+  {
+    "staff_id": "STF-1006",
+    "name": "Sunil V. Deshmukh",
+    "role": "AC Coach Maintenance Technician",
+    "zone": "CR",
+    "contact_ext": "406",
+    "badge": "TECH-88"
+  },
+  {
+    "staff_id": "STF-1007",
+    "name": "Dinesh Chandra Joshi",
+    "role": "Electrical Escorting Staff",
+    "zone": "WR",
+    "contact_ext": "407",
+    "badge": "ELEC-215"
+  },
+  {
+    "staff_id": "STF-1008",
+    "name": "Sub-Inspector Ravi Kant",
+    "role": "RPF Escort Commander",
+    "zone": "RPF-HQ",
+    "contact_ext": "182",
+    "badge": "RPF-512"
+  },
+  {
+    "staff_id": "STF-1009",
+    "name": "Mohammed Farooq",
+    "role": "Pantry Car Manager (IRCTC)",
+    "zone": "IRCTC",
+    "contact_ext": "409",
+    "badge": "IRCTC-84"
+  },
+  {
+    "staff_id": "STF-1010",
+    "name": "Anita Kumari",
+    "role": "Coach Attendant (First AC / H1)",
+    "zone": "NR",
+    "contact_ext": "410",
+    "badge": "ATT-12"
+  }
+]

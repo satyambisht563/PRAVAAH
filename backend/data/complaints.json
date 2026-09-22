@@ -1,0 +1,159 @@
+[
+  {
+    "id": "CMP-MUB70G2O",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "17:29",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUB6N9SQ",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "17:19",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUB6I80N",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "17:15",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUB6FXBJ",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "17:13",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-DEMO-001",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Washroom flush non-functional and floor uncleaned since Asansol",
+    "status": "In Progress",
+    "timestamp": "08:15",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "escalationLevel": 1
+  }
+]

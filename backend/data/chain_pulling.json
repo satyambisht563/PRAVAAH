@@ -1,0 +1,36 @@
+{
+  "summary": {
+    "total_incidents_ytd": 512,
+    "high_risk_corridors": [
+      "ECR (Danapur - Pt. DD Upadhyaya)",
+      "NCR (Prayagraj - Kanpur)"
+    ],
+    "peak_risk_hours": [
+      "04:00 - 07:00",
+      "19:00 - 22:00"
+    ],
+    "avg_delay_per_incident_min": 24.5
+  },
+  "regionalProfiles": {
+    "ECR": {
+      "zone": "East Central Railway",
+      "risk_index": 0.88,
+      "common_cause": "Unauthorized halts near outer signals"
+    },
+    "NCR": {
+      "zone": "North Central Railway",
+      "risk_index": 0.76,
+      "common_cause": "Junction congestion and signal detentions"
+    },
+    "NR": {
+      "zone": "Northern Railway",
+      "risk_index": 0.65,
+      "common_cause": "Suburban section crossings"
+    },
+    "ER": {
+      "zone": "Eastern Railway",
+      "risk_index": 0.58,
+      "common_cause": "Terminal approach bottle-necks"
+    }
+  }
+}

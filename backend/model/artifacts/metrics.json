@@ -1,0 +1,30 @@
+{
+  "mae": 3.456,
+  "rmse": 7.289,
+  "r2": 0.6304,
+  "pct_within_5min": 86.9,
+  "pct_within_10min": 96.9,
+  "trees": 257,
+  "samples_trained": 200000,
+  "features": [
+    "hour",
+    "dow",
+    "section_km",
+    "historical_p50",
+    "historical_p90",
+    "tsr_active",
+    "tsr_speed",
+    "congestion_idx",
+    "weather_severity",
+    "precipitation_mm",
+    "headway_preceding",
+    "load_factor",
+    "zone",
+    "train_class",
+    "seasonal",
+    "weekend",
+    "capacity_util",
+    "recovery_slack"
+  ],
+  "missing_tolerance_enabled": true
+}

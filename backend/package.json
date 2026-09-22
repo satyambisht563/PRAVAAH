@@ -1,0 +1,25 @@
+{
+  "name": "pravaah-backend",
+  "version": "4.0.0",
+  "description": "PRAVAAH Railway Operations Backend Server",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "test": "node test_api.js"
+  },
+  "keywords": [
+    "railway",
+    "trains",
+    "eta",
+    "pravah",
+    "sih2026"
+  ],
+  "author": "Team OASIS",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

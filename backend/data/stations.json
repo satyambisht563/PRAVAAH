@@ -1,0 +1,98 @@
+{
+  "DDU": {
+    "code": "DDU",
+    "name": "Pt. Deen Dayal Upadhyaya Jn",
+    "division": "ECR / DDU Division",
+    "platforms": 8,
+    "zone": "East Central Railway",
+    "mps": 130
+  },
+  "PRYJ": {
+    "code": "PRYJ",
+    "name": "Prayagraj Jn",
+    "division": "NCR / Prayagraj Division",
+    "platforms": 10,
+    "zone": "North Central Railway",
+    "mps": 130
+  },
+  "CNB": {
+    "code": "CNB",
+    "name": "Kanpur Central",
+    "division": "NCR / Prayagraj Division",
+    "platforms": 10,
+    "zone": "North Central Railway",
+    "mps": 130
+  },
+  "NDLS": {
+    "code": "NDLS",
+    "name": "New Delhi Railway Station",
+    "division": "NR / Delhi Division",
+    "platforms": 16,
+    "zone": "Northern Railway",
+    "mps": 130
+  },
+  "HWH": {
+    "code": "HWH",
+    "name": "Howrah Jn",
+    "division": "ER / Howrah Division",
+    "platforms": 23,
+    "zone": "Eastern Railway",
+    "mps": 110
+  },
+  "BSB": {
+    "code": "BSB",
+    "name": "Varanasi Cantt Jn",
+    "division": "NR / Lucknow Division",
+    "platforms": 9,
+    "zone": "Northern Railway",
+    "mps": 110
+  },
+  "GAYA": {
+    "code": "GAYA",
+    "name": "Gaya Jn",
+    "division": "ECR / DDU Division",
+    "platforms": 9,
+    "zone": "East Central Railway",
+    "mps": 130
+  },
+  "ASN": {
+    "code": "ASN",
+    "name": "Asansol Jn",
+    "division": "ER / Asansol Division",
+    "platforms": 7,
+    "zone": "Eastern Railway",
+    "mps": 130
+  },
+  "DHN": {
+    "code": "DHN",
+    "name": "Dhanbad Jn",
+    "division": "ECR / Dhanbad Division",
+    "platforms": 8,
+    "zone": "East Central Railway",
+    "mps": 110
+  },
+  "BPL": {
+    "code": "BPL",
+    "name": "Bhopal Jn",
+    "division": "WCR / Bhopal Division",
+    "platforms": 6,
+    "zone": "West Central Railway",
+    "mps": 130
+  },
+  "GWL": {
+    "code": "GWL",
+    "name": "Gwalior Jn",
+    "division": "NCR / Jhansi Division",
+    "platforms": 5,
+    "zone": "North Central Railway",
+    "mps": 130
+  },
+  "AGC": {
+    "code": "AGC",
+    "name": "Agra Cantt",
+    "division": "NCR / Agra Division",
+    "platforms": 6,
+    "zone": "North Central Railway",
+    "mps": 130
+  }
+}

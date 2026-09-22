@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070B16" />
+  <title>PRAVAAH — Intelligent Railway Operations Platform</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css">
+    <!-- Google Maps JavaScript API (Configured with Demo API Key) -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYOpDtIUHpmjAXLSNvqfC9M-Em8Pcvgf8&libraries=geometry"></script>
+
+</head>
+<body>
+<div class="wrap">
+
+  <!-- =========================================================================
+       HEADER BAR
+       ========================================================================= -->
+  <header style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 22px;">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div class="brand-logo-box" style="width: 52px; height: 52px; background: linear-gradient(135deg, #1E293B, #0F172A); border: 1.5px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 0 24px rgba(56,189,248,0.3); border-radius: var(--radius-md);">
+        🚆
+      </div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <h1 class="brand-title">PRAVAAH</h1>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+      <!-- Light / Dark Mode Toggle -->
+      <button id="theme-toggle-btn" onclick="toggleTheme()" title="Switch light/dark mode">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-label">Dark</span>
+      </button>
+      <button onclick="triggerRefresh()" class="btn-action" style="padding: 8px 14px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        Refresh
+      </button>
+      <div id="clock-display" class="card-sm mono" style="padding: 8px 16px; font-size: 13px; color: var(--cyan-bright); font-weight: 700;">
+        --:--:-- IST
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       TEMPORAL SYNC BAR
+       ========================================================================= -->
+  <div class="card-sm" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: rgba(11,17,36,0.75);">
+
+    <!-- Journey Date Selection -->
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Journey Date:
+      </span>
+      <input type="date" id="journey-date-picker" onchange="onJourneyDateChange(this.value)" style="width: auto; padding: 6px 12px; font-size: 12px; border-radius: var(--radius-sm); background: rgba(15,23,42,0.85); color: var(--text-primary); border: 1px solid var(--border-subtle); cursor: pointer; font-weight: 600;" />
+      <div style="display: flex; align-items: center; gap: 4px;">
+        <button type="button" onclick="selectQuickJourneyDate(-1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Track train that departed Yesterday (Day 2 en route)">Yesterday</button>
+        <button type="button" onclick="selectQuickJourneyDate(0)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-primary); font-weight: 700; cursor: pointer;" title="Track train departing Today (Day 1)">Today</button>
+        <button type="button" onclick="selectQuickJourneyDate(1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Preview Tomorrow's departure">Tomorrow</button>
+      </div>
+      <span id="journey-day-badge" class="badge badge-cyan" style="font-size: 11px; font-weight: 700;">TODAY</span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Time Mode:
+      </span>
+      <button id="btn-sync-realtime" onclick="setRealtimeSync(true)" style="padding: 6px 12px; border-radius: var(--radius-sm); background: linear-gradient(135deg, #38BDF8, #10B981); color: #070B16; font-size: 11px; font-weight: 800;">
+        ● Live Current Time
+      </button>
+      <button id="btn-sync-custom" class="sync-inactive" onclick="setRealtimeSync(false)" style="padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600;" title="Slide to preview train status at any time of day">
+        🕒 Custom Time Slider
+      </button>
+      <!-- Live Simulation Play/Pause Controls -->
+      <button id="btn-play-sim" onclick="toggleSimulationPlay()" style="padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 800; background: linear-gradient(135deg, #10B981, #06B6D4); color: #070B16; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;" title="Animate train movement along route">
+        <span id="play-sim-icon">▶</span>
+        <span id="play-sim-label">Play Movement</span>
+      </button>
+      <select id="sim-speed-select" onchange="setSimulationSpeed(this.value)" style="width: auto; padding: 5px 8px; font-size: 11px; font-weight: 700; border-radius: var(--radius-sm); background: rgba(15,23,42,0.9); color: var(--cyan); border: 1px solid var(--border-subtle); cursor: pointer;" title="Simulation playback speed">
+        <option value="2">2x</option>
+        <option value="5" selected>5x Fast</option>
+        <option value="15">15x</option>
+        <option value="30">30x Warp</option>
+      </select>
+    </div>
+    <div id="time-scrubber-box" style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 440px; opacity: 0.5;">
+      <span style="font-size: 11px; color: var(--text-muted);" class="mono">00:00</span>
+      <input type="range" min="0" max="1439" value="540" id="time-slider" class="range-slider" disabled oninput="onTimeScrubberChange(this.value)" />
+      <span id="scrubber-time-label" class="mono" style="font-size: 12px; font-weight: 700; color: var(--cyan-bright); min-width: 60px;">09:00 IST</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       TRAIN SELECTOR — SCROLLABLE TOGGLE BAR
+       ========================================================================= -->
+  <div style="margin-bottom: 22px;">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+      <span style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;">Select Train</span>
+      <div style="flex:1;max-width:340px;display:flex;gap:8px;">
+        <input type="text" id="train-search-input" list="train-suggestions" placeholder="Enter train number..." value="12301"
+          onkeydown="if(event.key==='Enter') searchCustomTrain()"
+          style="flex:1;padding:7px 12px;font-size:13px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);color:var(--text-primary);" />
+        <datalist id="train-suggestions">
+          <option value="13240">13240 - Kota Patna Express</option>
+          <option value="12301">12301 - Howrah Rajdhani</option>
+          <option value="12002">12002 - Bhopal Shatabdi</option>
+          <option value="22436">22436 - Vande Bharat (NDLS-BSB)</option>
+          <option value="12004">12004 - Lucknow Shatabdi</option>
+          <option value="12951">12951 - Mumbai Rajdhani</option>
+          <option value="12621">12621 - Tamil Nadu Superfast</option>
+          <option value="12424">12424 - Dibrugarh Rajdhani</option>
+          <option value="12259">12259 - Sealdah Duronto</option>
+          <option value="12434">12434 - Chennai Rajdhani</option>
+          <option value="20817">20817 - Bhubaneswar Rajdhani</option>
+          <option value="22691">22691 - Bengaluru Rajdhani</option>
+        </datalist>
+        <button onclick="searchCustomTrain()" class="btn-primary btn-action" style="padding:7px 16px;font-size:12px;white-space:nowrap;">Go</button>
+      </div>
+    </div>
+    <!-- Scrollable train toggle bar -->
+    <div style="position:relative;">
+      <div id="train-toggle-bar" style="display:flex;gap:8px;overflow-x:auto;padding:6px 48px 8px 12px;scrollbar-width:thin;scrollbar-color:rgba(56,189,248,0.3) transparent;">
+        <!-- Populated by JS -->
+      </div>
+      <!-- Scroll hint arrows -->
+      <button type="button" id="toggle-scroll-left" onclick="scrollTrainBar(-220)" aria-label="Scroll left" style="position:absolute;left:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;opacity:0;pointer-events:none;transition:all 0.2s ease;font-size:11px;padding:0;">◀</button>
+      <button type="button" id="toggle-scroll-right" onclick="scrollTrainBar(220)" aria-label="Scroll right" style="position:absolute;right:4px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:3;opacity:1;pointer-events:auto;transition:all 0.2s ease;font-size:11px;padding:0;">▶</button>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       HERO OVERVIEW
+       ========================================================================= -->
+  <div class="grid-hero">
+    <div class="card" id="hero-card-container" style="border-left: 4px solid var(--cyan-bright);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <span id="hero-train-status-badge" class="badge badge-green" style="margin-bottom: 8px;">🟢 RUNNING LIVE</span>
+          <h2 id="hero-train-title" style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">12301 — Howrah Rajdhani Express</h2>
+          <p id="hero-train-route" style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">Live corridor: <strong>Howrah (HWH) → New Delhi (NDLS)</strong></p>
+        </div>
+        <div style="text-align: right;">
+          <div id="hero-dest-label" style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Destination ETA</div>
+          <div id="hero-dest-time" class="mono" style="font-size: 38px; font-weight: 800; color: var(--cyan-bright); line-height: 1.05; letter-spacing: -0.02em;">10:14</div>
+          <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px;">
+            <span id="hero-delay-badge" class="badge badge-amber">+9m delay</span>
+            <span class="badge badge-cyan" id="hero-conf-badge">±3.5m Conf</span>
+          </div>
+        </div>
+      </div>
+      <div class="corridor-track-container">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-secondary); margin-bottom: 6px;">
+          <span>Corridor Progress: <strong id="progress-km-label" style="color: var(--text-primary);">0 / 1434 km</strong></span>
+          <span id="progress-pct-label" class="mono" style="color: var(--cyan-bright); font-weight: 700;">0%</span>
+        </div>
+        <div class="progress-bar"><div id="progress-bar-fill" class="progress-fill" style="width: 0%;"></div></div>
+      </div>
+      <div style="margin-top: 14px; padding-top: 16px; border-top: 1px solid var(--border-inner); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">GPS Location</div>
+          <div id="hero-current-block" style="font-size: 14px; font-weight: 700; margin-top: 3px; display: flex; align-items: center; gap: 8px;">
+            <span class="live-pulse" style="width: 8px; height: 8px; border-radius: 50%; background: var(--cyan-bright);"></span>
+            Calculating...
+          </div>
+          <div id="hero-speed-block" class="mono" style="font-size: 11px; color: #34D399; margin-top: 3px; font-weight: 600;"></div>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Next Halt</div>
+          <div id="hero-next-halt" style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-top: 3px;">—</div>
+        </div>
+        <div>
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">AI Recovery Slack</div>
+          <div id="hero-recovery-text" style="font-size: 14px; color: #34D399; font-weight: 700; margin-top: 3px;">⚡ Calculating recovery buffer...</div>
+        </div>
+      <div id="hero-live-weather" style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);font-size:11px;display:none;"></div>
+      </div>
+    </div>
+    <!-- Live Weather Card -->
+    <div class="card" style="background: linear-gradient(135deg, rgba(15,23,42,0.85), rgba(11,17,36,0.95));">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+        <h3 style="font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px;">🌦️ Live Route Weather</h3>
+        <span class="badge badge-green">Open-Meteo Satellite</span>
+      </div>
+      <div id="route-weather-container" style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;color:var(--text-muted);font-size:12px;">
+            <span style="font-size:22px;">📡</span>
+            <div>
+              <div style="font-weight:600;">Fetching live weather…</div>
+              <div style="font-size:10px;margin-top:2px;">Open-Meteo · Train position based</div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       NAVIGATION TABS — 8 Tabs
+       ========================================================================= -->
+  <div class="tab-nav" id="main-tab-nav">
+    <button class="tab-btn active" id="tab-passenger" onclick="switchTab('passenger')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Passenger
+    </button>
+    <button class="tab-btn" id="tab-map" onclick="switchTab('map')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      Live Map
+    </button>
+    <button class="tab-btn" id="tab-complaints" onclick="switchTab('complaints')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Complaints & Chat
+    </button>
+    <button class="tab-btn" id="tab-driver" onclick="switchTab('driver')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Loco Pilot
+    </button>
+    <button class="tab-btn" id="tab-controller" onclick="switchTab('controller')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Station Master
+    </button>
+    <button class="tab-btn" id="tab-controlroom" onclick="switchTab('controlroom')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      Control Room
+    </button>
+    <button class="tab-btn" id="tab-weather" onclick="switchTab('weather')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      Weather Intel
+    </button>
+
+    <button class="tab-btn" id="tab-analytics" onclick="switchTab('analytics')" style="border-color:rgba(139,92,246,0.35);">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </button>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 1: PASSENGER VIEW (Enhanced)
+       ========================================================================= -->
+  <div id="view-passenger" class="fade-in grid-2col">
+    <!-- 📢 Live Loco Pilot Broadcast / Stoppage Reason (Visible to Passengers) -->
+    <div id="passenger-lp-broadcast-banner" style="grid-column: 1 / -1; margin-bottom: 2px;"></div>
+
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+          📍 Station Timeline & Dynamic ETAs
+        </h3>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <div style="display: flex; background: rgba(11,17,36,0.85); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 2px;">
+            <button id="btn-tl-all" onclick="setTimelineFilter('all')" class="quick-btn" style="padding: 4px 10px; font-size: 11px; font-weight: 800; background: var(--cyan); color: #070B16; border-radius: 4px;">ALL STATIONS</button>
+            <button id="btn-tl-major" onclick="setTimelineFilter('major')" class="quick-btn" style="padding: 4px 10px; font-size: 11px; font-weight: 600; background: transparent; color: var(--text-secondary); border-radius: 4px;">MAJOR STATIONS</button>
+          </div>
+          <span id="timeline-count-badge" class="badge badge-cyan">— Stations</span>
+        </div>
+      </div>
+            <!-- Station Classification Guide -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.18);border-radius:var(--radius-sm);font-size:11px;color:var(--text-secondary);line-height:1.4;">
+        <span style="font-size:15px;flex-shrink:0;">ℹ️</span>
+        <div>
+          <strong style="color:var(--text-primary);">Station Guide:</strong> 
+          <span style="color:var(--cyan);font-weight:700;">⭐ Major Junctions</span> are primary divisional railway hubs & terminals. 
+          <span style="color:#94A3B8;font-weight:700;">📍 Scheduled Halts</span> (Intermediate Stations) are commercial passenger stops along the route. The train stops at all stations listed below.
+        </div>
+      </div>
+      <div class="timeline-wrap" id="timeline-container"></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="card">
+        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">🔍 Why This ETA? (Explainable TreeSHAP)</h3>
+        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 18px;">PRAVAAH's TreeSHAP attribution isolates root delay causes from live block congestion:</p>
+        <div id="factor-bars-container" style="display: flex; flex-direction: column; gap: 14px;"></div>
+      </div>
+    </div>
+
+    <!-- ── PASSENGER LIVE ROUTE MINI-MAP ── -->
+    <div class="card" style="margin-top:0;border-left:4px solid var(--cyan);grid-column:1/-1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+        <div>
+          <h3 style="font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;">
+            🗺️ Live Route Map
+            <span class="badge badge-cyan" style="font-size:10px;">REAL-TIME</span>
+          </h3>
+          <div id="mini-map-train-name" style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Loading train data...</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Status</div>
+            <div id="mini-map-status" class="mono" style="font-size:14px;font-weight:800;color:var(--emerald);">RUNNING</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Dest. ETA</div>
+            <div id="mini-map-eta" class="mono" style="font-size:16px;font-weight:800;color:var(--cyan);">—:—</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Progress</div>
+            <div id="mini-map-progress-pct" class="mono" style="font-size:16px;font-weight:800;color:var(--violet);">0%</div>
+          </div>
+          <button onclick="goToLiveMap()" class="btn-action" style="padding:6px 12px;font-size:11px;display:flex;align-items:center;gap:6px;cursor:pointer;" title="Open full interactive Live Map">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            Full Map View ↗
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div style="height:6px;background:rgba(56,189,248,0.12);border-radius:var(--radius-full);margin-bottom:14px;overflow:hidden;">
+        <div id="mini-map-progress-fill" style="height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:var(--radius-full);width:0%;transition:width 0.8s ease;"></div>
+      </div>
+
+      <!-- Google Maps Canvas with Click / Zoom capture overlay -->
+      <div id="passenger-map-interactive-container" style="position:relative;cursor:pointer;border-radius:var(--radius-md);overflow:hidden;" title="Click or zoom to open full interactive Live Map">
+        <div id="passenger-mini-map-canvas" style="width:100%;height:320px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border-subtle);background:var(--canvas);"></div>
+        <!-- Transparent catcher overlay -->
+        <div id="passenger-map-click-overlay" style="position:absolute;inset:0;z-index:10;background:transparent;cursor:pointer;display:flex;align-items:flex-start;justify-content:flex-end;padding:12px;" onclick="goToLiveMap()">
+          <div style="background:rgba(7,11,22,0.85);backdrop-filter:blur(8px);border:1px solid rgba(56,189,248,0.45);border-radius:20px;padding:6px 14px;font-size:11px;color:var(--cyan);font-weight:600;display:flex;align-items:center;gap:6px;box-shadow:0 4px 16px rgba(0,0,0,0.5);pointer-events:auto;transition:all .2s;" onmouseenter="this.style.borderColor='rgba(56,189,248,0.9)';this.style.transform='scale(1.03)'" onmouseleave="this.style.borderColor='rgba(56,189,248,0.45)';this.style.transform='scale(1)'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <span>Touch or zoom for full Live Map & controls →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map Legend -->
+      <div style="display:flex;gap:18px;margin-top:10px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
+          <div style="width:24px;height:3px;background:var(--emerald);border-radius:2px;"></div> Completed Section
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
+          <div style="width:24px;height:3px;background:var(--cyan);border-radius:2px;opacity:0.7;"></div> Remaining Route
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
+          <span style="font-size:15px;">▶</span> Train Position
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
+          <div style="width:10px;height:10px;border-radius:50%;background:#94A3B8;display:inline-block;"></div> Origin
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-secondary);">
+          <div style="width:10px;height:10px;border-radius:50%;background:var(--violet);display:inline-block;"></div> Destination
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 2: LIVE MAP
+       ========================================================================= -->
+    <!-- =========================================================================
+       VIEW 2: LIVE MAP (Real Geographic GIS + Schematic Route View)
+       ========================================================================= -->
+    <!-- =========================================================================
+       VIEW 2: LIVE MAP (Real Geographic GIS Map — 100% Pre-Configured)
+       ========================================================================= -->
+    <!-- =========================================================================
+       VIEW 2: LIVE MAP (Google Maps GIS Engine — Connected with Demo Key)
+       ========================================================================= -->
+  <div id="view-map" class="fade-in" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <h3 style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+          🗺️ Live Railway Geographic Map
+          <span class="badge badge-green">🟢 GOOGLE MAPS API CONNECTED</span>
+          <span class="badge badge-cyan">✨ SATELLITE & TRANSIT READY</span>
+        </h3>
+      </div>
+
+      <!-- Controls toolbar -->
+      <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <!-- Fullscreen Toggle on Left -->
+        <button onclick="toggleMapFullscreen()" class="btn-action" style="padding: 8px 14px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(56,189,248,0.45);" title="Make map full screen">
+          <svg class="fs-icon-enter" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          <svg class="fs-icon-exit" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+          <span class="fullscreen-btn-label">Fullscreen</span>
+        </button>
+
+        <!-- Train Select -->
+        <select id="map-train-select" onchange="renderLiveMap(this.value)" style="width: auto; min-width: 220px; padding: 8px 12px; font-size: 13px;">
+          <option value="">— Select Train to Track —</option>
+        </select>
+
+        <!-- View Switcher (Google Maps vs SVG Schematic) -->
+        <div style="display: flex; background: rgba(11,17,36,0.9); border: 1px solid var(--border-inner); border-radius: var(--radius-sm); padding: 2px;">
+          <button id="btn-map-mode-real" onclick="setMapMode('real')" class="btn-action" style="padding: 6px 12px; font-size: 12px; background: var(--cyan); color: #070B16; font-weight: 700; border-radius: 4px;">
+            🌍 Google Maps
+          </button>
+          <button id="btn-map-mode-svg" onclick="setMapMode('svg')" class="btn-action" style="padding: 6px 12px; font-size: 12px; background: transparent; color: var(--text-secondary); font-weight: 600; border-radius: 4px;">
+            📐 Schematic View
+          </button>
+        </div>
+
+        <!-- Google Map Type Selector -->
+        <select id="map-layer-select" onchange="switchGoogleMapType(this.value)" style="width: auto; padding: 8px 12px; font-size: 12px;">
+          <option value="dark">🌙 Dark Railway Theme (Custom)</option>
+          <option value="satellite">🛰️ Google Satellite Imagery</option>
+          <option value="hybrid">🌐 Satellite + Street Labels</option>
+          <option value="terrain">🏔️ Google Topographic Terrain</option>
+          <option value="roadmap">🗺️ Standard Google Roadmap</option>
+        </select>
+
+        <!-- Google Transit / Traffic Layer Toggle -->
+        <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-primary); background: rgba(15,23,42,0.85); border: 1px solid var(--border-inner); padding: 7px 12px; border-radius: var(--radius-sm); cursor: pointer;">
+          <input type="checkbox" id="chk-transit-layer" checked onchange="toggleGoogleTransitLayer(this.checked)" style="accent-color: var(--cyan);" />
+          <span>🚇 Google Transit Lines</span>
+        </label>
+
+        <!-- Center on Train Button -->
+        <button onclick="focusCurrentTrainOnMap()" class="btn-action" style="padding: 8px 14px; font-size: 12px;" title="Focus camera on active train">
+          🎯 Center Train
+        </button>
+
+        <!-- Auto-Follow Train Toggle -->
+        <button id="btn-auto-follow" onclick="toggleAutoFollowTrain()" class="btn-action" style="padding: 8px 12px; font-size: 12px; border-color: var(--emerald); color: #34D399;" title="Automatically track train as it moves">
+          🔴 Follow Train: OFF
+        </button>
+      </div>
+    </div>
+
+    <!-- Map container card -->
+    <div class="card" style="padding: 16px; margin-bottom: 20px;">
+      <!-- Real Google Map Container -->
+      <div id="real-google-container" style="position: relative; width: 100%; height: 530px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-inner);">
+        <div id="google-map-container" style="width: 100%; height: 100%;"></div>
+
+        <!-- Floating Fullscreen Button on Left Side of Map -->
+        <button id="btn-map-fullscreen-left" onclick="toggleMapFullscreen()" style="position: absolute; top: 14px; left: 14px; z-index: 100; background: rgba(7,11,22,0.92); backdrop-filter: blur(14px); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 14px; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; box-shadow: 0 4px 20px rgba(0,0,0,0.6); transition: all .2s;" onmouseenter="this.style.borderColor='var(--cyan)';this.style.transform='translateY(-1px)';" onmouseleave="this.style.borderColor='var(--border-subtle)';this.style.transform='';" title="Toggle Fullscreen Map">
+          <svg id="fs-icon-enter" class="fs-icon-enter" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          <svg id="fs-icon-exit" class="fs-icon-exit" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" style="display:none;"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+          <span class="fullscreen-btn-label" id="fullscreen-btn-label">Fullscreen</span>
+        </button>
+        
+        <!-- Floating HUD overlay on map -->
+        <div style="position: absolute; top: 12px; right: 12px; z-index: 100; background: rgba(7,11,22,0.92); backdrop-filter: blur(14px); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 14px; pointer-events: auto; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.6);">
+          <span style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Tracking</span>
+          <span id="map-hud-train" class="mono" style="font-size: 13px; font-weight: 800; color: var(--cyan-bright);">12301</span>
+          <span id="map-hud-speed" class="mono" style="font-size: 12px; color: var(--emerald);">112 km/h</span>
+          <span id="map-hud-delay" class="badge badge-green" style="font-size: 10px;">ON TIME</span>
+        </div>
+
+        <!-- Floating Legend on map -->
+        <div style="position: absolute; bottom: 20px; left: 12px; z-index: 100; background: rgba(7,11,22,0.92); backdrop-filter: blur(14px); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 8px 14px; display: flex; gap: 14px; font-size: 11px; flex-wrap: wrap; box-shadow: 0 4px 20px rgba(0,0,0,0.6);">
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#10B981;display:inline-block;"></span> Passed Halt</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#38BDF8;display:inline-block;box-shadow:0 0 8px #38BDF8;"></span> Live Train Beacon</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#64748B;display:inline-block;"></span> Upcoming Halt</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:#8B5CF6;display:inline-block;"></span> Destination</div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:rgba(244,63,94,0.7);border:1px solid #F43F5E;display:inline-block;"></span> Weather Hazard</div>
+        </div>
+      </div>
+
+      <!-- Schematic SVG Container (Toggleable) -->
+      <div id="schematic-svg-container" style="display: none;">
+        <div class="map-container" style="min-height: 320px;">
+          <svg id="route-svg" viewBox="0 0 1000 280" width="100%" height="320" style="display: block;"></svg>
+        </div>
+        <div class="map-legend" style="margin-top: 12px;">
+          <div class="legend-item"><div class="legend-dot" style="background: #475569;"></div> Origin</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--emerald);"></div> Passed</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--cyan-bright); box-shadow: 0 0 8px var(--cyan-bright);"></div> Current Position</div>
+          <div class="legend-item"><div class="legend-dot" style="background: #334155; border: 2px solid #475569;"></div> Upcoming</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--violet);"></div> Destination</div>
+          <div class="legend-item"><div class="legend-dot" style="background: var(--rose);"></div> Incident</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map info panels -->
+    <div style="margin-top: 20px;">
+      <div class="card">
+        <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 14px;">🌐 Network Snapshot</h4>
+        <div class="grid-stats" style="grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 0;">
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Running</div>
+            <div id="map-stat-running" class="mono" style="font-size: 24px; font-weight: 800; color: var(--emerald); margin-top: 4px;">10</div>
+          </div>
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Delayed</div>
+            <div id="map-stat-delayed" class="mono" style="font-size: 24px; font-weight: 800; color: var(--rose); margin-top: 4px;">10</div>
+          </div>
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Weather Alerts</div>
+            <div id="map-stat-weather" class="mono" style="font-size: 24px; font-weight: 800; color: var(--amber); margin-top: 4px;">3</div>
+          </div>
+        </div>
+        <div style="margin-top: 14px;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">Active Incidents on Network</div>
+          <div id="map-incidents-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="view-complaints" class="fade-in grid-2col" style="display: none;">
+    <!-- Complaint Form -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h3 style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">📋 Passenger Service Complaint</h3>
+          <span class="badge badge-cyan">Complaint Management System</span>
+        </div>
+        <form id="complaint-form" onsubmit="return false;">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+              <label for="complaint-train">1. Train Number</label>
+              <select id="complaint-train">
+                <option value="">— Select train —</option>
+              </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label for="complaint-class">2. Which class are you travelling in?</label>
+                <select id="complaint-class" onchange="onPassengerClassChange(this.value)">
+                  <option value="">— Select Travel Class —</option>
+                  <option value="1A">1A — First AC</option>
+                  <option value="2A">2A — AC 2 Tier</option>
+                  <option value="3A" selected>3A — AC 3 Tier</option>
+                  <option value="3E">3E — AC 3 Economy</option>
+                  <option value="SL">SL — Sleeper</option>
+                  <option value="CC">CC — Chair Car</option>
+                  <option value="EC">EC — Executive Chair Car</option>
+                  <option value="2S">2S — Second Sitting</option>
+                  <option value="General">General / Unreserved</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="complaint-coach">3. Coach Number (e.g. B4, C2, D5)</label>
+                <input type="text" id="complaint-coach" placeholder="e.g. B4" value="B4" style="padding: 11px 16px; font-weight: 700;" />
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label for="complaint-category">4. Complaint Category</label>
+                <select id="complaint-category">
+                  <option value="">— Select category —</option>
+                  <option value="Cleanliness" selected>Cleanliness</option>
+                  <option value="Washroom / Toilet">Washroom / Toilet</option>
+                  <option value="AC / Fan">AC / Fan</option>
+                  <option value="Water Supply">Water Supply</option>
+                  <option value="Lighting">Lighting / Electrical</option>
+                  <option value="Seating / Berth">Seating / Berth</option>
+                  <option value="Pantry / Food">Pantry / Food</option>
+                  <option value="Safety Concern">Safety Concern</option>
+                  <option value="Train Stoppage / Delay Reason">Train Stoppage / Delay Reason</option>
+                  <option value="Staff Behaviour">Staff Behaviour</option>
+                  <option value="Coach Condition">Coach Condition</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label for="complaint-location">5. Location / Station (Optional)</label>
+                <input type="text" id="complaint-location" placeholder="e.g. Near Kanpur, or between ASN and DHN" />
+              </div>
+            </div>
+            <div>
+              <label>Severity</label>
+              <div class="sev-pills" id="severity-pills">
+                <div class="sev-pill" id="sev-low" onclick="selectSeverity('low')">🟢 Low</div>
+                <div class="sev-pill" id="sev-medium" onclick="selectSeverity('medium')">🟡 Medium</div>
+                <div class="sev-pill" id="sev-high" onclick="selectSeverity('high')">🔴 High</div>
+              </div>
+            </div>
+            <div>
+              <label for="complaint-desc">Description</label>
+              <textarea id="complaint-desc" rows="3" placeholder="Describe the issue in detail..."></textarea>
+            </div>
+            <button onclick="submitComplaint()" class="btn-primary btn-action" style="padding: 12px; font-size: 13px;">
+              📤 Submit Complaint
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Dynamic Inspection Scope & Escalation Evaluation Display -->
+      <div id="complaint-inspection-card" class="card" style="display:none;border-left:4px solid var(--cyan);background:linear-gradient(135deg,rgba(15,23,42,0.92),rgba(11,17,36,0.98));">
+        <!-- Rendered dynamically after complaint submission -->
+      </div>
+
+      <!-- Complaint Status -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <h4 style="font-size: 14px; font-weight: 700;">📊 My Complaint Status</h4>
+          <span id="complaint-count-badge" class="badge badge-amber">0 Open</span>
+        </div>
+        <div id="complaint-list" style="display: flex; flex-direction: column; gap: 8px;">
+          <p style="font-size: 13px; color: var(--text-muted); text-align: center; padding: 20px 0;">No complaints submitted yet.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div class="card" style="border-top: 4px solid var(--violet);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <h3 style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            💬 PRAVAAH Assistant
+          </h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="badge badge-cyan" style="font-size: 10px; font-weight: 700;">English</span>
+            <span class="badge badge-purple">AI Chatbot</span>
+            <div id="chat-lang-selector" style="display: none;"></div>
+          </div>
+        </div>
+        <div class="chatbot-window" id="chatbot-window">
+          <div class="chat-msg-bot">
+            <div class="chat-avatar chat-avatar-bot">🤖</div>
+            <div>
+              <div class="chat-bubble chat-bubble-bot">Hello! 👋 I'm PRAVAAH Assistant. I can help you with train status, ETA, live location, complaints, and more. What would you like to know?</div>
+              <div class="chat-time">Just now · PRAVAAH AI</div>
+            </div>
+          </div>
+          <div class="chat-msg-bot">
+            <div class="chat-avatar chat-avatar-bot">🤖</div>
+            <div>
+              <div class="chat-bubble chat-bubble-bot">You can ask me things like: <em>"Where is my train?"</em>, <em>"What's the ETA for 12301?"</em>, or <em>"I want to report a dirty washroom."</em></div>
+              <div class="chat-time">Just now · PRAVAAH AI</div>
+            </div>
+          </div>
+        </div>
+        <div class="quick-actions" id="quick-actions">
+          <button class="quick-btn" onclick="chatQuickAction('status')">🚆 Train Status</button>
+          <button class="quick-btn" onclick="chatQuickAction('location')">📍 Current Location</button>
+          <button class="quick-btn" onclick="chatQuickAction('eta')">🕐 ETA</button>
+          <button class="quick-btn" onclick="chatQuickAction('complaint')">📝 File Complaint</button>
+          <button class="quick-btn" onclick="chatQuickAction('delay')">⏱️ Check Delay</button>
+          <button class="quick-btn" onclick="chatQuickAction('next')">➡️ Next Station</button>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Ask about your train, ETA, complaints..." onkeydown="if(event.key==='Enter') sendChatMessage()" style="flex: 1;" />
+          <button onclick="sendChatMessage()" class="btn-violet" style="padding: 10px 20px; white-space: nowrap;">Send ➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 4: DRIVER / LOCO-PILOT DASHBOARD
+       ========================================================================= -->
+  <div id="view-driver" class="fade-in" style="display: none;">
+    <!-- Driver identity header -->
+    <div class="driver-header">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <div style="font-size: 32px;">🚂</div>
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+            <span class="badge badge-amber" style="font-size: 12px;">🚂 LOCO PILOT INTERFACE</span>
+            <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> On Duty</span>
+          </div>
+          <div style="font-size: 16px; font-weight: 800;" id="driver-train-id">Train <span id="driver-train-no">12301</span> · LP-2847</div>
+          <div style="font-size: 12px; color: var(--text-secondary);" id="driver-route-label">Howrah Rajdhani · HWH → NDLS</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div class="speed-gauge">
+          <div class="speed-value" id="driver-speed">—</div>
+          <div class="speed-unit">km/h</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Current Delay</div>
+          <div id="driver-delay" class="mono" style="font-size: 22px; font-weight: 800; color: var(--rose); margin-top: 2px;">— min</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI metrics -->
+    <div class="grid-stats" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+      <div class="card card-driver">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Current Speed</div>
+        <div id="driver-speed-kpi" class="mono" style="font-size: 28px; font-weight: 800; color: var(--amber); margin-top: 4px;">— km/h</div>
+      </div>
+      <div class="card card-driver">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Delay</div>
+        <div id="driver-delay-kpi" class="mono" style="font-size: 28px; font-weight: 800; color: var(--rose); margin-top: 4px;">— min</div>
+      </div>
+      <div class="card">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Dist. to Next Halt</div>
+        <div id="driver-dist-next" class="mono" style="font-size: 28px; font-weight: 800; color: var(--cyan-bright); margin-top: 4px;">— km</div>
+      </div>
+      <div class="card" style="background: rgba(16,185,129,0.06); border-color: rgba(16,185,129,0.2);">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">AI Advisory Speed</div>
+        <div id="driver-ai-speed" class="mono" style="font-size: 28px; font-weight: 800; color: var(--emerald); margin-top: 4px;">— km/h</div>
+      </div>
+    </div>
+
+    <!-- Main grid -->
+    <div class="grid-2equal">
+      <!-- Left column -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Route progress -->
+        <div class="card card-driver">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            📡 Route Progress
+          </h4>
+          <div id="driver-route-progress" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="font-size: 13px; color: var(--text-secondary);" id="driver-current-section">Calculating position...</div>
+            <div class="progress-bar"><div id="driver-progress-fill" class="progress-fill" style="background: linear-gradient(90deg, #F59E0B, #EF4444); width: 0%;"></div></div>
+            <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);">
+              <span id="driver-origin-label">Origin</span>
+              <span id="driver-progress-pct" class="mono" style="color: var(--amber);">0%</span>
+              <span id="driver-dest-label">Destination</span>
+            </div>
+          </div>
+          <div style="margin-top: 14px; padding: 12px; background: rgba(7,11,22,0.7); border-radius: var(--radius-sm); border: 1px solid rgba(245,158,11,0.2);">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Next Station</div>
+            <div id="driver-next-station" style="font-size: 15px; font-weight: 700; margin-top: 4px; color: var(--text-primary);">—</div>
+            <div style="display: flex; gap: 16px; margin-top: 6px; flex-wrap: wrap;">
+              <div><span style="font-size: 11px; color: var(--text-muted);">Scheduled: </span><span id="driver-next-sched" class="mono" style="font-size: 12px; font-weight: 700; color: var(--amber);">—</span></div>
+              <div><span style="font-size: 11px; color: var(--text-muted);">Predicted: </span><span id="driver-next-pred" class="mono" style="font-size: 12px; font-weight: 700; color: var(--cyan-bright);">—</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ⚖️ STATION MASTER DYNAMIC OPERATIONAL & PRECEDENCE ADVISORY (LOCO PILOT HUD) -->
+        <div id="driver-sm-operational-advisory-card" class="card card-driver" style="border-left: 5px solid var(--amber); margin-bottom: 20px; display: none;">
+          <!-- Dynamically populated by renderDriverSMOperationalAdvisory() -->
+        </div>
+
+        <!-- AI Speed Advisory -->
+        <div class="card" style="border-left: 4px solid var(--emerald);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h4 style="font-size: 14px; font-weight: 700; color: #34D399; display: flex; align-items: center; gap: 8px;">
+              🤖 AI Speed Advisory
+            </h4>
+            <span id="driver-ai-auth-badge" class="badge badge-amber">⏳ AWAITING SM CONFIRMATION</span>
+          </div>
+          <div id="driver-ai-advisory" style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+              <div class="card-sm">
+                <div style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Current Delay</div>
+                <div id="adv-current-delay" class="mono" style="font-size: 18px; font-weight: 800; color: var(--rose); margin-top: 2px;">— min</div>
+              </div>
+              <div class="card-sm">
+                <div style="font-size: 11px; color: var(--text-muted); font-weight: 700;">Recoverable</div>
+                <div id="adv-recoverable" class="mono" style="font-size: 18px; font-weight: 800; color: var(--emerald); margin-top: 2px;">— min</div>
+              </div>
+            </div>
+
+            <!-- Live Multi-Condition Factor Diagnostics -->
+            <div class="card-sm" style="background: rgba(15,23,42,0.5); border: 1px solid var(--border-inner); padding: 10px 12px; font-size: 11px;">
+              <div style="font-weight: 700; color: var(--cyan); margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                <span>🧠 Live AI Multi-Condition Prediction Factors</span>
+                <span id="adv-compliance-pill" class="badge badge-green" style="font-size: 9px;">100% Speed Limit Compliant</span>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 5px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">Current Weather:</span>
+                  <span id="adv-weather-cond" style="font-weight: 600; color: var(--text-primary); text-align: right;">☀️ Clear Weather (Vis > 2000m)</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">Track & TSR Restrictions:</span>
+                  <span id="adv-track-cond" style="font-weight: 600; color: var(--text-primary); text-align: right;">✅ Mainline Clear Track</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">Governing Speed Limit:</span>
+                  <span id="adv-speed-limit" class="mono" style="font-weight: 700; color: var(--cyan);">MPS 130 km/h · Safe Ceiling ≤ 130 km/h</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="color: var(--text-muted);">AI Advisory Basis:</span>
+                  <span id="adv-reasoning" style="font-weight: 600; color: var(--amber); text-align: right;">Safe delay recovery within sectional ceiling</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-sm" style="text-align: center; border: 1px solid rgba(16,185,129,0.3);">
+              <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">AI Recommended Speed Advisory</div>
+              <div id="adv-speed" class="mono" style="font-size: 36px; font-weight: 800; color: var(--amber); margin: 4px 0;">— km/h</div>
+              <div id="adv-target" style="font-size: 11px; color: var(--text-secondary);">Target arrival: <span id="adv-target-time" class="mono" style="color: var(--amber);">—</span></div>
+            </div>
+
+            <!-- Station Master Authorization Status Box (Replaces Safety First Box) -->
+            <div id="adv-sm-auth-box" style="padding: 10px 14px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.3); border-radius: var(--radius-sm); font-size: 11px; color: var(--amber); font-weight: 600;">
+              ⏳ <b>Pending Station Master Confirmation</b><br>
+              <span style="font-weight: 400; color: var(--text-secondary);">AI speed advisory is calculated from live weather and section constraints. Operating rules require Station Master clearance before this speed is authorized for loco throttle.</span>
+            </div>
+
+            <div id="adv-buttons-container" style="display: flex; gap: 8px;">
+              <button type="button" onclick="driverRequestSMAuth()" class="quick-btn" style="flex: 1; font-size: 11px; font-weight: 700; color: var(--cyan); border-color: rgba(56,189,248,0.4); padding: 8px 10px; background: rgba(56,189,248,0.08);">📡 Request SM Authorization</button>
+              <button type="button" disabled style="flex: 1; font-size: 11px; font-weight: 700; color: var(--text-muted); border: 1px solid var(--border-inner); padding: 8px 10px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.02); cursor: not-allowed;" title="Requires Station Master confirmation first">🔒 Await SM Approval</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver Self-Report -->
+        <div class="card card-driver">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--amber); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            📻 Loco Pilot Self-Report
+          </h4>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <label for="driver-incident-type">Incident Type</label>
+              <select id="driver-incident-type">
+                <option value="">— Select type —</option>
+                <option>Cattle on Track</option>
+                <option>Track Obstruction</option>
+                <option>Passenger Emergency</option>
+                <option>Signal Issue</option>
+                <option>Visibility Problem</option>
+                <option>Weather Issue</option>
+                <option>Station Congestion</option>
+                <option>Unexpected Halt</option>
+                <option>Technical Issue — Locomotive</option>
+                <option>Technical Issue — Rolling Stock</option>
+                <option>Chain Pulling</option>
+                <option>Aggressive Passenger</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+              <div>
+                <label>Severity</label>
+                <div class="sev-pills">
+                  <div class="sev-pill" id="dr-sev-low" onclick="selectDriverSev('low')">Low</div>
+                  <div class="sev-pill" id="dr-sev-medium" onclick="selectDriverSev('medium')">Med</div>
+                  <div class="sev-pill" id="dr-sev-high" onclick="selectDriverSev('high')">High</div>
+                </div>
+              </div>
+              <div>
+                <label for="driver-incident-location">Location</label>
+                <input type="text" id="driver-incident-location" placeholder="Auto-fill from GPS..." readonly style="background: rgba(7,11,22,0.9);" />
+              </div>
+            </div>
+            <div>
+              <label for="driver-incident-desc">Description</label>
+              <textarea id="driver-incident-desc" rows="3" placeholder="Describe the situation briefly..."></textarea>
+            </div>
+            <button onclick="submitDriverReport()" class="btn-amber" style="width: 100%; padding: 12px; font-size: 13px; font-weight: 700;">
+              📡 Submit Report to Control Room
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <!-- Passenger Stoppage & Delay Inquiries -->
+        <div class="card" style="border-left: 4px solid var(--amber);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h4 style="font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              🚆 Passenger Stoppage & Delay Inquiries
+            </h4>
+            <span id="driver-msg-count" class="badge badge-amber">0 Unread</span>
+          </div>
+          <div id="driver-passenger-messages" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+
+        <!-- 📢 Loco Pilot Broadcast Console to Passengers -->
+        <div class="card" style="border-left: 4px solid var(--emerald); margin-top: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+            <h4 style="font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              📢 Broadcast Stoppage Reason to Passengers
+            </h4>
+            <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Passenger Public Address</span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div>
+              <label style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Quick Stoppage Presets:</label>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px;">
+                <button type="button" onclick="setBroadcastPreset('🚦 Red Home Signal — Awaiting section line clearance from controller', '~5-7 minutes')" class="quick-btn" style="font-size: 11px;">🚦 Red Signal Ahead (~5m)</button>
+                <button type="button" onclick="setBroadcastPreset('🔄 Precedence Crossing — Granted right-of-way to Vande Bharat Express on main line', '~4 minutes')" class="quick-btn" style="font-size: 11px;">🔄 Precedence Crossing (~4m)</button>
+                <button type="button" onclick="setBroadcastPreset('⚠️ Caution Order Active — Track maintenance work in section; operating at regulated speed', '~8-10 minutes')" class="quick-btn" style="font-size: 11px;">⚠️ Caution Order (~8m)</button>
+                <button type="button" onclick="setBroadcastPreset('🛑 Unscheduled Halt — Alarm chain pulling / brake pressure checked & rectified; resuming now', '~2-3 minutes')" class="quick-btn" style="font-size: 11px;">🛑 ACP Check Done (~3m)</button>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+              <div>
+                <label for="lp-broadcast-reason" style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Stoppage Reason / Explanation:</label>
+                <input type="text" id="lp-broadcast-reason" value="Red Home Signal — Standing between Buxar & Ara awaiting section line clearance" placeholder="Explain why the train has stopped..." style="margin-top: 4px;" />
+              </div>
+              <div>
+                <label for="lp-broadcast-duration" style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Expected Wait Duration:</label>
+                <select id="lp-broadcast-duration" style="margin-top: 4px;">
+                  <option value="~3-5 minutes">~3-5 minutes</option>
+                  <option value="~5-7 minutes" selected>~5-7 minutes</option>
+                  <option value="~10-15 minutes">~10-15 minutes</option>
+                  <option value="~20+ minutes">~20+ minutes</option>
+                  <option value="Resuming Immediately">Resuming Immediately</option>
+                </select>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; margin-top: 4px;">
+              <button type="button" onclick="publishLocoPilotBroadcast()" class="btn-primary" style="flex: 1; padding: 10px 14px; font-size: 12px; font-weight: 700;">
+                📢 Transmit Live Stoppage Advisory to Passenger Dashboard
+              </button>
+              <button type="button" onclick="clearLocoPilotBroadcast()" class="quick-btn" style="padding: 10px 14px; font-size: 12px;">
+                ✓ Clear Advisory (Moving)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent driver reports -->
+        <div class="card">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 14px;">📋 Recent Reports Submitted</h4>
+          <div id="driver-reports-list" style="display: flex; flex-direction: column; gap: 8px;">
+            <p style="font-size: 13px; color: var(--text-muted);">No reports submitted this shift.</p>
+          </div>
+        </div>
+
+        <!-- Track & Signal Status -->
+        <div class="card" style="border-left: 4px solid var(--emerald);">
+          <h4 style="font-size: 14px; font-weight: 700; color: #34D399; margin-bottom: 14px;">🚦 Track & Signal Status</h4>
+          <div id="driver-signal-status" style="display: flex; flex-direction: column; gap: 8px;">
+            <div class="card-sm" style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 13px;">Signal Aspect</span>
+              <span class="badge badge-green">🟢 Double Green</span>
+            </div>
+            <div class="card-sm" style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 13px;">Track Condition</span>
+              <span class="badge badge-green">Clear</span>
+            </div>
+            <div class="card-sm" style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 13px;">TSR (Caution Order)</span>
+              <span id="driver-tsr-status" class="badge badge-green">None Active</span>
+            </div>
+            <div class="card-sm" style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 13px;">Cab Signalling</span>
+              <span class="badge badge-cyan">Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📻 STATION MASTER ⇄ LOCO PILOT DIRECT COMM LINK (Loco Pilot Console) -->
+    <div class="card card-crew-comm" style="margin-top: 20px; border-left: 5px solid var(--amber);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 26px;">📻</div>
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              Station Master Direct Operations Comm Link
+            </h3>
+            <div style="font-size: 11px; color: var(--text-secondary);">Direct crew telemetry & voice channel · Connected to Station Master (DDU / ECR Division)</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span id="driver-comm-channel-badge" class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Radio Channel 4 Active</span>
+          <span id="driver-sm-speed-badge" class="badge badge-amber" style="font-weight: 700;">SM Advised Speed: 130 km/h</span>
+        </div>
+      </div>
+
+      <!-- Live Comms Transcript -->
+      <div id="driver-comms-log" class="crew-comms-box" style="height: 180px; overflow-y: auto; background: rgba(7,11,22,0.65); border: 1px solid var(--border-inner); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px;"></div>
+
+      <!-- Loco Pilot Actions to Report Front-of-Train / Stoppage to Station Master -->
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;">
+          Inform Station Master — What is in front of the train & Why stopped:
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+          <button type="button" onclick="driverSendQuickReport('🚦 Home Signal at Danger (Red) at km 682 — Train standing by for green starter', 'Signal at Danger Ahead')" class="quick-btn" style="font-size: 11px;">🚦 Signal at Red Ahead</button>
+          <button type="button" onclick="driverSendQuickReport('🐄 Cattle & debris obstruction on track ahead in section km 685 — Track inspection in progress', 'Track Obstruction Ahead')" class="quick-btn" style="font-size: 11px;">🐄 Track Obstruction Ahead</button>
+          <button type="button" onclick="driverSendQuickReport('🌫️ Dense Fog ahead: Signal visibility under 150m — Proceeding under fog cautionary speed (60 km/h)', 'Dense Fog Sighting')" class="quick-btn" style="font-size: 11px;">🌫️ Fog Sighting Limited</button>
+          <button type="button" onclick="driverSendQuickReport('🛑 Alarm Chain Pulling (ACP) in coach B4 — Brake pressure dropped; guard inspecting rake', 'ACP / Pressure Drop')" class="quick-btn" style="font-size: 11px;">🚨 ACP Chain Pulled</button>
+          <button type="button" onclick="driverSendQuickReport('🛤️ Track clear in front & rake pressure normalized — Standing by for departure green signal', 'Track Clear Ahead')" class="quick-btn" style="font-size: 11px;">🛤️ Front Track Clear</button>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="driver-comm-input" placeholder="Report what is in front of the train or why stopped..." style="flex: 1; padding: 10px; font-size: 12px;" onkeydown="if(event.key==='Enter')driverSendCustomMsg()" />
+          <button type="button" onclick="driverSendCustomMsg()" class="btn-primary" style="padding: 10px 18px; font-size: 12px; font-weight: 700;">
+            📡 Transmit Report to SM
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 5: STATION MASTER & FLEET CONTROLLER (Original enhanced)
+       ========================================================================= -->
+  <div id="view-controller" class="fade-in" style="display: none;">
+    <div class="grid-stats">
+      <div class="card">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Active Corridor</div>
+        <div id="controller-corridor-stat" class="mono" style="font-size: 20px; font-weight: 800; color: var(--cyan-bright); margin-top: 4px;">Golden Quad</div>
+        <div id="controller-corridor-sub" style="font-size: 11px; color: var(--text-secondary);">NDLS–HWH Trunk Route</div>
+      </div>
+      <div class="card">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Line Saturation</div>
+        <div class="mono" style="font-size: 26px; font-weight: 800; color: var(--rose); margin-top: 4px;" id="stat-line-sat">88.4%</div>
+        <div style="font-size: 11px; color: var(--text-secondary);">Peak commuter corridor</div>
+      </div>
+      <div class="card">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Avg Network Delay</div>
+        <div class="mono" style="font-size: 26px; font-weight: 800; color: var(--amber); margin-top: 4px;" id="stat-avg-delay">—</div>
+        <div style="font-size: 11px; color: var(--text-secondary);">Across all active trains</div>
+      </div>
+      <div class="card">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Caution Orders</div>
+        <div class="mono" style="font-size: 26px; font-weight: 800; color: var(--amber); margin-top: 4px;">1 TSR</div>
+        <div style="font-size: 11px; color: var(--text-secondary);">30 km/h bridge work</div>
+      </div>
+    </div>
+    <!-- 🚉 STATION MASTER JURISDICTION SELECTOR BAR -->
+    <div class="card" id="sm-jurisdiction-card" style="margin-bottom: 16px; background: linear-gradient(135deg, rgba(30,58,138,0.25) 0%, rgba(15,23,42,0.92) 100%); border: 1px solid rgba(56,189,248,0.35); box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="font-size: 32px; background: rgba(56,189,248,0.15); padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.35);">🚉</div>
+          <div>
+            <div style="font-size: 10px; color: var(--cyan-bright); text-transform: uppercase; font-weight: 800; letter-spacing: 0.08em; display: flex; align-items: center; gap: 6px;">
+              <span class="live-pulse" style="width: 7px; height: 7px; border-radius: 50%; background: #38BDF8;"></span>
+              STATION MASTER OPERATIONAL JURISDICTION CONTROL
+            </div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+              <span>Station Master Console:</span>
+              <span id="sm-current-station-title" style="color: var(--cyan-bright);">Pt. Deen Dayal Upadhyaya Jn (DDU)</span>
+            </div>
+            <div id="sm-station-division-info" style="font-size: 11px; color: var(--text-secondary); margin-top: 3px;">
+              East Central Railway (ECR) · DDU Division · 8 Interlocked Platforms (PF 1–23 configurable) · Mainline MPS 130 km/h
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <label for="sm-station-select" style="font-size: 12px; font-weight: 700; color: var(--text-secondary);">
+            Station Jurisdiction:
+          </label>
+          <select id="sm-station-select" onchange="onStationMasterStationChange(this.value)" style="padding: 9px 14px; font-size: 12px; font-weight: 800; border-radius: 8px; background: rgba(15,23,42,0.95); color: #38BDF8; border: 1.5px solid rgba(56,189,248,0.5); cursor: pointer; min-width: 240px; outline: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+            <option value="DDU" selected>📍 DDU — Pt. DD Upadhyaya Jn</option>
+            <option value="PRYJ">📍 PRYJ — Prayagraj Jn (Allahabad)</option>
+            <option value="CNB">📍 CNB — Kanpur Central</option>
+            <option value="NDLS">📍 NDLS — New Delhi Railway Station</option>
+            <option value="HWH">📍 HWH — Howrah Jn (Kolkata)</option>
+            <option value="BSB">📍 BSB — Varanasi Cantt Jn</option>
+            <option value="GAYA">📍 GAYA — Gaya Jn</option>
+            <option value="ASN">📍 ASN — Asansol Jn</option>
+            <option value="DHN">📍 DHN — Dhanbad Jn</option>
+            <option value="BPL">📍 BPL — Bhopal Jn</option>
+            <option value="GWL">📍 GWL — Gwalior Jn</option>
+            <option value="AGC">📍 AGC — Agra Cantt</option>
+            <option value="ALL">🌐 ALL — Network Overview (All Trains)</option>
+          </select>
+          <button type="button" onclick="smToggleStationFilter()" id="sm-filter-toggle-btn" class="quick-btn" style="font-size: 11px; padding: 9px 14px; font-weight: 700; background: rgba(56,189,248,0.18); color: var(--cyan-bright); border: 1px solid rgba(56,189,248,0.4);">
+            🎯 Showing Only DDU Trains
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🤖 STATION MASTER AI CO-PILOT & OPERATIONAL SUGGESTIONS SECTION -->
+    <div class="card" id="sm-ai-suggestions-card" style="margin-bottom: 20px; border-left: 5px solid #10B981; background: linear-gradient(180deg, rgba(16,185,129,0.07) 0%, rgba(15,23,42,0.85) 100%);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 26px;">🧠</div>
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              <span>Station Master AI Co-Pilot & Operational Decision Suggestions</span>
+              <span class="badge badge-green" style="font-size: 10px; font-weight: 700;">Active AI Engine</span>
+            </h3>
+            <div style="font-size: 11px; color: var(--text-secondary);" id="sm-suggestions-subtitle">
+              Real-time platform conflicts, precedence overtake orders, and weather speed advisories for <strong style="color:var(--cyan-bright);" id="sm-suggestions-station-name">Pt. Deen Dayal Upadhyaya Jn (DDU)</strong>
+            </div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span class="badge badge-green" id="sm-suggestions-count-badge">4 Active AI Advisories</span>
+          <button type="button" onclick="renderStationMasterSuggestions()" class="quick-btn" style="font-size: 11px; padding: 5px 12px; font-weight: 700;">🔄 Refresh AI Analysis</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Suggestions List Container -->
+      <div id="sm-ai-suggestions-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px;">
+        <!-- Dynamically rendered by renderStationMasterSuggestions() -->
+      </div>
+    </div>
+
+    <!-- 🚆 LIVE FLEET RADAR CARD (Station-Specific & Dynamic Time-Sync) -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h3 style="font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            <span>🚆 Live Fleet Radar (Dynamic Time-Sync)</span>
+            <span id="sm-radar-station-badge" class="badge badge-cyan" style="font-size: 11px;">Station: DDU</span>
+          </h3>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span class="badge badge-green">RTIS / FOIS Live Feeds Active</span>
+          <span id="sm-radar-train-count" class="badge badge-cyan">5 Trains Calling</span>
+        </div>
+      </div>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Train No & Name</th>
+              <th>Corridor</th>
+              <th>Live Status</th>
+              <th>Position</th>
+              <th>Delay</th>
+              <th>Next Halt</th>
+              <th>Action</th>
+              <th style="min-width: 120px;">Platform (1–23)</th>
+              <th style="min-width: 170px;">Scheduling</th>
+            </tr>
+          </thead>
+          <tbody id="fleet-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 📻 STATION MASTER ⇄ LOCO PILOT DIRECT COMM LINK (Station Master Console) -->
+    <div class="card card-crew-comm" style="margin-top: 20px; border-left: 5px solid var(--cyan);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="font-size: 26px;">📻</div>
+          <div>
+            <h3 style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              Direct Loco Pilot Operations Comm Link
+            </h3>
+            <div id="sm-comm-train-subtitle" style="font-size: 11px; color: var(--text-secondary);">Direct crew telemetry & radio channel · Active train: <strong id="sm-comm-train-info" style="color:var(--text-primary);">12301 (Howrah Rajdhani · LP-2847)</strong></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <span id="sm-comm-channel-badge" class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Radio Channel 4 Active</span>
+          <span id="sm-current-advised-speed" class="badge badge-amber" style="font-weight: 700;">Advised Speed: 130 km/h</span>
+        </div>
+      </div>
+
+      <!-- 🤖 AI Speed Advisory Authorization Module for Station Master -->
+      <div id="sm-speed-advisory-auth-card" style="margin-bottom: 14px; padding: 12px 14px; background: rgba(15,23,42,0.65); border: 1px solid rgba(56,189,248,0.3); border-radius: var(--radius-sm);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 18px;">🤖</span>
+            <span style="font-size: 13px; font-weight: 800; color: #34D399;">AI Speed Advisory — Station Master Clearance Authority</span>
+            <span style="font-size: 11px; color: var(--text-muted);">· Active Train: <strong id="sm-adv-train-no" style="color:var(--text-primary);">12301 (Howrah Rajdhani)</strong></span>
+          </div>
+          <span id="sm-adv-auth-status-badge" class="badge badge-amber">⏳ Pending SM Clearance</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 10px; font-size: 11px;">
+          <div style="padding: 8px 10px; background: rgba(7,11,22,0.5); border-radius: 4px; border: 1px solid var(--border-inner);">
+            <div style="color: var(--text-muted); font-size: 10px; text-transform: uppercase;">AI Recommended Speed</div>
+            <div id="sm-adv-rec-speed" class="mono" style="font-size: 20px; font-weight: 800; color: #34D399; margin-top: 2px;">— km/h</div>
+            <div id="sm-adv-limit-info" style="color: var(--cyan); font-size: 10px; font-weight: 600; margin-top: 2px;">Strict Limit: ≤ 130 km/h</div>
+          </div>
+          <div style="padding: 8px 10px; background: rgba(7,11,22,0.5); border-radius: 4px; border: 1px solid var(--border-inner);">
+            <div style="color: var(--text-muted); font-size: 10px; text-transform: uppercase;">Current Weather Factor</div>
+            <div id="sm-adv-weather-val" style="color: var(--text-primary); font-weight: 700; margin-top: 4px;">Clear (Vis > 2000m)</div>
+            <div id="sm-adv-weather-sub" style="color: var(--text-secondary); font-size: 10px;">Nominal safe ceiling</div>
+          </div>
+          <div style="padding: 8px 10px; background: rgba(7,11,22,0.5); border-radius: 4px; border: 1px solid var(--border-inner);">
+            <div style="color: var(--text-muted); font-size: 10px; text-transform: uppercase;">Track / TSR Condition</div>
+            <div id="sm-adv-track-val" style="color: var(--text-primary); font-weight: 700; margin-top: 4px;">Mainline Clear Track</div>
+            <div id="sm-adv-track-sub" style="color: var(--text-secondary); font-size: 10px;">MPS 130 km/h</div>
+          </div>
+        </div>
+
+        <div id="sm-adv-action-row" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <button type="button" onclick="smAuthorizeAISpeedAdvisory()" class="btn-primary" style="padding: 8px 16px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10B981, #06B6D4); border: none; color: #070B16; cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: var(--radius-sm);">
+            ✅ Confirm & Authorize Speed Advisory for Loco Pilot
+          </button>
+          <span style="font-size: 11px; color: var(--text-muted);">
+            Advisory predicted from live conditions. Station Master confirmation authorizes target speed on Loco Pilot console.
+          </span>
+        </div>
+      </div>
+
+      <!-- Live Comms Transcript -->
+      <div id="sm-comms-log" class="crew-comms-box" style="height: 180px; overflow-y: auto; background: rgba(7,11,22,0.65); border: 1px solid var(--border-inner); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px;"></div>
+
+      <!-- Station Master Advisories to Loco Pilot -->
+      <div>
+        <div id="sm-dispatch-title" style="font-size: 12px; font-weight: 700; color: var(--text-secondary); margin-bottom: 6px;">
+          Dispatch Speed Advisory & Instructions to Loco Pilot:
+        </div>
+        <div id="sm-dispatch-buttons-container" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
+          <button type="button" id="sm-btn-dispatch-mps" onclick="smSendSpeedAdvisory(130)" class="quick-btn" style="font-size: 11px; color: var(--emerald); border-color: rgba(16,185,129,0.3);">🟢 130 km/h (Clear Track)</button>
+          <button type="button" id="sm-btn-dispatch-loop" onclick="smSendSpeedAdvisory(50)" class="quick-btn" style="font-size: 11px; color: var(--amber); border-color: rgba(245,158,11,0.3);">🟡 50 km/h (Loop Line / Signal)</button>
+          <button type="button" id="sm-btn-dispatch-tsr" onclick="smSendSpeedAdvisory(30)" class="quick-btn" style="font-size: 11px; color: var(--rose); border-color: rgba(244,63,94,0.3);">🟠 30 km/h (TSR Caution)</button>
+          <button type="button" id="sm-btn-dispatch-hold" onclick="smSendSpeedAdvisory(0)" class="quick-btn" style="font-size: 11px; color: #FDA4AF; border-color: rgba(225,29,72,0.4);">🛑 0 km/h (Signal Hold)</button>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="sm-comm-input" placeholder="Type direct operational advisory, line clearance, or speed instructions to Loco Pilot..." style="flex: 1; padding: 10px; font-size: 12px;" onkeydown="if(event.key==='Enter')smSendCustomMsg()" />
+          <button type="button" onclick="smSendCustomMsg()" class="btn-primary" style="padding: 10px 18px; font-size: 12px; font-weight: 700;">
+            📡 Transmit to LP
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 6: AI CONTROL ROOM & HUMAN INTERVENTION
+       ========================================================================= -->
+  <div id="view-controlroom" class="fade-in" style="display: none;">
+    <!-- Control Room Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <h2 style="font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px;">
+            🖥️ Control Room
+          </h2>
+          <span class="badge badge-purple">Control Room Operator</span>
+          <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> All Systems Active</span>
+        </div>
+      </div>
+      <div id="cr-clock" class="card-sm mono" style="font-size: 14px; color: var(--violet); font-weight: 700; padding: 10px 20px;"></div>
+    </div>
+
+    <!-- Network KPI Strip -->
+    <div class="grid-stats" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-bottom: 24px;">
+      <div class="card card-controlroom">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Total Trains</div>
+        <div id="cr-stat-trains" class="mono" style="font-size: 30px; font-weight: 800; color: var(--cyan-bright); margin-top: 4px;">—</div>
+      </div>
+      <div class="card card-controlroom" style="border-color: rgba(16,185,129,0.25);">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">On Time</div>
+        <div id="cr-stat-ontime" class="mono" style="font-size: 30px; font-weight: 800; color: var(--emerald); margin-top: 4px;">—</div>
+      </div>
+      <div class="card card-controlroom" style="border-color: rgba(244,63,94,0.25);">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Delayed</div>
+        <div id="cr-stat-delayed" class="mono" style="font-size: 30px; font-weight: 800; color: var(--rose); margin-top: 4px;">—</div>
+      </div>
+      <div class="card card-controlroom">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Avg Delay</div>
+        <div id="cr-stat-avgdelay" class="mono" style="font-size: 30px; font-weight: 800; color: var(--amber); margin-top: 4px;">— min</div>
+      </div>
+      <div class="card card-controlroom" style="border-color: rgba(244,63,94,0.25);">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Active Incidents</div>
+        <div id="cr-stat-incidents" class="mono" style="font-size: 30px; font-weight: 800; color: var(--rose); margin-top: 4px;">—</div>
+      </div>
+      <div class="card card-controlroom">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Weather Alerts</div>
+        <div id="cr-stat-weather-alerts" class="mono" style="font-size: 30px; font-weight: 800; color: var(--amber); margin-top: 4px;">3</div>
+      </div>
+    </div>
+
+    <!-- AI Recommendations + Human Intervention -->
+    <div class="grid-2equal" style="margin-bottom: 24px;">
+      <!-- AI Recommendations -->
+      <div class="card card-controlroom">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <h3 style="font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            🧠 AI Recommendation Engine
+          </h3>
+          <span class="badge badge-purple">Operator Approval Required</span>
+        </div>
+        <div id="ai-recommendations-list" style="display: flex; flex-direction: column; gap: 12px;"></div>
+      </div>
+
+      <!-- Human Intervention Panel -->
+      <div class="card" style="border: 1px solid rgba(244,63,94,0.25);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <h3 style="font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+            🛡️ Manual Intervention Console
+          </h3>
+          <span class="badge badge-red">Operator Controls</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label for="int-train-select">Affected Train</label>
+            <select id="int-train-select">
+              <option value="">— Select train —</option>
+            </select>
+          </div>
+          <div>
+            <label for="int-action">Intervention Action</label>
+            <select id="int-action">
+              <option value="">— Select action —</option>
+              <option>Hold Train</option>
+              <option>Release Train</option>
+              <option>Change Priority — Upgrade</option>
+              <option>Change Priority — Downgrade</option>
+              <option>Issue Speed Restriction</option>
+              <option>Lift Speed Restriction</option>
+              <option>Flag Incident</option>
+              <option>Escalate Incident</option>
+              <option>Mark Issue Resolved</option>
+              <option>Accept AI Recommendation</option>
+              <option>Override AI Recommendation</option>
+            </select>
+          </div>
+          <div>
+            <label for="int-region">Affected Route / Region</label>
+            <input type="text" id="int-region" placeholder="e.g. CNB-DDU Section, Bihar Zone..." />
+          </div>
+          <div>
+            <label for="int-reason">Reason / Justification</label>
+            <textarea id="int-reason" rows="3" placeholder="Provide operational reason for this intervention..."></textarea>
+          </div>
+          <button onclick="logIntervention()" class="btn-primary btn-action" style="padding: 12px; font-size: 13px; font-weight: 700;">
+            🔐 Log Intervention Decision
+          </button>
+        </div>
+        <!-- Recent interventions -->
+        <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border-inner);">
+          <div style="font-size: 12px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px;">Recent Intervention Log</div>
+          <div id="intervention-log-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chain Pulling + Complaints -->
+    <div class="grid-2equal" style="margin-bottom: 24px;">
+      <!-- Chain Pulling Intelligence -->
+      <div class="card" style="border-top: 4px solid var(--rose);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;">🔗 Chain Pulling Risk Intelligence</h3>
+          <span class="badge badge-demo">⚠️ DEMO DATA</span>
+        </div>
+        <!-- Network risk index -->
+        <div class="card-sm" style="text-align: center; margin-bottom: 14px; border: 1px solid rgba(244,63,94,0.25);">
+          <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Network ACP Risk Index</div>
+          <div id="cp-risk-index" class="mono" style="font-size: 42px; font-weight: 800; color: var(--rose); margin: 4px 0;">74</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">/ 100 · HIGH risk period — Peak evening hours</div>
+        </div>
+        <div id="cp-regions-list" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        <div style="margin-top: 12px; padding: 10px 14px; background: rgba(244,63,94,0.06); border-radius: var(--radius-sm); border: 1px solid rgba(244,63,94,0.2);">
+          <div style="font-size: 11px; color: #FB7185; font-weight: 700; margin-bottom: 4px;">Active Risk Factors:</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 3px;">
+            <li style="font-size: 12px; color: var(--text-secondary);">⏰ Peak evening hours (17:00–21:00)</li>
+            <li style="font-size: 12px; color: var(--text-secondary);">👥 High passenger density — unreserved coaches</li>
+            <li id="cp-festival-factor" style="font-size: 12px; color: var(--amber); display: none;">🎊 Festival period multiplier active</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Complaints Dashboard -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 15px; font-weight: 700;">📊 Complaints Dashboard</h3>
+          <div style="display: flex; gap: 8px;">
+            <button onclick="filterComplaints('all')" id="cf-all" class="quick-btn" style="background: rgba(56,189,248,0.15);">All</button>
+            <button onclick="filterComplaints('open')" id="cf-open" class="quick-btn">Open</button>
+            <button onclick="filterComplaints('escalated')" id="cf-esc" class="quick-btn">Escalated</button>
+          </div>
+        </div>
+        <div class="grid-stats" style="grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Open</div>
+            <div id="cr-complaints-open" class="mono" style="font-size: 20px; font-weight: 800; color: var(--amber); margin-top: 2px;">—</div>
+          </div>
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Resolved</div>
+            <div id="cr-complaints-resolved" class="mono" style="font-size: 20px; font-weight: 800; color: var(--emerald); margin-top: 2px;">—</div>
+          </div>
+          <div class="card-sm" style="text-align: center;">
+            <div style="font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Escalated</div>
+            <div id="cr-complaints-escalated" class="mono" style="font-size: 20px; font-weight: 800; color: var(--rose); margin-top: 2px;">—</div>
+          </div>
+        </div>
+        <div id="cr-complaints-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 300px; overflow-y: auto;"></div>
+      </div>
+    </div>
+
+    <!-- Multi-train Congestion -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
+        <h3 style="font-size: 15px; font-weight: 700;">🌐 Multi-Train Network Congestion Overview</h3>
+      </div>
+      <div style="overflow-x: auto;">
+        <table id="cr-congestion-table">
+          <thead>
+            <tr>
+              <th>Train</th>
+              <th>Current Section</th>
+              <th>Delay</th>
+              <th>Priority</th>
+              <th>Congestion</th>
+              <th>AI Recommendation</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cr-congestion-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 7: WEATHER INTELLIGENCE
+       ========================================================================= -->
+  <div id="view-weather" class="fade-in" style="display: none;">
+    <!-- ═══════════════════════════════════════════════════════
+         LIVE WEATHER CARD — Real Open-Meteo data for active train
+         ═══════════════════════════════════════════════════════ -->
+    <div class="card" style="margin-bottom:24px;padding:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:22px;">🛰️</span>
+          <div>
+            <div style="font-size:15px;font-weight:800;">Live Weather — Train <span id="live-weather-train-no" style="color:var(--cyan);">12301</span></div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">Real-time conditions at current train location · Open-Meteo API</div>
+          </div>
+        </div>
+        <button onclick="fetchLiveWeather()" class="btn-action" style="padding:7px 16px;font-size:12px;">↻ Refresh Now</button>
+      </div>
+      <div id="live-weather-hero">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.15);">
+          <span style="font-size:28px;animation:pulse 2s infinite;">📡</span>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Fetching live weather data…</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">Reading train position and connecting to Open-Meteo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <h2 style="font-size: 20px; font-weight: 800;">⛈️ Regional Weather Intelligence</h2>
+        </div>
+        <p style="font-size: 13px; color: var(--text-secondary);">Region-wise weather impact analysis for Indian Railways operations</p>
+      </div>
+      <div class="card-sm mono" style="font-size: 12px; color: var(--teal);">Updated: <span id="weather-last-updated">—</span></div>
+    </div>
+
+    <!-- Region weather strip -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 24px;" id="weather-region-strip"></div>
+
+    <!-- Main grid -->
+    <div class="grid-2col" style="margin-bottom: 24px;">
+      <!-- Region impact analysis -->
+      <div class="card card-weather">
+        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          🗺️ Region-Wise Impact Analysis
+        </h3>
+        <div id="weather-regions-list" style="display: flex; flex-direction: column; gap: 4px;"></div>
+      </div>
+
+      <!-- Affected trains panel -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+<div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <h4 style="font-size: 14px; font-weight: 700;">🚆 Trains Affected by Weather</h4>
+            <select id="weather-region-filter" onchange="renderAffectedTrains(this.value)" style="width: auto; min-width: 160px; padding: 8px 12px; font-size: 12px;">
+              <option value="all">All Regions</option>
+            </select>
+          </div>
+          <div id="weather-affected-trains" style="display: flex; flex-direction: column; gap: 8px; max-height: 260px; overflow-y: auto;"></div>
+        </div>
+        <div class="card" style="border: 1px solid rgba(20,184,166,0.25);">
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--teal); margin-bottom: 12px;">🤖 Weather Impact ML Pipeline <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(Full details in Analytics tab)</span></h4>
+          <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.7;">
+            <strong style="color: var(--text-primary);">Model Architecture:</strong><br>
+            Input: Weather conditions + Region + Train Type + Route + Historical performance<br>
+            → <strong>Output:</strong> Expected speed reduction, delay range, operational risk level<br><br>
+            <span class="badge badge-demo" style="font-size: 10px;">📊 See Analytics tab for full pipeline details</span>
+          </div>
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--text-secondary);">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--emerald); display: inline-block;"></span>
+              Open-Meteo: Connected
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--text-secondary);">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--amber); display: inline-block;"></span>
+              Impact Model: Demo
+            </div>
+            <div style="display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--text-secondary);">
+              <span style="width: 10px; height: 10px; border-radius: 50%; background: #475569; display: inline-block;"></span>
+              IMD API: Plug-in Ready
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weather event timeline -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        📅 Weather Event Log & Impact History
+        <span class="badge badge-demo">⚠️ DEMO EVENTS</span>
+      </h3>
+      <div id="weather-timeline" style="display: flex; flex-direction: column; gap: 10px;"></div>
+    </div>
+
+    <!-- Speed Advisory Matrix -->
+    <div class="card">
+      <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">📊 Speed Advisory Matrix by Condition</h3>
+      <div style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Weather Condition</th>
+              <th>Visibility</th>
+              <th>Track Risk</th>
+              <th>Max Speed Advisory</th>
+              <th>Expected Delay Range</th>
+              <th>Recommended Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>☀️ Clear Sky</td><td>Full</td><td><span class="badge badge-green">NONE</span></td><td class="mono" style="color: var(--emerald);">Normal (110–130)</td><td>0 min</td><td>Normal operations</td></tr>
+            <tr><td>⛅ Partly Cloudy</td><td>Good</td><td><span class="badge badge-green">NONE</span></td><td class="mono" style="color: var(--emerald);">Normal</td><td>0–2 min</td><td>Normal operations</td></tr>
+            <tr><td>🌦️ Light Rain</td><td>Moderate</td><td><span class="badge badge-green">LOW</span></td><td class="mono" style="color: var(--amber);">90–110 km/h</td><td>2–8 min</td><td>Enhanced vigilance</td></tr>
+            <tr><td>🌧️ Heavy Rain</td><td>Reduced</td><td><span class="badge badge-amber">HIGH</span></td><td class="mono" style="color: var(--amber);">65–75 km/h</td><td>12–22 min</td><td>Speed restriction order</td></tr>
+            <tr><td>🌊 Flooding</td><td>Poor</td><td><span class="badge badge-red">CRITICAL</span></td><td class="mono" style="color: var(--rose);">HALT</td><td>30–120 min</td><td>HALT — Contact DRM</td></tr>
+            <tr><td>🌫️ Fog (Moderate)</td><td>600–1500m</td><td><span class="badge badge-amber">HIGH</span></td><td class="mono" style="color: var(--amber);">60–75 km/h</td><td>15–45 min</td><td>Fog devices deployed</td></tr>
+            <tr><td>🌫️ Fog (Dense)</td><td>&lt;200m</td><td><span class="badge badge-red">CRITICAL</span></td><td class="mono" style="color: var(--rose);">30–60 km/h</td><td>30–90 min</td><td>Absolute block working</td></tr>
+            <tr><td>⛈️ Storm</td><td>Poor</td><td><span class="badge badge-red">CRITICAL</span></td><td class="mono" style="color: var(--rose);">40–50 km/h</td><td>20–80 min</td><td>Halt at nearest station</td></tr>
+            <tr><td>🔥 Extreme Heat (&gt;45°C)</td><td>Good</td><td><span class="badge badge-amber">MEDIUM</span></td><td class="mono" style="color: var(--amber);">100 km/h (curved sections)</td><td>5–15 min</td><td>Track temperature monitoring</td></tr>
+            <tr><td>🌀 Cyclone Warning</td><td>—</td><td><span class="badge badge-red">CRITICAL</span></td><td class="mono" style="color: var(--rose);">SUSPEND ALL</td><td>60–300 min</td><td>Full suspension — evacuate</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       VIEW 8: WHAT-IF SIMULATION SANDBOX (Original, preserved)
+       ========================================================================= -->
+  <div id="view-analytics" class="fade-in" style="display:none;">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <h2 style="font-size:20px;font-weight:800;display:flex;align-items:center;gap:10px;">
+          📊 Analytics &amp; Intelligence Dashboard
+        </h2>
+        <p style="font-size:12px;color:var(--text-secondary);margin-top:3px;">Complaint trends · Weather ML impact model · Operational performance · Route analysis</p>
+      </div>
+      <span class="badge badge-purple">Internal Staff View</span>
+    </div>
+
+    <!-- KPI Row -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px;">
+      <div class="card-sm" style="text-align:center;border-left:3px solid var(--cyan);">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Total Complaints (7d)</div>
+        <div id="anl-total-complaints" class="mono" style="font-size:28px;font-weight:800;color:var(--cyan);margin-top:4px;">—</div>
+      </div>
+      <div class="card-sm" style="text-align:center;border-left:3px solid var(--rose);">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">High Severity</div>
+        <div id="anl-high-sev" class="mono" style="font-size:28px;font-weight:800;color:var(--rose);margin-top:4px;">—</div>
+      </div>
+      <div class="card-sm" style="text-align:center;border-left:3px solid var(--amber);">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Escalated</div>
+        <div id="anl-escalated" class="mono" style="font-size:28px;font-weight:800;color:var(--amber);margin-top:4px;">—</div>
+      </div>
+      <div class="card-sm" style="text-align:center;border-left:3px solid var(--emerald);">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Avg Resolution</div>
+        <div id="anl-avg-res" class="mono" style="font-size:28px;font-weight:800;color:var(--emerald);margin-top:4px;">—</div>
+        <div style="font-size:10px;color:var(--text-muted);">minutes</div>
+      </div>
+      <div class="card-sm" style="text-align:center;border-left:3px solid var(--violet);">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">AI Interventions</div>
+        <div id="anl-interventions" class="mono" style="font-size:28px;font-weight:800;color:var(--violet);margin-top:4px;">—</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+
+      <!-- Complaint Escalation Flow -->
+      <div class="card">
+        <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+          📈 Complaint Escalation Flow
+          <span class="badge badge-cyan" style="font-size: 10px;">Real-Time Workflow</span>
+        </h4>
+        <div class="escalation-flow">
+          <div class="esc-step" style="background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--cyan);">
+            👤 Passenger Reports Issue
+          </div>
+          <div class="esc-arrow"></div>
+          <div class="esc-step" style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: #34D399;">
+            👷 Assigned Train Staff
+          </div>
+          <div class="esc-arrow"></div>
+          <div class="esc-step" style="background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); color: var(--amber);">
+            🚂 Driver / Guard (if relevant)
+          </div>
+          <div class="esc-arrow"></div>
+          <div class="esc-step" style="background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); color: #A78BFA;">
+            🖥️ Control Room (if unresolved)
+          </div>
+          <div class="esc-arrow"></div>
+          <div class="esc-step" style="background: rgba(244,63,94,0.08); border: 1px solid rgba(244,63,94,0.2); color: #FB7185;">
+            🏢 Divisional Management
+          </div>
+        </div>
+        <div style="margin-top: 14px; padding: 10px 14px; background: rgba(11,17,36,0.7); border-radius: var(--radius-sm); border: 1px solid var(--border-inner);">
+          <p style="font-size: 12px; color: var(--text-secondary);">All complaint statuses are updated in real-time. You will see resolution updates on your complaint tracker above.</p>
+        </div>
+
+        <!-- Live complaint status counts -->
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--border-inner);">
+          <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:10px;">Current Status Distribution</div>
+          <div id="anl-complaint-status-bars" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+      </div>
+
+      <!-- Complaint Category Breakdown -->
+      <div class="card">
+        <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;">📋 Complaints by Category</h3>
+        <div id="anl-category-bars" style="display:flex;flex-direction:column;gap:10px;"></div>
+        <div style="margin-top:20px;padding-top:14px;border-top:1px solid var(--border-inner);">
+          <h3 style="font-size:13px;font-weight:700;margin-bottom:12px;">📈 Severity Trend (Last 7 Days)</h3>
+          <div id="anl-severity-trend" style="display:flex;flex-direction:column;gap:6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weather ML Pipeline -->
+    <div class="card" style="margin-bottom:20px;border-left:4px solid var(--teal);">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
+        <h3 style="font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;">
+          🤖 Weather Impact ML Pipeline <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(Full details in Analytics tab)</span>
+          <span class="badge badge-amber" style="font-size:10px;">DEMO MODEL</span>
+        </h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span class="badge badge-green" style="font-size:10px;">Open-Meteo: Connected</span>
+          <span class="badge badge-amber" style="font-size:10px;">IMD API: Plug-in Ready</span>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px;">
+        <div style="background:rgba(7,11,22,0.6);border-radius:var(--radius-md);padding:14px;border:1px solid var(--border-subtle);">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">Model Architecture</div>
+          <div style="font-size:12px;line-height:1.7;color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">Inputs:</strong><br>
+            Weather conditions · Region<br>Train Type · Route<br>Historical performance
+          </div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border-inner);font-size:12px;color:var(--text-secondary);">
+            <strong style="color:var(--text-primary);">Outputs:</strong><br>
+            Speed reduction % · Delay range<br>Operational risk level
+          </div>
+        </div>
+        <div style="background:rgba(7,11,22,0.6);border-radius:var(--radius-md);padding:14px;border:1px solid var(--border-subtle);">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">API Integrations</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span>Open-Meteo Weather</span>
+              <span class="badge badge-green" style="font-size:9px;">LIVE</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span>Impact ML Model</span>
+              <span class="badge badge-amber" style="font-size:9px;">DEMO</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span>IMD API</span>
+              <span class="badge" style="font-size:9px;background:rgba(100,116,139,0.2);color:var(--text-muted);">PLUG-IN</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+              <span>RTIS Train Data</span>
+              <span class="badge badge-green" style="font-size:9px;">SIM</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:rgba(7,11,22,0.6);border-radius:var(--radius-md);padding:14px;border:1px solid var(--border-subtle);">
+          <div style="font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;margin-bottom:8px;">Pipeline Status</div>
+          <div id="anl-weather-ml-status" style="display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text-secondary);">
+            <div>⚙️ Model based on IR operational norms</div>
+            <div>📡 Live weather data ingested every 15s</div>
+            <div>🔁 Impact scores updated per region</div>
+            <div>⚠️ Connect IMD API for production accuracy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weather Region Impact Table -->
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:10px;">Regional Impact Matrix (Live)</div>
+      <div id="anl-weather-impact-table" style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead>
+            <tr style="border-bottom:1px solid var(--border-subtle);">
+              <th style="text-align:left;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Region</th>
+              <th style="text-align:left;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Condition</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Risk</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Speed Red.</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Delay Est.</th>
+              <th style="text-align:center;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Trains</th>
+              <th style="text-align:left;padding:8px 10px;color:var(--text-muted);font-weight:700;font-size:10px;text-transform:uppercase;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="anl-weather-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    
+    <!-- =========================================================================
+         WHAT-IF JUNCTION SIMULATION SANDBOX (INTEGRATED IN ANALYTICS)
+         ========================================================================= -->
+    <div id="simulation-sandbox-section" style="margin-top: 24px; margin-bottom: 24px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px;">
+        <h3 style="font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;">
+          🧪 "What-If" Junction Simulation Sandbox &amp; Delay Recalculation
+          <span class="badge badge-amber" style="font-size:10px;">Interactive Model</span>
+        </h3>
+        <span class="badge badge-cyan" style="font-size:10px;">Real-Time Cascade Engine</span>
+      </div>
+      <div class="grid-2col">
+        <div class="card">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 6px;">Disruption Parameter Controls</h4>
+          <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 20px;">
+            Simulate real-world operational disruptions. Watch adverse weather, traffic saturation, and emergency caution orders dynamically recalculate downstream arrival times:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
+                <span style="font-weight: 600;">🌫️ Fog / Low-Visibility Severity</span>
+                <span id="sim-fog-label" class="mono" style="color: var(--cyan-bright); font-weight: 700;">0% (Clear)</span>
+              </div>
+              <input type="range" min="0" max="100" value="0" id="sim-fog" class="range-slider" oninput="updateSimulation()" />
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
+                <span style="font-weight: 600;">🚦 Section Traffic Congestion</span>
+                <span id="sim-cong-label" class="mono" style="color: var(--amber); font-weight: 700;">1.00x (Normal)</span>
+              </div>
+              <input type="range" min="5" max="25" value="10" id="sim-cong" class="range-slider" oninput="updateSimulation()" />
+            </div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px;">
+                <span style="font-weight: 600;">🚆 Preceding Train Headway</span>
+                <span id="sim-headway-label" class="mono" style="color: var(--violet); font-weight: 700;">18 min (Adequate)</span>
+              </div>
+              <input type="range" min="5" max="40" value="18" id="sim-headway" class="range-slider" oninput="updateSimulation()" />
+            </div>
+            <div class="card-sm" style="display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+              <div>
+                <div style="font-size: 13px; font-weight: 700; color: var(--rose);">⚠️ Emergency TSR Caution Order (30 km/h)</div>
+                <div style="font-size: 11px; color: var(--text-secondary);">Imposes bridge maintenance speed restriction</div>
+              </div>
+              <input type="checkbox" id="sim-tsr" style="width: 22px; height: 22px; accent-color: var(--rose); cursor: pointer;" onchange="updateSimulation()" />
+            </div>
+            <button onclick="resetSimulation()" class="btn-action" style="padding: 12px;">↺ Reset to Live Defaults</button>
+          </div>
+        </div>
+        <div class="card" style="border-left: 4px solid var(--amber);">
+          <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 16px;">📊 Dynamic Simulation Impact</h4>
+          <div class="card-sm" style="margin-bottom: 18px; text-align: center;">
+            <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Recalculated Destination Delay</div>
+            <div id="sim-final-delay" class="mono" style="font-size: 40px; font-weight: 800; color: var(--amber); margin: 6px 0;">+9 min</div>
+            <div id="sim-final-eta" style="font-size: 12px; color: var(--text-secondary);">ETA: <strong>—</strong></div>
+          </div>
+          <h5 style="font-size: 13px; color: var(--text-primary); margin-bottom: 12px; font-weight: 700;">Downstream Station Cascade Impact:</h5>
+          <div id="sim-station-impact" style="display: flex; flex-direction: column; gap: 10px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operational Performance -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="card">
+        <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">🚆 Train Performance Analysis</h3>
+        <div id="anl-train-performance" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:15px;font-weight:700;margin-bottom:14px;">📡 AI Intervention Effectiveness</h3>
+        <div id="anl-intervention-stats" style="display:flex;flex-direction:column;gap:10px;"></div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border-inner);">
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--violet);">Human-in-the-Loop Summary</h4>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;" id="anl-hitl-summary">
+            All AI recommendations require operator approval before execution.
+            Operators can Accept, Reject, or Modify each recommendation.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  
+</div>
+
+  <!-- PRAVAAH Decoupled API & Presentation Layer -->
+  <script src="js/config.js"></script>
+  <script src="js/api/trainApi.js"></script>
+  <script src="js/api/stationApi.js"></script>
+  <script src="js/api/weatherApi.js"></script>
+  <script src="js/api/complaintApi.js"></script>
+  <script src="js/app.js"></script>
+
+
+  <!-- =========================================================================
+       VIEW: ANALYTICS DASHBOARD
+       ========================================================================= -->
+  
+
+</body>

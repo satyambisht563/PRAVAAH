@@ -1,0 +1,6456 @@
+
+// =========================================================================
+// PRAVAAH — COMPLETE JAVASCRIPT ENGINE
+// Embedded Full-Stack Client-Side ETS Railway Operations Platform
+// =========================================================================
+
+// ─── 1. MASTER TRAIN TIMETABLE (Authentic Indian Railways Fleet with Verified Schedules & Complete Routes) ───
+const MASTER_TRAINS = {
+  "12301": {
+    number: "12301",
+    name: "Howrah - New Delhi Rajdhani Express",
+    type: "Rajdhani Express",
+    corridorName: "Eastern Trunk (Howrah - New Delhi)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT"],
+    depOffsetMin: 1010,
+    durationMin: 1035,
+    halts: [
+      { code: "HWH", name: "Howrah Jn", km: 0, arrM: 1010, depM: 1010, pf: "9", type: "major" },
+      { code: "BWN", name: "Barddhaman Jn", km: 95, arrM: 1076, depM: 1078, pf: "1", type: "intermediate" },
+      { code: "ASN", name: "Asansol Jn", km: 199, arrM: 1137, depM: 1140, pf: "4", type: "major" },
+      { code: "DHN", name: "Dhanbad Jn", km: 257, arrM: 1190, depM: 1195, pf: "3", type: "major" },
+      { code: "PNME", name: "Parasnath", km: 305, arrM: 1230, depM: 1232, pf: "3", type: "intermediate" },
+      { code: "KQR", name: "Koderma Jn", km: 380, arrM: 1284, depM: 1286, pf: "4", type: "intermediate" },
+      { code: "GAYA", name: "Gaya Jn", km: 458, arrM: 1339, depM: 1342, pf: "1", type: "major" },
+      { code: "DOS", name: "Dehri On Sone", km: 543, arrM: 1400, depM: 1402, pf: "2", type: "intermediate" },
+      { code: "SSM", name: "Sasaram Jn", km: 561, arrM: 1414, depM: 1416, pf: "2", type: "intermediate" },
+      { code: "DDU", name: "Pt. DD Upadhyaya Jn", km: 663, arrM: 1485, depM: 1495, pf: "4", type: "major" },
+      { code: "PRYJ", name: "Prayagraj Jn", km: 816, arrM: 1593, depM: 1595, pf: "1", type: "major" },
+      { code: "CNB", name: "Kanpur Central Jn", km: 1010, arrM: 1720, depM: 1725, pf: "3", type: "major" },
+      { code: "ALJN", name: "Aligarh Jn", km: 1319, arrM: 1928, depM: 1930, pf: "3", type: "intermediate" },
+      { code: "NDLS", name: "New Delhi", km: 1451, arrM: 2045, depM: 2045, pf: "12", type: "major" }
+    ]
+  },
+  "12951": {
+    number: "12951",
+    name: "Mumbai Central - New Delhi Tejas Rajdhani",
+    type: "Rajdhani Express",
+    corridorName: "Western Trunk (Mumbai - New Delhi)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 1020,
+    durationMin: 932,
+    halts: [
+      { code: "MMCT", name: "Mumbai Central", km: 0, arrM: 1020, depM: 1020, pf: "1", type: "major" },
+      { code: "BVI", name: "Borivali", km: 29, arrM: 1042, depM: 1044, pf: "6", type: "major" },
+      { code: "VAPI", name: "Vapi", km: 168, arrM: 1127, depM: 1129, pf: "1", type: "intermediate" },
+      { code: "BL", name: "Valsad", km: 194, arrM: 1150, depM: 1152, pf: "2", type: "intermediate" },
+      { code: "ST", name: "Surat", km: 263, arrM: 1183, depM: 1188, pf: "1", type: "major" },
+      { code: "BH", name: "Bharuch Jn", km: 322, arrM: 1225, depM: 1227, pf: "3", type: "intermediate" },
+      { code: "BRC", name: "Vadodara Jn", km: 393, arrM: 1266, depM: 1276, pf: "2", type: "major" },
+      { code: "RTM", name: "Ratlam Jn", km: 653, arrM: 1465, depM: 1468, pf: "5", type: "major" },
+      { code: "NAD", name: "Nagda Jn", km: 694, arrM: 1508, depM: 1510, pf: "1", type: "intermediate" },
+      { code: "BWM", name: "Bhawani Mandi", km: 820, arrM: 1578, depM: 1580, pf: "2", type: "intermediate" },
+      { code: "RMA", name: "Ramganj Mandi Jn", km: 848, arrM: 1598, depM: 1600, pf: "2", type: "intermediate" },
+      { code: "KOTA", name: "Kota Jn", km: 920, arrM: 1635, depM: 1640, pf: "1", type: "major" },
+      { code: "SWM", name: "Sawai Madhopur Jn", km: 1028, arrM: 1703, depM: 1705, pf: "1", type: "intermediate" },
+      { code: "MTJ", name: "Mathura Jn", km: 1244, arrM: 1840, depM: 1842, pf: "3", type: "intermediate" },
+      { code: "NZM", name: "Hazrat Nizamuddin", km: 1377, arrM: 1932, depM: 1934, pf: "4", type: "intermediate" },
+      { code: "NDLS", name: "New Delhi", km: 1384, arrM: 1952, depM: 1952, pf: "3", type: "major" }
+    ]
+  },
+  "22436": {
+    number: "22436",
+    name: "New Delhi - Varanasi Vande Bharat Express",
+    type: "Vande Bharat Express",
+    corridorName: "Northern High-Speed (New Delhi - Varanasi)",
+    runningDays: ["MON", "TUE", "WED", "FRI", "SAT", "SUN"],
+    depOffsetMin: 360,
+    durationMin: 480,
+    halts: [
+      { code: "NDLS", name: "New Delhi", km: 0, arrM: 360, depM: 360, pf: "16", type: "major" },
+      { code: "GZB", name: "Ghaziabad Jn", km: 25, arrM: 390, depM: 392, pf: "2", type: "intermediate" },
+      { code: "ALJN", name: "Aligarh Jn", km: 131, arrM: 450, depM: 452, pf: "3", type: "intermediate" },
+      { code: "TDL", name: "Tundla Jn", km: 209, arrM: 498, depM: 500, pf: "5", type: "intermediate" },
+      { code: "CNB", name: "Kanpur Central Jn", km: 440, arrM: 608, depM: 610, pf: "5", type: "major" },
+      { code: "PRYJ", name: "Prayagraj Jn", km: 634, arrM: 728, depM: 730, pf: "6", type: "major" },
+      { code: "BSB", name: "Varanasi Jn", km: 759, arrM: 840, depM: 840, pf: "1", type: "major" }
+    ]
+  },
+  "12002": {
+    number: "12002",
+    name: "New Delhi - Rani Kamlapati Shatabdi",
+    type: "Shatabdi Express",
+    corridorName: "North-Central Trunk (New Delhi - Bhopal)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 360,
+    durationMin: 520,
+    halts: [
+      { code: "NDLS", name: "New Delhi", km: 0, arrM: 360, depM: 360, pf: "1", type: "major" },
+      { code: "MTJ", name: "Mathura Jn", km: 141, arrM: 439, depM: 440, pf: "1", type: "intermediate" },
+      { code: "AGC", name: "Agra Cantt", km: 195, arrM: 470, depM: 475, pf: "1", type: "major" },
+      { code: "DHO", name: "Dholpur", km: 248, arrM: 519, depM: 520, pf: "2", type: "intermediate" },
+      { code: "MRA", name: "Morena", km: 275, arrM: 537, depM: 538, pf: "1", type: "intermediate" },
+      { code: "GWL", name: "Gwalior Jn", km: 313, arrM: 563, depM: 568, pf: "1", type: "major" },
+      { code: "VGLJ", name: "V Lakshmibai Jhansi", km: 411, arrM: 645, depM: 650, pf: "1", type: "major" },
+      { code: "LAR", name: "Lalitpur Jn", km: 501, arrM: 702, depM: 703, pf: "2", type: "intermediate" },
+      { code: "BINA", name: "Bina Jn", km: 564, arrM: 760, depM: 762, pf: "2", type: "intermediate" },
+      { code: "BPL", name: "Bhopal Jn", km: 702, arrM: 847, depM: 852, pf: "1", type: "major" },
+      { code: "RKMP", name: "Rani Kamlapati", km: 708, arrM: 880, depM: 880, pf: "1", type: "major" }
+    ]
+  },
+  "12004": {
+    number: "12004",
+    name: "New Delhi - Lucknow Jn Shatabdi",
+    type: "Shatabdi Express",
+    corridorName: "Awadh Corridor (New Delhi - Lucknow)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 370,
+    durationMin: 390,
+    halts: [
+      { code: "NDLS", name: "New Delhi", km: 0, arrM: 370, depM: 370, pf: "6", type: "major" },
+      { code: "GZB", name: "Ghaziabad Jn", km: 25, arrM: 402, depM: 404, pf: "2", type: "intermediate" },
+      { code: "ALJN", name: "Aligarh Jn", km: 131, arrM: 467, depM: 469, pf: "3", type: "intermediate" },
+      { code: "TDL", name: "Tundla Jn", km: 209, arrM: 520, depM: 522, pf: "3", type: "intermediate" },
+      { code: "ETW", name: "Etawah Jn", km: 301, arrM: 580, depM: 582, pf: "3", type: "intermediate" },
+      { code: "CNB", name: "Kanpur Central Jn", km: 436, arrM: 680, depM: 685, pf: "1", type: "major" },
+      { code: "LJN", name: "Lucknow Jn", km: 511, arrM: 760, depM: 760, pf: "2", type: "major" }
+    ]
+  },
+  "12621": {
+    number: "12621",
+    name: "Tamil Nadu Superfast Express",
+    type: "Superfast Express",
+    corridorName: "Grand Trunk Corridor (Chennai - New Delhi)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 1320,
+    durationMin: 1950,
+    halts: [
+      { code: "MAS", name: "MGR Chennai Central", km: 0, arrM: 1320, depM: 1320, pf: "5", type: "major" },
+      { code: "BZA", name: "Vijayawada Jn", km: 431, arrM: 1660, depM: 1670, pf: "7", type: "major" },
+      { code: "KMT", name: "Khammam", km: 530, arrM: 1744, depM: 1745, pf: "2", type: "intermediate" },
+      { code: "WL", name: "Warangal", km: 638, arrM: 1853, depM: 1855, pf: "2", type: "major" },
+      { code: "BPQ", name: "Balharshah", km: 881, arrM: 2070, depM: 2075, pf: "4", type: "intermediate" },
+      { code: "NGP", name: "Nagpur Jn", km: 1090, arrM: 2265, depM: 2270, pf: "1", type: "major" },
+      { code: "ET", name: "Itarsi Jn", km: 1388, arrM: 2550, depM: 2555, pf: "1", type: "intermediate" },
+      { code: "BPL", name: "Bhopal Jn", km: 1480, arrM: 2650, depM: 2660, pf: "2", type: "major" },
+      { code: "VGLJ", name: "V Lakshmibai Jhansi", km: 1772, arrM: 2906, depM: 2911, pf: "1", type: "major" },
+      { code: "GWL", name: "Gwalior Jn", km: 1869, arrM: 2972, depM: 2974, pf: "1", type: "major" },
+      { code: "AGC", name: "Agra Cantt", km: 1987, arrM: 3065, depM: 3067, pf: "2", type: "major" },
+      { code: "NZM", name: "Hazrat Nizamuddin", km: 2175, arrM: 3242, depM: 3244, pf: "4", type: "intermediate" },
+      { code: "NDLS", name: "New Delhi", km: 2182, arrM: 3270, depM: 3270, pf: "5", type: "major" }
+    ]
+  },
+  "12424": {
+    number: "12424",
+    name: "New Delhi - Dibrugarh Rajdhani Express",
+    type: "Rajdhani Express",
+    corridorName: "Northeast Trunk (New Delhi - Dibrugarh)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 980,
+    durationMin: 2455,
+    halts: [
+      { code: "NDLS", name: "New Delhi", km: 0, arrM: 980, depM: 980, pf: "16", type: "major" },
+      { code: "CNB", name: "Kanpur Central", km: 440, arrM: 1300, depM: 1305, pf: "5", type: "major" },
+      { code: "PRYJ", name: "Prayagraj Jn", km: 635, arrM: 1431, depM: 1433, pf: "4", type: "major" },
+      { code: "DDU", name: "Pt. DD Upadhyaya Jn", km: 787, arrM: 1525, depM: 1535, pf: "3", type: "major" },
+      { code: "DNR", name: "Danapur", km: 989, arrM: 1668, depM: 1670, pf: "1A", type: "intermediate" },
+      { code: "PPTA", name: "Patliputra Jn", km: 995, arrM: 1695, depM: 1705, pf: "2", type: "major" },
+      { code: "BJU", name: "Barauni Jn", km: 1103, arrM: 1840, depM: 1850, pf: "5", type: "major" },
+      { code: "NNA", name: "Naugachia", km: 1225, arrM: 1944, depM: 1946, pf: "1", type: "intermediate" },
+      { code: "KIR", name: "Katihar Jn", km: 1284, arrM: 2015, depM: 2025, pf: "1", type: "major" },
+      { code: "KNE", name: "KishanGanj", km: 1380, arrM: 2105, depM: 2107, pf: "1", type: "intermediate" },
+      { code: "NJP", name: "New Jalpaiguri Jn", km: 1454, arrM: 2200, depM: 2210, pf: "1", type: "major" },
+      { code: "NCB", name: "New Cooch Behar", km: 1584, arrM: 2441, depM: 2445, pf: "4", type: "intermediate" },
+      { code: "KOJ", name: "Kokrajhar", km: 1686, arrM: 2515, depM: 2517, pf: "2", type: "intermediate" },
+      { code: "NBQ", name: "New Bongaigaon", km: 1705, arrM: 2575, depM: 2585, pf: "3", type: "major" },
+      { code: "RNY", name: "Rangiya Jn", km: 1814, arrM: 2690, depM: 2692, pf: "2", type: "intermediate" },
+      { code: "GHY", name: "Guwahati", km: 1895, arrM: 2780, depM: 2795, pf: "1", type: "major" },
+      { code: "LMG", name: "Lumding Jn", km: 2076, arrM: 2990, depM: 2995, pf: "1", type: "intermediate" },
+      { code: "DMV", name: "Dimapur", km: 2145, arrM: 3075, depM: 3082, pf: "2", type: "intermediate" },
+      { code: "MXN", name: "Mariani Jn", km: 2254, arrM: 3195, depM: 3200, pf: "1", type: "intermediate" },
+      { code: "NTSK", name: "New Tinsukia", km: 2410, arrM: 3350, depM: 3360, pf: "1", type: "intermediate" },
+      { code: "DBRG", name: "Dibrugarh", km: 2434, arrM: 3435, depM: 3435, pf: "1", type: "major" }
+    ]
+  },
+  "13240": {
+    number: "13240",
+    name: "Kota - Patna Express",
+    type: "Express",
+    corridorName: "West-Central to East Trunk (Kota - Patna)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 1090,
+    durationMin: 1520,
+    halts: [
+      { code: "KOTA", name: "Kota Junction", km: 0, arrM: 1090, depM: 1090, pf: "1", type: "major" },
+      { code: "SWM", name: "Sawai Madhopur Jn", km: 108, arrM: 1178, depM: 1180, pf: "1", type: "intermediate" },
+      { code: "GGC", name: "Gangapur City", km: 172, arrM: 1220, depM: 1225, pf: "1", type: "intermediate" },
+      { code: "BXN", name: "Bayana Jn", km: 249, arrM: 1303, depM: 1305, pf: "1", type: "intermediate" },
+      { code: "BTE", name: "Bharatpur Jn", km: 291, arrM: 1333, depM: 1335, pf: "4", type: "intermediate" },
+      { code: "MTJ", name: "Mathura Junction", km: 324, arrM: 1365, depM: 1395, pf: "7", type: "major" },
+      { code: "AGC", name: "Agra Cantt", km: 378, arrM: 1445, depM: 1450, pf: "1", type: "major" },
+      { code: "ETW", name: "Etawah Jn", km: 514, arrM: 1585, depM: 1587, pf: "3", type: "intermediate" },
+      { code: "CNB", name: "Kanpur Central", km: 653, arrM: 1720, depM: 1725, pf: "9", type: "major" },
+      { code: "LKO", name: "Lucknow Charbagh", km: 725, arrM: 1855, depM: 1865, pf: "1", type: "major" },
+      { code: "SLN", name: "Sultanpur Junction", km: 865, arrM: 2080, depM: 2085, pf: "1", type: "intermediate" },
+      { code: "BSB", name: "Varanasi Junction", km: 1008, arrM: 2310, depM: 2320, pf: "5", type: "major" },
+      { code: "DDU", name: "Pt. DD Upadhyaya Jn", km: 1026, arrM: 2375, depM: 2385, pf: "2", type: "major" },
+      { code: "BXR", name: "Buxar", km: 1120, arrM: 2456, depM: 2458, pf: "1", type: "intermediate" },
+      { code: "ARA", name: "Ara Junction", km: 1172, arrM: 2513, depM: 2515, pf: "1", type: "intermediate" },
+      { code: "DNR", name: "Danapur", km: 1211, arrM: 2550, depM: 2552, pf: "1", type: "intermediate" },
+      { code: "PNBE", name: "Patna Junction", km: 1221, arrM: 2610, depM: 2610, pf: "1", type: "major" }
+    ]
+  },
+  "12259": {
+    number: "12259",
+    name: "Sealdah - Bikaner AC Duronto Express",
+    type: "Duronto Express",
+    corridorName: "East-West Trans-India (Sealdah - Bikaner)",
+    runningDays: ["MON", "WED", "THU", "SUN"],
+    depOffsetMin: 1020,
+    durationMin: 1560,
+    halts: [
+      { code: "SDAH", name: "Sealdah", km: 0, arrM: 1020, depM: 1020, pf: "12", type: "major" },
+      { code: "ASN", name: "Asansol Jn", km: 213, arrM: 1175, depM: 1180, pf: "4", type: "intermediate" },
+      { code: "DHN", name: "Dhanbad Jn", km: 266, arrM: 1248, depM: 1253, pf: "3", type: "major" },
+      { code: "DDU", name: "Pt. DD Upadhyaya Jn", km: 670, arrM: 1525, depM: 1535, pf: "4", type: "major" },
+      { code: "CNB", name: "Kanpur Central", km: 1014, arrM: 1770, depM: 1775, pf: "2", type: "major" },
+      { code: "NDLS", name: "New Delhi", km: 1454, arrM: 2100, depM: 2115, pf: "11", type: "major" },
+      { code: "DEC", name: "Delhi Cantt", km: 1469, arrM: 2148, depM: 2150, pf: "1", type: "intermediate" },
+      { code: "GGN", name: "Gurgaon", km: 1486, arrM: 2166, depM: 2168, pf: "1", type: "intermediate" },
+      { code: "RE", name: "Rewari", km: 1537, arrM: 2223, depM: 2225, pf: "5", type: "intermediate" },
+      { code: "LHU", name: "Loharu", km: 1629, arrM: 2295, depM: 2300, pf: "3", type: "intermediate" },
+      { code: "SDLP", name: "Sadulpur Jn", km: 1679, arrM: 2335, depM: 2340, pf: "1", type: "intermediate" },
+      { code: "CUR", name: "Churu", km: 1736, arrM: 2385, depM: 2390, pf: "2", type: "intermediate" },
+      { code: "RTGH", name: "Ratangarh Jn", km: 1779, arrM: 2430, depM: 2435, pf: "1", type: "intermediate" },
+      { code: "SDGH", name: "Sri Dungargarh", km: 1843, arrM: 2481, depM: 2483, pf: "1", type: "intermediate" },
+      { code: "BKN", name: "Bikaner Jn", km: 1917, arrM: 2580, depM: 2580, pf: "1", type: "major" }
+    ]
+  },
+  "12434": {
+    number: "12434",
+    name: "Hazrat Nizamuddin - MGR Chennai Rajdhani",
+    type: "Rajdhani Express",
+    corridorName: "North-South Capital Trunk (Delhi - Chennai)",
+    runningDays: ["WED", "FRI"],
+    depOffsetMin: 935,
+    durationMin: 1715,
+    halts: [
+      { code: "NZM", name: "Hazrat Nizamuddin", km: 0, arrM: 935, depM: 935, pf: "7", type: "major" },
+      { code: "AGC", name: "Agra Cantt", km: 188, arrM: 1070, depM: 1072, pf: "1", type: "major" },
+      { code: "GWL", name: "Gwalior Jn", km: 306, arrM: 1162, depM: 1164, pf: "1", type: "major" },
+      { code: "VGLJ", name: "V Lakshmibai Jhansi", km: 403, arrM: 1250, depM: 1255, pf: "2", type: "major" },
+      { code: "BPL", name: "Bhopal Jn", km: 695, arrM: 1535, depM: 1545, pf: "1", type: "major" },
+      { code: "NGP", name: "Nagpur Jn", km: 1085, arrM: 1915, depM: 1920, pf: "2", type: "major" },
+      { code: "WL", name: "Warangal", km: 1536, arrM: 2328, depM: 2330, pf: "1", type: "major" },
+      { code: "BZA", name: "Vijayawada Jn", km: 1743, arrM: 2540, depM: 2550, pf: "6", type: "major" },
+      { code: "MAS", name: "MGR Chennai Central", km: 2175, arrM: 2810, depM: 2810, pf: "2", type: "major" }
+    ]
+  },
+  "20817": {
+    number: "20817",
+    name: "Bhubaneswar - New Delhi Tejas Rajdhani",
+    type: "Rajdhani Express",
+    corridorName: "East Coast to Capital (Bhubaneswar - New Delhi)",
+    runningDays: ["SAT"],
+    depOffsetMin: 435,
+    durationMin: 1645,
+    halts: [
+      { code: "BBS", name: "Bhubaneswar", km: 0, arrM: 435, depM: 435, pf: "1", type: "major" },
+      { code: "CTC", name: "Cuttack Jn", km: 28, arrM: 465, depM: 467, pf: "1", type: "intermediate" },
+      { code: "JJKR", name: "Jajpur Keonjhar Road", km: 100, arrM: 512, depM: 514, pf: "2", type: "intermediate" },
+      { code: "BHC", name: "Bhadrak", km: 144, arrM: 568, depM: 570, pf: "3", type: "intermediate" },
+      { code: "BLS", name: "Balasore", km: 206, arrM: 613, depM: 615, pf: "3", type: "intermediate" },
+      { code: "HIJ", name: "Hijli (Kharagpur)", km: 318, arrM: 695, depM: 700, pf: "1", type: "major" },
+      { code: "TATA", name: "Tatanagar Jn", km: 453, arrM: 800, depM: 805, pf: "3", type: "major" },
+      { code: "CKP", name: "Chakradharpur", km: 515, arrM: 858, depM: 860, pf: "1", type: "intermediate" },
+      { code: "ROU", name: "Rourkela Jn", km: 616, arrM: 945, depM: 953, pf: "1", type: "major" },
+      { code: "JSG", name: "Jharsuguda Jn", km: 717, arrM: 1043, depM: 1045, pf: "1", type: "intermediate" },
+      { code: "BSP", name: "Bilaspur Jn", km: 922, arrM: 1205, depM: 1220, pf: "1", type: "major" },
+      { code: "APR", name: "Anuppur Jn", km: 1074, arrM: 1365, depM: 1367, pf: "3", type: "intermediate" },
+      { code: "KTE", name: "Katni Murwara", km: 1241, arrM: 1540, depM: 1550, pf: "4", type: "major" },
+      { code: "VGLJ", name: "V Lakshmibai Jhansi", km: 1650, arrM: 1845, depM: 1850, pf: "4", type: "major" },
+      { code: "GWL", name: "Gwalior Jn", km: 1748, arrM: 1908, depM: 1910, pf: "2", type: "major" },
+      { code: "NDLS", name: "New Delhi", km: 2061, arrM: 2080, depM: 2080, pf: "1", type: "major" }
+    ]
+  },
+  "22691": {
+    number: "22691",
+    name: "KSR Bengaluru - Hazrat Nizamuddin Rajdhani",
+    type: "Rajdhani Express",
+    corridorName: "Deccan to Capital Trunk (Bengaluru - Delhi)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 1200,
+    durationMin: 2010,
+    halts: [
+      { code: "SBC", name: "KSR Bengaluru", km: 0, arrM: 1200, depM: 1200, pf: "8", type: "major" },
+      { code: "SSPN", name: "Sri Sathya Sai P.N.", km: 160, arrM: 1343, depM: 1345, pf: "1", type: "intermediate" },
+      { code: "DHNE", name: "Dhone Jn", km: 263, arrM: 1490, depM: 1495, pf: "1", type: "intermediate" },
+      { code: "GTL", name: "Guntakal Jn", km: 294, arrM: 1530, depM: 1535, pf: "1", type: "major" },
+      { code: "RC", name: "Raichur Jn", km: 416, arrM: 1628, depM: 1630, pf: "2", type: "intermediate" },
+      { code: "SC", name: "Secunderabad Jn", km: 706, arrM: 1860, depM: 1875, pf: "10", type: "major" },
+      { code: "KZJ", name: "Kazipet Jn", km: 838, arrM: 1968, depM: 1970, pf: "1", type: "intermediate" },
+      { code: "BPQ", name: "Balharshah", km: 1073, arrM: 2180, depM: 2185, pf: "4", type: "intermediate" },
+      { code: "NGP", name: "Nagpur Jn", km: 1281, arrM: 2335, depM: 2340, pf: "1", type: "major" },
+      { code: "ET", name: "Itarsi Jn", km: 1580, arrM: 2620, depM: 2625, pf: "1", type: "major" },
+      { code: "BPL", name: "Bhopal Jn", km: 1672, arrM: 2695, depM: 2705, pf: "2", type: "major" },
+      { code: "VGLJ", name: "V Lakshmibai Jhansi", km: 1963, arrM: 2925, depM: 2930, pf: "4", type: "major" },
+      { code: "GWL", name: "Gwalior Jn", km: 2061, arrM: 2993, depM: 2995, pf: "2", type: "major" },
+      { code: "AGC", name: "Agra Cantt", km: 2179, arrM: 3078, depM: 3080, pf: "2", type: "major" },
+      { code: "NZM", name: "Hazrat Nizamuddin", km: 2367, arrM: 3210, depM: 3210, pf: "5", type: "major" }
+    ]
+  },
+  "15104": {
+    number: "15104",
+    name: "Banaras - Gorakhpur Intercity Express",
+    type: "Intercity Express",
+    corridorName: "Purvanchal Trunk (Banaras - Gorakhpur)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 330,
+    durationMin: 340,
+    halts: [
+      { code: "BSBS", name: "Banaras", km: 0, arrM: 330, depM: 330, pf: "8", type: "major" },
+      { code: "BSB", name: "Varanasi Jn", km: 4, arrM: 340, depM: 345, pf: "1", type: "major" },
+      { code: "MAU", name: "Mau Jn", km: 106, arrM: 460, depM: 465, pf: "1", type: "major" },
+      { code: "BTT", name: "Bhatni Jn", km: 175, arrM: 560, depM: 565, pf: "3", type: "intermediate" },
+      { code: "DEOS", name: "Deoria Sadar", km: 196, arrM: 586, depM: 590, pf: "1", type: "intermediate" },
+      { code: "GKP", name: "Gorakhpur Jn", km: 235, arrM: 670, depM: 670, pf: "2", type: "major" }
+    ]
+  },
+  "13239": {
+    number: "13239",
+    name: "Patna - Kota Express",
+    type: "Express",
+    corridorName: "East to West-Central (Patna - Kota)",
+    runningDays: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    depOffsetMin: 705,
+    durationMin: 1450,
+    halts: [
+      { code: "PNBE", name: "Patna Junction", km: 0, arrM: 705, depM: 705, pf: "1", type: "major" },
+      { code: "ARA", name: "Ara Junction", km: 49, arrM: 753, depM: 755, pf: "2", type: "intermediate" },
+      { code: "BXR", name: "Buxar", km: 118, arrM: 801, depM: 803, pf: "2", type: "intermediate" },
+      { code: "DDU", name: "Pt. DD Upadhyaya Jn", km: 212, arrM: 930, depM: 940, pf: "4", type: "major" },
+      { code: "BSB", name: "Varanasi Junction", km: 230, arrM: 995, depM: 1005, pf: "5", type: "major" },
+      { code: "LKO", name: "Lucknow Charbagh", km: 513, arrM: 1385, depM: 1395, pf: "6", type: "major" },
+      { code: "CNB", name: "Kanpur Central", km: 585, arrM: 1510, depM: 1515, pf: "7", type: "major" },
+      { code: "AGC", name: "Agra Cantt", km: 860, arrM: 1750, depM: 1755, pf: "4", type: "major" },
+      { code: "MTJ", name: "Mathura Junction", km: 914, arrM: 1840, depM: 1870, pf: "4", type: "major" },
+      { code: "KOTA", name: "Kota Junction", km: 1238, arrM: 2155, depM: 2155, pf: "3", type: "major" }
+    ]
+  }
+};
+
+// ─── STATION-SPECIFIC WEATHER DATABASE (Geographically Associated & Deterministic) ───
+const STATION_WEATHER_DB = {
+  "NZM": { temp: 28, condition: "Shallow Fog / Haze", icon: "🌫️", visibility: "3.5 km", humidity: "64%", rainfall: "0 mm", wind: "8 km/h NW", severity: "Medium", impact: "Terminal approach vigilance" },
+  "SLN": { temp: 28, condition: "Partly Cloudy", icon: "⛅", visibility: "7.5 km", humidity: "62%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Normal running" },
+  "GGC": { temp: 32, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "45%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Clear lines" },
+  "BTE": { temp: 30, condition: "Clear", icon: "☀️", visibility: "8 km", humidity: "50%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Bird sanctuary perimeter clear" },
+  "BXN": { temp: 31, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "48%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Normal junction ops" },
+  "HWH": { temp: 27, condition: "Rain", icon: "🌧️", visibility: "4 km", humidity: "88%", rainfall: "14 mm", wind: "18 km/h S", severity: "Moderate", impact: "Wet rail adhesion caution · braking distance extended" },
+  "BWN": { temp: 28, condition: "Light Rain", icon: "🌦️", visibility: "6 km", humidity: "80%", rainfall: "3 mm", wind: "14 km/h S", severity: "Low", impact: "Mild spray on windscreen · normal braking" },
+  "ASN": { temp: 29, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "72%", rainfall: "0 mm", wind: "12 km/h SE", severity: "Low", impact: "Normal visibility · clear track conditions" },
+  "DHN": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "10 km", humidity: "58%", rainfall: "0 mm", wind: "8 km/h E", severity: "None", impact: "Optimal traction & clear line visibility" },
+  "PNME": { temp: 26, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "62%", rainfall: "0 mm", wind: "10 km/h NE", severity: "None", impact: "Clear signal sighting across plateau" },
+  "KQR": { temp: 25, condition: "Haze", icon: "🌫️", visibility: "5 km", humidity: "68%", rainfall: "0 mm", wind: "7 km/h N", severity: "Low", impact: "Moderate visibility in ghat section" },
+  "GAYA": { temp: 24, condition: "Fog", icon: "🌫️", visibility: "2 km", humidity: "85%", rainfall: "0 mm", wind: "5 km/h NW", severity: "High", impact: "Fog signal protocol active · cautionary cab aspect" },
+  "DOS": { temp: 26, condition: "Mist", icon: "🌫️", visibility: "3.5 km", humidity: "74%", rainfall: "0 mm", wind: "6 km/h W", severity: "Medium", impact: "River bridge approach sighting reduced" },
+  "SSM": { temp: 26, condition: "Partly Cloudy", icon: "⛅", visibility: "6 km", humidity: "66%", rainfall: "0 mm", wind: "9 km/h W", severity: "Low", impact: "Standard operations in section" },
+  "DDU": { temp: 27, condition: "Hazy Sunshine", icon: "🌤️", visibility: "5 km", humidity: "64%", rainfall: "0 mm", wind: "11 km/h W", severity: "Low", impact: "Standard yard visibility · normal shunt" },
+  "PRYJ": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "9 km", humidity: "52%", rainfall: "0 mm", wind: "10 km/h NW", severity: "None", impact: "Optimal line conditions · double green" },
+  "CNB": { temp: 29, condition: "Dust Haze", icon: "🌤️", visibility: "4.5 km", humidity: "46%", rainfall: "0 mm", wind: "14 km/h W", severity: "Low", impact: "Fair visibility in industrial junction belt" },
+  "ALJN": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "58%", rainfall: "0 mm", wind: "12 km/h NW", severity: "None", impact: "Clear signal sighting" },
+  "NDLS": { temp: 28, condition: "Shallow Fog / Haze", icon: "🌫️", visibility: "3 km", humidity: "65%", rainfall: "0 mm", wind: "8 km/h NW", severity: "Medium", impact: "Terminal approach vigilance" },
+  "MMCT": { temp: 30, condition: "Heavy Rain", icon: "🌧️", visibility: "3.5 km", humidity: "92%", rainfall: "26 mm", wind: "24 km/h WSW", severity: "High", impact: "Track drainage caution · TSR 75 km/h" },
+  "BVI": { temp: 30, condition: "Heavy Rain", icon: "🌧️", visibility: "3 km", humidity: "94%", rainfall: "28 mm", wind: "22 km/h WSW", severity: "High", impact: "Suburban line speed restriction active" },
+  "VAPI": { temp: 29, condition: "Moderate Rain", icon: "🌧️", visibility: "4 km", humidity: "89%", rainfall: "16 mm", wind: "20 km/h W", severity: "Medium", impact: "Waterlogged cess caution in curves" },
+  "BL": { temp: 29, condition: "Rain Showers", icon: "🌦️", visibility: "5 km", humidity: "86%", rainfall: "9 mm", wind: "18 km/h W", severity: "Medium", impact: "Moderate crosswinds on viaduct" },
+  "ST": { temp: 31, condition: "Overcast", icon: "☁️", visibility: "6 km", humidity: "78%", rainfall: "2 mm", wind: "15 km/h SW", severity: "Low", impact: "Tapi bridge wind monitoring" },
+  "BH": { temp: 31, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "74%", rainfall: "0 mm", wind: "14 km/h SW", severity: "Low", impact: "Normal bridge run across Narmada" },
+  "BRC": { temp: 32, condition: "Warm & Humid", icon: "🌤️", visibility: "8 km", humidity: "68%", rainfall: "0 mm", wind: "12 km/h SW", severity: "Low", impact: "Optimal yard operations" },
+  "RTM": { temp: 30, condition: "Clear Sky", icon: "☀️", visibility: "10 km", humidity: "50%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Dry rails · standard acceleration" },
+  "NAD": { temp: 30, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "52%", rainfall: "0 mm", wind: "9 km/h W", severity: "None", impact: "Normal junction operations" },
+  "BWM": { temp: 31, condition: "Sunny", icon: "☀️", visibility: "10 km", humidity: "46%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Full line speed cleared" },
+  "RMA": { temp: 31, condition: "Sunny", icon: "☀️", visibility: "10 km", humidity: "45%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Optimal sighting" },
+  "KOTA": { temp: 33, condition: "Sunny / Dry", icon: "☀️", visibility: "10 km", humidity: "42%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Dry rails · MPS 130 km/h cleared" },
+  "SWM": { temp: 32, condition: "Clear Sky", icon: "☀️", visibility: "10 km", humidity: "44%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Clear signal aspects" },
+  "MTJ": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "8 km", humidity: "56%", rainfall: "0 mm", wind: "9 km/h NW", severity: "None", impact: "Clear signal sighting" },
+  "GZB": { temp: 28, condition: "Haze", icon: "🌫️", visibility: "3.5 km", humidity: "64%", rainfall: "0 mm", wind: "7 km/h NW", severity: "Low", impact: "Terminal approach headway regulation" },
+  "TDL": { temp: 28, condition: "Hazy", icon: "🌤️", visibility: "5 km", humidity: "58%", rainfall: "0 mm", wind: "10 km/h W", severity: "Low", impact: "Normal junction operations" },
+  "ETW": { temp: 29, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "52%", rainfall: "0 mm", wind: "12 km/h W", severity: "None", impact: "Clear track stretch" },
+  "LKO": { temp: 28, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "62%", rainfall: "0 mm", wind: "9 km/h E", severity: "None", impact: "Clear approach signals" },
+  "LJN": { temp: 28, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "62%", rainfall: "0 mm", wind: "9 km/h E", severity: "None", impact: "Terminal yard nominal" },
+  "BSB": { temp: 26, condition: "Morning Mist", icon: "🌫️", visibility: "4 km", humidity: "72%", rainfall: "0 mm", wind: "6 km/h W", severity: "Low", impact: "Caution on Ganges approach" },
+  "BSBS": { temp: 26, condition: "Mist", icon: "🌫️", visibility: "4 km", humidity: "72%", rainfall: "0 mm", wind: "6 km/h W", severity: "Low", impact: "Terminal platform clear" },
+  "AGC": { temp: 29, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "50%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Full visibility" },
+  "DHO": { temp: 30, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "49%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Chambal ravine clear" },
+  "MRA": { temp: 30, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "49%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Normal running" },
+  "GWL": { temp: 31, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "48%", rainfall: "0 mm", wind: "9 km/h W", severity: "None", impact: "Dry track · normal speed" },
+  "VGLJ": { temp: 30, condition: "Clear Sky", icon: "☀️", visibility: "10 km", humidity: "46%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Optimal junction operations" },
+  "LAR": { temp: 29, condition: "Clear", icon: "☀️", visibility: "10 km", humidity: "50%", rainfall: "0 mm", wind: "9 km/h W", severity: "None", impact: "Normal line clearance" },
+  "BINA": { temp: 30, condition: "Clear", icon: "☀️", visibility: "10 km", humidity: "48%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Clear junction routes" },
+  "BPL": { temp: 29, condition: "Pleasant", icon: "⛅", visibility: "9 km", humidity: "54%", rainfall: "0 mm", wind: "12 km/h WNW", severity: "None", impact: "Nominal track temperature" },
+  "RKMP": { temp: 29, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "54%", rainfall: "0 mm", wind: "12 km/h WNW", severity: "None", impact: "World-class terminal berthing clear" },
+  "MAS": { temp: 32, condition: "Coastal Breeze / Humid", icon: "🌤️", visibility: "8 km", humidity: "82%", rainfall: "0 mm", wind: "19 km/h SE", severity: "Low", impact: "Moist coastal air" },
+  "BZA": { temp: 33, condition: "Humid / Sunny", icon: "☀️", visibility: "8 km", humidity: "76%", rainfall: "0 mm", wind: "14 km/h SE", severity: "None", impact: "Krishna bridge speed cleared" },
+  "KMT": { temp: 32, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "65%", rainfall: "0 mm", wind: "11 km/h SE", severity: "None", impact: "Normal running" },
+  "WL": { temp: 32, condition: "Clear Sky", icon: "☀️", visibility: "9 km", humidity: "62%", rainfall: "0 mm", wind: "10 km/h E", severity: "None", impact: "Clear signal sighting" },
+  "BPQ": { temp: 31, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "58%", rainfall: "0 mm", wind: "10 km/h E", severity: "None", impact: "Inter-zonal transfer clear" },
+  "NGP": { temp: 31, condition: "Clear / Warm", icon: "☀️", visibility: "10 km", humidity: "52%", rainfall: "0 mm", wind: "11 km/h E", severity: "None", impact: "Central diamond crossing clear" },
+  "ET": { temp: 30, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "56%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Normal junction operations" },
+  "SBC": { temp: 24, condition: "Pleasant / Mild Breeze", icon: "⛅", visibility: "10 km", humidity: "65%", rainfall: "0 mm", wind: "14 km/h W", severity: "None", impact: "Ideal departure conditions" },
+  "SSPN": { temp: 27, condition: "Clear", icon: "☀️", visibility: "10 km", humidity: "55%", rainfall: "0 mm", wind: "11 km/h E", severity: "None", impact: "Normal running" },
+  "DHNE": { temp: 30, condition: "Dry / Clear", icon: "☀️", visibility: "10 km", humidity: "46%", rainfall: "0 mm", wind: "12 km/h E", severity: "None", impact: "Clear lines" },
+  "GTL": { temp: 31, condition: "Dry / Clear", icon: "☀️", visibility: "10 km", humidity: "45%", rainfall: "0 mm", wind: "12 km/h E", severity: "None", impact: "Clear signal aspects" },
+  "RC": { temp: 31, condition: "Sunny", icon: "☀️", visibility: "10 km", humidity: "48%", rainfall: "0 mm", wind: "11 km/h E", severity: "None", impact: "Krishna basin crossing clear" },
+  "SC": { temp: 28, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "60%", rainfall: "0 mm", wind: "11 km/h E", severity: "None", impact: "Normal running" },
+  "KZJ": { temp: 29, condition: "Clear", icon: "☀️", visibility: "10 km", humidity: "58%", rainfall: "0 mm", wind: "10 km/h E", severity: "None", impact: "Junction routes clear" },
+  "DBRG": { temp: 23, condition: "Mist / Light Drizzle", icon: "🌦️", visibility: "5 km", humidity: "89%", rainfall: "4 mm", wind: "7 km/h NE", severity: "Low", impact: "Brahmaputra valley mist" },
+  "NTSK": { temp: 23, condition: "Drizzle", icon: "🌦️", visibility: "5 km", humidity: "88%", rainfall: "3 mm", wind: "8 km/h NE", severity: "Low", impact: "Moist track" },
+  "MXN": { temp: 24, condition: "Overcast", icon: "☁️", visibility: "6 km", humidity: "86%", rainfall: "1 mm", wind: "6 km/h NE", severity: "Low", impact: "Normal running" },
+  "DMV": { temp: 24, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "84%", rainfall: "0 mm", wind: "6 km/h E", severity: "Low", impact: "Foothill mist" },
+  "LMG": { temp: 24, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "82%", rainfall: "0 mm", wind: "7 km/h E", severity: "None", impact: "Hill section clearance" },
+  "GHY": { temp: 25, condition: "Overcast", icon: "☁️", visibility: "6 km", humidity: "84%", rainfall: "1 mm", wind: "8 km/h E", severity: "Low", impact: "River basin humidity" },
+  "NBQ": { temp: 25, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "80%", rainfall: "0 mm", wind: "9 km/h E", severity: "Low", impact: "Normal ops" },
+  "RNY": { temp: 25, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "79%", rainfall: "0 mm", wind: "8 km/h E", severity: "None", impact: "Clear signal aspects" },
+  "KOJ": { temp: 25, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "78%", rainfall: "0 mm", wind: "8 km/h E", severity: "None", impact: "Clear lines" },
+  "NOQ": { temp: 24, condition: "Hazy", icon: "🌤️", visibility: "6 km", humidity: "82%", rainfall: "0 mm", wind: "7 km/h N", severity: "Low", impact: "Terai foothills clear" },
+  "NCB": { temp: 24, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "82%", rainfall: "0 mm", wind: "7 km/h N", severity: "None", impact: "Clear signals" },
+  "NJP": { temp: 24, condition: "Foggy / Mountain Air", icon: "🌫️", visibility: "3.5 km", humidity: "86%", rainfall: "0 mm", wind: "6 km/h N", severity: "Medium", impact: "Morning mountain fog" },
+  "KNE": { temp: 25, condition: "Haze", icon: "🌫️", visibility: "5 km", humidity: "80%", rainfall: "0 mm", wind: "8 km/h E", severity: "Low", impact: "Normal running" },
+  "KIR": { temp: 26, condition: "Humid Haze", icon: "🌤️", visibility: "5 km", humidity: "78%", rainfall: "0 mm", wind: "8 km/h E", severity: "Low", impact: "Normal junction ops" },
+  "NNA": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "6 km", humidity: "75%", rainfall: "0 mm", wind: "9 km/h E", severity: "None", impact: "Floodplain section clear" },
+  "BJU": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "72%", rainfall: "0 mm", wind: "10 km/h E", severity: "None", impact: "Ganga bridge clear" },
+  "PPTA": { temp: 28, condition: "Haze", icon: "🌫️", visibility: "4 km", humidity: "74%", rainfall: "0 mm", wind: "9 km/h E", severity: "Low", impact: "Urban yard haze" },
+  "DNR": { temp: 28, condition: "Haze", icon: "🌫️", visibility: "4.2 km", humidity: "73%", rainfall: "0 mm", wind: "9 km/h E", severity: "Low", impact: "Normal approach" },
+  "PNBE": { temp: 28, condition: "Hazy Sunshine", icon: "🌤️", visibility: "4.5 km", humidity: "72%", rainfall: "0 mm", wind: "10 km/h E", severity: "Low", impact: "Terminal approach nominal" },
+  "BXR": { temp: 27, condition: "Clear", icon: "☀️", visibility: "8 km", humidity: "66%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Optimal running" },
+  "ARA": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "68%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Normal running" },
+  "SDAH": { temp: 28, condition: "Rain", icon: "🌧️", visibility: "4 km", humidity: "88%", rainfall: "12 mm", wind: "17 km/h S", severity: "Moderate", impact: "Wet suburban track" },
+  "BKN": { temp: 34, condition: "Dry / Heat Haze", icon: "☀️", visibility: "9 km", humidity: "32%", rainfall: "0 mm", wind: "15 km/h SW", severity: "Medium", impact: "High desert track temperature" },
+  "DEC": { temp: 28, condition: "Haze", icon: "🌫️", visibility: "4 km", humidity: "64%", rainfall: "0 mm", wind: "9 km/h NW", severity: "Low", impact: "Clear corridor" },
+  "GGN": { temp: 28, condition: "Haze", icon: "🌫️", visibility: "4 km", humidity: "62%", rainfall: "0 mm", wind: "9 km/h NW", severity: "Low", impact: "Normal running" },
+  "RE": { temp: 29, condition: "Clear", icon: "☀️", visibility: "8 km", humidity: "56%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Optimal junction" },
+  "LHU": { temp: 31, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "48%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Normal running" },
+  "SDLP": { temp: 32, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "44%", rainfall: "0 mm", wind: "12 km/h W", severity: "None", impact: "Clear lines" },
+  "CUR": { temp: 33, condition: "Sunny / Warm", icon: "☀️", visibility: "9 km", humidity: "40%", rainfall: "0 mm", wind: "12 km/h W", severity: "None", impact: "Clear desert stretch" },
+  "RTGH": { temp: 33, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "38%", rainfall: "0 mm", wind: "13 km/h W", severity: "None", impact: "Normal running" },
+  "SDGH": { temp: 34, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "35%", rainfall: "0 mm", wind: "14 km/h W", severity: "None", impact: "Clear track" },
+  "BBS": { temp: 29, condition: "Thunderstorm Threat", icon: "⛈️", visibility: "4 km", humidity: "86%", rainfall: "18 mm", wind: "22 km/h SE", severity: "High", impact: "Coastal squall warning active" },
+  "CTC": { temp: 29, condition: "Overcast / Rain", icon: "🌧️", visibility: "4.5 km", humidity: "85%", rainfall: "12 mm", wind: "20 km/h SE", severity: "Medium", impact: "Mahanadi bridge caution" },
+  "JJKR": { temp: 30, condition: "Cloudy", icon: "☁️", visibility: "6 km", humidity: "80%", rainfall: "2 mm", wind: "16 km/h SE", severity: "Low", impact: "Normal running" },
+  "BHC": { temp: 30, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "78%", rainfall: "0 mm", wind: "15 km/h SE", severity: "Low", impact: "Normal running" },
+  "BLS": { temp: 29, condition: "Rain Showers", icon: "🌦️", visibility: "6 km", humidity: "82%", rainfall: "6 mm", wind: "18 km/h SE", severity: "Medium", impact: "Wet rail adhesion caution" },
+  "HIJ": { temp: 28, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "78%", rainfall: "2 mm", wind: "14 km/h S", severity: "Low", impact: "Standard running" },
+  "TATA": { temp: 28, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "70%", rainfall: "0 mm", wind: "11 km/h SE", severity: "None", impact: "Steel belt optimal operations" },
+  "CKP": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "72%", rainfall: "0 mm", wind: "9 km/h SE", severity: "None", impact: "Hill curves nominal" },
+  "ROU": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "9 km", humidity: "62%", rainfall: "0 mm", wind: "9 km/h SE", severity: "None", impact: "Optimal traction" },
+  "JSG": { temp: 29, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "60%", rainfall: "0 mm", wind: "10 km/h SE", severity: "None", impact: "Clear lines" },
+  "BSP": { temp: 29, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "64%", rainfall: "0 mm", wind: "10 km/h E", severity: "None", impact: "Zonal junction clear" },
+  "APR": { temp: 27, condition: "Hazy", icon: "🌤️", visibility: "8 km", humidity: "62%", rainfall: "0 mm", wind: "8 km/h W", severity: "None", impact: "Ghat ascent nominal" },
+  "KTE": { temp: 29, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "54%", rainfall: "0 mm", wind: "9 km/h W", severity: "None", impact: "Normal junction operations" },
+  "MAU": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "7 km", humidity: "68%", rainfall: "0 mm", wind: "8 km/h W", severity: "None", impact: "Normal operations" },
+  "BTT": { temp: 27, condition: "Clear", icon: "☀️", visibility: "8 km", humidity: "66%", rainfall: "0 mm", wind: "8 km/h W", severity: "None", impact: "Normal junction running" },
+  "DEOS": { temp: 26, condition: "Pleasant", icon: "☀️", visibility: "8 km", humidity: "68%", rainfall: "0 mm", wind: "7 km/h W", severity: "None", impact: "Clear signal aspects" },
+  "GKP": { temp: 26, condition: "Haze", icon: "🌤️", visibility: "5 km", humidity: "70%", rainfall: "0 mm", wind: "8 km/h W", severity: "Low", impact: "Longest platform berthing clear" }
+};
+
+function getStationWeather(stationCode) {
+  if (STATION_WEATHER_DB[stationCode]) {
+    return { ...STATION_WEATHER_DB[stationCode], isAvailable: true };
+  }
+  return { isAvailable: false, error: "Weather data unavailable" };
+}
+
+// ─── SCHEDULE & RUNNING DAYS LOGIC ───────────────────────────────────────
+const DAYS_OF_WEEK = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+const DAYS_FULL_NAMES = {
+  "SUN": "Sunday",
+  "MON": "Monday",
+  "TUE": "Tuesday",
+  "WED": "Wednesday",
+  "THU": "Thursday",
+  "FRI": "Friday",
+  "SAT": "Saturday"
+};
+
+let selectedJourneyDate = null;
+let currentTimelineFilter = 'all'; // 'all' or 'major'
+
+function getSelectedDate() {
+  if (selectedJourneyDate) return selectedJourneyDate;
+  const picker = document.getElementById('journey-date-picker');
+  if (picker && picker.value) {
+    const parts = picker.value.split('-');
+    if (parts.length === 3) {
+      return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    }
+  }
+  return new Date();
+}
+
+function onJourneyDateChange(val) {
+  if (!val) {
+    selectedJourneyDate = null;
+  } else {
+    const parts = val.split('-');
+    selectedJourneyDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+  }
+  updateJourneyDateBadge();
+  renderDynamicUI();
+  renderFleetTable();
+  if (typeof renderGoogleMap === 'function' && googleMap && activeMapMode === 'real') {
+    renderGoogleMap(activeTrainNumber);
+  } else if (typeof renderLiveMap === 'function' && activeMapMode === 'svg') {
+    renderLiveMap(activeTrainNumber);
+  }
+}
+
+function selectQuickJourneyDate(offsetDays) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const dateStr = `${yyyy}-${mm}-${dd}`;
+  const picker = document.getElementById('journey-date-picker');
+  if (picker) {
+    picker.value = dateStr;
+    onJourneyDateChange(dateStr);
+  }
+}
+
+function updateJourneyDateBadge() {
+  const d = getSelectedDate();
+  const dayCode = DAYS_OF_WEEK[d.getDay()];
+  const badge = document.getElementById('journey-day-badge');
+  if (!badge) return;
+  const now = new Date();
+  const dTarget = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const dToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffDays = Math.round((dToday.getTime() - dTarget.getTime()) / 86400000);
+
+  let label = `${DAYS_FULL_NAMES[dayCode]} (${dayCode})`;
+  if (diffDays === 0) {
+    label += ' · TODAY';
+    badge.className = 'badge badge-green';
+  } else if (diffDays === 1) {
+    label += ' · YESTERDAY (Day 2)';
+    badge.className = 'badge badge-cyan';
+  } else if (diffDays === -1) {
+    label += ' · TOMORROW';
+    badge.className = 'badge badge-amber';
+  } else {
+    badge.className = 'badge badge-cyan';
+  }
+  badge.textContent = label;
+}
+
+function formatRunningDays(daysList) {
+  if (!daysList || !Array.isArray(daysList) || daysList.length === 0) return "Not Scheduled";
+  if (daysList.length === 7) return "Mon, Tue, Wed, Thu, Fri, Sat, Sun (Daily)";
+  const mapAbbr = { "MON": "Mon", "TUE": "Tue", "WED": "Wed", "THU": "Thu", "FRI": "Fri", "SAT": "Sat", "SUN": "Sun" };
+  return daysList.map(d => mapAbbr[d] || d).join(", ");
+}
+
+/**
+ * Determines whether the specified train operates on the given date.
+ * @param {string} trainNumber - e.g. "12301", "20817", "12259"
+ * @param {Date|string} [date] - Date object or ISO string (defaults to currently selected date)
+ * @returns {boolean}
+ */
+function isTrainScheduledOnDate(trainNumber, date) {
+  const train = MASTER_TRAINS[trainNumber];
+  if (!train || !train.runningDays || !Array.isArray(train.runningDays) || train.runningDays.length === 0) {
+    return false;
+  }
+  let d;
+  if (date instanceof Date) {
+    d = date;
+  } else if (typeof date === 'string' && date.trim()) {
+    const parts = date.split('-');
+    if (parts.length === 3) {
+      d = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    } else {
+      d = new Date(date);
+    }
+  } else {
+    d = getSelectedDate();
+  }
+  if (isNaN(d.getTime())) return false;
+  const dayCode = DAYS_OF_WEEK[d.getDay()];
+  return train.runningDays.includes(dayCode);
+}
+
+// Expose on window for automated verification and test cases
+window.isTrainScheduledOnDate = isTrainScheduledOnDate;
+window.formatRunningDays = formatRunningDays;
+window.getStationWeather = getStationWeather;
+
+function setTimelineFilter(filterMode) {
+  currentTimelineFilter = filterMode;
+  const btnAll = document.getElementById('btn-tl-all');
+  const btnMajor = document.getElementById('btn-tl-major');
+  if (btnAll && btnMajor) {
+    if (filterMode === 'all') {
+      btnAll.style.background = 'var(--cyan)';
+      btnAll.style.color = '#070B16';
+      btnAll.style.fontWeight = '800';
+      btnMajor.style.background = 'transparent';
+      btnMajor.style.color = 'var(--text-secondary)';
+      btnMajor.style.fontWeight = '600';
+    } else {
+      btnMajor.style.background = 'var(--cyan)';
+      btnMajor.style.color = '#070B16';
+      btnMajor.style.fontWeight = '800';
+      btnAll.style.background = 'transparent';
+      btnAll.style.color = 'var(--text-secondary)';
+      btnAll.style.fontWeight = '600';
+    }
+  }
+  renderDynamicUI();
+}
+window.setTimelineFilter = setTimelineFilter;
+
+const POPULAR_TRAINS = [
+  { number: "12301", label: "Howrah Rajdhani" },
+  { number: "12951", label: "Mumbai Rajdhani" },
+  { number: "22436", label: "Vande Bharat" },
+  { number: "12002", label: "Bhopal Shatabdi" },
+  { number: "12004", label: "Lucknow Shatabdi" },
+  { number: "12621", label: "Tamil Nadu Exp" },
+  { number: "12424", label: "Dibrugarh Rajdhani" },
+  { number: "13240", label: "Kota-Patna Exp" },
+  { number: "22691", label: "Bengaluru Rajdhani" },
+  { number: "20817", label: "Bhubaneswar Rajdhani" },
+  { number: "12259", label: "Sealdah Duronto" },
+  { number: "12434", label: "Chennai Rajdhani" },
+];
+
+// ─── 2. STATE VARIABLES ───────────────────────────────────────────────────
+let activeTrainNumber = "12301";
+let isRealtimeSync = true;
+let virtualMinutes = 780;
+let telemetrySeconds = 0;
+let weatherCache = {};
+let simEnv = { fog: 0, cong: 1.0, headway: 18, tsr: false };
+let selectedComplaintSeverity = "medium";
+let selectedDriverSev = "medium";
+let complaintsDB = [
+  {
+    id: "CMP-1001",
+    train: "12301",
+    coach: "B4",
+    category: "Cleanliness",
+    severity: "high",
+    description: "Washroom flush non-functional and floor uncleaned since Asansol",
+    status: "Open",
+    timestamp: "08:15",
+    assignedStaff: "Manoj Paswan (OBHS Lead)",
+    escalationLevel: 1,
+  },
+  {
+    id: "CMP-1002",
+    train: "12301",
+    coach: "B2",
+    category: "Train Stoppage / Delay Reason",
+    severity: "high",
+    description: "Why has the train stopped between Buxar and Ara? How long will it be stopped?",
+    status: "Addressed by Loco Pilot",
+    locoPilotResponse: "Red Home Signal — Awaiting line clearance (~5-7 mins)",
+    timestamp: "08:18",
+    assignedStaff: "R. K. Sharma (Loco Pilot LP-2847)",
+    escalationLevel: 1,
+  }
+];
+let driverReportsDB = [
+  {
+    id: "DR-2001",
+    train: "12301",
+    type: "Visibility Problem",
+    severity: "medium",
+    location: "CNB → PRYJ Section · km 710",
+    description: "Moderate morning fog reducing signal sighting distance to ~400m",
+    timestamp: "07:45",
+    status: "Acknowledged by Control Room",
+  }
+];
+let interventionLogDB = [
+  {
+    id: "INT-3001",
+    operator: "Section Controller — East Central",
+    action: "Grant Priority Passage",
+    train: "12424",
+    region: "DDU-Patliputra Section",
+    timestamp: "08:00",
+    reason: "Train 12424 running +14m late; held goods rake at Sasaram loop line",
+    outcome: "Logged — Delay reduced by 6 min",
+  }
+];
+let passengerMessagesDB = [
+  {
+    id: "MSG-01",
+    from: "Passenger (B2)",
+    message: "[B2] Train Stoppage: Why has the train stopped between Buxar and Ara? How long will it be stopped?",
+    severity: "high",
+    status: "Unread",
+    timestamp: "08:18",
+    complaintId: "CMP-1002",
+    isStoppage: true
+  }
+];
+
+// Live Loco Pilot Passenger Broadcast State (Visible to Passengers)
+let locoPilotPassengerBroadcast = {
+  active: true,
+  train: "12301",
+  locoPilot: "LP-2847",
+  reason: "Red Home Signal — Standing between Buxar & Ara awaiting section line clearance",
+  duration: "~5-7 minutes",
+  timestamp: "08:20 IST",
+  status: "Signal Clearance in Progress"
+};
+
+// Station Master ⇄ Loco Pilot Operational Communications State (Internal Crew Only)
+const TRAIN_CREW_REGISTRY = {
+  "12301": { lp: "LP-2847", lpName: "R. K. Sharma", channel: 4, mps: 130, shortName: "Howrah Rajdhani" },
+  "12951": { lp: "LP-4102", lpName: "S. K. Verma", channel: 2, mps: 130, shortName: "Mumbai Rajdhani" },
+  "22436": { lp: "LP-1098", lpName: "Anil Tiwari", channel: 1, mps: 160, shortName: "Vande Bharat" },
+  "12002": { lp: "LP-3341", lpName: "M. P. Singh", channel: 3, mps: 130, shortName: "Bhopal Shatabdi" },
+  "12004": { lp: "LP-5219", lpName: "Deepak Yadav", channel: 5, mps: 130, shortName: "Lucknow Shatabdi" },
+  "12621": { lp: "LP-6084", lpName: "K. Ramanathan", channel: 6, mps: 130, shortName: "Tamil Nadu SF" },
+  "22691": { lp: "LP-7714", lpName: "V. S. Rao", channel: 7, mps: 130, shortName: "Bengaluru Rajdhani" },
+  "12424": { lp: "LP-8820", lpName: "B. K. Gogoi", channel: 8, mps: 130, shortName: "Dibrugarh Rajdhani" },
+  "12259": { lp: "LP-3912", lpName: "Subhash Roy", channel: 9, mps: 130, shortName: "Sealdah Duronto" },
+  "20817": { lp: "LP-9041", lpName: "P. C. Nayak", channel: 10, mps: 130, shortName: "Bhubaneswar Rajdhani" }
+};
+
+function getTrainCrewInfo(tNum) {
+  const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
+  if (TRAIN_CREW_REGISTRY[num]) return TRAIN_CREW_REGISTRY[num];
+  const tr = (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[num]) || (typeof resolveOrCreateTrain === 'function' ? resolveOrCreateTrain(num) : { name: `Train ${num}`, type: 'Express' });
+  const hash = Array.from(num).reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  const mps = (tr.type && tr.type.includes('Vande')) ? 160 : (tr.type && (tr.type.includes('Rajdhani') || tr.type.includes('Shatabdi') || tr.type.includes('Duronto')) ? 130 : 110);
+  return {
+    lp: `LP-${(hash * 37) % 8999 + 1000}`,
+    lpName: "Loco Pilot Staff",
+    channel: (hash % 12) + 1,
+    mps: mps,
+    shortName: tr.name ? tr.name.split('-')[0].trim() : `Train ${num}`
+  };
+}
+
+let trainAdvisedSpeeds = {
+  "12301": 130,
+  "12951": 130,
+  "22436": 160,
+  "12002": 130,
+  "12004": 105,
+  "12621": 110,
+  "22691": 130,
+  "12424": 130,
+  "12259": 130,
+  "20817": 130
+};
+
+function getTrainAdvisedSpeed(tNum) {
+  const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
+  if (trainAdvisedSpeeds[num] !== undefined) return trainAdvisedSpeeds[num];
+  const crew = getTrainCrewInfo(num);
+  return crew.mps || 130;
+}
+
+let aiSpeedAdvisoriesByTrain = {};
+
+function getTrainAISpeedAdvisoryState(tNum, freshPred) {
+  const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
+  const crew = getTrainCrewInfo(num);
+  if (!aiSpeedAdvisoriesByTrain[num] || freshPred) {
+    const p = freshPred || (typeof calculatePredictedAISpeed === 'function' ? calculatePredictedAISpeed() : null);
+    const predSpeed = p ? p.predictedSpeed : Math.round(crew.mps * 0.81);
+    const speedLimit = p ? p.effectiveSpeedLimit : crew.mps;
+    const wLabel = p ? p.weatherLabel : "☀️ Clear Weather (Vis > 2000m)";
+    const wImpact = p ? p.weatherImpact : "Optimal line visibility · Nominal traction";
+    const tLabel = p ? p.trackLabel : "✅ Mainline Track Clear — Double Line";
+    const tImpact = p ? p.trackImpact : `Section MPS ${crew.mps} km/h`;
+    const rReason = p ? p.reasoning : "Punctual schedule · Safe eco-cruising within speed limits";
+
+    if (!aiSpeedAdvisoriesByTrain[num]) {
+      aiSpeedAdvisoriesByTrain[num] = {
+        trainNumber: num,
+        predictedSpeed: predSpeed,
+        effectiveSpeedLimit: speedLimit,
+        weatherLabel: wLabel,
+        weatherImpact: wImpact,
+        trackLabel: tLabel,
+        trackImpact: tImpact,
+        reasoning: rReason,
+        status: "pending_sm_approval",
+        authorizedSpeed: null,
+        authorizedBy: "",
+        authorizedAt: "",
+        authCode: ""
+      };
+    } else if (freshPred) {
+      aiSpeedAdvisoriesByTrain[num].predictedSpeed = predSpeed;
+      aiSpeedAdvisoriesByTrain[num].effectiveSpeedLimit = speedLimit;
+      aiSpeedAdvisoriesByTrain[num].weatherLabel = wLabel;
+      aiSpeedAdvisoriesByTrain[num].weatherImpact = wImpact;
+      aiSpeedAdvisoriesByTrain[num].trackLabel = tLabel;
+      aiSpeedAdvisoriesByTrain[num].trackImpact = tImpact;
+      aiSpeedAdvisoriesByTrain[num].reasoning = rReason;
+    }
+  }
+  return aiSpeedAdvisoriesByTrain[num];
+}
+
+// Global reference maintaining compatibility
+let aiSpeedAdvisoryState = {
+  trainNumber: "12301",
+  predictedSpeed: 105,
+  effectiveSpeedLimit: 130,
+  weatherLabel: "☀️ Clear Weather (Vis > 2000m)",
+  weatherImpact: "Nominal line visibility",
+  trackLabel: "✅ Mainline Track Clear — Double Line",
+  trackImpact: "Section MPS 130 km/h",
+  reasoning: "Punctual schedule · Safe eco-cruising within speed limits",
+  status: "pending_sm_approval",
+  authorizedSpeed: null,
+  authorizedBy: "",
+  authorizedAt: "",
+  authCode: ""
+};
+
+let currentSMAdvisedSpeed = 130;
+
+let stationMasterDriverCommsDB = [
+  // Train 12301 initial comms
+  {
+    id: "COM-01",
+    train: "12301",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Speed advisory: Track maintenance near km 684. Maintain max 50 km/h.",
+    speed: "50 km/h",
+    timestamp: "08:10",
+    type: "speed_advisory"
+  },
+  {
+    id: "COM-02",
+    train: "12301",
+    sender: "Loco Pilot",
+    senderRole: "Loco Pilot (LP-2847 / Train 12301)",
+    text: "Acknowledged. Approaching km 684 at 48 km/h. Home signal sighted at Danger (Red). Standing by.",
+    inFrontOfTrain: "Red Home Signal at km 682",
+    timestamp: "08:14",
+    type: "track_report"
+  },
+  {
+    id: "COM-03",
+    train: "12301",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Precedence grant in progress: Loop line clearance for 22436 Vande Bharat. You have green starter in 4 minutes.",
+    speed: "Caution 30 km/h",
+    timestamp: "08:16",
+    type: "instruction"
+  },
+  // Train 12004 initial comms
+  {
+    id: "COM-12004-1",
+    train: "12004",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Speed advisory for Train 12004 (Lucknow Shatabdi): Approaching outer home. Maintain authorized speed of 105 km/h.",
+    speed: "105 km/h",
+    timestamp: "08:10",
+    type: "speed_advisory"
+  },
+  {
+    id: "COM-12004-2",
+    train: "12004",
+    sender: "Loco Pilot",
+    senderRole: "Loco Pilot (LP-5219 / Train 12004)",
+    text: "Train 12004 acknowledged. Approaching with caution at 102 km/h. Cab telemetry locked on Radio Channel 5.",
+    timestamp: "08:13",
+    type: "track_report"
+  },
+  // Train 12951 initial comms
+  {
+    id: "COM-12951-1",
+    train: "12951",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Clearance order for Train 12951 (Mumbai Rajdhani): Mainline green starter through platform 2. Proceed at MPS 130 km/h.",
+    speed: "130 km/h",
+    timestamp: "08:10",
+    type: "speed_advisory"
+  },
+  {
+    id: "COM-12951-2",
+    train: "12951",
+    sender: "Loco Pilot",
+    senderRole: "Loco Pilot (LP-4102 / Train 12951)",
+    text: "Acknowledged, Train 12951 proceeding on green aspect. Cab telemetry nominal on Radio Channel 2.",
+    timestamp: "08:12",
+    type: "track_report"
+  },
+  // Train 22436 initial comms
+  {
+    id: "COM-22436-1",
+    train: "22436",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Precedence priority cleared for 22436 Vande Bharat. Mainline high-speed corridor clear to Varanasi.",
+    speed: "160 km/h",
+    timestamp: "08:10",
+    type: "speed_advisory"
+  },
+  {
+    id: "COM-22436-2",
+    train: "22436",
+    sender: "Loco Pilot",
+    senderRole: "Loco Pilot (LP-1098 / Train 22436)",
+    text: "Copy that Station Master. Accelerating to Section MPS 160 km/h. Kavach cab signalling active on Radio Channel 1.",
+    timestamp: "08:11",
+    type: "track_report"
+  },
+  // Train 12002 initial comms
+  {
+    id: "COM-12002-1",
+    train: "12002",
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: "Speed advisory for Train 12002 (Bhopal Shatabdi): Line clear to Agra Cantt. Maintain approved 130 km/h schedule.",
+    speed: "130 km/h",
+    timestamp: "08:10",
+    type: "speed_advisory"
+  },
+  {
+    id: "COM-12002-2",
+    train: "12002",
+    sender: "Loco Pilot",
+    senderRole: "Loco Pilot (LP-3341 / Train 12002)",
+    text: "Train 12002 acknowledged. Throttle notched to 105 km/h eco-cruise, time slack nominal.",
+    timestamp: "08:13",
+    type: "track_report"
+  }
+];
+
+function ensureTrainCommsExist(tNum) {
+  const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
+  const exists = stationMasterDriverCommsDB.some(c => String(c.train || c.targetTrain) === num);
+  if (!exists) {
+    const crew = getTrainCrewInfo(num);
+    stationMasterDriverCommsDB.push({
+      id: "COM-INIT-1-" + num,
+      train: num,
+      sender: "Station Master",
+      senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+      text: `Speed advisory for Train ${num} (${crew.shortName}): Mainline section clear. Proceed according to signal aspect.`,
+      speed: `${crew.mps} km/h`,
+      timestamp: "08:10",
+      type: "speed_advisory"
+    });
+    stationMasterDriverCommsDB.push({
+      id: "COM-INIT-2-" + num,
+      train: num,
+      sender: "Loco Pilot",
+      senderRole: `Loco Pilot (${crew.lp} / Train ${num})`,
+      text: `Train ${num} acknowledged. Cab telemetry and throttle synchronized on Radio Channel ${crew.channel}. Standing by.`,
+      timestamp: "08:12",
+      type: "track_report"
+    });
+  }
+}
+let activeEventsDB = [
+  { type: "Moderate Fog", train: "12301", location: "Kanpur-Prayagraj", severity: "medium" }
+];
+let complaintFilterMode = "all";
+let demoScenarioIdx = 0;
+
+// ─── 3. UTILITY FUNCTIONS ─────────────────────────────────────────────────
+function minToHHMM(m) {
+  const norm = ((Math.round(m) % 1440) + 1440) % 1440;
+  return String(Math.floor(norm / 60)).padStart(2, '0') + ':' + String(norm % 60).padStart(2, '0');
+}
+
+function getEffectiveMinutes() {
+  if (isRealtimeSync) {
+    const n = new Date();
+    return n.getHours() * 60 + n.getMinutes() + n.getSeconds() / 60;
+  }
+  return virtualMinutes;
+}
+
+function resolveOrCreateTrain(q) {
+  if (MASTER_TRAINS[q]) return MASTER_TRAINS[q];
+  const qL = q.toLowerCase();
+  for (const num of Object.keys(MASTER_TRAINS)) {
+    const t = MASTER_TRAINS[num];
+    if (t.name.toLowerCase().includes(qL) || t.corridorName.toLowerCase().includes(qL)) return t;
+  }
+  // Data Integrity Rule 9: Do NOT synthesize fake operational trains!
+  // Return explicit unavailable train structure rather than pretending it is running.
+  return {
+    number: q,
+    name: "Train " + q,
+    type: "Unknown Express",
+    corridorName: "Route Information Unavailable",
+    runningDays: [],
+    depOffsetMin: 0,
+    durationMin: 0,
+    halts: [],
+    isUnknown: true
+  };
+}
+
+// ─── 4. SPATIAL DYNAMIC ENGINE ────────────────────────────────────────────
+function calculateTrainDynamicState(trainNo, currentDayMin, optDate) {
+  const date = optDate || getSelectedDate();
+  const train = resolveOrCreateTrain(trainNo);
+
+  // 1. Data Integrity Rule 9: Check if unknown train or schedule unavailable
+  if (train.isUnknown || !train.halts || train.halts.length === 0) {
+    return {
+      trainNumber: trainNo,
+      trainName: train.name || ("Train " + trainNo),
+      type: "Unknown",
+      corridorName: "Schedule Information Unavailable",
+      runningDays: [],
+      originName: "Unavailable",
+      originCode: "—",
+      destName: "Unavailable",
+      destCode: "—",
+      status: "unavailable",
+      statusText: "SCHEDULE DATA UNAVAILABLE",
+      runsText: "Schedule data unavailable",
+      isScheduled: false,
+      curKm: 0,
+      totalKm: 1,
+      progressPct: 0,
+      curSpeed: 0,
+      curSectionLabel: "Schedule Data Unavailable",
+      nextHalt: { name: "Unavailable", code: "—", pf: "—" },
+      destETA: "Schedule Data Unavailable",
+      finalDelay: 0,
+      factors: { congestion: 0, weather: 0, tsr: 0, headway: 0, recovery: 0 },
+      halts: []
+    };
+  }
+
+  const halts = train.halts;
+  const totalKm = halts[halts.length - 1].km || 1;
+  const depTime = train.depOffsetMin;
+  const duration = train.durationMin;
+  const arrTime = depTime + duration;
+
+  // 2. Schedule Logic: Check if scheduled on selected date
+  const isScheduledToday = isTrainScheduledOnDate(trainNo, date);
+
+  // If NOT scheduled on selected date:
+  if (!isScheduledToday) {
+    const parsedHalts = halts.map(h => ({
+      code: h.code,
+      name: h.name,
+      km: Math.round(h.km),
+      sched: minToHHMM(h.arrM),
+      predTime: minToHHMM(h.arrM),
+      delayMin: 0,
+      platform: h.pf,
+      type: h.type || "major",
+      status: "not_running"
+    }));
+
+    return {
+      trainNumber: train.number,
+      trainName: train.name,
+      type: train.type,
+      corridorName: train.corridorName,
+      runningDays: train.runningDays || [],
+      originName: halts[0].name,
+      originCode: halts[0].code,
+      destName: halts[halts.length - 1].name,
+      destCode: halts[halts.length - 1].code,
+      status: "not_scheduled",
+      statusText: "NOT SCHEDULED TODAY",
+      runsText: "Runs: " + formatRunningDays(train.runningDays),
+      isScheduled: false,
+      curKm: 0,
+      totalKm: totalKm,
+      progressPct: 0,
+      curSpeed: 0,
+      curSectionLabel: "Not Scheduled Today · " + formatRunningDays(train.runningDays),
+      nextHalt: halts[0],
+      destETA: "Not Operating Today",
+      finalDelay: 0,
+      factors: { congestion: 0, weather: 0, tsr: 0, headway: 0, recovery: 0 },
+      halts: parsedHalts
+    };
+  }
+
+  // Multi-day Journey Calendar Offset (NTES Start Date Synchronization)
+  // Calculates difference in calendar days between current system date and selected train journey date:
+  const now = new Date();
+  const dTarget = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const dToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diffDays = Math.round((dToday.getTime() - dTarget.getTime()) / 86400000);
+
+  let absTime = currentDayMin;
+  let isOvernightRunActive = false;
+
+  if (diffDays === 1) {
+    // Train departed yesterday: Day 2 of journey
+    absTime = 1440 + currentDayMin;
+    isOvernightRunActive = true;
+  } else if (diffDays === 2) {
+    // Train departed 2 days ago: Day 3 of journey
+    absTime = 2880 + currentDayMin;
+    isOvernightRunActive = true;
+  } else if (diffDays === 0) {
+    // Train scheduled/departing today:
+    // For a multi-day train, if today's departure has not occurred yet (currentDayMin < depTime),
+    // and yesterday's departure was scheduled and is currently active on track,
+    // seamlessly auto-track the active en-route train from yesterday:
+    const yesterday = new Date(dToday.getTime() - 86400000);
+    const isYesterdayScheduled = isTrainScheduledOnDate(trainNo, yesterday);
+    const elapsedFromYesterday = 1440 + currentDayMin;
+
+    if (arrTime > 1440 && isYesterdayScheduled && elapsedFromYesterday < arrTime && currentDayMin < depTime) {
+      absTime = elapsedFromYesterday;
+      isOvernightRunActive = true;
+    } else {
+      absTime = currentDayMin;
+    }
+  } else if (diffDays > 2) {
+    absTime = arrTime + 10;
+  } else if (diffDays < 0) {
+    absTime = -10;
+  }
+
+  const hour = (currentDayMin / 60) % 24;
+  let diurnalCong = 1.0;
+  if (hour >= 8 && hour <= 10.5) diurnalCong = 1.65;
+  else if (hour >= 17 && hour <= 20.5) diurnalCong = 1.55;
+  else if (hour >= 23 || hour <= 4) diurnalCong = 0.85;
+
+  // Operational delay offset: over long-distance multi-day routes (>700 min), trains experience normal headway / speed restrictions
+  let operationalDelay = 0;
+  if (absTime > depTime + 700) {
+    operationalDelay = Math.min(26, Math.round((absTime - depTime - 700) * 0.035));
+  }
+  const effectiveProgressTime = Math.max(depTime, absTime - operationalDelay);
+
+  let currentSeg = null, isCompleted = false, isNotStarted = false;
+  if (absTime < depTime) {
+    isNotStarted = true;
+  } else if (absTime >= arrTime) {
+    isCompleted = true;
+  } else {
+    for (let i = 0; i < halts.length - 1; i++) {
+      if (effectiveProgressTime >= halts[i].depM && effectiveProgressTime < halts[i + 1].arrM) {
+        currentSeg = { from: halts[i], to: halts[i + 1], index: i };
+        break;
+      }
+    }
+  }
+
+  let curKm = 0, curSpeed = 0, curSectionLabel = "";
+  let nextHalt = halts[halts.length - 1];
+
+  if (isNotStarted) {
+    curKm = 0;
+    curSpeed = 0;
+    curSectionLabel = "At " + halts[0].name + " (PF " + halts[0].pf + ") · Sched Dep: " + minToHHMM(depTime) + " IST";
+    nextHalt = halts[1] || halts[0];
+  } else if (isCompleted) {
+    curKm = totalKm;
+    curSpeed = 0;
+    curSectionLabel = "Safely Arrived at " + halts[halts.length - 1].name;
+    nextHalt = halts[halts.length - 1];
+  } else if (currentSeg) {
+    const s1 = currentSeg.from, s2 = currentSeg.to;
+    const segDur = Math.max(1, s2.arrM - s1.depM);
+    const elapsed = effectiveProgressTime - s1.depM;
+    const frac = Math.min(1, Math.max(0, elapsed / segDur));
+    curKm = s1.km + frac * (s2.km - s1.km);
+    curSpeed = Math.round(112 + Math.sin(elapsed * 0.4) * 16);
+    curSectionLabel = s1.name + " → " + s2.name + " · km " + Math.round(curKm);
+    nextHalt = s2;
+  } else {
+    const hm = halts.find(h => effectiveProgressTime >= h.arrM && effectiveProgressTime <= h.depM);
+    if (hm) {
+      curKm = hm.km;
+      curSpeed = 0;
+      curSectionLabel = "Station Halt: " + hm.name + " (PF " + hm.pf + ")";
+      const idx = halts.indexOf(hm);
+      nextHalt = halts[Math.min(halts.length - 1, idx + 1)];
+    }
+  }
+
+  const effCong = diurnalCong * simEnv.cong;
+  const wPen = (simEnv.fog / 30.0) * 4.2;
+  const tsrPen = simEnv.tsr ? 8.5 : 0;
+  const headwayPen = Math.max(0, (22 - simEnv.headway) * 0.45);
+  const factorAcc = { congestion: 0, weather: 0, tsr: 0, headway: 0, recovery: 0 };
+  let runningDelay = operationalDelay;
+
+  const parsedHalts = halts.map((h, i) => {
+    const schedArrMin = h.arrM;
+    const isPassed = !isNotStarted && (absTime >= h.depM);
+    
+    // Live train position: If not started, origin station is current! If en route, currentSeg.to or station halt is current!
+    let isCurrent = false;
+    if (isNotStarted) {
+      isCurrent = (i === 0); // Origin station is active current node before departure!
+    } else if (currentSeg) {
+      isCurrent = (h.code === currentSeg.to.code);
+    } else {
+      isCurrent = (absTime >= h.arrM && absTime <= h.depM);
+    }
+
+    if (isPassed) {
+      return {
+        code: h.code, name: h.name, km: Math.round(h.km),
+        sched: minToHHMM(schedArrMin), predTime: minToHHMM(schedArrMin),
+        delayMin: 0, platform: h.pf, type: h.type || "major", status: "passed"
+      };
+    }
+
+    const segDist = (i > 0) ? Math.max(10, h.km - halts[i - 1].km) : 35;
+    const tCong = (segDist / 85) * (1.5 + 2.4 * effCong);
+    const tWeath = wPen, tTsr = tsrPen, tHeadway = headwayPen;
+    const added = Math.max(0, tCong * 0.40 + tWeath * 0.30 + tTsr * 0.35 + tHeadway * 0.20);
+    const recovSlack = (segDist > 140) ? 4.0 : 1.2;
+    const netAdded = Math.max(0, added - recovSlack * 0.42);
+
+    runningDelay += netAdded;
+    factorAcc.congestion += tCong * 0.40;
+    factorAcc.weather += tWeath * 0.30;
+    factorAcc.tsr += tTsr * 0.35;
+    factorAcc.headway += tHeadway * 0.20;
+    factorAcc.recovery += recovSlack * 0.42;
+
+    const predM = (schedArrMin + runningDelay) % 1440;
+    return {
+      code: h.code, name: h.name, km: Math.round(h.km),
+      sched: minToHHMM(schedArrMin), predTime: minToHHMM(predM),
+      delayMin: Math.round(runningDelay), platform: h.pf,
+      type: h.type || "major", status: isCurrent ? "current" : "upcoming"
+    };
+  });
+
+  const finalDelay = Math.round(runningDelay);
+  const dest = parsedHalts[parsedHalts.length - 1];
+
+  const statusKey = isCompleted ? "completed" : isNotStarted ? "scheduled" : "running";
+  const statusLabel = isCompleted ? "RUN COMPLETED" : (isOvernightRunActive ? "RUNNING LIVE (Day 2 En Route)" : (isNotStarted ? "SCHEDULED TODAY" : "RUNNING LIVE"));
+
+  return {
+    trainNumber: train.number,
+    trainName: train.name,
+    type: train.type,
+    corridorName: train.corridorName,
+    runningDays: train.runningDays || [],
+    originName: halts[0].name,
+    originCode: halts[0].code,
+    destName: dest.name,
+    destCode: dest.code,
+    status: statusKey,
+    statusText: statusLabel,
+    isOvernightActive: isOvernightRunActive,
+    runsText: "Runs: " + formatRunningDays(train.runningDays),
+    isScheduled: true,
+    curKm: Math.round(curKm),
+    totalKm: totalKm,
+    progressPct: Math.round((curKm / totalKm) * 100),
+    curSpeed: curSpeed,
+    curSectionLabel: curSectionLabel,
+    nextHalt: nextHalt,
+    destETA: dest.predTime + " IST",
+    finalDelay: finalDelay,
+    factors: factorAcc,
+    halts: parsedHalts
+  };
+}
+
+function renderDynamicUI() {
+  const curMin = getEffectiveMinutes();
+  const state = calculateTrainDynamicState(activeTrainNumber, curMin);
+
+  document.getElementById('hero-train-title').textContent = state.trainNumber + ' — ' + state.trainName;
+  
+  const routeEl = document.getElementById('hero-train-route');
+  if (state.status === 'unavailable') {
+    routeEl.innerHTML = '<span style="color:var(--rose);font-weight:700;">⚠️ Schedule data unavailable for train ' + state.trainNumber + '</span>';
+  } else if (state.status === 'not_scheduled') {
+    routeEl.innerHTML = `Live corridor: <strong>${state.originName} (${state.originCode}) → ${state.destName} (${state.destCode})</strong> · <span style="color:var(--amber);font-weight:700;">${state.runsText}</span>`;
+  } else {
+    routeEl.innerHTML = `Live corridor: <strong>${state.originName} (${state.originCode}) → ${state.destName} (${state.destCode})</strong> · ${state.corridorName} · <span style="color:var(--cyan);font-weight:600;">${state.runsText}</span>`;
+  }
+
+  const statusBadge = document.getElementById('hero-train-status-badge');
+  if (state.status === 'unavailable') {
+    statusBadge.textContent = '⚠️ SCHEDULE DATA UNAVAILABLE';
+    statusBadge.className = 'badge badge-red';
+  } else if (state.status === 'not_scheduled') {
+    statusBadge.textContent = '⚪ NOT SCHEDULED TODAY';
+    statusBadge.className = 'badge badge-red';
+  } else if (state.status === 'running') {
+    statusBadge.textContent = '🟢 RUNNING LIVE';
+    statusBadge.className = 'badge badge-green';
+  } else if (state.status === 'completed') {
+    statusBadge.textContent = '🏁 RUN COMPLETED';
+    statusBadge.className = 'badge badge-cyan';
+  } else {
+    statusBadge.textContent = '🟡 SCHEDULED TODAY';
+    statusBadge.className = 'badge badge-amber';
+  }
+
+  const destLabel = document.getElementById('hero-dest-label');
+  const destTime = document.getElementById('hero-dest-time');
+  const delayBadge = document.getElementById('hero-delay-badge');
+  const confBadge = document.getElementById('hero-conf-badge');
+
+  if (state.status === 'unavailable') {
+    destLabel.textContent = 'Schedule Status';
+    destTime.textContent = 'UNAVAILABLE';
+    delayBadge.textContent = 'No Schedule Data';
+    delayBadge.className = 'badge badge-red';
+    confBadge.textContent = 'Inactive';
+  } else if (state.status === 'not_scheduled') {
+    destLabel.textContent = 'Service Status';
+    destTime.textContent = 'NOT SCHEDULED';
+    delayBadge.textContent = state.runsText;
+    delayBadge.className = 'badge badge-amber';
+    confBadge.textContent = 'Non-Running Day';
+  } else {
+    destLabel.textContent = 'Destination ETA (' + state.destCode + ')';
+    destTime.textContent = state.destETA;
+    confBadge.textContent = '±3.5m Conf';
+    if (state.finalDelay <= 0) {
+      delayBadge.textContent = Math.abs(state.finalDelay) + 'm EARLY (Punctual)';
+      delayBadge.className = 'badge badge-green';
+    } else {
+      delayBadge.textContent = '+' + state.finalDelay + ' min delay';
+      delayBadge.className = 'badge ' + (state.finalDelay > 20 ? 'badge-red' : state.finalDelay > 5 ? 'badge-amber' : 'badge-green');
+    }
+  }
+
+  document.getElementById('progress-km-label').textContent = state.curKm + ' / ' + state.totalKm + ' km';
+  document.getElementById('progress-pct-label').textContent = state.progressPct + '%';
+  document.getElementById('progress-bar-fill').style.width = state.progressPct + '%';
+
+  // PASSENGER SPEED REMOVAL: In passenger view, hero-speed-block must NOT display speed!
+  const curBlock = document.getElementById('hero-current-block');
+  const spdBlock = document.getElementById('hero-speed-block');
+  if (state.status === 'unavailable') {
+    curBlock.innerHTML = '<span style="color:var(--rose);">●</span> Schedule Data Unavailable';
+    spdBlock.textContent = '⚠️ Timetable not available in railway database';
+  } else if (state.status === 'not_scheduled') {
+    curBlock.innerHTML = '<span style="color:var(--rose);">●</span> Service Inactive Today (Depot / Yard Standby)';
+    spdBlock.textContent = '⚡ Train not scheduled to run on this date · ' + state.runsText;
+  } else {
+    curBlock.innerHTML = '<span class="live-pulse" style="width:8px;height:8px;border-radius:50%;background:var(--cyan-bright);"></span> ' + state.curSectionLabel;
+    spdBlock.textContent = state.curSpeed > 0
+      ? '⚡ Signal: Automated Double Green · Block Track Circuit Clear'
+      : '⚡ Platform Terminal Standby · Ready for Departure';
+  }
+
+  const nextHaltEl = document.getElementById('hero-next-halt');
+  if (state.status === 'unavailable') {
+    nextHaltEl.textContent = '—';
+  } else if (state.status === 'not_scheduled') {
+    nextHaltEl.textContent = `${state.originName} (${state.originCode}) · Next Run on Scheduled Day`;
+  } else {
+    nextHaltEl.textContent = state.nextHalt.name + ' (' + state.nextHalt.code + ') · ' + minToHHMM(state.nextHalt.arrM || state.nextHalt.depM) + ' IST';
+  }
+
+  const recovEl = document.getElementById('hero-recovery-text');
+  if (state.status === 'unavailable') {
+    recovEl.textContent = 'Schedule data unavailable';
+  } else if (state.status === 'not_scheduled') {
+    recovEl.textContent = `📅 Service Days: ${state.runsText}`;
+  } else {
+    recovEl.textContent = state.finalDelay > 0 ? `⚡ Recoverable: up to ~${Math.min(state.finalDelay, 4.5).toFixed(1)} min via clear section slack` : '✅ Running on schedule';
+  }
+
+  // Update Mini-Map Status (No speed display)
+  const mmStatus = document.getElementById('mini-map-status');
+  if (mmStatus) {
+    if (state.status === 'unavailable') {
+      mmStatus.textContent = 'UNAVAILABLE';
+      mmStatus.style.color = 'var(--rose)';
+    } else if (state.status === 'not_scheduled') {
+      mmStatus.textContent = 'NOT SCHEDULED';
+      mmStatus.style.color = 'var(--amber)';
+    } else if (state.status === 'running') {
+      mmStatus.textContent = 'RUNNING';
+      mmStatus.style.color = 'var(--emerald)';
+    } else {
+      mmStatus.textContent = state.status.toUpperCase();
+      mmStatus.style.color = 'var(--cyan)';
+    }
+  }
+
+  // Controller corridor stats
+  const corrStat = document.getElementById('controller-corridor-stat');
+  if (corrStat) corrStat.textContent = state.corridorName.split('(')[0].trim();
+  const corrSub = document.getElementById('controller-corridor-sub');
+  if (corrSub) corrSub.textContent = state.originCode + ' → ' + state.destCode + ' Trunk Route';
+
+  // Timeline rendering with All vs Major filter & Station-Specific Weather
+  const tlContainer = document.getElementById('timeline-container');
+  tlContainer.innerHTML = '';
+  
+  if (state.status === 'unavailable' || state.halts.length === 0) {
+    tlContainer.innerHTML = '<div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 13px;">⚠️ Schedule data unavailable for train ' + state.trainNumber + '. Please verify the train number.</div>';
+    document.getElementById('timeline-count-badge').textContent = '0 Stations';
+    return;
+  }
+
+  const displayHalts = (currentTimelineFilter === 'major')
+    ? state.halts.filter(h => h.type === 'major')
+    : state.halts;
+
+  const totalCount = state.halts.length;
+  const majorCount = state.halts.filter(h => h.type === 'major').length;
+  document.getElementById('timeline-count-badge').textContent = (currentTimelineFilter === 'major')
+    ? `${majorCount} Major Stations`
+    : `${totalCount} All Stations (${majorCount} Major)`;
+
+  displayHalts.forEach(st => {
+    // Station-specific weather lookup
+    const w = getStationWeather(st.code);
+    const weatherHtml = w.isAvailable
+      ? `<span title="${w.condition} · Humidity: ${w.humidity} · Wind: ${w.wind} · Rain: ${w.rainfall}">${w.icon} ${w.temp}°C ${w.condition} · Vis ${w.visibility}</span>`
+      : `<span style="color:var(--text-muted);font-style:italic;">Weather data unavailable</span>`;
+
+    const node = document.createElement('div');
+    node.className = 'tl-node';
+    const isMajor = (st.type === "major");
+    const isCurrent = (st.status === 'current');
+    const isPassed = (st.status === 'passed');
+    const isNotRunning = (st.status === 'not_running');
+
+    let markerClass = isNotRunning ? 'not-running' : (isPassed ? 'passed' : (isCurrent ? 'current' : 'upcoming'));
+
+    node.innerHTML = `
+      <div class="tl-marker ${markerClass}" style="${!isMajor ? 'width:12px;height:12px;left:3px;' : ''}; ${isNotRunning ? 'border-color:#64748B;background:#1E293B;' : ''}"></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span class="mono" style="font-size:${!isMajor ? '12px' : '14px'};font-weight:700;color:${isCurrent ? 'var(--cyan-bright)' : (!isMajor ? 'var(--text-muted)' : 'var(--text-primary)')}">${st.code}</span>
+            <span style="font-size:${!isMajor ? '12px' : '13px'};color:${!isMajor ? 'var(--text-muted)' : 'var(--text-secondary)'};font-weight:${isMajor ? '600' : '400'};">${st.name}</span>
+            <span class="badge badge-pf">PF ${st.platform}</span>
+            <span class="badge" style="font-size:9px;padding:2px 6px;background:${isMajor ? 'rgba(56,189,248,0.15)' : 'rgba(255,255,255,0.05)'};color:${isMajor ? 'var(--cyan)' : 'var(--text-muted)'};border:1px solid ${isMajor ? 'rgba(56,189,248,0.3)' : 'rgba(255,255,255,0.1)'};">
+              ${isMajor ? '⭐ MAJOR JUNCTION' : '📍 SCHEDULED HALT'}
+            </span>
+            ${isCurrent ? '<span class="badge badge-cyan" style="font-size:9px;padding:2px 6px;">▶ ACTIVE TRAIN POSITION</span>' : ''}
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:3px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <span>${st.km} km</span>
+            <span>·</span>
+            ${weatherHtml}
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <div class="mono" style="font-size:${!isMajor ? '12px' : '14px'};font-weight:700;color:${isPassed ? 'var(--text-muted)' : (isNotRunning ? 'var(--text-secondary)' : 'var(--text-primary)')}">
+            ${isNotRunning ? 'Sched: ' + st.sched : 'ETA: ' + st.predTime}
+          </div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">
+            ${isNotRunning ? 'Not Running Today' : ('Sched: ' + st.sched + (st.delayMin > 0 ? ' (+' + st.delayMin + 'm)' : (st.delayMin < 0 ? ' (' + st.delayMin + 'm)' : ' (On Time)')))}
+          </div>
+        </div>
+      </div>`;
+    tlContainer.appendChild(node);
+  });
+
+  // TreeSHAP factor bars
+  const f = state.factors;
+  const totalDel = Math.max(1, Math.abs(state.finalDelay));
+  const fSum = Math.max(0.1, f.congestion + f.weather + f.tsr + f.headway);
+  const factorList = state.status === 'not_scheduled'
+    ? [
+        { name: 'Train Non-Running Day (Service Inactive)', val: 0, color: '#64748B' },
+        { name: 'Weekly Schedule Operating Norms', val: 0, color: '#38BDF8' }
+      ]
+    : [
+        { name: 'Diurnal Traffic Congestion & Block Saturation', val: Math.round((f.congestion / fSum) * totalDel) || 4, color: '#F43F5E' },
+        { name: 'Adverse Satellite Weather Penalty', val: Math.round((f.weather / fSum) * totalDel) || 1, color: '#F59E0B' },
+        { name: 'TSR Caution Speed Cap (Bridge/Track Work)', val: Math.round((f.tsr / fSum) * totalDel) || (simEnv.tsr ? 8 : 0), color: '#8B5CF6' },
+        { name: 'Preceding Train Headway Gap', val: Math.round((f.headway / fSum) * totalDel) || 2, color: '#38BDF8' },
+        { name: 'Schedule Recovery Slack (Time Made Up)', val: -Math.round(f.recovery) || -4, color: '#10B981' },
+      ];
+
+  const factorContainer = document.getElementById('factor-bars-container');
+  if (factorContainer) {
+    factorContainer.innerHTML = '';
+    factorList.forEach(item => {
+      const row = document.createElement('div');
+      row.innerHTML = `
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
+          <span style="color:var(--text-primary);">${item.name}</span>
+          <span class="mono" style="font-weight:700;color:${item.val < 0 ? '#34D399' : 'var(--text-primary)'};">${item.val > 0 ? '+' + item.val + ' min' : item.val + ' min'}</span>
+        </div>
+        <div style="height:7px;background:#1E293B;border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${Math.min(100, Math.abs(item.val) * 9)}%;background:${item.color};border-radius:4px;"></div>
+        </div>`;
+      factorContainer.appendChild(row);
+    });
+  }
+
+  // Simulation panel
+  const simDelEl = document.getElementById('sim-final-delay');
+  if (simDelEl) {
+    if (state.status === 'not_scheduled') {
+      simDelEl.textContent = 'Not Scheduled';
+      simDelEl.style.color = 'var(--text-muted)';
+    } else {
+      simDelEl.textContent = (state.finalDelay >= 0 ? '+' : '') + state.finalDelay + ' min';
+      simDelEl.style.color = state.finalDelay > 20 ? 'var(--rose)' : (state.finalDelay > 5 ? 'var(--amber)' : 'var(--emerald)');
+    }
+  }
+  const simEtaEl = document.getElementById('sim-final-eta');
+  if (simEtaEl) {
+    simEtaEl.innerHTML = state.status === 'not_scheduled'
+      ? 'Recalculated Destination ETA: <strong>Not Scheduled Today</strong>'
+      : 'Recalculated Destination ETA: <strong>' + state.destETA + '</strong>';
+  }
+
+  const simImpactContainer = document.getElementById('sim-station-impact');
+  if (simImpactContainer) {
+    simImpactContainer.innerHTML = '';
+    if (state.status === 'not_scheduled') {
+      simImpactContainer.innerHTML = '<div style="padding:10px;font-size:12px;color:var(--text-muted);text-align:center;">Train not scheduled today. No cascade delay generated.</div>';
+    } else {
+      state.halts.filter(s => s.status === 'upcoming').slice(0, 5).forEach(s => {
+        const item = document.createElement('div');
+        item.className = 'card-sm';
+        item.style = 'display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-inner);';
+        item.innerHTML = '<span style="font-size:13px;font-weight:600;color:var(--text-primary);">' + s.name + ' (' + s.code + ')</span><span class="mono" style="font-size:13px;font-weight:700;color:var(--cyan);">' + s.predTime + ' (+' + s.delayMin + 'm)</span>';
+        simImpactContainer.appendChild(item);
+      });
+    }
+  }
+
+  // Synchronize Driver Dashboard (internal view keeps operational speed)
+  renderDriverDashboard(state);
+  // Synchronize Map Network Snapshot
+  renderNetworkSnapshot();
+  // Synchronize Station Master & Loco Pilot Comms and AI Speed Advisory
+  renderCrewComms();
+  renderSMAuthorizationModule();
+}
+
+// ─── 7. FLEET CONTROLLER TABLE ────────────────────────────────────────────
+// ─── STATION MASTER BERTHING & MOVEMENT DIRECTIVES STATE ──────────────────
+let stationMasterPlatformAssignments = {};
+
+let stationMasterTrainDirectives = {
+  "12301": "STOP",
+  "12951": "STOP",
+  "12424": "STOP",
+  "12259": "STOP",
+  "12434": "STOP",
+  "12621": "STOP",
+  "13239": "STOP",
+  "13240": "STOP",
+  "12002": "STOP",
+  "12004": "STOP",
+  "15104": "STOP",
+  "20817": "STOP",
+  "22436": "STOP",
+  "22691": "STOP"
+};
+
+// =========================================================================
+// STATION MASTER JURISDICTION DIRECTORY & STATE
+// =========================================================================
+const STATION_DIRECTORY = {
+  "DDU": { code: "DDU", name: "Pt. Deen Dayal Upadhyaya Jn", division: "ECR / DDU Division", platforms: 8, zone: "East Central Railway", mps: 130 },
+  "PRYJ": { code: "PRYJ", name: "Prayagraj Jn", division: "NCR / Prayagraj Division", platforms: 10, zone: "North Central Railway", mps: 130 },
+  "CNB": { code: "CNB", name: "Kanpur Central", division: "NCR / Prayagraj Division", platforms: 10, zone: "North Central Railway", mps: 130 },
+  "NDLS": { code: "NDLS", name: "New Delhi Railway Station", division: "NR / Delhi Division", platforms: 16, zone: "Northern Railway", mps: 130 },
+  "HWH": { code: "HWH", name: "Howrah Jn", division: "ER / Howrah Division", platforms: 23, zone: "Eastern Railway", mps: 110 },
+  "BSB": { code: "BSB", name: "Varanasi Cantt Jn", division: "NR / Lucknow Division", platforms: 9, zone: "Northern Railway", mps: 110 },
+  "GAYA": { code: "GAYA", name: "Gaya Jn", division: "ECR / DDU Division", platforms: 9, zone: "East Central Railway", mps: 130 },
+  "ASN": { code: "ASN", name: "Asansol Jn", division: "ER / Asansol Division", platforms: 7, zone: "Eastern Railway", mps: 130 },
+  "DHN": { code: "DHN", name: "Dhanbad Jn", division: "ECR / Dhanbad Division", platforms: 8, zone: "East Central Railway", mps: 110 },
+  "BPL": { code: "BPL", name: "Bhopal Jn", division: "WCR / Bhopal Division", platforms: 6, zone: "West Central Railway", mps: 130 },
+  "GWL": { code: "GWL", name: "Gwalior Jn", division: "NCR / Jhansi Division", platforms: 5, zone: "North Central Railway", mps: 130 },
+  "AGC": { code: "AGC", name: "Agra Cantt", division: "NCR / Agra Division", platforms: 6, zone: "North Central Railway", mps: 130 }
+};
+
+let smSelectedStation = "DDU";
+let smFilterOnlyThisStation = true;
+
+function getStationFullName(code) {
+  if (STATION_DIRECTORY[code]) return STATION_DIRECTORY[code].name;
+  return code || "Station";
+}
+
+function onStationMasterStationChange(stnCode) {
+  smSelectedStation = stnCode;
+  const stnInfo = STATION_DIRECTORY[stnCode];
+  const titleEl = document.getElementById('sm-current-station-title');
+  const divInfoEl = document.getElementById('sm-station-division-info');
+  const badgeEl = document.getElementById('sm-radar-station-badge');
+  const descEl = document.getElementById('sm-radar-station-desc');
+  const toggleBtn = document.getElementById('sm-filter-toggle-btn');
+  const sugStnEl = document.getElementById('sm-suggestions-station-name');
+
+  if (stnCode === 'ALL') {
+    if (titleEl) titleEl.textContent = 'All Network Stations (Global Overview)';
+    if (divInfoEl) divInfoEl.textContent = 'Multi-Zonal Railway Overview · Pan-India Golden Quadrilateral & Trunk Routes';
+    if (badgeEl) badgeEl.textContent = 'Station: ALL NETWORK';
+    if (toggleBtn) toggleBtn.style.display = 'none';
+    if (sugStnEl) sugStnEl.textContent = 'All Network Corridors';
+  } else if (stnInfo) {
+    if (titleEl) titleEl.textContent = `${stnInfo.name} (${stnInfo.code})`;
+    if (divInfoEl) divInfoEl.textContent = `${stnInfo.zone} · ${stnInfo.division} · Interlocked Platforms (PF 1–23 configurable) · Section MPS ${stnInfo.mps} km/h`;
+    if (badgeEl) badgeEl.textContent = `Station: ${stnInfo.code}`;
+    if (toggleBtn) {
+      toggleBtn.style.display = 'inline-block';
+      toggleBtn.textContent = smFilterOnlyThisStation ? `🎯 Showing Only ${stnInfo.code} Trains` : `🌐 Showing All Trains (${stnInfo.code} highlighted)`;
+    }
+    if (sugStnEl) sugStnEl.textContent = `${stnInfo.name} (${stnInfo.code})`;
+  }
+
+  renderFleetTable();
+  renderStationMasterSuggestions();
+  showToast(`🚉 Station Master Console switched to ${stnCode === 'ALL' ? 'All Network' : (stnInfo ? stnInfo.name : stnCode)}`, "cyan");
+}
+
+function smToggleStationFilter() {
+  smFilterOnlyThisStation = !smFilterOnlyThisStation;
+  const toggleBtn = document.getElementById('sm-filter-toggle-btn');
+  const stnCode = smSelectedStation;
+  if (toggleBtn) {
+    toggleBtn.textContent = smFilterOnlyThisStation ? `🎯 Showing Only ${stnCode} Trains` : `🌐 Showing All Trains (${stnCode} highlighted)`;
+    toggleBtn.style.background = smFilterOnlyThisStation ? 'rgba(56,189,248,0.2)' : 'rgba(148,163,184,0.15)';
+  }
+  renderFleetTable();
+}
+
+// Compute outbound next station on train route specifically from the perspective of stationCode
+function getNextStationFromStation(trainNumber, stationCode) {
+  const train = MASTER_TRAINS[trainNumber];
+  if (!train || !train.halts || !Array.isArray(train.halts)) return null;
+  const idx = train.halts.findIndex(h => h.code === stationCode);
+  if (idx === -1) return null; // Train does not call at stationCode
+  if (idx === train.halts.length - 1) {
+    return { name: "Terminal Station", code: stationCode, isTerminal: true, km: train.halts[idx].km };
+  }
+  return train.halts[idx + 1];
+}
+
+// Compute train's live positioning relative to a specific station
+function getStationSpecificLiveStatus(trainNumber, stationCode, curMin) {
+  const train = MASTER_TRAINS[trainNumber];
+  if (!train || !train.halts) return null;
+  const halt = train.halts.find(h => h.code === stationCode);
+  if (!halt) return null;
+
+  const st = calculateTrainDynamicState(trainNumber, curMin);
+  const curKm = st.curKm;
+  const stnKm = halt.km;
+  const isAscendingKm = train.halts[train.halts.length - 1].km >= train.halts[0].km;
+  const directedDist = isAscendingKm ? (stnKm - curKm) : (curKm - stnKm);
+
+  if (Math.abs(curKm - stnKm) <= 2.5 || (curMin >= halt.arrM && curMin <= halt.depM + Math.max(0, st.finalDelay))) {
+    return {
+      code: 'BERTHED',
+      badgeClass: 'badge-cyan',
+      text: '🏢 Berthed at Station',
+      detail: `At ${halt.name}`
+    };
+  } else if (directedDist > 0) {
+    const kmAway = Math.round(Math.abs(directedDist));
+    return {
+      code: 'APPROACHING',
+      badgeClass: kmAway <= 25 ? 'badge-amber' : 'badge-green',
+      text: kmAway <= 25 ? `🟡 Approaching (${kmAway} km)` : `🟢 In Section (${kmAway} km)`,
+      detail: `${kmAway} km out`
+    };
+  } else {
+    const kmPast = Math.round(Math.abs(directedDist));
+    return {
+      code: 'DEPARTED',
+      badgeClass: 'badge-cyan',
+      text: `🏁 Departed (+${kmPast} km)`,
+      detail: `Past ${halt.name}`
+    };
+  }
+}
+
+// =========================================================================
+// PLATFORM & SCHEDULING DIRECTIVES (Station-Specific with Fallback)
+// =========================================================================
+function getAssignedPlatform(trainNumber, defaultPf, stationCode) {
+  const stn = stationCode || smSelectedStation || 'DDU';
+  const key = stn + '_' + trainNumber;
+  if (stationMasterPlatformAssignments[key]) return stationMasterPlatformAssignments[key];
+
+  // 1. Look up authentic scheduled platform from MASTER_TRAINS for the specified station
+  if (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[trainNumber] && MASTER_TRAINS[trainNumber].halts) {
+    const halt = MASTER_TRAINS[trainNumber].halts.find(h => h.code === stn);
+    if (halt && halt.pf) {
+      return halt.pf;
+    }
+  }
+
+  // 2. Check if a default platform was passed explicitly
+  if (defaultPf !== undefined && defaultPf !== null && defaultPf !== '') {
+    return defaultPf;
+  }
+
+  // 3. Check station master global override if any
+  if (stationMasterPlatformAssignments[trainNumber]) return stationMasterPlatformAssignments[trainNumber];
+
+  // 4. Safe fallback
+  return "1";
+}
+
+function getTrainDirective(trainNumber, stationCode) {
+  const stn = stationCode || smSelectedStation || 'DDU';
+  const key = stn + '_' + trainNumber;
+  if (stationMasterTrainDirectives[key]) return stationMasterTrainDirectives[key];
+  return stationMasterTrainDirectives[trainNumber] || "arrive at platform";
+}
+
+function smAssignPlatform(trainNumber, platformNo, stationCode) {
+  const pf = parseInt(platformNo, 10);
+  if (isNaN(pf) || pf < 1 || pf > 23) return;
+  const stn = stationCode || smSelectedStation || 'DDU';
+  const stnName = getStationFullName(stn);
+  const key = stn + '_' + trainNumber;
+  stationMasterPlatformAssignments[key] = pf;
+  stationMasterPlatformAssignments[trainNumber] = pf;
+
+  const trainName = (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[trainNumber] && MASTER_TRAINS[trainNumber].name) || `Train ${trainNumber}`;
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+  // Transmit official radio dispatch message to Loco Pilot
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: String(trainNumber),
+    targetTrain: String(trainNumber),
+    sender: "Station Master",
+    senderRole: `Station Master (${stnName})`,
+    text: `🏢 BERTHING ORDER (${stn}): Train ${trainNumber} (${trainName}) allocated to PLATFORM ${pf} at ${stnName}. Signal interlocking route aligned for PF ${pf}. Prepare for berthing.`,
+    platform: `PF ${pf}`,
+    station: stn,
+    timestamp: time,
+    type: "instruction"
+  });
+
+  renderCrewComms();
+  renderFleetTable();
+  renderStationMasterSuggestions();
+  if (trainNumber === activeTrainNumber) {
+    renderDriverDashboard();
+  }
+  showToast(`✅ Train ${trainNumber} allocated to PF ${pf} at ${stn} · Dispatch transmitted to Loco Pilot!`, "cyan");
+}
+
+function smSetDirective(trainNumber, directive, stationCode) {
+  const dirStr = String(directive).toLowerCase().trim();
+  let normalized = 'arrive at platform';
+  if (dirStr.includes('wait')) {
+    normalized = 'wait';
+  } else if (dirStr.includes('pass')) {
+    normalized = 'pass';
+  } else {
+    normalized = 'arrive at platform';
+  }
+
+  const stn = stationCode || smSelectedStation || 'DDU';
+  const stnName = getStationFullName(stn);
+  const key = stn + '_' + trainNumber;
+  stationMasterTrainDirectives[key] = normalized;
+  stationMasterTrainDirectives[trainNumber] = normalized;
+
+  const pf = getAssignedPlatform(trainNumber, 1, stn);
+  const trainName = (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[trainNumber] && MASTER_TRAINS[trainNumber].name) || `Train ${trainNumber}`;
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+  let dispatchText = '';
+  let directiveLabel = '';
+  if (normalized === 'wait') {
+    dispatchText = `🏢 SCHEDULING (${stn}): Train ${trainNumber} (${trainName}) ordered to WAIT at Outer Home Signal of ${stnName}. Platform ${pf} occupied. Interlocking hold active.`;
+    directiveLabel = 'Wait';
+  } else if (normalized === 'pass') {
+    dispatchText = `🏢 SCHEDULING (${stn}): Train ${trainNumber} (${trainName}) granted PASS through ${stnName} on Platform/Through Line ${pf}. Starter signal GREEN. Do not halt.`;
+    directiveLabel = 'Pass';
+  } else {
+    dispatchText = `🏢 SCHEDULING (${stn}): Train ${trainNumber} (${trainName}) ordered to ARRIVE AT PLATFORM ${pf} at ${stnName}. Home signal cleared with caution indicator.`;
+    directiveLabel = `Arrive at Platform ${pf}`;
+  }
+
+  // Transmit official radio dispatch message to Loco Pilot
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: String(trainNumber),
+    targetTrain: String(trainNumber),
+    sender: "Station Master",
+    senderRole: `Station Master (${stnName})`,
+    text: dispatchText,
+    directive: directiveLabel,
+    platform: `PF ${pf}`,
+    station: stn,
+    timestamp: time,
+    type: "instruction"
+  });
+
+  renderCrewComms();
+  renderFleetTable();
+  renderStationMasterSuggestions();
+  if (trainNumber === activeTrainNumber) {
+    renderDriverDashboard();
+  }
+  const toastMsg = normalized === 'wait'
+    ? `⏳ Train ${trainNumber} scheduled to WAIT at ${stn} (PF ${pf}) · Transmitted to Loco Pilot!`
+    : (normalized === 'pass'
+      ? `🟢 Train ${trainNumber} scheduled to PASS ${stn} (Line ${pf}) · Transmitted to Loco Pilot!`
+      : `🛑 Train ${trainNumber} scheduled to ARRIVE AT PF ${pf} at ${stn} · Transmitted to Loco Pilot!`);
+  showToast(toastMsg, normalized === 'wait' ? "amber" : (normalized === 'pass' ? "green" : "cyan"));
+}
+
+function smApplyPrecedence(slowTrainNum, fastTrainNum, stationCode) {
+  const stn = stationCode || smSelectedStation || 'DDU';
+  smSetDirective(slowTrainNum, 'wait', stn);
+  smSetDirective(fastTrainNum, 'pass', stn);
+  showToast(`⚡ Precedence Applied: Train ${slowTrainNum} ordered to WAIT, Train ${fastTrainNum} granted PASS at ${stn}!`, "green");
+}
+
+// =========================================================================
+// DYNAMIC EQUITABLE PRECEDENCE & ANTI-STARVATION DISPATCH SYSTEM
+// =========================================================================
+let activeEquitableAdvisory = null;
+
+function smDispatchEquitablePrecedenceAdvisory(delayedNum, punctualNum, safeHoldMin, downstreamSlack, stationCode) {
+  const stn = stationCode || smSelectedStation || 'DDU';
+  const stnName = getStationFullName(stn);
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+  const delayedTrain = MASTER_TRAINS[delayedNum] || { name: `Train ${delayedNum}` };
+  const punctualTrain = MASTER_TRAINS[punctualNum] || { name: `Train ${punctualNum}` };
+
+  const pfReg = getAssignedPlatform(punctualNum, 2, stn);
+  const pfClr = getAssignedPlatform(delayedNum, 1, stn);
+
+  // 1. Set scheduling directives in system
+  smSetDirective(punctualNum, 'wait', stn);
+  smSetDirective(delayedNum, 'pass', stn);
+
+  // 2. Set active advisory record
+  activeEquitableAdvisory = {
+    station: stn,
+    stationName: stnName,
+    delayedTrain: String(delayedNum),
+    delayedTrainName: delayedTrain.name,
+    regulatedTrain: String(punctualNum),
+    regulatedTrainName: punctualTrain.name,
+    holdMin: safeHoldMin,
+    downstreamSlack: downstreamSlack,
+    timestamp: time,
+    status: 'dispatched',
+    acknowledgedBy: {}
+  };
+
+  // 3. Dispatch official radio telemetry message to regulated train's Loco Pilot
+  const msgReg = {
+    id: "COM-" + Date.now() + "-REG",
+    train: String(punctualNum),
+    targetTrain: String(punctualNum),
+    sender: "Station Master",
+    senderRole: `Station Master (${stnName})`,
+    text: `🏢 EQUITABLE REGULATION ORDER (${stn}): Train ${punctualNum} (${punctualTrain.name}) — Regulate speed and enter Loop Line / WAIT ${safeHoldMin} mins at Platform ${pfReg}. Section Punctuality Rebalancing active to clear delayed Train ${delayedNum}. Your downstream schedule contains ${downstreamSlack} mins buffer; delay will be 100% recovered before next major junction. Await green starter signal.`,
+    directive: `Wait (${safeHoldMin}m Hold on PF ${pfReg})`,
+    platform: `PF ${pfReg}`,
+    station: stn,
+    timestamp: time,
+    type: "instruction",
+    advisoryType: "equitable_hold"
+  };
+  stationMasterDriverCommsDB.push(msgReg);
+
+  // 4. Dispatch official radio telemetry message to delayed train's Loco Pilot
+  const msgClr = {
+    id: "COM-" + (Date.now() + 1) + "-CLR",
+    train: String(delayedNum),
+    targetTrain: String(delayedNum),
+    sender: "Station Master",
+    senderRole: `Station Master (${stnName})`,
+    text: `🏢 PRIORITY CLEARANCE ORDER (${stn}): Train ${delayedNum} (${delayedTrain.name}) — Granted priority mainline PASS / CLEARANCE through Platform/Line ${pfClr} at ${stnName}. Conflicting traffic regulated on loop. Accelerate to Section MPS to recover scheduled slot.`,
+    directive: `Pass (Main Line PF ${pfClr})`,
+    platform: `PF ${pfClr}`,
+    station: stn,
+    timestamp: time,
+    type: "instruction",
+    advisoryType: "priority_clearance"
+  };
+  stationMasterDriverCommsDB.push(msgClr);
+
+  // 5. Update UI components
+  renderCrewComms();
+  renderFleetTable();
+  renderStationMasterSuggestions();
+  renderDriverDashboard();
+
+  showToast(`📡 AI Precedence Advisory Dispatched! Regulating Train ${punctualNum} (${safeHoldMin}m hold) & Clearing Train ${delayedNum} to PASS!`, "green");
+}
+
+function renderDriverSMOperationalAdvisory(trainNumber) {
+  const card = document.getElementById('driver-sm-operational-advisory-card');
+  if (!card) return;
+
+  const tNum = String(trainNumber || activeTrainNumber);
+
+  if (!activeEquitableAdvisory || activeEquitableAdvisory.status !== 'dispatched') {
+    card.style.display = 'none';
+    return;
+  }
+
+  const adv = activeEquitableAdvisory;
+  const isRegulated = (tNum === String(adv.regulatedTrain));
+  const isBeneficiary = (tNum === String(adv.delayedTrain));
+
+  if (!isRegulated && !isBeneficiary) {
+    card.style.display = 'none';
+    return;
+  }
+
+  card.style.display = 'block';
+  const isAck = adv.acknowledgedBy && adv.acknowledgedBy[tNum];
+
+  if (isRegulated) {
+    card.style.borderLeft = '5px solid var(--amber)';
+    card.style.background = 'linear-gradient(135deg, rgba(245,158,11,0.08) 0%, rgba(15,23,42,0.95) 100%)';
+    card.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">⚖️</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: var(--amber);">
+              Station Master Operational Advisory: Planned ${adv.holdMin}-Min Regulated Hold
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted);">
+              Issued by Station Master (${adv.stationName}) · Dynamic Section Punctuality Rebalancing
+            </div>
+          </div>
+        </div>
+        <span class="badge ${isAck ? 'badge-green' : 'badge-amber'}" style="font-size: 10px; font-weight: 800;">
+          ${isAck ? '✅ ACKNOWLEDGED BY CREW' : '⏳ ACTION REQUIRED: ACKNOWLEDGE'}
+        </span>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; padding: 10px; background: rgba(7,11,22,0.6); border-radius: 6px; border: 1px solid var(--border-inner);">
+        <div>🛑 <b>Operational Directive:</b> Stand by for a controlled <strong>${adv.holdMin}-minute hold</strong> at <strong>${adv.stationName} (${adv.station})</strong> loop line / outer signal.</div>
+        <div style="margin-top: 4px;">🤝 <b>Punctuality Rebalancing:</b> Precedence is granted to delayed <strong>Train ${adv.delayedTrain} (${adv.delayedTrainName.split(' ')[0]})</strong> to prevent terminal corridor gridlock.</div>
+        <div style="margin-top: 4px; color: #34D399;">🛡️ <b>Recovery Guarantee:</b> Your downstream schedule provides <strong>${adv.downstreamSlack} mins buffer</strong>. This brief wait will be 100% absorbed before your next major terminal.</div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <span style="font-size: 11px; color: var(--text-muted);">Interlocking route: Aligned to loop line · Home Signal at Caution</span>
+        ${isAck ? `
+          <div style="padding: 6px 14px; font-size: 11px; font-weight: 700; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 6px;">
+            ✅ Acknowledged to Station Master (${adv.station})
+          </div>
+        ` : `
+          <button type="button" onclick="driverAcknowledgeSMAdvisory('${tNum}')" class="btn-primary" style="padding: 8px 16px; font-size: 11px; font-weight: 800; background: linear-gradient(135deg, #F59E0B, #10B981); color: #070B16; border: none; border-radius: 6px; cursor: pointer;">
+            ✅ Acknowledge Advisory & Confirm Hold
+          </button>
+        `}
+      </div>
+    `;
+  } else if (isBeneficiary) {
+    card.style.borderLeft = '5px solid #10B981';
+    card.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(15,23,42,0.95) 100%)';
+    card.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 20px;">🟢</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 800; color: #34D399;">
+              Station Master Operational Advisory: Priority Precedence & Run-Through Clearance
+            </div>
+            <div style="font-size: 11px; color: var(--text-muted);">
+              Issued by Station Master (${adv.stationName}) · Section Punctuality Rebalancing
+            </div>
+          </div>
+        </div>
+        <span class="badge ${isAck ? 'badge-green' : 'badge-cyan'}" style="font-size: 10px; font-weight: 800;">
+          ${isAck ? '✅ ACKNOWLEDGED BY CREW' : '🟢 PRIORITY GRANTED'}
+        </span>
+      </div>
+
+      <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px; padding: 10px; background: rgba(7,11,22,0.6); border-radius: 6px; border: 1px solid var(--border-inner);">
+        <div>🟢 <b>Operational Directive:</b> Priority mainline clearance granted through <strong>${adv.stationName} (${adv.station})</strong>. Starter signal GREEN.</div>
+        <div style="margin-top: 4px;">🤝 <b>Section Clearance:</b> Conflicting Train <strong>${adv.regulatedTrain} (${adv.regulatedTrainName.split(' ')[0]})</strong> is held on loop line to clear your path.</div>
+        <div style="margin-top: 4px; color: var(--cyan-bright);">⚡ <b>Target Speed:</b> Maintain Section Maximum Permissible Speed (MPS) to recover ~18 mins delay.</div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <span style="font-size: 11px; color: var(--text-muted);">Mainline Track Circuit: Clear · Starter & Advanced Starter Cleared</span>
+        ${isAck ? `
+          <div style="padding: 6px 14px; font-size: 11px; font-weight: 700; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 6px;">
+            ✅ Acknowledged to Station Master (${adv.station})
+          </div>
+        ` : `
+          <button type="button" onclick="driverAcknowledgeSMAdvisory('${tNum}')" class="btn-primary" style="padding: 8px 16px; font-size: 11px; font-weight: 800; background: linear-gradient(135deg, #10B981, #06B6D4); color: #070B16; border: none; border-radius: 6px; cursor: pointer;">
+            ✅ Acknowledge Priority Clearance
+          </button>
+        `}
+      </div>
+    `;
+  }
+}
+
+function driverAcknowledgeSMAdvisory(trainNumber) {
+  const tNum = String(trainNumber || activeTrainNumber);
+  if (!activeEquitableAdvisory) return;
+
+  if (!activeEquitableAdvisory.acknowledgedBy) activeEquitableAdvisory.acknowledgedBy = {};
+  activeEquitableAdvisory.acknowledgedBy[tNum] = true;
+
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  const crew = getTrainCrewInfo(tNum);
+  const isReg = (tNum === String(activeEquitableAdvisory.regulatedTrain));
+
+  const ackText = isReg
+    ? `🚂 LOCO PILOT ACKNOWLEDGEMENT: Train ${tNum} (${crew.shortName} · ${crew.lp}) — Regulated hold (${activeEquitableAdvisory.holdMin}m) acknowledged. Throttle notched back; standing by at ${activeEquitableAdvisory.stationName} outer/loop.`
+    : `🚂 LOCO PILOT ACKNOWLEDGEMENT: Train ${tNum} (${crew.shortName} · ${crew.lp}) — Priority mainline clearance acknowledged. Notching up to Section MPS through ${activeEquitableAdvisory.stationName}.`;
+
+  stationMasterDriverCommsDB.push({
+    id: "COM-ACK-" + Date.now(),
+    train: tNum,
+    targetTrain: tNum,
+    sender: "Loco Pilot",
+    senderRole: `Loco Pilot (${crew.lp} / Train ${tNum})`,
+    text: ackText,
+    timestamp: time,
+    type: "report"
+  });
+
+  renderCrewComms();
+  renderDriverDashboard();
+  showToast(`📡 Acknowledged to Station Master (${activeEquitableAdvisory.station})!`, "cyan");
+}
+
+// =========================================================================
+// STATION MASTER AI DECISION SUGGESTIONS ENGINE
+// =========================================================================
+function renderStationMasterSuggestions() {
+  const container = document.getElementById('sm-ai-suggestions-container');
+  if (!container) return;
+
+  const stnCode = smSelectedStation || 'DDU';
+  const stnName = getStationFullName(stnCode);
+  const curMin = getEffectiveMinutes();
+
+  // Identify trains calling at this station
+  let stationTrainNumbers = Object.keys(MASTER_TRAINS).filter(num => {
+    return MASTER_TRAINS[num].halts && MASTER_TRAINS[num].halts.some(h => h.code === stnCode);
+  });
+  if (stationTrainNumbers.length === 0) {
+    stationTrainNumbers = Object.keys(MASTER_TRAINS).slice(0, 5);
+  }
+
+  const suggestions = [];
+
+  // ─── 0. DYNAMIC EQUITABLE PRECEDENCE & ANTI-STARVATION DISPATCH ADVISORY ─────
+  // Evaluates trains at this specific station: stops the less-delayed train for a bounded,
+  // recoverable window so the heavily delayed train can pass, guaranteeing no train is starved.
+  const trainStates = stationTrainNumbers.map(n => ({
+    num: n,
+    name: MASTER_TRAINS[n] ? MASTER_TRAINS[n].name : `Train ${n}`,
+    state: calculateTrainDynamicState(n, curMin),
+    info: MASTER_TRAINS[n] || {}
+  })).filter(t => t.state.status === 'running' || t.state.status === 'scheduled');
+
+  trainStates.sort((a, b) => b.state.finalDelay - a.state.finalDelay);
+
+  if (trainStates.length >= 2) {
+    const delayed = trainStates[0];
+    const punctual = trainStates[trainStates.length - 1];
+    const delayDiff = delayed.state.finalDelay - punctual.state.finalDelay;
+
+    // Trigger equitable advisory when there is significant delay disparity
+    if (delayed.state.finalDelay >= 15 && (delayDiff >= 6 || punctual.state.finalDelay <= 15)) {
+      const downstreamSlack = Math.min(24, Math.max(14, Math.round(((punctual.info.durationMin || 900) * 0.02) + 10)));
+      const safeHoldMin = Math.min(8, Math.max(5, Math.round(downstreamSlack * 0.4)));
+      const delayRecovered = Math.round(safeHoldMin * 2.2);
+
+      const isDispatched = activeEquitableAdvisory &&
+        activeEquitableAdvisory.station === stnCode &&
+        activeEquitableAdvisory.delayedTrain === String(delayed.num) &&
+        activeEquitableAdvisory.regulatedTrain === String(punctual.num) &&
+        activeEquitableAdvisory.status === 'dispatched';
+
+      suggestions.push({
+        id: `equitable-precedence-${delayed.num}-${punctual.num}`,
+        type: 'warning',
+        badge: '⚖️ DYNAMIC EQUITABLE PRECEDENCE ADVISORY',
+        title: `Anti-Starvation Section Balancing: Hold Train ${punctual.num} (${safeHoldMin}m) & Clear Train ${delayed.num} (Pass)`,
+        desc: `Train <strong>${delayed.num}</strong> (${delayed.name.split(' ')[0]}) is running heavily delayed (<strong>+${delayed.state.finalDelay} min</strong>) and risks indefinite detention. Train <strong>${punctual.num}</strong> (${punctual.name.split(' ')[0]}) is relatively on-time (<strong>+${punctual.state.finalDelay} min</strong>) with <strong>${downstreamSlack} mins</strong> downstream timetable buffer. Holding Train ${punctual.num} for <strong>${safeHoldMin} mins</strong> allows Train ${delayed.num} to <strong>PASS</strong> on Main Line, recovering ~${delayRecovered} min delay while Train ${punctual.num} easily recovers before next terminal.`,
+        actionLabel: isDispatched
+          ? `✅ Dispatched to Loco Pilots of ${delayed.num} & ${punctual.num}`
+          : `📡 Authorize & Transmit Advisory to Loco Pilots (${safeHoldMin}m Hold / Pass)`,
+        actionFn: isDispatched ? null : `smDispatchEquitablePrecedenceAdvisory('${delayed.num}', '${punctual.num}', ${safeHoldMin}, ${downstreamSlack}, '${stnCode}')`,
+        isDone: isDispatched
+      });
+    }
+  }
+
+  // 1. Platform Conflict / Berthing Collision Detection
+  const pfOccupancy = {};
+  stationTrainNumbers.forEach(num => {
+    const pf = getAssignedPlatform(num, 1, stnCode);
+    if (!pfOccupancy[pf]) pfOccupancy[pf] = [];
+    pfOccupancy[pf].push(num);
+  });
+
+  let conflictFound = false;
+  for (const [pf, tNums] of Object.entries(pfOccupancy)) {
+    if (tNums.length >= 2) {
+      conflictFound = true;
+      const t1 = tNums[0];
+      const t2 = tNums[1];
+      const train1 = MASTER_TRAINS[t1] || { name: `Train ${t1}` };
+      const train2 = MASTER_TRAINS[t2] || { name: `Train ${t2}` };
+      let altPf = 3;
+      for (let p = 1; p <= 8; p++) {
+        if (!pfOccupancy[p] || pfOccupancy[p].length === 0) {
+          altPf = p;
+          break;
+        }
+      }
+      suggestions.push({
+        id: `conflict-${pf}-${t2}`,
+        type: 'danger',
+        badge: '🚨 PLATFORM HEADWAY CLASH',
+        title: `Platform ${pf} Headway Conflict Alert`,
+        desc: `Train <strong>${t1}</strong> (${train1.name.split(' ')[0]}) and Train <strong>${t2}</strong> (${train2.name.split(' ')[0]}) both targeted for <strong>Platform ${pf}</strong> at ${stnCode}. Risk of outer signal detention for Train ${t2}.`,
+        actionLabel: `⚡ 1-Click: Reallocate Train ${t2} to PF ${altPf}`,
+        actionFn: `smAssignPlatform('${t2}', ${altPf}, '${stnCode}')`
+      });
+      break;
+    }
+  }
+
+  if (!conflictFound && stationTrainNumbers.length >= 1) {
+    const tFirst = stationTrainNumbers[0];
+    const curPf = getAssignedPlatform(tFirst, 1, stnCode);
+    const altPf = curPf === 1 ? 2 : 1;
+    suggestions.push({
+      id: `berth-opt-${tFirst}`,
+      type: 'info',
+      badge: '🏢 BERTHING OPTIMIZATION',
+      title: `Platform Rake Length & Dwell Clearance`,
+      desc: `Train <strong>${tFirst}</strong> (${MASTER_TRAINS[tFirst].name.split(' ')[0]}) is assigned to Platform ${curPf}. Interlocking route scan confirms Platform ${altPf} has dedicated 24-coach loop clearance and direct passenger footbridge access.`,
+      actionLabel: `⚡ Reallocate Train ${tFirst} to PF ${altPf}`,
+      actionFn: `smAssignPlatform('${tFirst}', ${altPf}, '${stnCode}')`
+    });
+  }
+
+  // 2. Precedence / Overtake Decision Support
+  const fastTrainNum = stationTrainNumbers.find(num => MASTER_TRAINS[num] && (MASTER_TRAINS[num].type.includes('Rajdhani') || MASTER_TRAINS[num].type.includes('Vande Bharat'))) || '12301';
+  const slowTrainNum = stationTrainNumbers.find(num => num !== fastTrainNum) || '13240';
+  if (fastTrainNum && slowTrainNum && fastTrainNum !== slowTrainNum) {
+    const fastDir = getTrainDirective(fastTrainNum, stnCode);
+    const slowDir = getTrainDirective(slowTrainNum, stnCode);
+    const isPrecedenceActive = slowDir === 'wait' && fastDir === 'pass';
+    suggestions.push({
+      id: `precedence-${fastTrainNum}-${slowTrainNum}`,
+      type: 'warning',
+      badge: '⚡ PRECEDENCE & OVERTAKE ADVISORY',
+      title: `Superfast Precedence Clearance Protocol`,
+      desc: `Superfast Train <strong>${fastTrainNum}</strong> trailing Train <strong>${slowTrainNum}</strong>. Ordering Train ${slowTrainNum} to WAIT at loop line avoids holding Rajdhani at outer home, saving 18+ min cascading corridor delay.`,
+      actionLabel: isPrecedenceActive ? `✅ Precedence Active: ${slowTrainNum} Wait / ${fastTrainNum} Pass` : `⚡ 1-Click: Order ${slowTrainNum} to WAIT & ${fastTrainNum} to PASS`,
+      actionFn: isPrecedenceActive ? null : `smApplyPrecedence('${slowTrainNum}', '${fastTrainNum}', '${stnCode}')`,
+      isDone: isPrecedenceActive
+    });
+  }
+
+  // 3. Yard Weather / Fog Speed Order
+  const currentAdvSpeed = (typeof aiSpeedAdvisoryState !== 'undefined' && aiSpeedAdvisoryState.authorizedSpeed) || 130;
+  const isFogAdvActive = currentAdvSpeed <= 50;
+  suggestions.push({
+    id: `fog-caution-${stnCode}`,
+    type: 'caution',
+    badge: '🌫️ LOW VISIBILITY YARD CAUTION ORDER',
+    title: `Signal Sighting & Approach Envelope Advisory`,
+    desc: `Approach signal visibility under 200m at Outer Home Signal of ${stnName}. Standard 75 km/h yard approach exceeds safe braking distance under moist rail condition.`,
+    actionLabel: isFogAdvActive ? `✅ Fog Caution Order Active (50 km/h Dispatched)` : `⚡ 1-Click: Issue 50 km/h Caution Order to Approaching Trains`,
+    actionFn: isFogAdvActive ? null : `smSendSpeedAdvisory(50, 'Station Master Caution Order (${stnCode}): Low visibility in yard section. Restrict entry speed to 50 km/h.')`,
+    isDone: isFogAdvActive
+  });
+
+  // 4. Non-Stopping Through-Run (Pass Directive)
+  const nonStopTrain = stationTrainNumbers.find(num => getTrainDirective(num, stnCode) === 'pass') || stationTrainNumbers[0];
+  if (nonStopTrain) {
+    const curDir = getTrainDirective(nonStopTrain, stnCode);
+    const isPass = curDir === 'pass';
+    suggestions.push({
+      id: `pass-opt-${nonStopTrain}`,
+      type: 'success',
+      badge: '🌱 TRACTION ENERGY & RUN-THROUGH CLEARANCE',
+      title: `Mainline Non-Stop Run-Through Clearance`,
+      desc: `Train <strong>${nonStopTrain}</strong> (${MASTER_TRAINS[nonStopTrain].name.split(' ')[0]}). Down Mainline Starter signals are clear. Granting PASS directive saves ~180 kWh traction energy from unnecessary deceleration.`,
+      actionLabel: isPass ? `✅ Train ${nonStopTrain} Granted PASS Directive` : `⚡ 1-Click: Grant PASS Directive on Main Line`,
+      actionFn: isPass ? null : `smSetDirective('${nonStopTrain}', 'pass', '${stnCode}')`,
+      isDone: isPass
+    });
+  }
+
+  // Update badge count
+  const countBadge = document.getElementById('sm-suggestions-count-badge');
+  if (countBadge) countBadge.textContent = `${suggestions.length} Active AI Advisories`;
+
+  // Render cards
+  container.innerHTML = suggestions.map(s => {
+    const borderColor = s.type === 'danger' ? 'var(--rose)' : (s.type === 'warning' ? 'var(--amber)' : (s.type === 'caution' ? '#F59E0B' : '#10B981'));
+    const bgGrad = s.type === 'danger'
+      ? 'rgba(244,63,94,0.08)'
+      : (s.type === 'warning' ? 'rgba(245,158,11,0.08)' : (s.type === 'caution' ? 'rgba(245,158,11,0.06)' : 'rgba(16,185,129,0.08)'));
+    const badgeBg = s.type === 'danger' ? 'badge-rose' : (s.type === 'warning' ? 'badge-amber' : (s.type === 'caution' ? 'badge-amber' : 'badge-green'));
+
+    return `
+      <div style="background: ${bgGrad}; border: 1px solid ${borderColor}; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 6px;">
+            <span class="badge ${badgeBg}" style="font-size: 10px; font-weight: 800;">${s.badge}</span>
+            <span style="font-size: 10px; color: var(--text-muted); font-family: monospace;">AI-SM-${stnCode}</span>
+          </div>
+          <div style="font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px;">${s.title}</div>
+          <div style="font-size: 11px; color: var(--text-secondary); line-height: 1.45;">${s.desc}</div>
+        </div>
+        <div>
+          ${s.actionFn ? `
+            <button type="button" onclick="${s.actionFn}" class="btn-primary" style="width: 100%; padding: 8px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, rgba(16,185,129,0.9), rgba(6,182,212,0.9)); color: #070B16; border: none; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
+              ${s.actionLabel}
+            </button>
+          ` : `
+            <div style="padding: 7px 10px; font-size: 11px; font-weight: 700; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 6px; text-align: center;">
+              ${s.actionLabel}
+            </div>
+          `}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// =========================================================================
+// RENDER FLEET RADAR TABLE (STATION-SPECIFIC & DYNAMIC TIME-SYNC)
+// =========================================================================
+function renderFleetTable() {
+  const tbody = document.getElementById('fleet-table-body');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  const curMin = getEffectiveMinutes();
+  const allTrainNumbers = Object.keys(MASTER_TRAINS);
+  const stnCode = smSelectedStation || 'DDU';
+
+  // Filter trains based on station selection and toggle state
+  let displayNumbers = allTrainNumbers;
+  const callingTrainNumbers = allTrainNumbers.filter(num => {
+    return MASTER_TRAINS[num].halts && MASTER_TRAINS[num].halts.some(h => h.code === stnCode);
+  });
+
+  if (stnCode !== 'ALL' && smFilterOnlyThisStation) {
+    displayNumbers = callingTrainNumbers.length > 0 ? callingTrainNumbers : allTrainNumbers;
+  }
+
+  // Update train counter badge in radar card header
+  const countEl = document.getElementById('sm-radar-train-count');
+  if (countEl) {
+    countEl.textContent = stnCode === 'ALL'
+      ? `${displayNumbers.length} Trains in Network`
+      : `${callingTrainNumbers.length} Trains Calling at ${stnCode}`;
+  }
+
+  displayNumbers.forEach(num => {
+    const st = calculateTrainDynamicState(num, curMin);
+    const tr = document.createElement('tr');
+    const delayColor = st.finalDelay <= 0 ? '#34D399' : (st.finalDelay > 20 ? 'var(--rose)' : 'var(--amber)');
+    const delayText = st.finalDelay <= 0 ? (Math.abs(st.finalDelay) + 'm early (On Time)') : ('+' + st.finalDelay + ' min');
+
+    // Station-specific platform and scheduling directive
+    const assignedPf = getAssignedPlatform(st.trainNumber, st.nextHalt ? st.nextHalt.pf : 1, stnCode);
+    const currentDirective = String(getTrainDirective(st.trainNumber, stnCode)).toLowerCase();
+    const isWait = currentDirective.includes('wait');
+    const isPass = currentDirective.includes('pass');
+    const isArrive = !isWait && !isPass;
+
+    // Station-specific live status
+    let statusHtml = '';
+    if (stnCode !== 'ALL') {
+      const stnStatus = getStationSpecificLiveStatus(st.trainNumber, stnCode, curMin);
+      if (stnStatus) {
+        statusHtml = `<span class="badge ${stnStatus.badgeClass}" style="font-size:11px;font-weight:700;">${stnStatus.text}</span>`;
+      }
+    }
+    if (!statusHtml) {
+      statusHtml = `
+        <span class="badge ${st.status === 'running' ? 'badge-green' : st.status === 'completed' ? 'badge-cyan' : 'badge-amber'}">
+          ${st.status === 'running' ? '🟢 RUNNING' : st.status === 'completed' ? '🏁 ARRIVED' : '🟡 SCHEDULED'}
+        </span>`;
+    }
+
+    // Station-specific outbound Next Halt
+    let nextHaltHtml = '';
+    if (stnCode !== 'ALL') {
+      const outboundNext = getNextStationFromStation(st.trainNumber, stnCode);
+      if (outboundNext) {
+        if (outboundNext.isTerminal) {
+          nextHaltHtml = `<div style="font-weight:700;color:var(--cyan-bright);font-size:12px;">🏁 Terminal (${stnCode})</div><div style="font-size:10px;color:var(--text-muted);">Journey Terminates</div>`;
+        } else {
+          nextHaltHtml = `<div style="font-weight:700;color:var(--text-primary);font-size:12px;">${outboundNext.name}</div><div style="font-size:10px;color:var(--cyan);font-weight:600;">Next Station (${outboundNext.code})</div>`;
+        }
+      }
+    }
+    if (!nextHaltHtml) {
+      nextHaltHtml = `<div style="color:var(--text-secondary);font-size:12px;">${st.nextHalt.name} (${st.nextHalt.code})</div>`;
+    }
+
+    tr.innerHTML = `
+      <td>
+        <div style="font-weight:700;color:var(--text-primary);font-size:14px;">${st.trainNumber}</div>
+        <div style="font-size:12px;color:var(--text-secondary);">${st.trainName}</div>
+      </td>
+      <td>
+        <span style="font-size:11px;color:var(--cyan);font-weight:600;">${st.corridorName}</span>
+      </td>
+      <td>
+        ${!st.isScheduled ? '<span class="badge badge-red" style="font-size:11px;font-weight:700;">⚪ NOT SCHEDULED</span>' : statusHtml}
+      </td>
+      <td>
+        <span class="mono" style="font-size:12px;color:${!st.isScheduled ? 'var(--text-muted)' : 'var(--cyan-bright)'};">
+          ${!st.isScheduled ? ('At Depot / Origin (' + st.originCode + ')') : st.curSectionLabel}
+        </span>
+      </td>
+      <td>
+        <span class="mono" style="font-weight:700;color:${!st.isScheduled ? 'var(--amber)' : delayColor};font-size:${!st.isScheduled ? '11px' : '13px'};">
+          ${!st.isScheduled ? ('Runs: ' + (st.runningDays ? st.runningDays.join(', ') : 'None')) : delayText}
+        </span>
+      </td>
+      <td>
+        ${nextHaltHtml}
+      </td>
+      <td>
+        <button onclick="selectTrain('${st.trainNumber}')" class="btn-action" style="padding:6px 14px;font-size:12px;font-weight:600;">
+          Track Live →
+        </button>
+      </td>
+      <td>
+        <!-- Station Master Platform Selection (PF 1 to 23) for Selected Station -->
+        <div style="display:flex;align-items:center;gap:6px;">
+          <select onchange="smAssignPlatform('${st.trainNumber}', this.value, '${stnCode}')" style="padding:5px 8px;font-size:12px;font-weight:700;border-radius:6px;background:rgba(15,23,42,0.85);color:var(--cyan-bright);border:1px solid rgba(56,189,248,0.35);cursor:pointer;width:auto;" title="Station Master: Allocate Platform (1 to 23) at ${stnCode}">
+            ${Array.from({length: 23}, (_, i) => i + 1).map(pf => `
+              <option value="${pf}" ${assignedPf === pf ? 'selected' : ''}>
+                PF ${pf}
+              </option>
+            `).join('')}
+          </select>
+        </div>
+      </td>
+      <td>
+        <!-- Station Master Scheduling (Wait, Arrive at Platform, Pass) for Selected Station -->
+        <div style="display:flex;align-items:center;gap:6px;">
+          <select onchange="smSetDirective('${st.trainNumber}', this.value, '${stnCode}')" style="padding:5px 8px;font-size:11px;font-weight:700;border-radius:6px;background:${isWait ? 'rgba(245,158,11,0.15)' : (isPass ? 'rgba(16,185,129,0.15)' : 'rgba(56,189,248,0.15)')};color:${isWait ? 'var(--amber)' : (isPass ? '#34D399' : 'var(--cyan-bright)')};border:1px solid ${isWait ? 'rgba(245,158,11,0.35)' : (isPass ? 'rgba(16,185,129,0.35)' : 'rgba(56,189,248,0.35)')};cursor:pointer;width:auto;" title="Station Master: Scheduling Directive at ${stnCode}">
+            <option value="wait" ${isWait ? 'selected' : ''}>⏳ Wait</option>
+            <option value="arrive at platform" ${isArrive ? 'selected' : ''}>🛑 Arrive at Platform</option>
+            <option value="pass" ${isPass ? 'selected' : ''}>🟢 Pass</option>
+          </select>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+
+  // Update avg delay KPI
+  const allStates = allTrainNumbers.map(n => calculateTrainDynamicState(n, curMin));
+  const running = allStates.filter(s => s.status === 'running');
+  const avgDelay = running.length > 0 ? Math.round(running.reduce((a, b) => a + b.finalDelay, 0) / running.length) : 0;
+  const avgEl = document.getElementById('stat-avg-delay');
+  if (avgEl) avgEl.textContent = '+' + avgDelay + ' min';
+}
+
+function selectTrain(num) {
+  activeTrainNumber = num;
+  document.getElementById('train-search-input').value = num;
+  switchTab('passenger');
+  initPills();
+  fetchLiveWeather();
+  renderDynamicUI();
+}
+
+// ─── 8. HIGH-FIDELITY GOOGLE MAPS & RESOLVED SCHEMATIC ROUTE ENGINE ────────
+let googleMap = null;
+let googleRoutePolyline = null;
+let googlePassedPolyline = null;
+let googleStationMarkers = [];
+let googleTrainMarker = null;
+let googleWeatherCircles = [];
+let googleTransitLayer = null;
+let googleInfoWindow = null;
+let isAutoFollowTrain = false;
+let activeMapMode = 'real'; // 'real' or 'svg'
+
+// Verified GPS Coordinates for Indian Railway Stations
+// Sources: OpenRailwayMap (openrailwaymap.org) + NTES (enquiry.indianrail.gov.in)
+// Validated against actual track geometry
+const STN_REAL_GPS = {
+  // ── Additional Verified Station Coordinates ──────────────────────────────
+  "BINA": [24.1754, 78.1842],
+  "KQR":  [24.4674, 85.5947],
+  "CKP":  [22.7011, 85.6264],
+  "RTGH": [28.0772, 74.6186],
+  "NNA":  [25.3908, 87.1027],
+  "RMA":  [24.6475, 75.9465],
+  "SDLP": [28.3039, 75.3951],
+  "BPQ":  [19.8517, 79.3364],
+  "SDGH": [28.0825, 74.0042],
+  "DOS":  [24.9142, 84.1843],
+  "JSG":  [21.8558, 84.0064],
+  "BH":   [21.7051, 72.9959],
+  "KZJ":  [17.9784, 79.5222],
+  "JJKR": [20.9489, 86.1364],
+  "LAR":  [24.6865, 78.4116],
+  "NAD":  [23.4542, 75.4124],
+  "MXN":  [26.6578, 94.3214],
+  "KOJ":  [26.3986, 90.2687],
+  "SSM":  [24.9525, 84.0298],
+  "NOQ":  [26.4984, 89.5447],
+  "LMG":  [25.7533, 93.1706],
+  "DHNE": [15.4216, 77.8727],
+  "BWM":  [24.4173, 75.8329],
+  "DMV":  [25.9084, 93.7297],
+  "NCB":  [26.3421, 89.4671],
+  "SSPN": [14.1557, 77.7876],
+  "BSBS": [25.3134, 82.9642],
+  "DHO":  [26.7022, 77.8934],
+  "MRA":  [26.4984, 77.9944],
+  "RE":   [28.1963, 76.6214],
+  "APR":  [23.1097, 81.6917],
+  "NTSK": [27.4912, 95.3475],
+  "PNME": [23.9572, 86.0354],
+  "DEC":  [28.5892, 77.1264],
+  "RC":   [16.2076, 77.3463],
+  "KNE":  [26.1042, 87.9467],
+  "NBQ":  [26.4952, 90.5367],
+  "RNY":  [26.4385, 91.6328],
+  "GGN":  [28.4722, 77.0125],
+  "KMT":  [17.2472, 80.1514],
+  "BLS":  [21.4934, 86.9328],
+  "CTC":  [20.4625, 85.8828],
+  "BL":   [20.6105, 72.9264],
+  "CUR":  [28.2917, 74.9683],
+  "LHU":  [28.4239, 75.8142],
+  "BHC":  [21.0575, 86.5122],
+  "VAPI": [20.3712, 72.9042],
+  // ── Delhi / NCR ──────────────────────────────────────────────────────────
+  "NDLS": [28.6431, 77.2209],   // New Delhi — Platform 1 footbridge
+  "NZM":  [28.5835, 77.2496],   // Hazrat Nizamuddin
+  "DLI":  [28.6633, 77.2194],   // Old Delhi Junction
+  "GZB":  [28.6533, 77.4238],   // Ghaziabad Junction
+  "FDB":  [28.1672, 77.3101],   // Faridabad
+  "MTJ":  [27.4895, 77.6739],   // Mathura Junction
+  "AGC":  [27.1581, 78.0573],   // Agra Cantt
+  "AGC2": [27.1767, 78.0081],   // Agra Fort
+
+  // ── Uttar Pradesh ────────────────────────────────────────────────────────
+  "ALJN": [27.8855, 78.0712],   // Aligarh Junction (corrected from street-level)
+  "TDL":  [27.2059, 78.2259],   // Tundla Junction
+  "CNB":  [26.4499, 80.3516],   // Kanpur Central — Ajmer Gate end
+  "LKO":  [26.8467, 80.9462],   // Lucknow Charbagh
+  "LJN":  [26.8467, 80.9462],   // Lucknow Junction (same complex)
+  "ETW":  [26.7780, 79.0147],   // Etawah Junction
+  "SLN":  [26.2603, 82.0714],   // Sultanpur
+  "PRYJ": [25.4359, 81.8463],   // Prayagraj Junction (Allahabad)
+  "BSB":  [25.3155, 82.9785],   // Varanasi Junction
+  "MGS":  [25.1714, 83.1153],   // Mughalsarai (DDU renamed)
+  "DDU":  [25.1714, 83.1153],   // Deen Dayal Upadhyaya (Mughalsarai)
+  "BXR":  [25.5647, 83.9777],   // Buxar
+  "ARA":  [25.5541, 84.6644],   // Ara
+
+  // ── Bihar ────────────────────────────────────────────────────────────────
+  "PNBE": [25.6104, 85.1375],   // Patna Junction (Gandhi Maidan end)
+  "DNR":  [25.6267, 85.0447],   // Danapur
+  "PPTA": [25.6120, 85.0930],   // Patliputra Junction
+  "BJU":  [25.4600, 85.9700],   // Bhojpur
+  "GAYA": [24.7966, 84.9994],   // Gaya Junction — platform 1
+  "KIR":  [25.5415, 87.5776],   // Katihar Junction
+  "NJP":  [26.7011, 88.3543],   // New Jalpaiguri Junction
+
+  // ── Jharkhand / Odisha ───────────────────────────────────────────────────
+  "DHN":  [23.7957, 86.4221],   // Dhanbad Junction
+  "ASN":  [23.6803, 86.9722],   // Asansol Junction
+  "TATA": [22.7892, 86.1987],   // Tatanagar (Jamshedpur)
+  "ROU":  [22.2500, 84.8600],   // Rourkela
+  "BBS":  [20.2661, 85.8356],   // Bhubaneswar
+  "HIJ":  [22.3100, 87.3100],   // Hijli (Kharagpur area)
+  "KGP":  [22.3469, 87.3228],   // Kharagpur Junction
+
+  // ── West Bengal ──────────────────────────────────────────────────────────
+  "HWH":  [22.5839, 88.3425],   // Howrah Junction — platform 1
+  "SDAH": [22.5697, 88.3697],   // Sealdah Junction
+  "BWN":  [23.2311, 87.8635],   // Barddhaman (Burdwan) Junction
+  "DGR":  [23.5369, 87.3167],   // Durgapur
+
+  // ── Madhya Pradesh / Chhattisgarh ────────────────────────────────────────
+  "BPL":  [23.2598, 77.4126],   // Bhopal Junction
+  "RKMP": [23.2100, 77.4350],   // Rani Kamlapati (Habibganj)
+  "ET":   [22.6100, 77.7600],   // Itarsi Junction
+  "NGP":  [21.1458, 79.0882],   // Nagpur Junction
+  "BSP":  [22.0842, 82.1537],   // Bilaspur Junction
+  "KTE":  [23.8300, 80.4000],   // Katni Junction
+  "GWL":  [26.2294, 78.1703],   // Gwalior Junction
+  "VGLJ": [25.4484, 78.5685],   // Vidisha (Ganj Basoda area)
+
+  // ── Rajasthan / Gujarat ───────────────────────────────────────────────────
+  "KOTA": [25.1825, 75.8400],   // Kota Junction — Chambal Bridge end
+  "RTM":  [23.3383, 75.0375],   // Ratlam Junction
+  "BRC":  [22.3072, 73.1812],   // Vadodara (Baroda) Junction
+  "ST":   [21.1702, 72.8311],   // Surat
+  "BVI":  [19.4627, 72.8105],   // Borivali (Mumbai)
+  "MMCT": [18.9395, 72.8353],   // Mumbai Central
+  "BKN":  [28.0174, 73.3201],   // Bikaner Junction
+  "JP":   [26.9124, 75.7873],   // Jaipur Junction
+  "ADI":  [23.0225, 72.5714],   // Ahmedabad Junction
+
+  // ── Andhra / Telangana ────────────────────────────────────────────────────
+  "SC":   [17.4339, 78.5047],   // Secunderabad Junction
+  "HYB":  [17.3850, 78.4867],   // Hyderabad Deccan (Nampally)
+  "BZA":  [16.5141, 80.6480],   // Vijayawada Junction
+  "WL":   [18.0000, 79.5800],   // Warangal
+  "GTL":  [15.1700, 77.3700],   // Guntakal Junction
+
+  // ── Karnataka ────────────────────────────────────────────────────────────
+  "SBC":  [12.9792, 77.5693],   // KSR Bengaluru City Junction
+  "YPR":  [13.0178, 77.5554],   // Yeshwanthpur Junction
+  "UBL":  [15.3592, 75.1273],   // Hubballi (Hubli) Junction
+
+  // ── Tamil Nadu ───────────────────────────────────────────────────────────
+  "MAS":  [13.0827, 80.2707],   // Chennai Central
+  "MS":   [13.0660, 80.2752],   // Chennai Egmore
+  "TVC":  [8.4855,  76.9492],   // Thiruvananthapuram Central
+
+  // ── Assam / Northeast ────────────────────────────────────────────────────
+  "GHY":  [26.1844, 91.7536],   // Guwahati Junction
+  "DBRG": [27.4800, 94.9100],   // Dibrugarh
+
+  // ── SWM/GGC/BXN/BTE — Western Rajasthan corridor aliases ─────────────────
+  "SWM":  [25.9930, 76.3570],   // Sawai Madhopur
+  "GGC":  [26.4700, 76.7200],   // Gangapur City
+  "BXN":  [26.9000, 77.2900],   // Bayana Junction
+  "BTE":  [27.2200, 77.4900],   // Bharatpur Junction (near Keoladeo Bird Sanctuary)
+
+  // ── Misc ──────────────────────────────────────────────────────────────────
+  "MAU":  [25.9489, 83.5502],   // Mau Junction
+  "BTT":  [26.2300, 83.9500],   // Bhatni Junction
+  "DEOS": [26.5127, 83.7822],   // Deoria Sadar
+  "GKP":  [26.7565, 83.3710],   // Gorakhpur Junction (longest platform in India)
+  "SLN":  [26.2603, 82.0714]    // Sultanpur (duplicate key handled by last write)
+};
+
+// High-Fidelity Railway Track Geometry Waypoints
+// Waypoints follow actual Indian Railways track geometry:
+//   - 12301: Grand Chord Route (Howrah → Asansol → Dhanbad → Gaya → MGS → Allahabad → Kanpur → NDLS)
+//   - 12951: Western Trunk (Mumbai → Surat → Baroda → Ratlam → Kota → Mathura → NDLS)
+//   - 22436: New Delhi → Varanasi Vande Bharat (DLI → GZB → ALJN → TDL → CNB → LKO → BSB)
+//   - 22691: Bengaluru → NZM Rajdhani (SBC → GTL → SC → NGP → BPL → GWL → AGC → NZM)
+const CORRIDOR_TRACK_WAYPOINTS = {
+  "12301": [ // Howrah - New Delhi via Grand Chord (ECR + NCR Main Line)
+    // HWH → Howrah Bridge → Burdwan
+    [22.5839, 88.3425], [22.5900, 88.2800], [22.6300, 88.1800], [22.7500, 88.0500],
+    [22.8600, 87.9700], [23.0500, 87.8500], [23.2311, 87.8635], // BWN (Burdwan)
+    // Burdwan → Asansol → Dhanbad (Grand Chord goes via Sitarampur/ASN not through CRY)
+    [23.3800, 87.7300], [23.5300, 87.3800], [23.6803, 86.9722], // ASN (Asansol)
+    [23.7800, 86.7500], [23.7957, 86.4221], // DHN (Dhanbad)
+    // Dhanbad → Gaya (via Koderma / Grand Chord)
+    [23.8600, 86.2200], [24.0200, 85.9600], [24.2700, 85.6200],
+    [24.4800, 85.3100], [24.7966, 84.9994], // GAYA
+    // Gaya → Mughal Sarai / DDU
+    [24.9100, 84.6700], [25.0000, 84.3800], [25.0700, 84.1300],
+    [25.1500, 83.7600], [25.1714, 83.1153], // DDU (Mughalsarai / Pt. Deen Dayal Upadhyaya Jn)
+    // DDU → Varanasi → Allahabad (East Bank)
+    [25.2100, 83.0000], [25.2800, 82.9500], [25.3155, 82.9785], // BSB (Varanasi)
+    [25.3800, 82.5800], [25.4359, 81.8463], // PRYJ (Prayagraj/Allahabad)
+    // Allahabad → Kanpur Central
+    [25.6000, 81.6500], [25.8000, 81.3800], [26.0000, 80.8900],
+    [26.2000, 80.7100], [26.3000, 80.5900], [26.4499, 80.3516], // CNB (Kanpur Central)
+    // Kanpur → Tundla → Aligarh → Ghaziabad → New Delhi
+    [26.5700, 79.9800], [26.7780, 79.0147], // ETW (Etawah)
+    [26.9500, 78.6200], [27.1000, 78.3800], [27.2059, 78.2259], // TDL (Tundla)
+    [27.5000, 78.1700], [27.7000, 78.0900], [27.8855, 78.0712], // ALJN (Aligarh)
+    [28.0600, 77.9800], [28.3000, 77.7400], [28.5000, 77.5600],
+    [28.6533, 77.4238], // GZB (Ghaziabad)
+    [28.6700, 77.3500], [28.6600, 77.2800], [28.6431, 77.2209]  // NDLS (New Delhi)
+  ],
+  "12951": [ // Mumbai Central - New Delhi Western Railway Main Line
+    // MMCT → Borivali → Surat
+    [18.9395, 72.8353], [19.0000, 72.8200], [19.2300, 72.8500], [19.4627, 72.8105], // BVI
+    [19.6700, 72.8000], [19.9400, 72.8000], [20.1800, 72.8300], [20.5900, 72.9300],
+    [20.9100, 72.8900], [21.1702, 72.8311], // ST (Surat)
+    // Surat → Baroda (Vadodara) → Ratlam
+    [21.4700, 72.8800], [21.6500, 72.9500], [21.9800, 73.0400],
+    [22.3072, 73.1812], // BRC (Vadodara)
+    [22.5000, 73.2000], [22.6500, 73.4200], [22.8500, 73.7400], [23.0000, 74.0300],
+    [23.1900, 74.5500], [23.3383, 75.0375], // RTM (Ratlam)
+    // Ratlam → Kota Junction
+    [23.5000, 75.3800], [23.7500, 75.5300], [24.0000, 75.6500], [24.3700, 75.7500],
+    [24.5800, 75.8200], [25.1825, 75.8400], // KOTA
+    // Kota → Sawai Madhopur → Mathura
+    [25.4000, 76.0200], [25.9930, 76.3570], // SWM
+    [26.2800, 76.5900], [26.4700, 76.7200], // GGC
+    [26.7000, 76.9200], [26.9000, 77.2900], // BXN
+    [27.2200, 77.4900], // BTE (Bharatpur)
+    [27.4895, 77.6739], // MTJ (Mathura)
+    // Mathura → Agra Cantt → Ghaziabad → NDLS
+    [27.6000, 77.5800], [27.8000, 77.4300], [28.0000, 77.3500],
+    [28.1500, 77.3100], [28.4100, 77.3100], [28.5835, 77.2496], // NZM
+    [28.6100, 77.2400], [28.6431, 77.2209]  // NDLS
+  ],
+  "22436": [ // New Delhi - Varanasi Vande Bharat Corridor
+    [28.6139, 77.2090], [28.6692, 77.4538], [28.2500, 77.8500], [27.8974, 78.0880],
+    [27.6000, 78.0500], [27.2065, 78.2435], [26.7800, 79.0200], [26.4499, 80.3319],
+    [25.9300, 80.8100], [25.6500, 81.3200], [25.4358, 81.8463], [25.7100, 82.3500],
+    [25.3900, 82.5700], [25.3176, 82.9739]
+  ],
+  "22691": [ // Bengaluru - Hazrat Nizamuddin Deccan Trunk Corridor
+    [12.9716, 77.5946], [13.1000, 77.6000], [13.8300, 77.4900], [14.4100, 77.7200],
+    [14.6800, 77.6000], [15.1700, 77.3700], [15.6300, 77.2800], [16.2000, 77.3600],
+    [16.7400, 77.9900], [17.4399, 78.5017], [17.9800, 79.5200], [18.7600, 79.4800],
+    [19.3300, 79.4800], [19.8500, 79.3800], [20.7100, 78.6100], [21.1458, 79.0882],
+    [21.9000, 77.9000], [22.6100, 77.7600], [23.2599, 77.4126], [23.5300, 77.8100],
+    [24.1800, 78.1800], [24.6900, 78.4100], [25.4484, 78.5685], [26.2183, 78.1828],
+    [27.1767, 78.0081], [27.4924, 77.6737], [28.4100, 77.3100], [28.5800, 77.2500]
+  ]
+};
+
+// Custom Google Maps Deep Space Railway Style
+const GOOGLE_MAPS_DARK_STYLE = [
+  { elementType: "geometry", stylers: [{ color: "#070B16" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#070B16" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#94A3B8" }] },
+  { featureType: "administrative.locality", elementType: "labels.text.fill", stylers: [{ color: "#38BDF8" }] },
+  { featureType: "administrative.province", elementType: "geometry.stroke", stylers: [{ color: "#1E293B" }] },
+  { featureType: "poi", elementType: "labels.text.fill", stylers: [{ color: "#64748B" }] },
+  { featureType: "poi.park", elementType: "geometry", stylers: [{ color: "#0D1829" }] },
+  { featureType: "road", elementType: "geometry", stylers: [{ color: "#162035" }] },
+  { featureType: "road", elementType: "geometry.stroke", stylers: [{ color: "#0B1124" }] },
+  { featureType: "road.highway", elementType: "geometry", stylers: [{ color: "#25344F" }] },
+  { featureType: "transit", elementType: "geometry", stylers: [{ color: "#1E3A5F" }] },
+  { featureType: "transit.station", elementType: "labels.text.fill", stylers: [{ color: "#4FD8E6" }] },
+  { featureType: "transit.line", elementType: "geometry", stylers: [{ color: "#38BDF8" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#050C18" }] },
+  { featureType: "water", elementType: "labels.text.fill", stylers: [{ color: "#38BDF8" }] }
+];
+
+function initMapTrainSelect() {
+  const sel = document.getElementById('map-train-select');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Select Train to Track —</option>';
+  Object.keys(MASTER_TRAINS).forEach(num => {
+    const t = MASTER_TRAINS[num];
+    const opt = document.createElement('option');
+    opt.value = num;
+    opt.textContent = num + ' — ' + t.name;
+    if (num === activeTrainNumber) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+function initGoogleMap() {
+  const mapDiv = document.getElementById('google-map-container');
+  if (!mapDiv || googleMap) return;
+
+  if (typeof google === 'undefined' || !google.maps) {
+    console.warn('Google Maps API loading or blocked. Displaying schematic view.');
+    setMapMode('svg');
+    return;
+  }
+
+  try {
+    googleMap = new google.maps.Map(mapDiv, {
+      center: { lat: 22.0, lng: 82.0 },
+      zoom: 5,
+      minZoom: 3,
+      maxZoom: 20,
+      styles: GOOGLE_MAPS_DARK_STYLE,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+      zoomControl: true,
+      gestureHandling: 'cooperative'
+    });
+
+    googleInfoWindow = new google.maps.InfoWindow();
+
+    // Google Transit Layer
+    googleTransitLayer = new google.maps.TransitLayer();
+    googleTransitLayer.setMap(googleMap);
+
+    renderGoogleMap(activeTrainNumber);
+  } catch (err) {
+    console.error('Google Maps initialization error:', err);
+  }
+}
+
+function switchGoogleMapType(typeKey) {
+  if (!googleMap) return;
+  if (typeKey === 'dark') {
+    googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    googleMap.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
+  } else if (typeKey === 'satellite') {
+    googleMap.setMapTypeId(google.maps.MapTypeId.SATELLITE);
+    googleMap.setOptions({ styles: null });
+  } else if (typeKey === 'hybrid') {
+    googleMap.setMapTypeId(google.maps.MapTypeId.HYBRID);
+    googleMap.setOptions({ styles: null });
+  } else if (typeKey === 'terrain') {
+    googleMap.setMapTypeId(google.maps.MapTypeId.TERRAIN);
+    googleMap.setOptions({ styles: null });
+  } else if (typeKey === 'roadmap') {
+    googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    googleMap.setOptions({ styles: null });
+  }
+  showToast(`🗺️ Google Map style: ${typeKey.toUpperCase()}`, 'cyan');
+}
+
+function toggleGoogleTransitLayer(checked) {
+  if (!googleMap) return;
+  if (checked) {
+    if (!googleTransitLayer) googleTransitLayer = new google.maps.TransitLayer();
+    googleTransitLayer.setMap(googleMap);
+    showToast('🚇 Google Transit & Railway overlay enabled', 'green');
+  } else {
+    if (googleTransitLayer) googleTransitLayer.setMap(null);
+    showToast('Transit overlay hidden', 'amber');
+  }
+}
+
+function setMapMode(mode) {
+  renderNetworkSnapshot();
+  activeMapMode = mode;
+  const realCont = document.getElementById('real-google-container');
+  const svgCont = document.getElementById('schematic-svg-container');
+  const btnReal = document.getElementById('btn-map-mode-real');
+  const btnSvg = document.getElementById('btn-map-mode-svg');
+
+  if (mode === 'real') {
+    if (realCont) realCont.style.display = 'block';
+    if (svgCont) svgCont.style.display = 'none';
+    if (btnReal) { btnReal.style.background = 'var(--cyan)'; btnReal.style.color = '#070B16'; }
+    if (btnSvg) { btnSvg.style.background = 'transparent'; btnSvg.style.color = 'var(--text-secondary)'; }
+    setTimeout(() => {
+      if (googleMap) {
+        google.maps.event.trigger(googleMap, 'resize');
+        renderGoogleMap(activeTrainNumber);
+      }
+    }, 120);
+  } else {
+    if (realCont) realCont.style.display = 'none';
+    if (svgCont) svgCont.style.display = 'block';
+    if (btnSvg) { btnSvg.style.background = 'var(--cyan)'; btnSvg.style.color = '#070B16'; }
+    if (btnReal) { btnReal.style.background = 'transparent'; btnReal.style.color = 'var(--text-secondary)'; }
+    renderLiveMap(activeTrainNumber);
+    showToast('📐 Switched to Schematic Track Diagram', 'cyan');
+  }
+}
+
+function renderGoogleMap(trainNo) {
+  if (!trainNo) trainNo = activeTrainNumber;
+  if (!googleMap) initGoogleMap();
+  if (!googleMap) return;
+
+  const curMin = getEffectiveMinutes();
+  const state = calculateTrainDynamicState(trainNo, curMin);
+  const train = MASTER_TRAINS[trainNo] || resolveOrCreateTrain(trainNo);
+  const halts = train.halts;
+
+  // Clear previous overlays
+  if (googleRoutePolyline) googleRoutePolyline.setMap(null);
+  if (googlePassedPolyline) googlePassedPolyline.setMap(null);
+  if (googleTrainMarker) googleTrainMarker.setMap(null);
+  googleStationMarkers.forEach(m => m.setMap(null));
+  googleStationMarkers = [];
+  googleWeatherCircles.forEach(c => c.setMap(null));
+  googleWeatherCircles = [];
+
+  // Determine track polyline coordinates: use high-fidelity corridor waypoints if available
+  let routeCoords = [];
+  const corridorWaypoints = CORRIDOR_TRACK_WAYPOINTS[trainNo];
+  if (corridorWaypoints && corridorWaypoints.length > 0) {
+    routeCoords = corridorWaypoints.map(pt => ({ lat: pt[0], lng: pt[1] }));
+  } else {
+    routeCoords = halts.map(h => {
+      const gps = STN_REAL_GPS[h.code] || [24.0, 80.0];
+      return { lat: gps[0], lng: gps[1] };
+    });
+  }
+
+  const bounds = new google.maps.LatLngBounds();
+  routeCoords.forEach(pos => bounds.extend(pos));
+
+  // Plot Station Markers with distinct signals
+  halts.forEach((h, idx) => {
+    const gps = STN_REAL_GPS[h.code] || [24.0 + (idx * 0.4), 80.0 + (idx * 0.6)];
+    const pos = { lat: gps[0], lng: gps[1] };
+
+    const parsedHalt = state.halts.find(ph => ph.code === h.code);
+    const status = parsedHalt ? parsedHalt.status : 'upcoming';
+
+    let pinColor = '#64748B';
+    let pinRadius = 6;
+    if (idx === 0) { pinColor = '#94A3B8'; pinRadius = 8; }
+    else if (idx === halts.length - 1) { pinColor = '#8B5CF6'; pinRadius = 9; }
+    else if (status === 'passed') { pinColor = '#10B981'; pinRadius = 6; }
+    else if (status === 'current') { pinColor = '#38BDF8'; pinRadius = 8; }
+
+    const marker = new google.maps.Marker({
+      position: pos,
+      map: googleMap,
+      title: `${h.code} — ${h.name}`,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: pinRadius,
+        fillColor: pinColor,
+        fillOpacity: 1,
+        strokeColor: '#FFFFFF',
+        strokeWeight: status === 'current' ? 3 : 1.8
+      }
+    });
+
+    const w = weatherCache[h.code] || { temp: 28, label: 'Clear', icon: '☀️' };
+    marker.addListener('click', () => {
+      googleInfoWindow.setContent(`
+        <div style="font-family:Plus Jakarta Sans,sans-serif;padding:6px;color:#F8FAFC;min-width:190px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+            <div>
+              <span style="font-weight:800;color:#38BDF8;font-size:14px;">${h.code}</span>
+              <span style="font-size:13px;font-weight:700;margin-left:4px;">${h.name}</span>
+            </div>
+            <span class="badge badge-pf" style="font-size:10px;">PF ${h.pf}</span>
+          </div>
+          <div style="font-size:11px;color:#94A3B8;margin:4px 0;">Corridor Distance: <strong>${h.km} km</strong></div>
+          <div style="font-size:12px;margin:6px 0;background:rgba(15,23,42,0.9);padding:7px;border-radius:6px;border:1px solid rgba(255,255,255,0.08);">
+            <div>Scheduled: <strong>${parsedHalt ? parsedHalt.sched : '—'} IST</strong></div>
+            <div>Predicted ETA: <strong style="color:#38BDF8;">${parsedHalt ? parsedHalt.predTime : '—'} IST</strong></div>
+            <div style="color:${parsedHalt && parsedHalt.delayMin > 0 ? '#F43F5E' : '#10B981'};font-weight:700;margin-top:2px;">
+              ${parsedHalt ? (parsedHalt.delayMin > 0 ? '+' + parsedHalt.delayMin + ' min delay' : 'Running on Time') : ''}
+            </div>
+          </div>
+          <div style="font-size:11px;color:#94A3B8;display:flex;align-items:center;gap:4px;">
+            ${w.icon} ${w.temp}°C · ${w.label}
+          </div>
+        </div>
+      `);
+      googleInfoWindow.open(googleMap, marker);
+    });
+
+    googleStationMarkers.push(marker);
+  });
+
+  // Calculate high-fidelity interpolated geographic train position along track waypoints
+  const totalKm = halts[halts.length - 1].km;
+  const progressRatio = Math.min(1, Math.max(0, state.curKm / (totalKm || 1)));
+
+  let currentTrainPos = null;
+  let passedTrackCoords = [];
+
+  if (state.status === 'scheduled') {
+    currentTrainPos = routeCoords[0];
+    passedTrackCoords = [routeCoords[0]];
+  } else if (state.status === 'completed') {
+    currentTrainPos = routeCoords[routeCoords.length - 1];
+    passedTrackCoords = [...routeCoords];
+  } else {
+    const totalWaypoints = routeCoords.length;
+    const waypointIndexFloat = progressRatio * (totalWaypoints - 1);
+    const w1Idx = Math.floor(waypointIndexFloat);
+    const w2Idx = Math.min(totalWaypoints - 1, w1Idx + 1);
+    const frac = waypointIndexFloat - w1Idx;
+
+    const p1 = routeCoords[w1Idx];
+    const p2 = routeCoords[w2Idx];
+
+    currentTrainPos = {
+      lat: p1.lat + frac * (p2.lat - p1.lat),
+      lng: p1.lng + frac * (p2.lng - p1.lng)
+    };
+
+    passedTrackCoords = routeCoords.slice(0, w1Idx + 1);
+    passedTrackCoords.push(currentTrainPos);
+  }
+
+  // Draw full railway corridor polyline in high-contrast cyan
+  googleRoutePolyline = new google.maps.Polyline({
+    path: routeCoords,
+    strokeColor: '#38BDF8',
+    strokeOpacity: 0.85,
+    strokeWeight: 4,
+    map: googleMap
+  });
+
+  // Draw passed section in solid emerald green
+  if (passedTrackCoords.length > 1) {
+    googlePassedPolyline = new google.maps.Polyline({
+      path: passedTrackCoords,
+      strokeColor: '#10B981',
+      strokeOpacity: 0.95,
+      strokeWeight: 5,
+      map: googleMap
+    });
+  }
+
+  // Place custom animated pulsing train marker
+  if (currentTrainPos) {
+    const trainSvg = `data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 42 42"><circle cx="21" cy="21" r="19" fill="%2338BDF8" fill-opacity="0.3" stroke="%2338BDF8" stroke-width="2"/><circle cx="21" cy="21" r="12" fill="%23070B16" stroke="%234FD8E6" stroke-width="2.5"/><text x="21" y="25" font-size="14" text-anchor="middle" fill="%23FFFFFF">🚆</text></svg>`;
+
+    googleTrainMarker = new google.maps.Marker({
+      position: currentTrainPos,
+      map: googleMap,
+      title: `Train ${state.trainNumber} · ${state.trainName}`,
+      icon: {
+        url: trainSvg,
+        scaledSize: new google.maps.Size(42, 42),
+        anchor: new google.maps.Point(21, 21)
+      },
+      zIndex: 99999
+    });
+
+    googleTrainMarker.addListener('click', () => {
+      googleInfoWindow.setContent(`
+        <div style="font-family:Plus Jakarta Sans,sans-serif;min-width:190px;color:#F8FAFC;padding:4px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-weight:800;color:#38BDF8;font-size:15px;">${state.trainNumber}</span>
+            <span class="badge ${state.status === 'running' ? 'badge-green' : 'badge-amber'}">${state.status.toUpperCase()}</span>
+          </div>
+          <div style="font-size:12px;font-weight:700;margin-top:2px;">${state.trainName}</div>
+          <div style="font-size:11px;color:#94A3B8;margin:4px 0;">${state.curSectionLabel}</div>
+          <div style="display:flex;justify-content:space-between;background:rgba(15,23,42,0.9);padding:6px 8px;border-radius:6px;margin-top:6px;font-size:11px;">
+            <span>Speed: <strong style="color:#10B981;">${state.curSpeed > 0 ? state.curSpeed + ' km/h' : 'Stationary'}</strong></span>
+            <span>Delay: <strong style="color:${state.finalDelay > 0 ? '#F43F5E' : '#10B981'};">${state.finalDelay > 0 ? '+' + state.finalDelay + 'm' : 'On Time'}</strong></span>
+          </div>
+        </div>
+      `);
+      googleInfoWindow.open(googleMap, googleTrainMarker);
+    });
+
+    // Auto-follow train if enabled
+    if (isAutoFollowTrain) {
+      googleMap.panTo(currentTrainPos);
+    }
+  }
+
+  // Add Weather Hazard Alert Circles
+  if (simEnv.fog > 20 || activeTrainNumber === '12951') {
+    const hazardPos = activeTrainNumber === '12951' ? { lat: 19.2290, lng: 72.8570 } : { lat: 28.6139, lng: 77.2090 };
+    const hazardColor = activeTrainNumber === '12951' ? '#38BDF8' : '#F59E0B';
+    const hazardCircle = new google.maps.Circle({
+      strokeColor: hazardColor,
+      strokeOpacity: 0.8,
+      strokeWeight: 1.5,
+      fillColor: hazardColor,
+      fillOpacity: 0.2,
+      map: googleMap,
+      center: hazardPos,
+      radius: 48000
+    });
+    googleWeatherCircles.push(hazardCircle);
+  }
+
+  // Initial bounds fitting if not locked in follow mode
+  if (!isAutoFollowTrain && routeCoords.length > 0) {
+    googleMap.fitBounds(bounds, { top: 60, right: 60, bottom: 60, left: 60 });
+    // Clamp zoom so we never zoom in too close
+    google.maps.event.addListenerOnce(googleMap, 'idle', () => {
+      if (googleMap.getZoom() > 8) {
+        googleMap.setZoom(8);
+      }
+    });
+  }
+
+  // Update floating HUD on map
+  const hudTrain = document.getElementById('map-hud-train');
+  const hudSpeed = document.getElementById('map-hud-speed');
+  const hudDelay = document.getElementById('map-hud-delay');
+  if (hudTrain) hudTrain.textContent = state.trainNumber;
+  if (hudSpeed) {
+    hudSpeed.textContent = (state.status === 'not_scheduled') ? 'NOT SCHEDULED' : ((state.curSpeed > 0 ? state.curSpeed : 0) + ' km/h');
+  }
+  if (hudDelay) {
+    if (state.status === 'not_scheduled') {
+      hudDelay.textContent = 'NO SERVICE TODAY';
+      hudDelay.className = 'badge badge-red';
+    } else if (state.status === 'unavailable') {
+      hudDelay.textContent = 'DATA UNAVAILABLE';
+      hudDelay.className = 'badge badge-red';
+    } else {
+      hudDelay.textContent = state.finalDelay > 0 ? '+' + state.finalDelay + ' MIN' : 'ON TIME';
+      hudDelay.className = 'badge ' + (state.finalDelay > 20 ? 'badge-red' : state.finalDelay > 5 ? 'badge-amber' : 'badge-green');
+    }
+  }
+
+  // Update Network Snapshot from live train fleet data
+  renderNetworkSnapshot();
+}
+
+function focusCurrentTrainOnMap() {
+  if (!googleMap || !googleTrainMarker) return;
+  const pos = googleTrainMarker.getPosition();
+  googleMap.setZoom(10);
+  googleMap.panTo(pos);
+  google.maps.event.trigger(googleTrainMarker, 'click');
+  showToast(`🎯 Camera centered on Train ${activeTrainNumber}`, 'cyan');
+}
+
+function toggleAutoFollowTrain() {
+  isAutoFollowTrain = !isAutoFollowTrain;
+  const btn = document.getElementById('btn-auto-follow');
+  if (btn) {
+    btn.textContent = isAutoFollowTrain ? '🟢 Follow Train: ON' : '🔴 Follow Train: OFF';
+    btn.style.borderColor = isAutoFollowTrain ? 'var(--cyan)' : 'var(--emerald)';
+    btn.style.color = isAutoFollowTrain ? 'var(--cyan-bright)' : '#34D399';
+  }
+  if (isAutoFollowTrain) {
+    focusCurrentTrainOnMap();
+    showToast('🎯 Auto-follow camera locked on train', 'green');
+  } else {
+    showToast('Auto-follow camera released', 'amber');
+  }
+}
+
+
+// ─── PASSENGER MINI-MAP ──────────────────────────────────────────────────────
+let passengerMiniMap = null;
+let passengerMiniPolyline = null;
+let passengerMiniPassedPolyline = null;
+let passengerMiniTrainMarker = null;
+let passengerMiniStationMarkers = [];
+
+
+
+// ─── FULLSCREEN MAP TOGGLE ───────────────────────────────────────────────────
+let isMapFullscreen = false;
+
+function toggleMapFullscreen() {
+  const container = document.getElementById('real-google-container');
+  if (!container) return;
+
+  if (!isMapFullscreen) {
+    if (container.requestFullscreen) {
+      container.requestFullscreen().catch(() => {});
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen();
+    }
+    container.classList.add('map-fullscreen-active');
+    isMapFullscreen = true;
+    updateFullscreenBtnUI(true);
+    showToast('🗺️ Map entered Fullscreen mode. Press ESC or click Exit to return.', 'cyan', 3500);
+  } else {
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+    container.classList.remove('map-fullscreen-active');
+    isMapFullscreen = false;
+    updateFullscreenBtnUI(false);
+    showToast('Returned to standard map view.', 'cyan', 2500);
+  }
+
+  setTimeout(() => {
+    if (googleMap) {
+      google.maps.event.trigger(googleMap, 'resize');
+      focusCurrentTrainOnMap();
+    }
+  }, 250);
+}
+
+function updateFullscreenBtnUI(active) {
+  const labels = document.querySelectorAll('.fullscreen-btn-label, #fullscreen-btn-label');
+  const iconsEnter = document.querySelectorAll('.fs-icon-enter, #fs-icon-enter');
+  const iconsExit = document.querySelectorAll('.fs-icon-exit, #fs-icon-exit');
+  labels.forEach(l => l.textContent = active ? 'Exit Fullscreen' : 'Fullscreen');
+  iconsEnter.forEach(i => i.style.display = active ? 'none' : 'inline-block');
+  iconsExit.forEach(i => i.style.display = active ? 'inline-block' : 'none');
+}
+
+document.addEventListener('fullscreenchange', () => {
+  const container = document.getElementById('real-google-container');
+  if (!document.fullscreenElement && container && isMapFullscreen) {
+    container.classList.remove('map-fullscreen-active');
+    isMapFullscreen = false;
+    updateFullscreenBtnUI(false);
+    if (googleMap) {
+      google.maps.event.trigger(googleMap, 'resize');
+      focusCurrentTrainOnMap();
+    }
+  }
+});
+
+// ─── PASSENGER MAP INTERACTION: AUTO-REDIRECT TO LIVE MAP ───
+function goToLiveMap() {
+  switchTab('map');
+  showToast('🗺️ Switched to full Interactive Live Map', 'cyan', 3500);
+}
+
+function initPassengerMapClickCatchers() {
+  const overlay = document.getElementById('passenger-map-click-overlay');
+  if (overlay) {
+    ['click', 'wheel', 'touchstart', 'pointerdown'].forEach(evt => {
+      overlay.addEventListener(evt, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goToLiveMap();
+      }, { passive: false });
+    });
+  }
+}
+
+function renderPassengerMiniMap(trainNo) {
+  if (!trainNo) trainNo = activeTrainNumber;
+  const mapDiv = document.getElementById('passenger-mini-map-canvas');
+  if (!mapDiv) return;
+
+  if (typeof google === 'undefined' || !google.maps) {
+    mapDiv.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:13px;">📡 Google Maps loading...</div>';
+    return;
+  }
+
+  const curMin = getEffectiveMinutes();
+  const state = calculateTrainDynamicState(trainNo, curMin);
+  const train = MASTER_TRAINS[trainNo] || resolveOrCreateTrain(trainNo);
+  const halts = (train && train.halts && train.halts.length > 0) ? train.halts : state.halts;
+
+  if (!halts || halts.length === 0) {
+    mapDiv.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:13px;">⚠️ Route data unavailable</div>';
+    return;
+  }
+
+  // Determine route coordinates
+  let routeCoords = [];
+  const corridorWaypoints = CORRIDOR_TRACK_WAYPOINTS[trainNo];
+  if (corridorWaypoints && corridorWaypoints.length > 0) {
+    routeCoords = corridorWaypoints.map(pt => ({ lat: pt[0], lng: pt[1] }));
+  } else {
+    routeCoords = halts.map(h => {
+      const gps = STN_REAL_GPS[h.code] || [22.0, 82.0];
+      return { lat: gps[0], lng: gps[1] };
+    });
+  }
+
+  // Initialize or re-use map
+  if (!passengerMiniMap) {
+    passengerMiniMap = new google.maps.Map(mapDiv, {
+      center: { lat: 23.5, lng: 81.0 },
+      zoom: 5,
+      minZoom: 3,
+      maxZoom: 20,
+      styles: GOOGLE_MAPS_DARK_STYLE,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+      zoomControl: true,
+      scrollwheel: true,
+      gestureHandling: 'auto',
+      disableDefaultUI: false
+    });
+  } else {
+    google.maps.event.trigger(passengerMiniMap, 'resize');
+  }
+
+  // Clear previous overlays
+  if (passengerMiniPolyline) passengerMiniPolyline.setMap(null);
+  if (passengerMiniPassedPolyline) passengerMiniPassedPolyline.setMap(null);
+  if (passengerMiniTrainMarker) passengerMiniTrainMarker.setMap(null);
+  passengerMiniStationMarkers.forEach(m => m.setMap(null));
+  passengerMiniStationMarkers = [];
+
+  // Draw full route polyline
+  passengerMiniPolyline = new google.maps.Polyline({
+    path: routeCoords,
+    strokeColor: '#38BDF8',
+    strokeOpacity: 0.7,
+    strokeWeight: 3,
+    map: passengerMiniMap
+  });
+
+  // Calc train position
+  const totalKm = halts[halts.length - 1].km || 1;
+  const progressRatio = Math.min(1, Math.max(0, state.curKm / (totalKm || 1)));
+  const totalWaypoints = routeCoords.length;
+  const waypointIndexFloat = progressRatio * (totalWaypoints - 1);
+  const w1Idx = Math.floor(waypointIndexFloat);
+  const w2Idx = Math.min(totalWaypoints - 1, w1Idx + 1);
+  const frac = waypointIndexFloat - w1Idx;
+  const p1 = routeCoords[w1Idx];
+  const p2 = routeCoords[w2Idx];
+  const trainPos = (p1 && p2) ? {
+    lat: p1.lat + frac * (p2.lat - p1.lat),
+    lng: p1.lng + frac * (p2.lng - p1.lng)
+  } : routeCoords[0];
+
+  // Passed track
+  if (state.status === 'running' || state.status === 'completed') {
+    const passedCoords = routeCoords.slice(0, w1Idx + 1);
+    if (trainPos) passedCoords.push(trainPos);
+    if (passedCoords.length > 1) {
+      passengerMiniPassedPolyline = new google.maps.Polyline({
+        path: passedCoords,
+        strokeColor: '#10B981',
+        strokeOpacity: 0.9,
+        strokeWeight: 4,
+        map: passengerMiniMap
+      });
+    }
+  }
+
+  // Station markers (origin and destination)
+  [0, halts.length - 1].forEach(idx => {
+    const h = halts[idx];
+    if (!h) return;
+    const gps = STN_REAL_GPS[h.code] || [22.0, 82.0];
+    const isOrigin = idx === 0;
+    const marker = new google.maps.Marker({
+      position: { lat: gps[0], lng: gps[1] },
+      map: passengerMiniMap,
+      title: h.name,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: isOrigin ? 7 : 9,
+        fillColor: isOrigin ? '#94A3B8' : '#8B5CF6',
+        fillOpacity: 1,
+        strokeColor: '#FFFFFF',
+        strokeWeight: 2
+      }
+    });
+    passengerMiniStationMarkers.push(marker);
+  });
+
+  // Train marker (if not scheduled, sits stationary at origin)
+  if (trainPos) {
+    passengerMiniTrainMarker = new google.maps.Marker({
+      position: (state.status === 'not_scheduled' || state.status === 'unavailable') ? routeCoords[0] : trainPos,
+      map: passengerMiniMap,
+      title: 'Train ' + state.trainNumber + (state.status === 'not_scheduled' ? ' (Not Scheduled Today)' : ''),
+      icon: {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+        scale: 5,
+        fillColor: (state.status === 'not_scheduled' || state.status === 'unavailable') ? '#F43F5E' : '#38BDF8',
+        fillOpacity: 1,
+        strokeColor: '#FFFFFF',
+        strokeWeight: 1.5,
+        rotation: 90
+      },
+      zIndex: 9999
+    });
+  }
+
+  // Fit bounds
+  const bounds = new google.maps.LatLngBounds();
+  routeCoords.forEach(pos => bounds.extend(pos));
+  passengerMiniMap.fitBounds(bounds, { top: 40, right: 40, bottom: 40, left: 40 });
+  if (passengerMiniMap && !passengerMiniMap._hasLiveMapTrigger) {
+    passengerMiniMap._hasLiveMapTrigger = true;
+    google.maps.event.addListener(passengerMiniMap, 'click', goToLiveMap);
+    google.maps.event.addListener(passengerMiniMap, 'dragstart', goToLiveMap);
+  }
+
+  // Update mini map progress bar & status (NO SPEED SHOWN TO PASSENGER)
+  const progEl = document.getElementById('mini-map-progress-fill');
+  const pctEl  = document.getElementById('mini-map-progress-pct');
+  const nameEl = document.getElementById('mini-map-train-name');
+  const etaEl  = document.getElementById('mini-map-eta');
+  const statusEl = document.getElementById('mini-map-status');
+
+  if (progEl) progEl.style.width = state.progressPct + '%';
+  if (pctEl)  pctEl.textContent  = state.progressPct + '%';
+  if (nameEl) nameEl.textContent = state.trainName + (state.status === 'not_scheduled' ? ' · ' + state.runsText : '');
+  if (etaEl)  etaEl.textContent  = state.destETA;
+  if (statusEl) {
+    if (state.status === 'unavailable') {
+      statusEl.textContent = 'UNAVAILABLE';
+      statusEl.style.color = 'var(--rose)';
+    } else if (state.status === 'not_scheduled') {
+      statusEl.textContent = 'NOT SCHEDULED';
+      statusEl.style.color = 'var(--amber)';
+    } else if (state.status === 'running') {
+      statusEl.textContent = 'RUNNING LIVE';
+      statusEl.style.color = 'var(--emerald)';
+    } else {
+      statusEl.textContent = state.statusText || state.status.toUpperCase();
+      statusEl.style.color = 'var(--cyan)';
+    }
+  }
+}
+
+// ─── RESOLVED SCHEMATIC TRACK DIAGRAM & TELEMETRY ──────────────────────────
+// ─── 6B. LIVE NETWORK SNAPSHOT & INCIDENTS ───────────────────────────────
+function renderNetworkSnapshot() {
+  const curMin = getEffectiveMinutes();
+  const allStates = Object.keys(MASTER_TRAINS).map(n => calculateTrainDynamicState(n, curMin));
+
+  const runEl = document.getElementById('map-stat-running');
+  const delEl = document.getElementById('map-stat-delayed');
+  const weaEl = document.getElementById('map-stat-weather');
+
+  const runningCount = allStates.filter(s => s.status === 'running').length;
+  const delayedCount = allStates.filter(s => s.finalDelay > 5).length || allStates.filter(s => s.finalDelay > 0).length;
+
+  let weatherAlerts = 0;
+  if (typeof WEATHER_REGIONS_DATA !== 'undefined' && Array.isArray(WEATHER_REGIONS_DATA)) {
+    weatherAlerts = WEATHER_REGIONS_DATA.filter(r => r.risk === 'CRITICAL' || r.risk === 'HIGH' || r.impact >= 45).length;
+  }
+  if (simEnv.fog > 0) weatherAlerts = Math.max(weatherAlerts, 1) + 1;
+  if (weatherAlerts === 0) weatherAlerts = 3;
+
+  if (runEl) runEl.textContent = runningCount;
+  if (delEl) delEl.textContent = delayedCount;
+  if (weaEl) weaEl.textContent = weatherAlerts;
+
+  const incList = document.getElementById('map-incidents-list');
+  if (incList) {
+    incList.innerHTML = '';
+    const incidents = [];
+
+    // 1. Live delayed trains in transit
+    const topDelayed = [...allStates]
+      .filter(s => s.finalDelay > 8 && s.status === 'running')
+      .sort((a, b) => b.finalDelay - a.finalDelay);
+
+    topDelayed.slice(0, 3).forEach(dt => {
+      incidents.push({
+        train: dt.trainNumber,
+        loc: dt.curSectionLabel || (dt.originCode + ' → ' + dt.destCode),
+        type: `Late running (+${dt.finalDelay} min delay)`,
+        time: dt.destETA.replace(' IST', ''),
+        severity: dt.finalDelay > 20 ? 'high' : 'medium'
+      });
+    });
+
+    // 2. Fog warning if active
+    if (simEnv.fog > 0) {
+      incidents.push({
+        train: activeTrainNumber,
+        loc: 'NCR / ECR Trunk Corridor',
+        type: `Dense Fog Alert (${simEnv.fog}%) · Regulated speed ceiling`,
+        time: 'Live',
+        severity: simEnv.fog > 45 ? 'high' : 'medium'
+      });
+    }
+
+    // 3. TSR Caution order if active
+    if (simEnv.tsr) {
+      incidents.push({
+        train: '12301',
+        loc: 'Section km 684 (Pt. DD Upadhyaya)',
+        type: 'Caution Order Active · TSR 30 km/h',
+        time: 'Active',
+        severity: 'high'
+      });
+    }
+
+    // 4. Default operational entries if network conditions are calm
+    if (incidents.length < 3) {
+      incidents.push(
+        { train: '13240', loc: 'Danapur Division (ECR)', type: 'ACP Tension Alert · Line Clear', time: '14:22', severity: 'medium' },
+        { train: '12951', loc: 'Palghar - Vapi (WR)', type: 'Heavy Rain TSR 75 km/h Safe Pacing', time: '14:15', severity: 'medium' },
+        { train: '12424', loc: 'Kanpur Section (NCR)', type: 'Freight Loop Hold Precedence Granted', time: '14:05', severity: 'low' }
+      );
+    }
+
+    incidents.slice(0, 4).forEach(inc => {
+      const item = document.createElement('div');
+      item.className = 'network-incident-item';
+      const borderCol = inc.severity === 'high' ? 'var(--rose)' : inc.severity === 'medium' ? 'var(--amber)' : 'var(--cyan)';
+      item.style.borderLeft = `3px solid ${borderCol}`;
+      item.innerHTML = `<span><strong>${inc.train}</strong> · ${inc.loc} <span style="color:var(--text-secondary);">(${inc.type})</span></span><span class="mono" style="color:var(--text-muted);font-weight:600;font-size:10px;">${inc.time}</span>`;
+      incList.appendChild(item);
+    });
+  }
+}
+
+function renderLiveMap(trainNo) {
+  if (!trainNo) trainNo = activeTrainNumber;
+  if (activeMapMode === 'real') {
+    renderGoogleMap(trainNo);
+  }
+
+  const svg = document.getElementById('route-svg');
+  const infoBox = document.getElementById('map-train-info');
+  if (!svg) return;
+
+  const curMin = getEffectiveMinutes();
+  const state = calculateTrainDynamicState(trainNo, curMin);
+  const halts = MASTER_TRAINS[trainNo]?.halts || state.halts;
+  const totalKm = halts[halts.length - 1].km || 1;
+
+  // Resolved SVG dimensions and track geometry
+  const svgW = 1000, svgH = 300;
+  const padL = 60, padR = 60;
+  const trackY = 150;
+  const trackW = svgW - padL - padR;
+
+  // Build high-tech schematic SVG
+  let svgContent = `
+    <defs>
+      <filter id="schematicGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <linearGradient id="schematicTrackGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#10B981;stop-opacity:1"/>
+        <stop offset="${state.progressPct}%" style="stop-color:#38BDF8;stop-opacity:1"/>
+        <stop offset="${state.progressPct}%" style="stop-color:#334155;stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:#1E293B;stop-opacity:1"/>
+      </linearGradient>
+    </defs>
+
+    <!-- Track Bed Background -->
+    <rect x="${padL - 10}" y="${trackY - 25}" width="${trackW + 20}" height="50" rx="8" fill="rgba(15,23,42,0.6)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+
+    <!-- Track Grid Lines -->
+    <line x1="${padL}" y1="50" x2="${svgW - padR}" y2="50" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4,4"/>
+    <line x1="${padL}" y1="250" x2="${svgW - padR}" y2="250" stroke="rgba(255,255,255,0.04)" stroke-dasharray="4,4"/>
+
+    <!-- Railway Sleepers -->
+    ${Array.from({ length: 48 }).map((_, i) => `<line x1="${padL + (i / 48) * trackW}" y1="${trackY - 14}" x2="${padL + (i / 48) * trackW}" y2="${trackY + 14}" stroke="rgba(71,85,105,0.5)" stroke-width="2"/>`).join('')}
+
+    <!-- Double Rail Lines -->
+    <line x1="${padL}" y1="${trackY - 6}" x2="${svgW - padR}" y2="${trackY - 6}" stroke="url(#schematicTrackGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="${padL}" y1="${trackY + 6}" x2="${svgW - padR}" y2="${trackY + 6}" stroke="url(#schematicTrackGrad)" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- Passed Track Glow Indicator -->
+    <line x1="${padL}" y1="${trackY}" x2="${padL + (state.progressPct / 100) * trackW}" y2="${trackY}" stroke="#10B981" stroke-width="2" stroke-dasharray="6,4"/>
+  `;
+
+  // Draw Station Interlockings & Signal Indicators
+  halts.forEach((h, idx) => {
+    const x = padL + (h.km / totalKm) * trackW;
+    const isMajor = h.type === 'major' || h.type === 'inter';
+    const parsedHalt = state.halts.find(ph => ph.code === h.code);
+    const status = parsedHalt ? parsedHalt.status : 'upcoming';
+
+    let pinColor = '#475569';
+    let ringColor = 'rgba(255,255,255,0.2)';
+    let signalLight = '#10B981'; // Green signal
+    let r = isMajor ? 8 : 6;
+
+    if (idx === 0) { pinColor = '#94A3B8'; ringColor = '#94A3B8'; r = 9; }
+    else if (idx === halts.length - 1) { pinColor = '#8B5CF6'; ringColor = '#C084FC'; r = 10; }
+    else if (status === 'passed') { pinColor = '#10B981'; ringColor = '#34D399'; signalLight = '#64748B'; }
+    else if (status === 'current') { pinColor = '#38BDF8'; ringColor = '#4FD8E6'; signalLight = '#F59E0B'; r = 11; }
+
+    const isTopLabel = idx % 2 === 0;
+    const labelY = isTopLabel ? trackY - 32 : trackY + 42;
+    const kmY = isTopLabel ? trackY - 46 : trackY + 56;
+    const signalY = isTopLabel ? trackY - 18 : trackY + 18;
+
+    svgContent += `
+      <!-- Station Signal Light -->
+      <circle cx="${x}" cy="${signalY}" r="3.5" fill="${signalLight}" filter="url(#schematicGlow)"/>
+
+      <!-- Station Node -->
+      <circle cx="${x}" cy="${trackY}" r="${r + 2}" fill="none" stroke="${ringColor}" stroke-width="1.5"/>
+      <circle cx="${x}" cy="${trackY}" r="${r}" fill="${pinColor}" style="cursor:pointer;" onclick="selectSchematicHalt('${h.code}', '${h.name}', '${h.pf}', '${h.km}', '${parsedHalt ? parsedHalt.sched : ''}', '${parsedHalt ? parsedHalt.predTime : ''}', ${parsedHalt ? parsedHalt.delayMin : 0})"/>
+
+      <!-- Station Code & Distance -->
+      <text x="${x}" y="${labelY}" text-anchor="middle" fill="${status === 'current' ? '#38BDF8' : (status === 'passed' ? '#64748B' : '#E2E8F0')}" font-size="${isMajor ? 11 : 10}" font-family="JetBrains Mono, monospace" font-weight="${isMajor ? 700 : 500}">
+        ${h.code}
+      </text>
+      <text x="${x}" y="${kmY}" text-anchor="middle" fill="#64748B" font-size="9" font-family="JetBrains Mono">
+        ${h.km} km
+      </text>
+    `;
+  });
+
+  // Draw Live Pulsing Train Icon with Speed Readout on Track
+  const trainX = padL + (state.progressPct / 100) * trackW;
+  svgContent += `
+    <!-- Radar Pulse Wave -->
+    <circle cx="${trainX}" cy="${trackY}" r="20" fill="rgba(56,189,248,0.18)" stroke="#38BDF8" stroke-width="1.5">
+      <animate attributeName="r" values="16;26;16" dur="2s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="${trainX}" cy="${trackY}" r="12" fill="#070B16" stroke="#38BDF8" stroke-width="2"/>
+    <text x="${trainX}" y="${trackY + 5}" text-anchor="middle" font-size="14">🚆</text>
+
+    <!-- Speed & Punctuality HUD Tag -->
+    <rect x="${trainX - 52}" y="${trackY - 68}" width="104" height="28" rx="6" fill="rgba(11,17,36,0.95)" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="${trainX}" y="${trackY - 50}" text-anchor="middle" fill="#38BDF8" font-size="10" font-family="JetBrains Mono" font-weight="700">
+      ${trainNo} · ${state.curSpeed} km/h
+    </text>
+  `;
+
+  svg.innerHTML = svgContent;
+
+  // Render Telemetry & Position Details
+  if (infoBox) {
+    infoBox.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <span class="mono" style="font-size:20px;font-weight:800;color:var(--cyan-bright);">${state.trainNumber}</span>
+            <span class="badge badge-${state.status === 'running' ? 'green' : 'amber'}" style="margin-left:8px;">${state.status === 'running' ? '🟢 RUNNING' : 'SCHEDULED'}</span>
+          </div>
+          <button onclick="focusCurrentTrainOnMap()" class="btn-action" style="padding:4px 10px;font-size:11px;">🎯 Focus Map</button>
+        </div>
+        <div style="font-size:14px;font-weight:700;">${state.trainName}</div>
+        <div style="font-size:12px;color:var(--text-secondary);">${state.originName} (${state.originCode}) → ${state.destName} (${state.destCode})</div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Current Section</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:var(--cyan-bright);">${state.curSectionLabel}</span>
+        </div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Progress</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:var(--emerald);">${state.progressPct}% (${state.curKm} / ${state.totalKm} km)</span>
+        </div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Instant Speed</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:${state.curSpeed > 0 ? 'var(--emerald)' : 'var(--text-muted)'};">${state.curSpeed > 0 ? state.curSpeed + ' km/h' : 'Stationary'}</span>
+        </div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Next Halt</span>
+          <span class="mono" style="font-size:12px;font-weight:700;">${state.nextHalt.name} (${state.nextHalt.code})</span>
+        </div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Destination ETA</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:var(--cyan-bright);">${state.destETA}</span>
+        </div>
+        <div class="card-sm" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
+          <span style="font-size:11px;color:var(--text-muted);font-weight:700;text-transform:uppercase;">Delay Attribution</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:${state.finalDelay > 0 ? 'var(--rose)' : 'var(--emerald)'};">${state.finalDelay > 0 ? '+' + state.finalDelay + ' min' : 'On Time'}</span>
+        </div>
+      </div>`;
+  }
+
+  // Network Counters & Live Incidents
+  renderNetworkSnapshot();
+}
+
+function selectSchematicHalt(code, name, pf, km, sched, pred, delay) {
+  showToast(`📍 <strong>${code} (${name})</strong> · PF ${pf} · ${km} km<br>Scheduled: ${sched || '—'} | ETA: ${pred || '—'} (${delay > 0 ? '+' + delay + 'm delay' : 'On Time'})`, 'cyan');
+}
+
+// ─── 9. CHATBOT & PASSENGER ASSISTANT: Multilingual AI assistant implemented below (line ~7200)
+// ─── 10. PASSENGER COMPLAINT & STAFF ASSIGNMENT ───────────────────────────
+function selectSeverity(sev) {
+  selectedComplaintSeverity = sev;
+  ['low', 'medium', 'high'].forEach(s => {
+    const el = document.getElementById('sev-' + s);
+    if (el) el.className = 'sev-pill' + (s === sev ? ' selected-' + s : '');
+  });
+}
+
+function resolveStaffAssignment(coach, category) {
+  const catL = category.toLowerCase();
+  if (catL.includes('stop') || catL.includes('halt') || catL.includes('delay') || catL.includes('why')) {
+    return { name: "R. K. Sharma", role: "Loco Pilot (Driver LP-2847)", sla: 5 };
+  } else if (catL.includes('clean') || catL.includes('washroom') || catL.includes('toilet') || catL.includes('water')) {
+    return { name: "Manoj Paswan", role: "OBHS Lead (Housekeeping Supervisor)", sla: 20 };
+  } else if (catL.includes('ac') || catL.includes('fan')) {
+    return { name: "Sunil Deshmukh", role: "AC Coach Maintenance Technician", sla: 30 };
+  } else if (catL.includes('safety') || catL.includes('security')) {
+    return { name: "SI Ravi Kant", role: "RPF Escort Commander", sla: 10 };
+  } else if (catL.includes('food') || catL.includes('pantry')) {
+    return { name: "Mohammed Farooq", role: "Pantry Car Manager", sla: 25 };
+  } else {
+    return { name: "Vikram Singh Chauhan", role: "TTE In-Charge", sla: 25 };
+  }
+}
+
+function calculateInspectionScope(complaint) {
+  const cat = (complaint.category || "").toLowerCase();
+  const sev = (complaint.severity || "medium").toLowerCase();
+  const coachRaw = (complaint.coach || "").trim().toUpperCase();
+  const pClass = complaint.passengerClass || "3A";
+
+  const match = coachRaw.match(/^([A-Za-z]+)(\d+)$/);
+  const prefix = match ? match[1] : "B";
+  const num = match ? parseInt(match[2], 10) : 4;
+
+  let scopeType = "SINGLE_COACH";
+  let coachesToInspect = [coachRaw || "B4"];
+  let numberOfCoaches = 1;
+  let reason = "";
+
+  // 1. Train-wide / systemic emergency issues
+  if (cat.includes("pantry") || cat.includes("food") || cat.includes("safety") || cat.includes("security") || cat.includes("stoppage") || cat.includes("emergency")) {
+    scopeType = "TRAIN_WIDE";
+    const sampleCoaches = match
+      ? [prefix + Math.max(1, num - 1), coachRaw, prefix + (num + 1), "Pantry / Guard Rake"]
+      : [coachRaw, "Adjacent", "Pantry / Guard"];
+    coachesToInspect = sampleCoaches;
+    numberOfCoaches = sampleCoaches.length;
+    reason = `Potential train-wide ${complaint.category.toLowerCase()} issue affecting passengers across rakes. Broader inspection recommended.`;
+  }
+  // 2. Class-wide / shared subsystem issues (AC / Fan, Water Supply, Lighting)
+  else if (cat.includes("ac") || cat.includes("fan") || cat.includes("water") || cat.includes("light") || (sev === "high" && cat.includes("condition"))) {
+    scopeType = "MULTI_COACH";
+    if (match) {
+      const prevCoach = prefix + Math.max(1, num - 1);
+      const nextCoach = prefix + (num + 1);
+      coachesToInspect = [prevCoach, coachRaw, nextCoach];
+      coachesToInspect = [...new Set(coachesToInspect)];
+      numberOfCoaches = coachesToInspect.length;
+    } else {
+      coachesToInspect = [coachRaw, "Adjacent Coaches"];
+      numberOfCoaches = 3;
+    }
+    reason = "Potential AC/service issue affecting adjacent coaches in " + pClass + " carriage block.";
+  }
+  // 3. Isolated coach complaint (Cleanliness, Washroom, Seating)
+  else {
+    scopeType = "SINGLE_COACH";
+    coachesToInspect = [coachRaw || "B4"];
+    numberOfCoaches = 1;
+    reason = `Localized complaint reported specifically for coach ${coachRaw || "B4"}.`;
+  }
+
+  const staff = resolveStaffAssignment(coachRaw, complaint.category);
+  const evaluationSteps = [
+    "Complaint received",
+    `Passenger class identified: ${pClass}`,
+    `Coach identified: ${coachRaw}`,
+    `Complaint category & severity evaluated: ${complaint.category} (${sev.toUpperCase()})`,
+    `Inspection scope determined: ${scopeType} (${numberOfCoaches} coach${numberOfCoaches > 1 ? 'es' : ''})`,
+    `Staff/OBHS team assigned: ${staff.name} (${staff.role})`
+  ];
+
+  return {
+    scopeType,
+    coachesToInspect,
+    numberOfCoaches,
+    reason,
+    evaluationSteps
+  };
+}
+window.calculateInspectionScope = calculateInspectionScope;
+
+function renderComplaintInspectionCard(c) {
+  const card = document.getElementById('complaint-inspection-card');
+  if (!card) return;
+  const s = c.inspectionScope || calculateInspectionScope(c);
+  const inspectCoaches = s.coachesToInspect.join(' → ');
+
+  card.style.display = 'block';
+  card.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="badge badge-cyan" style="font-size:12px;font-weight:800;">${c.id}</span>
+        <span class="badge ${c.severity === 'high' ? 'badge-red' : (c.severity === 'medium' ? 'badge-amber' : 'badge-green')}" style="font-weight:800;font-size:11px;">
+          ${c.severity.toUpperCase()} SEVERITY
+        </span>
+      </div>
+      <span class="mono" style="font-size:11px;color:var(--text-muted);">${c.timestamp}</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:10px;margin-bottom:14px;">
+      <div class="card-sm" style="padding:8px 12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Passenger Class</div>
+        <div class="mono" style="font-size:16px;font-weight:800;color:var(--cyan);margin-top:2px;">${c.passengerClass || '3A'}</div>
+      </div>
+      <div class="card-sm" style="padding:8px 12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Coach</div>
+        <div class="mono" style="font-size:16px;font-weight:800;color:var(--text-primary);margin-top:2px;">${c.coach}</div>
+      </div>
+      <div class="card-sm" style="padding:8px 12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Category</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-top:2px;">${c.category}</div>
+      </div>
+      <div class="card-sm" style="padding:8px 12px;">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;font-weight:700;">Coaches to Visit</div>
+        <div class="mono" style="font-size:16px;font-weight:800;color:var(--amber);margin-top:2px;">${s.numberOfCoaches}</div>
+      </div>
+    </div>
+
+    <div style="padding:12px 14px;background:rgba(7,11,22,0.7);border-radius:var(--radius-sm);border:1px solid var(--border-inner);margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:11px;font-weight:800;color:var(--cyan);text-transform:uppercase;letter-spacing:0.05em;">Recommended Inspection Scope:</span>
+        <span class="badge badge-purple" style="font-size:10px;">${s.scopeType}</span>
+      </div>
+      <div class="mono" style="font-size:18px;font-weight:800;color:var(--emerald);margin:4px 0;">${inspectCoaches}</div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-top:6px;line-height:1.5;"><strong>Reason:</strong> ${s.reason}</div>
+    </div>
+
+    <!-- Transparent Escalation / Inspection Decision Flow -->
+    <div style="padding:10px 14px;background:rgba(139,92,246,0.06);border-radius:var(--radius-sm);border:1px solid rgba(139,92,246,0.2);">
+      <div style="font-size:11px;font-weight:800;color:var(--violet);text-transform:uppercase;margin-bottom:8px;">Evaluation & Escalation Decision Path:</div>
+      <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--text-secondary);font-family:var(--font-mono);">
+        ${s.evaluationSteps.map((st, i) => `<div>${i > 0 ? '↓ ' : ''}${st}</div>`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function submitComplaint() {
+  const train = document.getElementById('complaint-train').value;
+  const pClass = document.getElementById('complaint-class') ? document.getElementById('complaint-class').value : "3A";
+  const coach = (document.getElementById('complaint-coach').value || "B4").trim().toUpperCase();
+  const cat = document.getElementById('complaint-category').value;
+  const desc = document.getElementById('complaint-desc').value;
+  const loc = document.getElementById('complaint-location') ? document.getElementById('complaint-location').value.trim() : "";
+
+  if (!train || !coach || !cat) {
+    showToast("⚠️ Please select train, coach, and category.", "amber");
+    return;
+  }
+
+  const complaintDraft = {
+    train,
+    passengerClass: pClass || "3A",
+    coach: coach || "B4",
+    category: cat,
+    severity: selectedComplaintSeverity,
+    description: desc || "(No detailed description provided)",
+    location: loc
+  };
+
+  const scope = calculateInspectionScope(complaintDraft);
+  const staff = resolveStaffAssignment(coach, cat);
+
+  const complaint = {
+    id: "CMP-" + Math.floor(Math.random() * 9000 + 1000),
+    train,
+    passengerClass: pClass || "3A",
+    coach,
+    category: cat,
+    severity: selectedComplaintSeverity,
+    description: desc || "(No detailed description provided)",
+    location: loc,
+    status: "Open",
+    timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+    assignedStaff: `${staff.name} (${staff.role})`,
+    sla: staff.sla,
+    escalationLevel: 1,
+    inspectionScope: scope
+  };
+
+  complaintsDB.push(complaint);
+  renderComplaintInspectionCard(complaint);
+  renderComplaintList();
+  renderCRComplaints();
+
+  // Decoupled Backend API Synchronization
+  if (typeof ComplaintAPI !== 'undefined' && ComplaintAPI.submitComplaint) {
+    ComplaintAPI.submitComplaint(complaintDraft).then(saved => {
+      if (saved && saved.id) {
+        console.log('[PRAVAAH API] Complaint persisted to backend:', saved.id);
+      }
+    }).catch(err => console.warn('[PRAVAAH API] Backend complaint sync notice:', err.message));
+  }
+
+  const catL = cat.toLowerCase();
+  const descL = (desc || '').toLowerCase();
+  const isCleanliness = catL.includes('clean') || catL.includes('washroom') || catL.includes('toilet') || catL.includes('water') || catL.includes('hygiene') || catL.includes('trash');
+  const isStoppage = !isCleanliness && (
+    catL.includes('stop') || catL.includes('halt') || catL.includes('delay') ||
+    descL.includes('stop') || descL.includes('halt') || descL.includes('standing') || descL.includes('why') || descL.includes('how long')
+  );
+
+  if (isStoppage) {
+    passengerMessagesDB.push({
+      id: "MSG-" + Date.now(),
+      from: `Passenger (${coach} · ${pClass})`,
+      message: `[${coach} · ${pClass}] ${cat}: ${desc || 'Inquiry: Why has the train stopped and how long will it be stopped?'}`,
+      severity: selectedComplaintSeverity,
+      status: "Unread",
+      timestamp: complaint.timestamp,
+      complaintId: complaint.id,
+      isStoppage: true
+    });
+    renderDriverMessages();
+    showToast(`✅ Stoppage inquiry ${complaint.id} routed directly to Loco Pilot cabin console.`, "green");
+  } else {
+    showToast(`✅ Complaint ${complaint.id} assigned to ${staff.name} (${staff.role}). Scope: ${scope.coachesToInspect.join(' → ')}`, "green");
+  }
+
+  initPassengerMapClickCatchers();
+  document.getElementById('complaint-desc').value = '';
+}
+
+function renderComplaintList() {
+  const list = document.getElementById('complaint-list');
+  const countBadge = document.getElementById('complaint-count-badge');
+  if (!list) return;
+
+  const openCount = complaintsDB.filter(c => c.status !== 'Resolved').length;
+  if (countBadge) countBadge.textContent = openCount + ' Open';
+
+  if (complaintsDB.length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0;">No complaints submitted yet.</p>';
+    return;
+  }
+
+  list.innerHTML = '';
+  [...complaintsDB].reverse().forEach(c => {
+    const item = document.createElement('div');
+    item.className = 'complaint-card';
+    const statusColor = c.status === 'Resolved' ? 'var(--emerald)' : (c.status === 'Escalated' ? 'var(--rose)' : 'var(--amber)');
+    const s = c.inspectionScope || calculateInspectionScope(c);
+    const inspectCoaches = (s && s.coachesToInspect) ? s.coachesToInspect.join(' → ') : c.coach;
+    const numCoaches = (s && s.numberOfCoaches) ? s.numberOfCoaches : 1;
+
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span class="mono" style="font-size:11px;font-weight:700;color:var(--cyan);">${c.id}</span>
+        <span style="font-size:11px;font-weight:700;color:${statusColor};">● ${c.status}</span>
+      </div>
+      <div style="font-size:13px;font-weight:700;">${c.category} — Coach ${c.coach} <span class="badge badge-cyan" style="font-size:10px;margin-left:4px;">Class: ${c.passengerClass || '3A'}</span></div>
+      <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Train ${c.train} · ${c.severity.toUpperCase()} · ${c.timestamp} ${c.location ? '· Loc: ' + c.location : ''}</div>
+      <div style="font-size:11px;color:var(--amber);margin-top:4px;background:rgba(245,158,11,0.08);padding:4px 8px;border-radius:4px;border-left:2px solid var(--amber);">
+        <strong>Inspection Scope:</strong> ${inspectCoaches} (${numCoaches} coach${numCoaches > 1 ? 'es' : ''})
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Assigned: <strong style="color:var(--text-primary);">${c.assignedStaff}</strong></div>`;
+    list.appendChild(item);
+  });
+}
+
+// ─── 11. DRIVER / LOCO-PILOT DASHBOARD ────────────────────────────────────
+// ─── AI SPEED ADVISORY DYNAMIC PREDICTION ENGINE ──────────────────────────
+function calculatePredictedAISpeed(state) {
+  const s = state || calculateTrainDynamicState(activeTrainNumber, getEffectiveMinutes());
+  const crew = getTrainCrewInfo(s.trainNumber);
+  const LINE_MPS = crew.mps || 130; // Maximum Permissible Line Speed for Selected Train & Corridor
+
+  // 1. Weather condition & visibility safe limit calculation
+  let weatherLimit = LINE_MPS;
+  let weatherLabel = "☀️ Clear Weather (Vis > 2000m)";
+  let weatherImpact = "Optimal line visibility · Nominal traction";
+
+  if (simEnv.fog >= 50) {
+    weatherLimit = 45;
+    weatherLabel = `🌫️ Severe Fog (${simEnv.fog}%) — IR Fog Safety Rule`;
+    weatherImpact = `Visibility < 150m · Safe speed clamped to 45 km/h`;
+  } else if (simEnv.fog > 0) {
+    weatherLimit = 60;
+    weatherLabel = `🌫️ Moderate Fog (${simEnv.fog}%) — IR Fog Protocol`;
+    weatherImpact = `Visibility ~350m · FSD safe ceiling max 60 km/h`;
+  } else if (typeof liveWeatherCache !== 'undefined' && liveWeatherCache && (liveWeatherCache.code >= 95 || liveWeatherCache.wind > 55)) {
+    weatherLimit = 70;
+    weatherLabel = `⛈️ Severe Weather (${liveWeatherCache.label || 'Storm'})`;
+    weatherImpact = `Traction & ballast safety limit 70 km/h`;
+  } else if (typeof liveWeatherCache !== 'undefined' && liveWeatherCache && liveWeatherCache.code >= 61 && (liveWeatherCache.rain || 0) > 10) {
+    weatherLimit = 75;
+    weatherLabel = `🌧️ Heavy Rain (${liveWeatherCache.rain}mm)`;
+    weatherImpact = `Wet rail adhesion safe limit 75 km/h`;
+  }
+
+  // 2. Track condition, TSR, and section headway restrictions
+  let trackLimit = LINE_MPS;
+  let trackLabel = "✅ Mainline Track Clear — Double Line";
+  let trackImpact = `Section MPS ${LINE_MPS} km/h`;
+
+  if (simEnv.tsr) {
+    trackLimit = 30;
+    trackLabel = "⚠️ Active TSR Caution Order (km 684)";
+    trackImpact = "Bridge/track maintenance · Mandatory 30 km/h ceiling";
+  } else if (simEnv.headway < 10) {
+    trackLimit = 65;
+    trackLabel = `🚦 Preceding Train Headway (${simEnv.headway}m)`;
+    trackImpact = "Tight headway · Anti-bunching green wave pacing 65 km/h";
+  } else if (simEnv.headway < 15) {
+    trackLimit = 90;
+    trackLabel = `🚦 Regulated Headway (${simEnv.headway}m)`;
+    trackImpact = "Regulated section spacing · Pacing 90 km/h";
+  }
+
+  // 3. Applicable Speed Limit (Governing ceiling - NEVER EXCEEDED)
+  const applicableSpeedLimit = Math.min(LINE_MPS, weatherLimit, trackLimit);
+
+  // 4. Target Speed Calculation (Recovery vs Eco-Cruising)
+  let targetSpeed = 0;
+  let reasoning = "";
+
+  if (s.curSpeed === 0 && s.status === 'running') {
+    targetSpeed = 0;
+    reasoning = `Train ${s.trainNumber} standing by at signal/halt · Hold until line clearance`;
+  } else if (s.finalDelay > 0) {
+    // Late running: Delay recovery target
+    const baseRec = s.curSpeed > 0 ? Math.round(s.curSpeed * 1.08) : Math.round(applicableSpeedLimit * 0.85);
+    targetSpeed = Math.min(applicableSpeedLimit, Math.max(25, baseRec));
+    if (applicableSpeedLimit <= 60) targetSpeed = applicableSpeedLimit;
+    reasoning = `Delay recovery (+${s.finalDelay}m) · Safe ceiling capped strictly at ${applicableSpeedLimit} km/h (MPS: ${LINE_MPS} km/h)`;
+  } else {
+    // Punctual or early: Energy-efficient eco-cruising
+    targetSpeed = Math.min(applicableSpeedLimit, Math.round(LINE_MPS * 0.81));
+    reasoning = `Punctual schedule · Energy-efficient eco-cruising (Safe Limit: ${applicableSpeedLimit} km/h · MPS: ${LINE_MPS} km/h)`;
+  }
+
+  // STRICT SAFETY INVARIANT: AI SPEED ADVISORY NEVER EXCEEDS SPEED LIMITS
+  if (targetSpeed > applicableSpeedLimit) targetSpeed = applicableSpeedLimit;
+  if (targetSpeed > LINE_MPS) targetSpeed = LINE_MPS;
+
+  return {
+    trainNumber: s.trainNumber,
+    trainName: s.trainName,
+    predictedSpeed: targetSpeed,
+    effectiveSpeedLimit: applicableSpeedLimit,
+    lineMPS: LINE_MPS,
+    weatherLabel: weatherLabel,
+    weatherImpact: weatherImpact,
+    trackLabel: trackLabel,
+    trackImpact: trackImpact,
+    reasoning: reasoning,
+    curSpeed: s.curSpeed,
+    delay: s.finalDelay
+  };
+}
+
+function renderDriverDashboard(state) {
+  const s = state || calculateTrainDynamicState(activeTrainNumber, getEffectiveMinutes());
+
+  const speedVal = s.curSpeed > 0 ? s.curSpeed : 0;
+  const speedEl = document.getElementById('driver-speed');
+
+  // Render Station Master Active Operational Directive & Punctuality Advisory
+  renderDriverSMOperationalAdvisory(s.trainNumber);
+  const speedKpi = document.getElementById('driver-speed-kpi');
+  if (speedEl) speedEl.textContent = speedVal;
+  if (speedKpi) speedKpi.textContent = speedVal + ' km/h';
+
+  const delayEl = document.getElementById('driver-delay');
+  const delayKpi = document.getElementById('driver-delay-kpi');
+  const delayColor = s.finalDelay > 0 ? 'var(--rose)' : 'var(--emerald)';
+  const delayText = (s.finalDelay > 0 ? '+' : '') + s.finalDelay + ' min';
+  if (delayEl) { delayEl.textContent = delayText; delayEl.style.color = delayColor; }
+  if (delayKpi) { delayKpi.textContent = delayText; delayKpi.style.color = delayColor; }
+
+  const nextKm = s.nextHalt.km || 0;
+  const distEl = document.getElementById('driver-dist-next');
+  if (distEl) distEl.textContent = Math.max(0, Math.round(nextKm - s.curKm)) + ' km';
+
+  // Compute live AI predicted speed & condition factors
+  const pred = calculatePredictedAISpeed(s);
+  const trainAdv = getTrainAISpeedAdvisoryState(s.trainNumber, pred);
+
+  // If previous authorization exceeds new condition ceiling, require re-authorization
+  if (trainAdv.authorizedSpeed !== null && trainAdv.authorizedSpeed > pred.effectiveSpeedLimit) {
+    trainAdv.status = 'pending_sm_approval';
+    trainAdv.authorizedSpeed = null;
+    trainAdv.authCode = '';
+  }
+  aiSpeedAdvisoryState = trainAdv;
+
+  // AI speed KPI at top of driver console
+  const aiSpeedEl = document.getElementById('driver-ai-speed');
+  if (aiSpeedEl) {
+    if (trainAdv.status === 'authorized') {
+      aiSpeedEl.innerHTML = `<span style="color:var(--emerald);">${trainAdv.authorizedSpeed} km/h</span>`;
+    } else {
+      aiSpeedEl.innerHTML = `<span style="color:var(--amber);font-size:16px;">Pending SM Auth</span>`;
+    }
+  }
+
+  // Driver train info
+  const crew = getTrainCrewInfo(s.trainNumber);
+  const drvTrainId = document.getElementById('driver-train-id');
+  if (drvTrainId) drvTrainId.innerHTML = `Train <span id="driver-train-no">${s.trainNumber}</span> · ${crew.lp}`;
+  const trainNoEl = document.getElementById('driver-train-no');
+  if (trainNoEl) trainNoEl.textContent = s.trainNumber;
+  const routeLbl = document.getElementById('driver-route-label');
+  if (routeLbl) routeLbl.textContent = crew.shortName + ' · ' + s.originCode + ' → ' + s.destCode;
+
+  // Route Progress
+  const secEl = document.getElementById('driver-current-section');
+  if (secEl) secEl.textContent = s.curSectionLabel;
+  const fillEl = document.getElementById('driver-progress-fill');
+  if (fillEl) fillEl.style.width = s.progressPct + '%';
+  const pctEl = document.getElementById('driver-progress-pct');
+  if (pctEl) pctEl.textContent = s.progressPct + '%';
+  const origEl = document.getElementById('driver-origin-label');
+  if (origEl) origEl.textContent = s.originName;
+  if (origEl) origEl.textContent = s.originName;
+  const destEl = document.getElementById('driver-dest-label');
+  if (destEl) destEl.textContent = s.destName;
+
+  // Next station
+  const nextStEl = document.getElementById('driver-next-station');
+  const curPf = (typeof getAssignedPlatform === 'function') ? getAssignedPlatform(s.trainNumber, s.nextHalt.pf, s.nextHalt.code) : s.nextHalt.pf;
+  const curDirRaw = (typeof getTrainDirective === 'function') ? getTrainDirective(s.trainNumber, s.nextHalt.code) : 'arrive at platform';
+  const curDir = String(curDirRaw).toLowerCase();
+  const dirBadgeColor = curDir.includes('wait') ? 'badge-amber' : (curDir.includes('pass') ? 'badge-green' : 'badge-cyan');
+  const dirBadgeText = curDir.includes('wait') ? '⏳ WAIT ORDER' : (curDir.includes('pass') ? '🟢 PASS ORDER' : `🛑 ARRIVE AT PF ${curPf}`);
+  if (nextStEl) nextStEl.innerHTML = `${s.nextHalt.name} (${s.nextHalt.code}) · <span class="badge badge-pf" style="font-size:10px;font-weight:700;">PF ${curPf}</span> <span class="badge ${dirBadgeColor}" style="font-size:9px;font-weight:700;">${dirBadgeText}</span>`;
+  const nextSchedEl = document.getElementById('driver-next-sched');
+  if (nextSchedEl) nextSchedEl.textContent = minToHHMM(s.nextHalt.arrM || s.nextHalt.depM) + ' IST';
+  const nextPredEl = document.getElementById('driver-next-pred');
+  const matchedHalt = s.halts.find(h => h.code === s.nextHalt.code);
+  if (nextPredEl && matchedHalt) nextPredEl.textContent = matchedHalt.predTime + ' IST';
+
+  // Speed Advisory Card Elements
+  const advDelay = document.getElementById('adv-current-delay');
+  if (advDelay) advDelay.textContent = delayText;
+  const advRec = document.getElementById('adv-recoverable');
+  if (advRec) advRec.textContent = s.finalDelay > 0 ? '-' + Math.min(s.finalDelay, 4.5).toFixed(1) + ' min' : '0 min';
+
+  const advWeather = document.getElementById('adv-weather-cond');
+  if (advWeather) advWeather.textContent = aiSpeedAdvisoryState.weatherLabel;
+  const advTrack = document.getElementById('adv-track-cond');
+  if (advTrack) advTrack.textContent = aiSpeedAdvisoryState.trackLabel;
+  const advLimit = document.getElementById('adv-speed-limit');
+  if (advLimit) advLimit.textContent = `MPS ${pred.lineMPS} km/h · Safe Ceiling ≤ ${pred.effectiveSpeedLimit} km/h`;
+  const advReason = document.getElementById('adv-reasoning');
+  if (advReason) advReason.textContent = aiSpeedAdvisoryState.reasoning;
+
+  const advSpd = document.getElementById('adv-speed');
+  const advBadge = document.getElementById('driver-ai-auth-badge');
+  const advAuthBox = document.getElementById('adv-sm-auth-box');
+  const advBtns = document.getElementById('adv-buttons-container');
+
+  if (aiSpeedAdvisoryState.status === 'authorized') {
+    if (advBadge) {
+      advBadge.className = 'badge badge-green';
+      advBadge.textContent = '✅ STATION MASTER AUTHORIZED';
+    }
+    if (advSpd) {
+      advSpd.style.color = '#34D399';
+      advSpd.textContent = aiSpeedAdvisoryState.authorizedSpeed + ' km/h';
+    }
+    if (advAuthBox) {
+      advAuthBox.style.background = 'rgba(16,185,129,0.08)';
+      advAuthBox.style.borderColor = 'rgba(16,185,129,0.3)';
+      advAuthBox.style.color = '#34D399';
+      advAuthBox.innerHTML = `✅ <b>Station Master Authorized (${aiSpeedAdvisoryState.authCode})</b> at ${aiSpeedAdvisoryState.authorizedAt}<br><span style="font-weight:400;color:var(--text-secondary);">Cleared by ${aiSpeedAdvisoryState.authorizedBy}. Speed target verified strictly compliant with line limit (${aiSpeedAdvisoryState.effectiveSpeedLimit} km/h) & weather protocol.</span>`;
+    }
+    if (advBtns) {
+      advBtns.innerHTML = `
+        <button type="button" onclick="acceptSpeedAdvisory()" class="btn-accept" style="flex: 1;">✅ Acknowledge & Engage Authorized Target</button>
+        <button type="button" onclick="dismissSpeedAdvisory()" class="btn-reject" style="flex: 1;">❌ Dismiss</button>
+      `;
+    }
+  } else {
+    if (advBadge) {
+      advBadge.className = 'badge badge-amber';
+      advBadge.textContent = '⏳ AWAITING SM CONFIRMATION';
+    }
+    if (advSpd) {
+      advSpd.style.color = 'var(--amber)';
+      advSpd.textContent = aiSpeedAdvisoryState.predictedSpeed + ' km/h';
+    }
+    if (advAuthBox) {
+      advAuthBox.style.background = 'rgba(245,158,11,0.08)';
+      advAuthBox.style.borderColor = 'rgba(245,158,11,0.3)';
+      advAuthBox.style.color = 'var(--amber)';
+      advAuthBox.innerHTML = `⏳ <b>Pending Station Master Confirmation</b><br><span style="font-weight:400;color:var(--text-secondary);">AI speed advisory is calculated from live weather and section constraints (${pred.weatherImpact}, ${pred.trackImpact}). Operating rules require Station Master confirmation before this speed is authorized for loco throttle.</span>`;
+    }
+    if (advBtns) {
+      advBtns.innerHTML = `
+        <button type="button" onclick="driverRequestSMAuth()" class="quick-btn" style="flex: 1; font-size: 11px; font-weight: 700; color: var(--cyan); border-color: rgba(56,189,248,0.4); padding: 8px 10px; background: rgba(56,189,248,0.08);">📡 Request SM Authorization</button>
+        <button type="button" disabled style="flex: 1; font-size: 11px; font-weight: 700; color: var(--text-muted); border: 1px solid var(--border-inner); padding: 8px 10px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.02); cursor: not-allowed;" title="Requires Station Master confirmation first">🔒 Await SM Approval</button>
+      `;
+    }
+  }
+
+  const advTgt = document.getElementById('adv-target-time');
+  if (advTgt) advTgt.textContent = s.destETA;
+
+  // Self report location
+  const locEl = document.getElementById('driver-incident-location');
+  if (locEl) locEl.value = s.curSectionLabel;
+
+  // Sync Station Master module if present
+  renderSMAuthorizationModule();
+  renderCrewComms();
+}
+
+function driverRequestSMAuth() {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const trainAdv = getTrainAISpeedAdvisoryState(curTrain);
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Loco Pilot",
+    senderRole: `Loco Pilot (${crew.lp} / Train ${curTrain})`,
+    text: `Requesting Station Master confirmation for AI advisory speed of ${trainAdv.predictedSpeed} km/h for Train ${curTrain} (${crew.shortName}). Live Weather: ${trainAdv.weatherLabel}, Track: ${trainAdv.trackLabel}. Line limit: ${trainAdv.effectiveSpeedLimit} km/h. Standing by for authorization.`,
+    timestamp: time,
+    type: "track_report"
+  });
+  renderCrewComms();
+  showToast(`📡 Clearance request for Train ${curTrain} transmitted to Station Master!`, "cyan");
+}
+
+function acceptSpeedAdvisory() {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const trainAdv = getTrainAISpeedAdvisoryState(curTrain);
+  if (trainAdv.status !== 'authorized') {
+    showToast("⚠️ Station Master confirmation required before engaging speed advisory!", "amber");
+    return;
+  }
+  const speed = trainAdv.authorizedSpeed;
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Loco Pilot",
+    senderRole: `Loco Pilot (${crew.lp} / Train ${curTrain})`,
+    text: `Advisory Acknowledged (${trainAdv.authCode}). Authorized speed target ${speed} km/h engaged in locomotive advisory computer for Train ${curTrain}. Throttle aligned.`,
+    timestamp: time,
+    type: "track_report"
+  });
+  renderCrewComms();
+  showToast(`✅ Advisory Acknowledged: Target speed ${speed} km/h engaged in Train ${curTrain} loco advisory computer.`, "green");
+}
+
+function dismissSpeedAdvisory() {
+  showToast("ℹ️ Advisory Dismissed: Continuing standard divisional throttle control.", "amber");
+}
+
+function selectDriverSev(sev) {
+  selectedDriverSev = sev;
+  ['low', 'medium', 'high'].forEach(s => {
+    const el = document.getElementById('dr-sev-' + s);
+    if (el) el.className = 'sev-pill' + (s === sev ? ' selected-' + s : '');
+  });
+}
+
+function submitDriverReport() {
+  const type = document.getElementById('driver-incident-type').value;
+  const desc = document.getElementById('driver-incident-desc').value;
+  const loc = document.getElementById('driver-incident-location').value;
+
+  if (!type) {
+    showToast("⚠️ Please select incident type.", "amber");
+    return;
+  }
+
+  const report = {
+    id: "DR-" + Date.now(),
+    train: activeTrainNumber,
+    type,
+    severity: selectedDriverSev,
+    location: loc,
+    description: desc || "(Reported from Loco Cab)",
+    timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+    status: "Logged & Transmitted to Section Controller"
+  };
+
+  driverReportsDB.push(report);
+  activeEventsDB.push({ type, train: activeTrainNumber, location: loc, severity: selectedDriverSev });
+
+  // Add to AI Recommendations
+  STATIC_RECOMMENDATIONS.unshift({
+    id: "rec-dr-" + Date.now(),
+    priority: selectedDriverSev === 'high' ? 'HIGH' : 'MEDIUM',
+    type: "Driver Incident",
+    recommendation: `Issue speed restriction near ${loc} due to driver report: ${type}.`,
+    why: `Loco-Pilot on Train ${activeTrainNumber} reported "${type}". Operational safety protocol advises cautionary running on trailing block sections.`,
+    impact: { delay_saved: "Safety Critical", trains_affected: "3 trains" },
+    status: "Pending"
+  });
+
+  renderDriverReports();
+  renderAIRecommendations();
+  renderControlRoomKPIs();
+
+  showToast(`📡 Incident reported to Control Room: ${type}`, "green");
+  document.getElementById('driver-incident-desc').value = '';
+}
+
+function renderDriverReports() {
+  const list = document.getElementById('driver-reports-list');
+  if (!list) return;
+  if (driverReportsDB.length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">No reports submitted this shift.</p>';
+    return;
+  }
+  list.innerHTML = '';
+  [...driverReportsDB].reverse().forEach(r => {
+    const item = document.createElement('div');
+    item.style = 'padding:10px 14px;background:rgba(7,11,22,0.7);border-radius:var(--radius-sm);border-left:3px solid var(--amber);margin-bottom:6px;';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;font-weight:700;color:var(--amber);">${r.type}</span>
+        <span style="font-size:11px;color:var(--text-muted);">${r.timestamp}</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">${r.location}</div>
+      <div style="font-size:10px;color:var(--emerald);margin-top:4px;">✓ ${r.status}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function renderDriverMessages() {
+  const list = document.getElementById('driver-passenger-messages');
+  const countBadge = document.getElementById('driver-msg-count');
+  if (!list) return;
+
+  const unread = passengerMessagesDB.filter(m => m.status === 'Unread');
+  if (countBadge) countBadge.textContent = unread.length + ' Unread';
+
+  if (passengerMessagesDB.length === 0) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--text-muted);padding:8px 0;">No active passenger stoppage inquiries. (Cleanliness & amenity tickets are routed to housekeeping & station staff).</p>';
+    return;
+  }
+
+  list.innerHTML = '';
+  [...passengerMessagesDB].reverse().forEach(m => {
+    const item = document.createElement('div');
+    item.style = 'padding:10px 14px;background:rgba(11,17,36,0.85);border-radius:var(--radius-sm);border-left:3px solid ' + (m.status === 'Unread' ? 'var(--rose)' : 'var(--emerald)') + ';margin-bottom:6px;';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:12px;font-weight:700;color:var(--text-primary);">${m.from} <span class="badge badge-amber" style="font-size:9px;">Stoppage Inquiry</span></span>
+        <span style="font-size:11px;color:var(--text-muted);">${m.timestamp}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin:6px 0;">${m.message}</div>
+      ${m.reply ? `<div style="font-size:11px;color:var(--emerald);background:rgba(16,185,129,0.1);padding:4px 8px;border-radius:4px;margin-top:4px;"><b>Broadcast to Passenger:</b> ${m.reply}</div>` : ''}
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <button onclick="ackPassengerMsg('${m.id}')" class="btn-accept" style="padding:4px 10px;font-size:11px;">✓ Acknowledge</button>
+        <button onclick="openBroadcastModalForMsg('${m.id}')" class="btn-action" style="padding:4px 10px;font-size:11px;background:rgba(56,189,248,0.15);color:var(--cyan);border-color:rgba(56,189,248,0.3);">📢 Reply & Broadcast Stoppage Reason</button>
+        <button onclick="escalatePassengerMsg('${m.id}')" class="btn-reject" style="padding:4px 10px;font-size:11px;">↑ Escalate to CR</button>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function ackPassengerMsg(id) {
+  const msg = passengerMessagesDB.find(m => m.id === id);
+  if (msg) msg.status = "Acknowledged";
+  renderDriverMessages();
+  initPassengerMapClickCatchers();
+  showToast("✅ Stoppage inquiry acknowledged by Loco Pilot.", "green");
+}
+
+function escalatePassengerMsg(id) {
+  const msg = passengerMessagesDB.find(m => m.id === id);
+  if (msg) {
+    msg.status = "Escalated";
+    const c = complaintsDB.find(cmp => cmp.id === msg.complaintId);
+    if (c) c.status = "Escalated";
+  }
+  renderDriverMessages();
+  initPassengerMapClickCatchers();
+  renderComplaintList();
+  renderCRComplaints();
+  showToast("⚠️ Escalated directly to Section Controller.", "amber");
+}
+
+// ─── LOCO PILOT LIVE PASSENGER BROADCAST SYSTEM ─────────────────────────
+function renderPassengerLPBroadcast() {
+  const container = document.getElementById('passenger-lp-broadcast-banner');
+  if (!container) return;
+  const b = locoPilotPassengerBroadcast;
+  if (!b || !b.active) {
+    container.innerHTML = `
+      <div class="card" style="margin-bottom:12px;background:rgba(16,185,129,0.06);border-left:4px solid var(--emerald);padding:10px 14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Train in Transit</span>
+            <span style="font-size:12px;font-weight:700;">Normal Operating Conditions — No Stoppage Advisories Active</span>
+          </div>
+          <span style="font-size:11px;color:var(--text-muted);">Cabin Telemetry Active</span>
+        </div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="card" style="margin-bottom:12px;background:rgba(245,158,11,0.08);border-left:5px solid var(--amber);border-color:rgba(245,158,11,0.3);padding:14px 16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="badge badge-amber"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#F59E0B;"></span> 📢 LOCO PILOT LIVE CREW ADVISORY</span>
+          <span style="font-size:13px;font-weight:800;">Train ${b.train} · Official Crew Announcement</span>
+        </div>
+        <span class="mono" style="font-size:11px;color:var(--text-muted);font-weight:700;">${b.timestamp}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;">
+        <div style="background:rgba(7,11,22,0.4);padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-inner);">
+          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Why The Train Has Stopped</div>
+          <div style="font-size:13px;font-weight:700;color:var(--rose);margin-top:4px;">${b.reason}</div>
+        </div>
+        <div style="background:rgba(7,11,22,0.4);padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-inner);">
+          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Expected Stoppage Duration</div>
+          <div style="font-size:14px;font-weight:800;color:var(--amber);margin-top:4px;">⏱️ ${b.duration}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function setBroadcastPreset(reason, duration) {
+  const rInput = document.getElementById('lp-broadcast-reason');
+  const dSelect = document.getElementById('lp-broadcast-duration');
+  if (rInput) rInput.value = reason;
+  if (dSelect) dSelect.value = duration;
+}
+
+function publishLocoPilotBroadcast(reason, duration) {
+  const r = reason || document.getElementById('lp-broadcast-reason')?.value || "Red Home Signal — Standing between Buxar & Ara awaiting section line clearance";
+  const d = duration || document.getElementById('lp-broadcast-duration')?.value || "~5-7 minutes";
+  const tNo = document.getElementById('driver-train-no')?.textContent || "12301";
+
+  locoPilotPassengerBroadcast = {
+    active: true,
+    train: tNo,
+    locoPilot: "LP-2847",
+    reason: r,
+    duration: d,
+    timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + " IST",
+    status: "Active Stoppage Advisory"
+  };
+
+  complaintsDB.forEach(c => {
+    const isStoppage = c.category.includes("Stoppage") || c.category.includes("Halt") || c.category.includes("Delay");
+    if (isStoppage && c.status !== "Resolved") {
+      c.status = "Addressed by Loco Pilot";
+      c.locoPilotResponse = `${r} (${d})`;
+    }
+  });
+
+  renderPassengerLPBroadcast();
+  renderComplaintList();
+  showToast("📢 Stoppage explanation broadcasted to Passenger View!", "green");
+}
+
+function clearLocoPilotBroadcast() {
+  locoPilotPassengerBroadcast.active = false;
+  renderPassengerLPBroadcast();
+  showToast("✓ Stoppage advisory cleared. Train in normal motion.", "cyan");
+}
+
+function openBroadcastModalForMsg(msgId) {
+  const m = passengerMessagesDB.find(x => x.id === msgId);
+  const defaultReason = m ? `Stoppage inquiry response: Standing at signal awaiting section line clearance (~5-7 mins)` : "Red Home Signal — Line clearance in progress (~5 mins)";
+  const reason = prompt("Enter stoppage reason & duration to broadcast to passenger dashboard:", defaultReason);
+  if (reason) {
+    if (m) {
+      m.status = "Addressed";
+      m.reply = reason;
+    }
+    publishLocoPilotBroadcast(reason, "~5-7 minutes");
+    renderDriverMessages();
+  }
+}
+
+// ─── INTEGRATED STATION MASTER ⇄ LOCO PILOT COMMUNICATIONS ───────────────
+function renderCrewComms() {
+  const smBox = document.getElementById('sm-comms-log');
+  const drvBox = document.getElementById('driver-comms-log');
+  const smBadge = document.getElementById('sm-current-advised-speed');
+  const drvBadge = document.getElementById('driver-sm-speed-badge');
+  const smInfo = document.getElementById('sm-comm-train-info');
+  const smChan = document.getElementById('sm-comm-channel-badge');
+  const drvChan = document.getElementById('driver-comm-channel-badge');
+  const smDispatchTitle = document.getElementById('sm-dispatch-title');
+  const btnMps = document.getElementById('sm-btn-dispatch-mps');
+  const btnLoop = document.getElementById('sm-btn-dispatch-loop');
+  const btnTsr = document.getElementById('sm-btn-dispatch-tsr');
+  const btnHold = document.getElementById('sm-btn-dispatch-hold');
+
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  ensureTrainCommsExist(curTrain);
+  const crew = getTrainCrewInfo(curTrain);
+  const curAdvSpeed = getTrainAdvisedSpeed(curTrain);
+
+  if (smInfo) smInfo.textContent = `${curTrain} (${crew.shortName} · ${crew.lp})`;
+  if (smChan) smChan.innerHTML = `<span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Radio Channel ${crew.channel} Active`;
+  if (drvChan) drvChan.innerHTML = `<span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Radio Channel ${crew.channel} Active`;
+
+  if (smBadge) smBadge.textContent = `Advised Speed: ${curAdvSpeed} km/h`;
+  if (drvBadge) drvBadge.textContent = `SM Speed Advisory: ${curAdvSpeed} km/h`;
+
+  if (smDispatchTitle) {
+    smDispatchTitle.textContent = `Dispatch Speed Advisory & Instructions to Loco Pilot (${curTrain} · ${crew.shortName} · ${crew.lp}):`;
+  }
+  if (btnMps) {
+    btnMps.innerHTML = `🟢 ${crew.mps} km/h (Clear Track MPS)`;
+    btnMps.setAttribute('onclick', `smSendSpeedAdvisory(${crew.mps})`);
+  }
+  if (btnLoop) {
+    btnLoop.innerHTML = `🟡 50 km/h (Loop Line / Signal)`;
+    btnLoop.setAttribute('onclick', `smSendSpeedAdvisory(50)`);
+  }
+  if (btnTsr) {
+    btnTsr.innerHTML = `🟠 30 km/h (TSR Caution)`;
+    btnTsr.setAttribute('onclick', `smSendSpeedAdvisory(30)`);
+  }
+  if (btnHold) {
+    btnHold.innerHTML = `🛑 0 km/h (Signal Hold)`;
+    btnHold.setAttribute('onclick', `smSendSpeedAdvisory(0)`);
+  }
+
+  // Filter comms strictly to the active selected train
+  const trainComms = stationMasterDriverCommsDB.filter(c => String(c.train || c.targetTrain || '12301') === curTrain);
+
+  const html = trainComms.map(c => {
+    const isSM = c.sender === "Station Master";
+    const borderCol = isSM ? "var(--cyan)" : "var(--amber)";
+    const badgeCls = isSM ? "badge-cyan" : "badge-amber";
+    const pilotLabel = c.senderRole && c.senderRole.includes('(')
+      ? c.senderRole.split('(')[1].replace(')', '')
+      : crew.lp;
+    const senderHeader = isSM ? '🏢 STATION MASTER' : `🚂 LOCO PILOT (${pilotLabel})`;
+    return `
+      <div class="crew-msg-item" style="padding:8px 12px;background:rgba(15,23,42,0.6);border-left:3px solid ${borderCol};border-radius:4px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+          <span class="badge ${badgeCls}" style="font-size:10px;font-weight:700;">${senderHeader}</span>
+          <span style="font-size:10px;color:var(--text-muted);">${c.timestamp}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-primary);margin-top:2px;">${c.text}</div>
+        ${c.speed ? `<div style="font-size:10px;color:var(--cyan-bright);font-weight:700;margin-top:2px;">⚡ Advisory Speed Limit: ${c.speed}</div>` : ''}
+        ${c.platform ? `<div style="font-size:10px;color:var(--cyan);font-weight:700;margin-top:2px;">📍 Berthing Allocation: ${c.platform}</div>` : ''}
+        ${c.directive ? `<div style="font-size:10px;color:var(--amber);font-weight:700;margin-top:2px;">🚦 Scheduling: ${c.directive}</div>` : ''}
+      </div>`;
+  }).join('');
+
+  if (smBox) {
+    smBox.innerHTML = html;
+    smBox.scrollTop = smBox.scrollHeight;
+  }
+  if (drvBox) {
+    drvBox.innerHTML = html;
+    drvBox.scrollTop = drvBox.scrollHeight;
+  }
+}
+
+function renderSMAuthorizationModule() {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const trainAdv = getTrainAISpeedAdvisoryState(curTrain);
+  aiSpeedAdvisoryState = trainAdv;
+
+  const trainNoEl = document.getElementById('sm-adv-train-no');
+  const speedEl = document.getElementById('sm-adv-rec-speed');
+  const limitEl = document.getElementById('sm-adv-limit-info');
+  const weatherEl = document.getElementById('sm-adv-weather-val');
+  const weatherSub = document.getElementById('sm-adv-weather-sub');
+  const trackEl = document.getElementById('sm-adv-track-val');
+  const trackSub = document.getElementById('sm-adv-track-sub');
+  const statusBadge = document.getElementById('sm-adv-auth-status-badge');
+  const actionRow = document.getElementById('sm-adv-action-row');
+
+  if (!speedEl) return;
+
+  if (trainNoEl) trainNoEl.textContent = `${curTrain} (${crew.shortName})`;
+  speedEl.textContent = (trainAdv.status === 'authorized' ? trainAdv.authorizedSpeed : trainAdv.predictedSpeed) + ' km/h';
+  if (limitEl) limitEl.textContent = `Strict Limit: ≤ ${trainAdv.effectiveSpeedLimit} km/h (MPS: ${crew.mps} km/h)`;
+  if (weatherEl) weatherEl.textContent = trainAdv.weatherLabel;
+  if (weatherSub) weatherSub.textContent = trainAdv.weatherImpact || 'Nominal safe ceiling';
+  if (trackEl) trackEl.textContent = trainAdv.trackLabel;
+  if (trackSub) trackSub.textContent = trainAdv.trackImpact || `Section MPS ${crew.mps} km/h`;
+
+  if (statusBadge) {
+    if (trainAdv.status === 'authorized') {
+      statusBadge.className = 'badge badge-green';
+      statusBadge.textContent = `✅ Authorized for Loco Pilot (${crew.lp})`;
+    } else {
+      statusBadge.className = 'badge badge-amber';
+      statusBadge.textContent = '⏳ Pending Your Authorization';
+    }
+  }
+
+  if (actionRow) {
+    if (trainAdv.status === 'authorized') {
+      actionRow.innerHTML = `
+        <div style="font-size: 11px; color: #34D399; font-weight: 600; display: flex; align-items: center; gap: 6px; flex: 1;">
+          <span>✅ Authorized at ${trainAdv.authorizedAt} (${trainAdv.authCode}) · Active on Loco Pilot (${crew.lp}) cab console.</span>
+        </div>
+        <button type="button" onclick="smAuthorizeAISpeedAdvisory()" class="quick-btn" style="font-size: 11px; color: var(--cyan); border-color: rgba(56,189,248,0.3);">
+          🔄 Re-Authorize / Refresh
+        </button>
+      `;
+    } else {
+      actionRow.innerHTML = `
+        <button type="button" onclick="smAuthorizeAISpeedAdvisory()" class="btn-primary" style="padding: 8px 16px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10B981, #06B6D4); border: none; color: #070B16; cursor: pointer; display: flex; align-items: center; gap: 6px; border-radius: var(--radius-sm);">
+          ✅ Confirm & Authorize ${trainAdv.predictedSpeed} km/h for Train ${curTrain} (${crew.lp})
+        </button>
+        <span style="font-size: 11px; color: var(--text-muted);">
+          Predicted from live weather and section constraints. Never exceeds speed limit (${trainAdv.effectiveSpeedLimit} km/h).
+        </span>
+      `;
+    }
+  }
+}
+
+function smAuthorizeAISpeedAdvisory() {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const trainAdv = getTrainAISpeedAdvisoryState(curTrain);
+  const speed = trainAdv.predictedSpeed;
+
+  trainAdv.status = 'authorized';
+  trainAdv.authorizedSpeed = speed;
+  trainAdv.authorizedBy = "Station Master (Pt. Deen Dayal Upadhyaya)";
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  trainAdv.authorizedAt = time + ' IST';
+  trainAdv.authCode = 'SM-AUTH-' + Math.floor(1000 + Math.random() * 9000);
+
+  trainAdvisedSpeeds[curTrain] = speed;
+  currentSMAdvisedSpeed = speed;
+  aiSpeedAdvisoryState = trainAdv;
+
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: `✅ OFFICIAL CLEARANCE: AI Speed Advisory of ${speed} km/h CONFIRMED & AUTHORIZED for Train ${curTrain} (${crew.shortName} · ${crew.lp}). Conditions: ${trainAdv.weatherLabel} · ${trainAdv.trackLabel}. Line speed ceiling strictly verified (≤ ${trainAdv.effectiveSpeedLimit} km/h). Auth Code: ${trainAdv.authCode}.`,
+    speed: `${speed} km/h`,
+    timestamp: time,
+    type: "speed_advisory"
+  });
+
+  renderCrewComms();
+  renderDriverDashboard();
+  renderSMAuthorizationModule();
+  showToast(`✅ Confirmed & Authorized ${speed} km/h Speed Advisory for Train ${curTrain} (${crew.lp})!`, "green");
+}
+
+function smSendSpeedAdvisory(speed, text) {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const trainAdv = getTrainAISpeedAdvisoryState(curTrain);
+
+  trainAdvisedSpeeds[curTrain] = speed;
+  currentSMAdvisedSpeed = speed;
+
+  trainAdv.status = 'authorized';
+  trainAdv.authorizedSpeed = speed;
+  trainAdv.authorizedBy = "Station Master (Pt. Deen Dayal Upadhyaya)";
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  trainAdv.authorizedAt = time + ' IST';
+  trainAdv.authCode = 'SM-MAN-' + Math.floor(1000 + Math.random() * 9000);
+  aiSpeedAdvisoryState = trainAdv;
+
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: text || `Speed Advisory for Train ${curTrain}: Limit speed to ${speed} km/h.`,
+    speed: `${speed} km/h`,
+    timestamp: time,
+    type: "speed_advisory"
+  });
+  renderCrewComms();
+  renderDriverDashboard();
+  renderSMAuthorizationModule();
+  showToast(`📡 Transmitted ${speed} km/h speed advisory to Train ${curTrain} (${crew.lp})!`, "cyan");
+}
+
+function smSendCustomMsg() {
+  const inp = document.getElementById('sm-comm-input');
+  if (!inp || !inp.value.trim()) return;
+  const text = inp.value.trim();
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Station Master",
+    senderRole: "Station Master (Pt. Deen Dayal Upadhyaya)",
+    text: text,
+    timestamp: time,
+    type: "instruction"
+  });
+  inp.value = '';
+  renderCrewComms();
+  showToast(`📡 Operational advisory sent to Train ${curTrain} (${crew.lp}).`, "cyan");
+}
+
+function driverSendQuickReport(text, inFront) {
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Loco Pilot",
+    senderRole: `Loco Pilot (${crew.lp} / Train ${curTrain})`,
+    text: text,
+    inFrontOfTrain: inFront,
+    timestamp: time,
+    type: "track_report"
+  });
+  renderCrewComms();
+  showToast(`📡 Track condition report transmitted for Train ${curTrain} (${crew.lp})!`, "green");
+}
+
+function driverSendCustomMsg() {
+  const inp = document.getElementById('driver-comm-input');
+  if (!inp || !inp.value.trim()) return;
+  const text = inp.value.trim();
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const crew = getTrainCrewInfo(curTrain);
+  const time = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  stationMasterDriverCommsDB.push({
+    id: "COM-" + Date.now(),
+    train: curTrain,
+    targetTrain: curTrain,
+    sender: "Loco Pilot",
+    senderRole: `Loco Pilot (${crew.lp} / Train ${curTrain})`,
+    text: text,
+    timestamp: time,
+    type: "track_report"
+  });
+  inp.value = '';
+  renderCrewComms();
+  showToast(`📡 Report transmitted for Train ${curTrain} (${crew.lp}) to Station Master.`, "green");
+}
+
+// ─── 12. AI CONTROL ROOM & HUMAN INTERVENTION ─────────────────────────────
+const STATIC_RECOMMENDATIONS = [
+  {
+    id: "rec-001",
+    priority: "HIGH",
+    type: "Traffic Management",
+    recommendation: "Hold Train 12951 for 3 min at Kota Jn to allow Train 12424 priority passage.",
+    why: "Train 12424 (Dibrugarh Rajdhani) is running 14 minutes delayed approaching Kota-Sawai Madhopur section. Holding Train 12951 (Mumbai Rajdhani — on schedule) for 3 minutes clears the bottleneck and recovers ~8 minutes for Train 12424. Net network delay reduction: ~5 minutes.",
+    impact: { delay_saved: "~5 min network delay", trains_affected: "2 trains" },
+    status: "Pending"
+  },
+  {
+    id: "rec-002",
+    priority: "HIGH",
+    type: "Weather Safety",
+    recommendation: "Issue speed advisory for Mumbai Division trains. Heavy rainfall detected.",
+    why: "Open-Meteo satellite feed reports 28mm/hr rainfall in Mumbai-Surat corridor. Track drainage systems at risk. Speed restriction to 75 km/h recommended for Train 12951. Safety priority overrides punctuality.",
+    impact: { delay_saved: "Safety critical", trains_affected: "3 trains" },
+    status: "Pending"
+  },
+  {
+    id: "rec-003",
+    priority: "MEDIUM",
+    type: "Service Quality",
+    recommendation: "Investigate repeated cleanliness complaints in Coach B4 on Train 12301.",
+    why: "4 complaints received in current service cycle for Coach B4. Assigned staff (Manoj Paswan, OBHS Lead) notified. Supervisory inspection requested at next station halt.",
+    impact: { delay_saved: "Passenger satisfaction", trains_affected: "1 train" },
+    status: "Pending"
+  }
+];
+
+function renderControlRoomKPIs() {
+  const curMin = getEffectiveMinutes();
+  const allStates = Object.keys(MASTER_TRAINS).map(n => calculateTrainDynamicState(n, curMin));
+  const total = allStates.length;
+  const running = allStates.filter(s => s.status === 'running').length;
+  const delayed = Math.max(0, allStates.filter(s => s.finalDelay > 5).length);
+  const onTime = Math.max(0, running - delayed);
+  const avgDelay = running > 0 ? Math.round(allStates.filter(s => s.status === 'running').reduce((a, b) => a + b.finalDelay, 0) / running) : 0;
+
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('cr-stat-trains', total);
+  set('cr-stat-ontime', onTime);
+  set('cr-stat-delayed', delayed);
+  set('cr-stat-avgdelay', '+' + avgDelay + ' min');
+  set('cr-stat-incidents', driverReportsDB.length + activeEventsDB.length);
+
+  renderCRCongestionTable(allStates);
+  renderCRComplaints();
+  renderChainPullingRisks();
+}
+
+function renderCRCongestionTable(allStates) {
+  const tbody = document.getElementById('cr-congestion-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const running = allStates.filter(s => s.status === 'running');
+
+  running.forEach(s => {
+    const pRank = (s.type.includes('Rajdhani') || s.type.includes('Vande')) ? 'P1' : (s.type.includes('Shatabdi') || s.type.includes('Duronto')) ? 'P2' : 'P3';
+    const cong = s.finalDelay > 10 ? 'HIGH' : s.finalDelay > 4 ? 'MEDIUM' : 'LOW';
+    const congColor = cong === 'HIGH' ? 'var(--rose)' : cong === 'MEDIUM' ? 'var(--amber)' : 'var(--emerald)';
+    const rec = s.finalDelay > 10 ? 'Grant Loop Clearance' : s.finalDelay > 4 ? 'Maintain Headway Gap' : 'Punctual Running';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <div style="font-weight:700;font-size:13px;">${s.trainNumber}</div>
+        <div style="font-size:11px;color:var(--text-secondary);">${s.trainName.substring(0, 24)}...</div>
+      </td>
+      <td style="font-size:12px;color:var(--cyan);">${s.curSectionLabel.substring(0, 28)}...</td>
+      <td><span class="mono" style="font-weight:700;color:${s.finalDelay > 0 ? 'var(--rose)' : 'var(--emerald)'};">${s.finalDelay > 0 ? '+' + s.finalDelay + 'm' : 'On Time'}</span></td>
+      <td><span class="badge" style="background:rgba(139,92,246,0.12);color:#A78BFA;border:1px solid rgba(139,92,246,0.3);">${pRank}</span></td>
+      <td><span style="font-size:12px;font-weight:700;color:${congColor};">⬤ ${cong}</span></td>
+      <td style="font-size:12px;color:var(--text-secondary);">${rec}</td>
+      <td><button onclick="logInterventionQuick('${s.trainNumber}')" class="btn-action" style="padding:4px 10px;font-size:11px;">Intervene</button></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderAIRecommendations() {
+  const list = document.getElementById('ai-recommendations-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  STATIC_RECOMMENDATIONS.forEach(r => {
+    const pColor = r.priority === 'HIGH' ? 'badge-red' : r.priority === 'MEDIUM' ? 'badge-amber' : 'badge-green';
+    const stColor = r.status === 'Accepted' ? 'var(--emerald)' : r.status === 'Rejected' ? 'var(--rose)' : r.status === 'Modified' ? 'var(--amber)' : 'var(--text-muted)';
+
+    const item = document.createElement('div');
+    item.className = 'recommendation-item';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div style="display:flex;gap:8px;align-items:center;">
+          <span class="badge ${pColor}">${r.priority}</span>
+          <span class="badge badge-purple">${r.type}</span>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:${stColor};">● ${r.status}</span>
+      </div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:6px;">${r.recommendation}</div>
+      <button onclick="toggleWhy('why-${r.id}')" style="font-size:11px;color:var(--violet);background:none;padding:2px 0;font-weight:600;display:block;">▶ Why? (Show AI Reasoning)</button>
+      <div class="why-section" id="why-${r.id}">
+        <strong style="color:var(--violet);">AI Explainability:</strong><br>${r.why}
+      </div>
+      <div class="impact-pills">
+        <div class="impact-pill" style="background:rgba(16,185,129,0.1);color:#34D399;border:1px solid rgba(16,185,129,0.2);">⚡ ${r.impact.delay_saved}</div>
+        <div class="impact-pill" style="background:rgba(56,189,248,0.1);color:var(--cyan);border:1px solid rgba(56,189,248,0.2);">🚆 ${r.impact.trains_affected}</div>
+      </div>
+      <div class="rec-actions">
+        <button onclick="handleRecAction('${r.id}', 'Accepted')" class="btn-accept">✅ Accept</button>
+        <button onclick="handleRecAction('${r.id}', 'Rejected')" class="btn-reject">✗ Reject</button>
+        <button onclick="handleRecAction('${r.id}', 'Modified')" class="btn-modify">✏️ Modify</button>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function toggleWhy(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('visible');
+}
+
+function handleRecAction(id, action) {
+  const rec = STATIC_RECOMMENDATIONS.find(r => r.id === id);
+  if (rec) rec.status = action;
+  renderAIRecommendations();
+
+  interventionLogDB.push({
+    id: "INT-" + Date.now(),
+    operator: "Section Controller",
+    action: action + " AI Recommendation",
+    train: rec ? rec.recommendation.split(' ')[2] || 'Fleet' : 'Fleet',
+    region: "Active Corridor",
+    timestamp: new Date().toLocaleTimeString('en-IN'),
+    reason: `Operator decision: ${action} recommendation "${rec?.recommendation || id}"`,
+    outcome: "Applied to Dispatch Queue"
+  });
+  renderInterventionLog();
+  showToast(`Decision Logged: Recommendation ${action}`, "green");
+}
+
+function logIntervention() {
+  const train = document.getElementById('int-train-select').value;
+  const action = document.getElementById('int-action').value;
+  const region = document.getElementById('int-region').value;
+  const reason = document.getElementById('int-reason').value;
+
+  if (!action || !reason) {
+    showToast("⚠️ Please specify action and reason.", "amber");
+    return;
+  }
+
+  const intRec = {
+    id: "INT-" + Date.now(),
+    operator: "Section Controller (Human-in-the-Loop)",
+    action,
+    train: train || "Network",
+    region: region || "Active Section",
+    timestamp: new Date().toLocaleTimeString('en-IN'),
+    reason,
+    outcome: "Logged & Executed"
+  };
+
+  interventionLogDB.push(intRec);
+  renderInterventionLog();
+  showToast(`🔐 Manual intervention logged: ${action}`, "green");
+  document.getElementById('int-reason').value = '';
+}
+
+function logInterventionQuick(num) {
+  document.getElementById('int-train-select').value = num;
+  switchTab('controlroom');
+  document.getElementById('int-action').focus();
+}
+
+function renderInterventionLog() {
+  const list = document.getElementById('intervention-log-list');
+  if (!list) return;
+  if (interventionLogDB.length === 0) {
+    list.innerHTML = '<p style="font-size:12px;color:var(--text-muted);">No interventions logged yet.</p>';
+    return;
+  }
+  list.innerHTML = '';
+  [...interventionLogDB].reverse().forEach(int => {
+    const item = document.createElement('div');
+    item.className = 'intervention-item';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-size:11px;font-weight:700;color:var(--violet);">${int.action}</span>
+        <span style="font-size:10px;color:var(--text-muted);">${int.timestamp}</span>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--text-primary);">Train ${int.train} · ${int.region}</div>
+      <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">Reason: ${int.reason}</div>
+      <span class="badge badge-green" style="font-size:9px;margin-top:4px;">✓ ${int.outcome}</span>`;
+    list.appendChild(item);
+  });
+}
+
+// Chain Pulling Risk Data
+const CP_REGIONS = [
+  { region: "Bihar (ECR)", zone: "ECR", risk: 78, trend: "↑", incidents: 4 },
+  { region: "Varanasi/DDU Section", zone: "ECR", risk: 73, trend: "↑", incidents: 3 },
+  { region: "Eastern UP (NCR/NER)", zone: "NCR", risk: 71, trend: "→", incidents: 2 },
+  { region: "Howrah Division (ER)", zone: "ER", risk: 69, trend: "→", incidents: 2 },
+  { region: "Mumbai Division (CR)", zone: "CR", risk: 65, trend: "↓", incidents: 1 }
+];
+
+function renderChainPullingRisks() {
+  const list = document.getElementById('cp-regions-list');
+  if (!list) return;
+  list.innerHTML = '';
+
+  CP_REGIONS.forEach(r => {
+    const rColor = r.risk >= 70 ? 'var(--rose)' : r.risk >= 40 ? 'var(--amber)' : 'var(--emerald)';
+    const item = document.createElement('div');
+    item.className = 'cp-region-row';
+    item.innerHTML = `
+      <div>
+        <div style="font-size:13px;font-weight:700;">${r.region}</div>
+        <div style="font-size:10px;color:var(--text-muted);">${r.zone} · ${r.incidents} incidents logged</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="risk-meter"><div class="risk-fill" style="width:${r.risk}%;background:${rColor};"></div></div>
+        <span class="mono" style="font-size:12px;font-weight:700;color:${rColor};min-width:32px;">${r.risk}%</span>
+        <span style="font-size:12px;color:${r.trend === '↑' ? 'var(--rose)' : r.trend === '↓' ? 'var(--emerald)' : 'var(--amber)'};">${r.trend}</span>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function renderCRComplaints() {
+  const list = document.getElementById('cr-complaints-list');
+  const openEl = document.getElementById('cr-complaints-open');
+  const resEl = document.getElementById('cr-complaints-resolved');
+  const escEl = document.getElementById('cr-complaints-escalated');
+
+  const open = complaintsDB.filter(c => c.status === 'Open').length;
+  const resolved = complaintsDB.filter(c => c.status === 'Resolved').length;
+  const escalated = complaintsDB.filter(c => c.status === 'Escalated').length;
+
+  if (openEl) openEl.textContent = open;
+  if (resEl) resEl.textContent = resolved;
+  if (escEl) escEl.textContent = escalated;
+
+  if (!list) return;
+  const filtered = complaintFilterMode === 'all' ? complaintsDB :
+    complaintFilterMode === 'open' ? complaintsDB.filter(c => c.status === 'Open') :
+    complaintsDB.filter(c => c.status === 'Escalated');
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<p style="font-size:12px;color:var(--text-muted);text-align:center;padding:16px 0;">No complaints in this filter.</p>';
+    return;
+  }
+
+  list.innerHTML = '';
+  [...filtered].reverse().forEach(c => {
+    const stColor = c.status === 'Resolved' ? 'var(--emerald)' : (c.status === 'Escalated' ? 'var(--rose)' : 'var(--amber)');
+    const item = document.createElement('div');
+    item.style = 'padding:10px 14px;background:rgba(7,11,22,0.7);border-radius:var(--radius-sm);border-left:3px solid ' + stColor + ';margin-bottom:6px;';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="mono" style="font-size:11px;font-weight:700;color:var(--cyan);">${c.id}</span>
+        <span style="font-size:11px;font-weight:700;color:${stColor};">● ${c.status}</span>
+      </div>
+      <div style="font-size:12px;font-weight:700;margin-top:2px;">${c.category} — Coach ${c.coach} (Train ${c.train})</div>
+      <div style="font-size:11px;color:var(--text-secondary);">${c.description}</div>
+      ${c.locoPilotResponse ? `<div style="margin-top:6px;padding:6px 10px;background:rgba(16,185,129,0.09);border-left:3px solid var(--emerald);border-radius:4px;font-size:11px;color:var(--text-primary);">🚂 <b>Loco Pilot Stoppage Explanation:</b> ${c.locoPilotResponse}</div>` : ''}
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+        <span style="font-size:10px;color:var(--text-muted);">Staff: ${c.assignedStaff}</span>
+        ${c.status !== 'Resolved' ? `<button onclick="markComplaintResolved('${c.id}')" class="btn-accept" style="padding:2px 8px;font-size:10px;">✓ Resolve</button>` : ''}
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+function markComplaintResolved(id) {
+  const c = complaintsDB.find(x => x.id === id);
+  if (c) c.status = "Resolved";
+  renderComplaintList();
+  renderCRComplaints();
+  showToast(`Complaint ${id} marked resolved.`, "green");
+}
+
+function filterComplaints(mode) {
+  complaintFilterMode = mode;
+  ['all', 'open', 'esc'].forEach(m => {
+    const btn = document.getElementById('cf-' + m);
+    if (btn) btn.style.background = (m === mode || (m === 'esc' && mode === 'escalated')) ? 'rgba(56,189,248,0.15)' : '';
+  });
+  renderCRComplaints();
+}
+
+// ─── 13. WEATHER INTELLIGENCE ─────────────────────────────────────────────
+const WEATHER_REGIONS_DATA = [
+  { name: 'Delhi NCR', zone: 'NR/NCR', condition: 'fog_moderate', icon: '🌫️', condLabel: 'Fog (Moderate)', impact: 65, risk: 'HIGH', speed_reduction: 35, delay_range: '15-45', trains: 8, action: 'Speed restriction active' },
+  { name: 'Mumbai Division', zone: 'CR/WR', condition: 'heavy_rain', icon: '🌧️', condLabel: 'Heavy Rain', impact: 72, risk: 'HIGH', speed_reduction: 20, delay_range: '12-22', trains: 12, action: 'Track monitoring active' },
+  { name: 'Kolkata/Howrah', zone: 'ER/SER', condition: 'light_rain', icon: '🌦️', condLabel: 'Light Rain', impact: 25, risk: 'LOW', speed_reduction: 5, delay_range: '2-8', trains: 6, action: 'Normal ops with vigilance' },
+  { name: 'Patna/Bihar', zone: 'ECR', condition: 'fog_dense', icon: '🌫️', condLabel: 'Dense Fog', impact: 82, risk: 'CRITICAL', speed_reduction: 60, delay_range: '30-90', trains: 5, action: 'Absolute block working' },
+  { name: 'Varanasi/Prayagraj', zone: 'ECR/NCR', condition: 'fog_moderate', icon: '🌫️', condLabel: 'Fog (Moderate)', impact: 55, risk: 'HIGH', speed_reduction: 35, delay_range: '15-45', trains: 7, action: 'Fog devices deployed' },
+  { name: 'Kanpur/Lucknow', zone: 'NCR/NER', condition: 'partly_cloudy', icon: '⛅', condLabel: 'Partly Cloudy', impact: 10, risk: 'LOW', speed_reduction: 0, delay_range: '0-2', trains: 9, action: 'Normal operations' },
+  { name: 'Nagpur/Central India', zone: 'CR/SECR', condition: 'extreme_heat', icon: '🔥', condLabel: 'Extreme Heat', impact: 38, risk: 'MEDIUM', speed_reduction: 10, delay_range: '5-15', trains: 4, action: 'Track temp monitoring' },
+  { name: 'Chennai/Southern', zone: 'SR/SCR', condition: 'heavy_rain', icon: '🌧️', condLabel: 'Heavy Rain', impact: 68, risk: 'HIGH', speed_reduction: 20, delay_range: '12-22', trains: 6, action: 'Speed restriction — 75km/h' }
+];
+
+function renderWeatherIntelligence() {
+  // ── Live weather card (top of Weather Intel tab) ──
+  const liveCard = document.getElementById('live-weather-hero');
+  if (liveCard && liveWeatherCache) {
+    renderLiveWeatherCard();
+  } else if (liveCard && !liveWeatherCache) {
+    liveCard.innerHTML = `
+      <div style="display:flex;align-items:center;gap:12px;padding:8px 0;color:var(--text-muted);font-size:13px;">
+        <span style="font-size:24px;animation:pulse 1.5s infinite;">📡</span>
+        <div>
+          <div style="font-weight:600;">Fetching live weather for Train ${activeTrainNumber}…</div>
+          <div style="font-size:11px;margin-top:2px;">Connecting to Open-Meteo API</div>
+        </div>
+      </div>`;
+  }
+
+  const strip = document.getElementById('weather-region-strip');
+  if (strip) {
+    strip.innerHTML = '';
+    WEATHER_REGIONS_DATA.slice(0, 5).forEach(r => {
+      const rColor = r.risk === 'CRITICAL' || r.risk === 'HIGH' ? 'var(--rose)' : r.risk === 'MEDIUM' ? 'var(--amber)' : 'var(--emerald)';
+      const rBadge = (r.risk === 'CRITICAL' || r.risk === 'HIGH') ? 'badge-red' : (r.risk === 'MEDIUM' ? 'badge-amber' : 'badge-green');
+      const card = document.createElement('div');
+      card.className = 'weather-region-card';
+      card.innerHTML = `
+        <div style="font-size:24px;margin-bottom:6px;">${r.icon}</div>
+        <div style="font-size:14px;font-weight:700;">${r.name}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px;">${r.condLabel}</div>
+        <span class="badge ${rBadge}" style="font-size:10px;">${r.risk}</span>
+        <div class="weather-impact-bar"><div class="weather-impact-fill" style="width:${r.impact}%;background:${rColor};"></div></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">${r.action}</div>`;
+      strip.appendChild(card);
+    });
+  }
+
+  const list = document.getElementById('weather-regions-list');
+  if (list) {
+    list.innerHTML = '';
+    WEATHER_REGIONS_DATA.forEach((r, idx) => {
+      const rColor = r.risk === 'CRITICAL' || r.risk === 'HIGH' ? 'var(--rose)' : r.risk === 'MEDIUM' ? 'var(--amber)' : 'var(--emerald)';
+      const item = document.createElement('div');
+      item.innerHTML = `
+        <div class="accordion-header" onclick="toggleAccordion('w-acc-${idx}')">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:18px;">${r.icon}</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;">${r.name}</div>
+              <div style="font-size:11px;color:var(--text-secondary);">${r.zone} · ${r.condLabel}</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="mono" style="font-size:16px;font-weight:800;color:${rColor};">${r.impact}</span>
+            <span class="badge ${(r.risk === 'CRITICAL' || r.risk === 'HIGH') ? 'badge-red' : (r.risk === 'MEDIUM' ? 'badge-amber' : 'badge-green')}" style="font-size:10px;">${r.risk}</span>
+            <span style="color:var(--text-muted);">▾</span>
+          </div>
+        </div>
+        <div class="accordion-body" id="w-acc-${idx}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;">
+            <div><strong>Speed Reduction:</strong> <span style="color:var(--amber);">${r.speed_reduction}%</span></div>
+            <div><strong>Expected Delay:</strong> <span style="color:var(--rose);">${r.delay_range} min</span></div>
+            <div><strong>Affected Trains:</strong> <span style="color:var(--cyan);">${r.trains} trains</span></div>
+            <div><strong>Track Risk:</strong> <span style="color:${rColor};">${r.risk}</span></div>
+          </div>
+          <div style="margin-top:10px;padding:8px 12px;background:rgba(11,17,36,0.7);border-radius:6px;font-size:12px;">
+            <strong style="color:var(--teal);">Operational Directive:</strong> ${r.action}
+          </div>
+        </div>`;
+      list.appendChild(item);
+    });
+  }
+
+  const filter = document.getElementById('weather-region-filter');
+  if (filter && filter.children.length <= 1) {
+    WEATHER_REGIONS_DATA.forEach(r => {
+      const opt = document.createElement('option');
+      opt.value = r.name; opt.textContent = r.name;
+      filter.appendChild(opt);
+    });
+  }
+
+  renderAffectedTrains('all');
+  renderWeatherTimeline();
+}
+
+function renderAffectedTrains(region) {
+  const list = document.getElementById('weather-affected-trains');
+  if (!list) return;
+  list.innerHTML = '';
+  const curMin = getEffectiveMinutes();
+  const allStates = Object.keys(MASTER_TRAINS).map(n => calculateTrainDynamicState(n, curMin));
+
+  allStates.slice(0, 6).forEach(s => {
+    const w = WEATHER_REGIONS_DATA[Math.floor(Math.random() * WEATHER_REGIONS_DATA.length)];
+    const item = document.createElement('div');
+    item.className = 'card-sm';
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+          <span class="mono" style="font-size:12px;font-weight:700;color:var(--cyan);">${s.trainNumber}</span>
+          <span style="font-size:12px;color:var(--text-secondary);margin-left:8px;">${s.trainName.substring(0, 24)}</span>
+        </div>
+        <span style="font-size:14px;">${w.icon}</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">${w.condLabel} · Expected delay impact: +${Math.round(Math.random() * 12 + 4)} min</div>`;
+    list.appendChild(item);
+  });
+}
+
+function renderWeatherTimeline() {
+  const tl = document.getElementById('weather-timeline');
+  if (!tl) return;
+  tl.innerHTML = '';
+  const events = [
+    { time: '06:30 IST', region: 'Delhi NCR', cond: '🌫️ Dense Fog advisory', trains: 8, status: 'Active', color: 'var(--amber)' },
+    { time: '08:15 IST', region: 'Mumbai Division', cond: '🌧️ Heavy Rain alert', trains: 12, status: 'Active', color: 'var(--rose)' },
+    { time: '05:00 IST', region: 'Eastern Corridor', cond: '☀️ Visibility restored', trains: 5, status: 'Resolved', color: 'var(--emerald)' }
+  ];
+  events.forEach(ev => {
+    const item = document.createElement('div');
+    item.className = 'card-sm';
+    item.style = `border-left:3px solid ${ev.color};`;
+    item.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="mono" style="font-size:11px;color:var(--text-muted);">${ev.time}</span>
+          <span style="font-size:13px;font-weight:700;">${ev.region}</span>
+          <span style="font-size:12px;">${ev.cond}</span>
+        </div>
+        <span class="badge ${ev.status === 'Resolved' ? 'badge-green' : 'badge-amber'}">${ev.status}</span>
+      </div>`;
+    tl.appendChild(item);
+  });
+}
+
+function toggleAccordion(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('open');
+}
+
+// ─── 14. WHAT-IF SIMULATION SANDBOX ───────────────────────────────────────
+function updateSimulation() {
+  simEnv.fog = Number(document.getElementById('sim-fog').value);
+  simEnv.cong = Number(document.getElementById('sim-cong').value) / 10.0;
+  simEnv.headway = Number(document.getElementById('sim-headway').value);
+  simEnv.tsr = document.getElementById('sim-tsr').checked;
+
+  document.getElementById('sim-fog-label').textContent = simEnv.fog + '% Fog ' + (simEnv.fog > 50 ? '(Severe)' : simEnv.fog > 0 ? '(Moderate)' : '(Clear)');
+  document.getElementById('sim-cong-label').textContent = simEnv.cong.toFixed(2) + 'x ' + (simEnv.cong > 1.5 ? '(Severe)' : '(Normal)');
+  document.getElementById('sim-headway-label').textContent = simEnv.headway + ' min ' + (simEnv.headway < 10 ? '(Bunching)' : '(Adequate)');
+
+  renderDynamicUI();
+}
+
+function resetSimulation() {
+  document.getElementById('sim-fog').value = 0;
+  document.getElementById('sim-cong').value = 10;
+  document.getElementById('sim-headway').value = 18;
+  document.getElementById('sim-tsr').checked = false;
+  updateSimulation();
+}
+
+
+// ─── INTERACTIVE TRAIN MOVEMENT SIMULATION ENGINE ───────────────────────────
+let isSimPlaying = false;
+let simPlayTimer = null;
+let simSpeedMultiplier = 5; // default 5x (advances 5 min every tick)
+
+function toggleSimulationPlay() {
+  if (isSimPlaying) {
+    pauseSimulation();
+  } else {
+    playSimulation();
+  }
+}
+
+function playSimulation() {
+  isSimPlaying = true;
+  // If in realtime sync mode, switch to custom time mode to allow scrubbing
+  if (isRealtimeSync) {
+    setRealtimeSync(false);
+  }
+  const btn = document.getElementById('btn-play-sim');
+  const icon = document.getElementById('play-sim-icon');
+  const label = document.getElementById('play-sim-label');
+  if (btn) {
+    btn.style.background = 'linear-gradient(135deg, #F43F5E, #EF4444)';
+    btn.style.color = '#FFFFFF';
+  }
+  if (icon) icon.textContent = '⏸';
+  if (label) label.textContent = 'Pause Movement';
+
+  if (simPlayTimer) clearInterval(simPlayTimer);
+  simPlayTimer = setInterval(() => {
+    virtualMinutes = (virtualMinutes + simSpeedMultiplier) % 1440;
+    const slider = document.getElementById('time-slider');
+    const label = document.getElementById('scrubber-time-label');
+    if (slider) slider.value = virtualMinutes;
+    if (label) label.textContent = minToHHMM(virtualMinutes) + ' IST';
+    renderDynamicUI();
+    renderFleetTable();
+    if (typeof renderPassengerMiniMap === 'function') renderPassengerMiniMap(activeTrainNumber);
+    if (activeMapMode === 'real' && typeof renderGoogleMap === 'function') {
+      renderGoogleMap(activeTrainNumber);
+    } else if (activeMapMode === 'svg' && typeof renderLiveMap === 'function') {
+      renderLiveMap(activeTrainNumber);
+    }
+  }, 120);
+
+  showToast(`▶ Simulation Playing at ${simSpeedMultiplier}x speed. Watch the live train movement!`, 'green');
+}
+
+function pauseSimulation() {
+  isSimPlaying = false;
+  if (simPlayTimer) {
+    clearInterval(simPlayTimer);
+    simPlayTimer = null;
+  }
+  const btn = document.getElementById('btn-play-sim');
+  const icon = document.getElementById('play-sim-icon');
+  const label = document.getElementById('play-sim-label');
+  if (btn) {
+    btn.style.background = 'linear-gradient(135deg, #10B981, #06B6D4)';
+    btn.style.color = '#070B16';
+  }
+  if (icon) icon.textContent = '▶';
+  if (label) label.textContent = 'Play Movement';
+  showToast('⏸ Simulation paused.', 'amber');
+}
+
+function setSimulationSpeed(val) {
+  simSpeedMultiplier = parseInt(val, 10) || 5;
+  if (isSimPlaying) {
+    pauseSimulation();
+    playSimulation();
+  }
+}
+window.toggleSimulationPlay = toggleSimulationPlay;
+window.setSimulationSpeed = setSimulationSpeed;
+
+// ─── 15. TAB NAVIGATION (All 8 Tabs) ──────────────────────────────────────
+function switchTab(tabName) {
+  const allowed = (typeof ROLE_TAB_ACCESS !== 'undefined' && ROLE_TAB_ACCESS[currentRole]) ? ROLE_TAB_ACCESS[currentRole] : ['passenger', 'complaints'];
+  if (tabName === 'analytics' && !allowed.includes('analytics')) {
+    showToast('Analytics Dashboard is only accessible to Station Master.', 'amber');
+    return;
+  }
+  if (tabName === 'simulator') {
+    if (!allowed.includes('analytics')) {
+      showToast('Simulator is only accessible to Station Master.', 'amber');
+      return;
+    }
+    switchTab('analytics');
+    setTimeout(() => {
+      const el = document.getElementById('simulation-sandbox-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+    return;
+  }
+  const allTabs = ['passenger', 'map', 'complaints', 'driver', 'controller', 'controlroom', 'weather', 'analytics'];
+  allTabs.forEach(t => {
+    const view = document.getElementById('view-' + t);
+    const btn = document.getElementById('tab-' + t);
+    if (view && btn) {
+      if (t === tabName) {
+        view.style.display = (t === 'passenger' || t === 'simulator' || t === 'complaints') ? 'grid' : 'block';
+        btn.className = 'tab-btn active' + (t === 'driver' ? ' active-driver' : t === 'controlroom' ? ' active-controlroom' : t === 'weather' ? ' active-weather' : '');
+      } else {
+        view.style.display = 'none';
+        btn.className = 'tab-btn';
+      }
+    }
+  });
+
+  if (tabName === 'controller') { renderFleetTable(); renderStationMasterSuggestions(); }
+  if (tabName === 'passenger') {
+    setTimeout(() => {
+      if (typeof google !== 'undefined' && google.maps) {
+        renderPassengerMiniMap(activeTrainNumber);
+      }
+    }, 300);
+  }
+  if (tabName === 'map') {
+    initMapTrainSelect();
+    renderNetworkSnapshot();
+    setTimeout(() => {
+      if (activeMapMode === 'real') {
+        if (!googleMap) initGoogleMap();
+        if (googleMap) {
+          google.maps.event.trigger(googleMap, 'resize');
+          renderGoogleMap(activeTrainNumber);
+        }
+      } else {
+        renderLiveMap(activeTrainNumber);
+      }
+    }, 120);
+  }
+  if (tabName === 'controlroom') { renderAIRecommendations(); renderControlRoomKPIs(); renderInterventionLog(); }
+  if (tabName === 'weather') renderWeatherIntelligence();
+  if (tabName === 'driver') { renderDriverDashboard(); renderCrewComms(); }
+  if (tabName === 'controller') { renderFleetTable(); renderStationMasterSuggestions(); renderCrewComms(); renderSMAuthorizationModule(); }
+  if (tabName === 'passenger') { renderPassengerLPBroadcast(); }
+  if (tabName === 'complaints') { populateComplaintTrainDropdown(); renderComplaintList(); }
+  if (tabName === 'analytics') renderAnalyticsDashboard();
+}
+
+function populateComplaintTrainDropdown() {
+  const sel = document.getElementById('complaint-train');
+  if (!sel || sel.children.length > 1) return;
+  Object.keys(MASTER_TRAINS).forEach(num => {
+    const opt = document.createElement('option');
+    opt.value = num;
+    opt.textContent = num + ' — ' + MASTER_TRAINS[num].name;
+    sel.appendChild(opt);
+  });
+}
+
+function initInterventionTrainSelect() {
+  const sel = document.getElementById('int-train-select');
+  if (!sel || sel.children.length > 1) return;
+  Object.keys(MASTER_TRAINS).forEach(num => {
+    const opt = document.createElement('option');
+    opt.value = num;
+    opt.textContent = num + ' — ' + MASTER_TRAINS[num].name;
+    sel.appendChild(opt);
+  });
+}
+
+// ─── 16. REAL-TIME EVENT ENGINE & 4 DEMO SCENARIOS ────────────────────────
+const SCENARIOS = [
+  {
+    name: "Scenario A: Alarm Chain Pulling (ACP) Incident",
+    desc: "Simulates sudden chain pulling on Train 13240 in Buxar-Ara section. Triggers delay, alerts driver and Control Room.",
+    run: () => {
+      activeEventsDB.unshift({ type: "Alarm Chain Pulling (ACP)", train: "13240", location: "Ara-Buxar Section", severity: "high" });
+      STATIC_RECOMMENDATIONS.unshift({
+        id: "rec-acp-" + Date.now(),
+        priority: "HIGH",
+        type: "Emergency Incident",
+        recommendation: "Hold trailing Train 12301 at Buxar outer loop. Chain pulling reported on Train 13240 ahead.",
+        why: "Train 13240 stopped in section due to ACP in Coach S4. Brake pipe pressure loss requires 12 minutes to recharge and reset. Trailing train headway reduced to 4 min. Hold advised to prevent block jamming.",
+        impact: { delay_saved: "~9 min cascade delay avoided", trains_affected: "2 trains" },
+        status: "Pending"
+      });
+      showToast("🚨 Scenario A Triggered: Chain Pulling on Train 13240! Control Room alerted.", "red");
+      switchTab('controlroom');
+    }
+  },
+  {
+    name: "Scenario B: Heavy Rain & Track Flooding",
+    desc: "Simulates severe precipitation in Mumbai Division, triggering automated speed restriction recommendations.",
+    run: () => {
+      document.getElementById('sim-fog').value = 75;
+      simEnv.fog = 75;
+      updateSimulation();
+      STATIC_RECOMMENDATIONS.unshift({
+        id: "rec-rain-" + Date.now(),
+        priority: "HIGH",
+        type: "Weather Alert",
+        recommendation: "Impose emergency 60 km/h speed restriction for Borivali-Surat section due to heavy rain.",
+        why: "Satellite radar indicates 34mm/h precipitation across Western Railway division. Track ballast saturation reached 82%.",
+        impact: { delay_saved: "Derailment risk prevented", trains_affected: "4 trains" },
+        status: "Pending"
+      });
+      showToast("🌧️ Scenario B Triggered: Heavy Rain warning! Speed restrictions proposed.", "amber");
+      switchTab('weather');
+    }
+  },
+  {
+    name: "Scenario C: Passenger Washroom Complaint & Escalation",
+    desc: "Simulates passenger complaint in Coach B4, assigning OBHS Lead and escalating to Train Superintendent.",
+    run: () => {
+      complaintsDB.unshift({
+        id: "CMP-DEMO-SC",
+        train: "12301",
+        coach: "B4",
+        category: "Washroom / Toilet",
+        severity: "high",
+        description: "Water tap leakage and unhygienic conditions reported by 3 passengers",
+        status: "Escalated",
+        timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }),
+        assignedStaff: "Manoj Paswan (OBHS Lead)",
+        sla: 20,
+        escalationLevel: 2
+      });
+      renderComplaintList();
+      renderCRComplaints();
+      showToast("📋 Scenario C Triggered: Passenger complaint filed & escalated to Control Room!", "green");
+      switchTab('complaints');
+    }
+  },
+  {
+    name: "Scenario D: Delayed Train Priority Conflict",
+    desc: "Simulates delayed Train 12424 meeting punctual Train 12951 at junction. AI calculates hold trade-off.",
+    run: () => {
+      STATIC_RECOMMENDATIONS.unshift({
+        id: "rec-prio-" + Date.now(),
+        priority: "HIGH",
+        type: "Precedence Dispatch",
+        recommendation: "Hold Train 12951 for 3 min at Kota Jn to grant express priority to delayed Train 12424.",
+        why: "Train 12424 is 18m behind schedule. Clearing it first saves 12m for 12424 while costing 12951 only 3m (within timetable recovery buffer). Net system saving: 9 train-minutes.",
+        impact: { delay_saved: "9 net train-minutes", trains_affected: "2 trains" },
+        status: "Pending"
+      });
+      showToast("⚖️ Scenario D Triggered: Train priority conflict resolved with explainable AI!", "cyan");
+      switchTab('controlroom');
+    }
+  }
+];
+
+function triggerDemoEvent() {
+  const s = SCENARIOS[demoScenarioIdx % SCENARIOS.length];
+  demoScenarioIdx++;
+  s.run();
+}
+
+// ─── 17. TIME SCENARIOS & SYNC ────────────────────────────────────────────
+function updateSyncButtons() {
+  const btnReal = document.getElementById('btn-sync-realtime');
+  const btnCust = document.getElementById('btn-sync-custom');
+  if (!btnReal || !btnCust) return;
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const inactiveBg = isLight ? 'rgba(224, 232, 255, 0.9)' : '#1E293B';
+  const inactiveColor = isLight ? '#475569' : 'var(--text-secondary)';
+  const inactiveBorder = isLight ? '1px solid rgba(56, 130, 200, 0.3)' : '1px solid transparent';
+
+  if (isRealtimeSync) {
+    btnReal.style.background = 'linear-gradient(135deg, #38BDF8, #10B981)';
+    btnReal.style.color = '#070B16';
+    btnReal.style.fontWeight = '800';
+    btnReal.style.border = 'none';
+
+    btnCust.style.background = inactiveBg;
+    btnCust.style.color = inactiveColor;
+    btnCust.style.fontWeight = '600';
+    btnCust.style.border = inactiveBorder;
+  } else {
+    btnCust.style.background = 'linear-gradient(135deg, #F59E0B, #EF4444)';
+    btnCust.style.color = '#FFFFFF';
+    btnCust.style.fontWeight = '800';
+    btnCust.style.border = 'none';
+
+    btnReal.style.background = inactiveBg;
+    btnReal.style.color = inactiveColor;
+    btnReal.style.fontWeight = '600';
+    btnReal.style.border = inactiveBorder;
+  }
+}
+
+function setRealtimeSync(enable) {
+  isRealtimeSync = enable;
+  const slider = document.getElementById('time-slider');
+  const box = document.getElementById('time-scrubber-box');
+  if (slider) slider.disabled = enable;
+  if (box) box.style.opacity = enable ? '0.5' : '1.0';
+  if (enable) telemetrySeconds = 0;
+  updateSyncButtons();
+  renderDynamicUI();
+  renderFleetTable();
+}
+
+function onTimeScrubberChange(val) {
+  virtualMinutes = Number(val);
+  document.getElementById('scrubber-time-label').textContent = minToHHMM(virtualMinutes) + ' IST';
+  renderDynamicUI();
+  renderFleetTable();
+}
+
+function triggerRefresh() {
+  const prevSec = telemetrySeconds;
+  telemetrySeconds = 0;
+  const heroCard = document.getElementById('hero-card-container');
+  if (heroCard) {
+    heroCard.classList.remove('flash-update');
+    void heroCard.offsetWidth;
+    heroCard.classList.add('flash-update');
+  }
+  fetchLiveWeather();
+  renderDynamicUI();
+  renderFleetTable();
+  const timeText = prevSec === 1 ? '1 second ago' : `${prevSec} seconds ago`;
+  showToast(`⚡ Synced ${timeText}`, 'green', 5000);
+}
+
+function triggerManualSync() {
+  triggerRefresh();
+}
+
+function searchCustomTrain() {
+  const q = document.getElementById('train-search-input').value.trim();
+  if (q) {
+    const resolved = resolveOrCreateTrain(q);
+    selectTrain(resolved.number);
+  }
+}
+
+function initPills() {
+  const pc = document.getElementById('train-pill-container');
+  if (!pc) return;
+  pc.innerHTML = '';
+  POPULAR_TRAINS.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'train-pill ' + (t.number === activeTrainNumber ? 'active' : '');
+    btn.innerHTML = `<span style="width:8px;height:8px;border-radius:50%;background:${t.number === activeTrainNumber ? 'var(--cyan-bright)' : '#475569'};"></span> <strong>${t.number}</strong> ${t.label}`;
+    btn.onclick = () => selectTrain(t.number);
+    pc.appendChild(btn);
+  });
+}
+
+// ─── 18. NOTIFICATION TOAST ───────────────────────────────────────────────
+function showToast(msg, type, duration = 4200) {
+  let tc = document.getElementById('toast-container');
+  if (!tc) {
+    tc = document.createElement('div');
+    tc.id = 'toast-container';
+    tc.style = 'position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:10px;';
+    document.body.appendChild(tc);
+  }
+  const toast = document.createElement('div');
+  const colors = {
+    green: 'rgba(16,185,129,0.18)',
+    amber: 'rgba(245,158,11,0.18)',
+    red: 'rgba(244,63,94,0.18)',
+    cyan: 'rgba(56,189,248,0.18)'
+  };
+  const borders = {
+    green: 'rgba(16,185,129,0.5)',
+    amber: 'rgba(245,158,11,0.5)',
+    red: 'rgba(244,63,94,0.5)',
+    cyan: 'rgba(56,189,248,0.5)'
+  };
+  toast.style = `background:${colors[type] || colors.cyan};border:1px solid ${borders[type] || borders.cyan};border-radius:12px;padding:12px 18px;font-size:13px;color:var(--text-primary);backdrop-filter:blur(16px);box-shadow:0 8px 32px rgba(0,0,0,0.5);max-width:380px;animation:fadeIn 0.25s ease;`;
+  toast.innerHTML = msg;
+  tc.appendChild(toast);
+  setTimeout(() => toast.remove(), duration);
+}
+
+// ─── 19. STARTUP INITIALIZATION ───────────────────────────────────────────
+setInterval(() => {
+  telemetrySeconds++;
+  const el = document.getElementById('telemetry-timer');
+  if (el) el.textContent = telemetrySeconds;
+
+  const now = new Date();
+  const clk = document.getElementById('clock-display');
+  if (clk) clk.textContent = now.toLocaleTimeString('en-IN') + ' IST';
+  const crClk = document.getElementById('cr-clock');
+  if (crClk) crClk.textContent = now.toLocaleTimeString('en-IN') + ' IST';
+
+  if (isRealtimeSync && telemetrySeconds % 2 === 0) {
+    renderDynamicUI();
+    if (typeof patchDynamicElements === "function") patchDynamicElements();
+    if (activeMapMode === 'real' && googleMap && isAutoFollowTrain) {
+      renderGoogleMap(activeTrainNumber);
+    } else if (activeMapMode === 'svg') {
+      renderLiveMap(activeTrainNumber);
+    }
+  }
+  if (telemetrySeconds % 10 === 0) {
+    renderFleetTable();
+    renderChainPullingRisks();
+  }
+}, 1000);
+
+
+// ══════════════════════════════════════════════════════════════════
+// LIVE WEATHER — Open-Meteo API (free, no key required)
+// Fetches real weather for each train's current GPS position
+// ══════════════════════════════════════════════════════════════════
+let liveWeatherCache = null;        // stores the latest fetched weather
+let liveWeatherLastFetch = 0;       // timestamp of last fetch
+let liveWeatherFetching = false;    // prevents concurrent fetches
+
+// Map Open-Meteo WMO weather codes → { label, icon, risk }
+function interpretWMO(code, windKmh, rain) {
+  let label, icon, risk;
+  if      (code === 0)                    { label = 'Clear Sky';          icon = '☀️';  risk = 'LOW'; }
+  else if (code <= 2)                     { label = 'Partly Cloudy';      icon = '⛅';  risk = 'LOW'; }
+  else if (code === 3)                    { label = 'Overcast';           icon = '☁️';  risk = 'LOW'; }
+  else if (code <= 49)                    { label = 'Fog / Mist';         icon = '🌫️'; risk = windKmh > 30 ? 'HIGH' : 'MEDIUM'; }
+  else if (code <= 57)                    { label = 'Drizzle';            icon = '🌦️'; risk = 'LOW'; }
+  else if (code <= 65)                    { label = 'Rain';               icon = '🌧️'; risk = rain > 10 ? 'HIGH' : 'MEDIUM'; }
+  else if (code <= 77)                    { label = 'Snow / Sleet';       icon = '❄️';  risk = 'HIGH'; }
+  else if (code <= 82)                    { label = 'Rain Showers';       icon = '🌦️'; risk = 'MEDIUM'; }
+  else if (code <= 86)                    { label = 'Snow Showers';       icon = '🌨️'; risk = 'HIGH'; }
+  else if (code <= 99)                    { label = 'Thunderstorm';       icon = '⛈️';  risk = 'CRITICAL'; }
+  else                                    { label = 'Unknown';            icon = '🌡️'; risk = 'LOW'; }
+
+  // Override risk for extreme wind
+  if (windKmh > 60) risk = 'CRITICAL';
+  else if (windKmh > 40 && risk === 'LOW') risk = 'MEDIUM';
+
+  return { label, icon, risk };
+}
+
+// Calculate speed reduction % from weather conditions
+function calcSpeedReduction(wmo, windKmh, rain, visibilityKm) {
+  let base = 0;
+  if (wmo >= 45 && wmo <= 49) base = 40;    // fog
+  else if (wmo >= 51 && wmo <= 65) base = 15 + Math.min(rain * 2, 25);
+  else if (wmo >= 80 && wmo <= 82) base = 20;
+  else if (wmo >= 95) base = 50;            // thunderstorm
+  if (windKmh > 60) base = Math.max(base, 45);
+  else if (windKmh > 40) base = Math.max(base, 20);
+  if (visibilityKm < 0.2) base = Math.max(base, 60);
+  else if (visibilityKm < 1) base = Math.max(base, 35);
+  return Math.min(base, 70);
+}
+
+function getTrainCurrentGPS(trainNo) {
+  const state = calculateTrainDynamicState(trainNo);
+  if (!state) return null;
+
+  // state.halts[] has { code, status:'passed'/'current'/'upcoming' }
+  if (state.halts && state.halts.length) {
+    // 1. Try 'current' status halt first
+    const cur = state.halts.find(h => h.status === 'current');
+    if (cur && STN_REAL_GPS[cur.code])
+      return { lat: STN_REAL_GPS[cur.code][0], lng: STN_REAL_GPS[cur.code][1], name: cur.code };
+
+    // 2. Last passed halt
+    const passed = state.halts.filter(h => h.status === 'passed');
+    if (passed.length) {
+      const last = passed[passed.length - 1];
+      if (STN_REAL_GPS[last.code])
+        return { lat: STN_REAL_GPS[last.code][0], lng: STN_REAL_GPS[last.code][1], name: last.code };
+    }
+
+    // 3. First upcoming halt
+    const upcoming = state.halts.find(h => h.status === 'upcoming');
+    if (upcoming && STN_REAL_GPS[upcoming.code])
+      return { lat: STN_REAL_GPS[upcoming.code][0], lng: STN_REAL_GPS[upcoming.code][1], name: upcoming.code };
+
+    // 4. Any halt with GPS
+    for (const h of state.halts) {
+      if (STN_REAL_GPS[h.code])
+        return { lat: STN_REAL_GPS[h.code][0], lng: STN_REAL_GPS[h.code][1], name: h.code };
+    }
+  }
+
+  // 5. Use origin GPS as absolute fallback
+  if (state.originCode && STN_REAL_GPS[state.originCode])
+    return { lat: STN_REAL_GPS[state.originCode][0], lng: STN_REAL_GPS[state.originCode][1], name: state.originCode };
+
+  // 6. Hard fallback: Delhi (central India)
+  return { lat: 28.6431, lng: 77.2209, name: 'NDLS' };
+}
+
+async function fetchLiveWeather() {
+  if (liveWeatherFetching) return;
+  const now = Date.now();
+  if (now - liveWeatherLastFetch < 12000) return; // throttle (12s)
+
+  const gps = getTrainCurrentGPS(activeTrainNumber);
+  console.log('[PRAVAAH Weather] GPS for', activeTrainNumber, ':', gps);
+  if (!gps) {
+    console.warn('[PRAVAAH Weather] No GPS found for train', activeTrainNumber);
+    return;
+  }
+
+  liveWeatherFetching = true;
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${gps.lat.toFixed(4)}&longitude=${gps.lng.toFixed(4)}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,precipitation,visibility&wind_speed_unit=kmh&timezone=Asia%2FKolkata`;
+    // Safe timeout (AbortSignal.timeout not in all browsers)
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+    let resp;
+    try {
+      resp = await fetch(url, { signal: controller.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const cur = data.current;
+
+    const wmo = cur.weather_code ?? 0;
+    const temp = cur.temperature_2m ?? '--';
+    const feelsLike = cur.apparent_temperature ?? '--';
+    const humidity = cur.relative_humidity_2m ?? '--';
+    const windKmh = cur.wind_speed_10m ?? 0;
+    const windDir = cur.wind_direction_10m ?? 0;
+    const rain = cur.precipitation ?? 0;
+    const visRaw = cur.visibility ?? 10000;
+    const visKm = (visRaw / 1000).toFixed(1);
+
+    const interp = interpretWMO(wmo, windKmh, rain);
+    const speedRed = calcSpeedReduction(wmo, windKmh, rain, visRaw / 1000);
+    const delayMin = Math.round(speedRed * 0.6);
+    const windDirLabel = ['N','NE','E','SE','S','SW','W','NW'][Math.round(windDir / 45) % 8];
+
+    liveWeatherCache = {
+      station: gps.name,
+      lat: gps.lat, lng: gps.lng,
+      temp, feelsLike, humidity,
+      windKmh: windKmh.toFixed(1), windDir: windDirLabel,
+      rain: rain.toFixed(1),
+      visKm,
+      wmo, condition: interp.label, icon: interp.icon,
+      risk: interp.risk,
+      speedReduction: speedRed,
+      delayMin,
+      fetchedAt: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+    };
+    liveWeatherLastFetch = now;
+
+    // Update UI
+    renderLiveWeatherCard();
+    renderWeatherIntelligence();
+
+  } catch(e) {
+    console.warn('[PRAVAAH Weather] Fetch failed:', e.message);
+    // Show error in both weather panels
+    const el = document.getElementById('live-weather-hero');
+    if (el) el.innerHTML = '<div style="color:var(--amber);font-size:12px;padding:8px;">⚠️ Could not fetch weather: ' + e.message + '. Will retry…</div>';
+    const rwc = document.getElementById('route-weather-container');
+    if (rwc) rwc.innerHTML = '<div style="color:var(--amber);font-size:12px;padding:8px;">⚠️ Weather unavailable. Retrying…</div>';
+  } finally {
+    liveWeatherFetching = false;
+  }
+}
+
+function renderLiveWeatherCard() {
+  const el = document.getElementById('live-weather-hero');
+  if (!el || !liveWeatherCache) return;
+  const w = liveWeatherCache;
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  const rColor = w.risk === 'CRITICAL' ? '#F43F5E' : w.risk === 'HIGH' ? '#F97316' : w.risk === 'MEDIUM' ? '#F59E0B' : '#10B981';
+  const rBadge = w.risk === 'CRITICAL' ? 'badge-red' : w.risk === 'HIGH' ? 'badge-red' : w.risk === 'MEDIUM' ? 'badge-amber' : 'badge-green';
+    // update train number display
+    const tn = document.getElementById('live-weather-train-no');
+    if (tn) tn.textContent = activeTrainNumber;
+    // update hero badge
+    const heroBadge = document.getElementById('hero-live-weather');
+    if (heroBadge && w) {
+      heroBadge.style.display = 'flex';
+      heroBadge.style.alignItems = 'center';
+      heroBadge.style.gap = '8px';
+      heroBadge.innerHTML = `<span>${w.icon}</span><span style="font-weight:600;">${w.condition}</span><span style="color:var(--text-muted);">·</span><span>${w.temp}°C</span><span style="color:var(--text-muted);">·</span><span>${w.windKmh} km/h wind</span><span style="color:var(--text-muted);">·</span><span style="font-size:10px;color:var(--text-muted);">${w.fetchedAt}</span>`;
+    }
+  el.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span style="font-size:28px;">${w.icon}</span>
+        <div>
+          <div style="font-size:13px;font-weight:700;">${w.condition}</div>
+          <div style="font-size:10px;color:var(--text-muted);">Near ${w.station} · ${w.fetchedAt}</div>
+        </div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:26px;font-weight:900;color:var(--cyan);">${w.temp}°C</div>
+        <div style="font-size:10px;color:var(--text-muted);">Feels ${w.feelsLike}°C</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;">
+      <div style="text-align:center;padding:6px;border-radius:8px;background:${isLight ? 'rgba(241,245,249,0.9)' : 'rgba(255,255,255,0.05)'};">
+        <div style="font-size:14px;">💨</div>
+        <div style="font-size:11px;font-weight:700;">${w.windKmh} km/h</div>
+        <div style="font-size:9px;color:var(--text-muted);">${w.windDir} Wind</div>
+      </div>
+      <div style="text-align:center;padding:6px;border-radius:8px;background:${isLight ? 'rgba(241,245,249,0.9)' : 'rgba(255,255,255,0.05)'};">
+        <div style="font-size:14px;">💧</div>
+        <div style="font-size:11px;font-weight:700;">${w.humidity}%</div>
+        <div style="font-size:9px;color:var(--text-muted);">Humidity</div>
+      </div>
+      <div style="text-align:center;padding:6px;border-radius:8px;background:${isLight ? 'rgba(241,245,249,0.9)' : 'rgba(255,255,255,0.05)'};">
+        <div style="font-size:14px;">🌧️</div>
+        <div style="font-size:11px;font-weight:700;">${w.rain} mm</div>
+        <div style="font-size:9px;color:var(--text-muted);">Rain</div>
+      </div>
+      <div style="text-align:center;padding:6px;border-radius:8px;background:${isLight ? 'rgba(241,245,249,0.9)' : 'rgba(255,255,255,0.05)'};">
+        <div style="font-size:14px;">👁️</div>
+        <div style="font-size:11px;font-weight:700;">${w.visKm} km</div>
+        <div style="font-size:9px;color:var(--text-muted);">Visibility</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:8px;background:rgba(${w.risk === 'LOW' ? '16,185,129' : w.risk === 'MEDIUM' ? '245,158,11' : '244,63,94'},0.1);border:1px solid rgba(${w.risk === 'LOW' ? '16,185,129' : w.risk === 'MEDIUM' ? '245,158,11' : '244,63,94'},0.25);">
+      <div style="font-size:11px;font-weight:600;color:${rColor};">Operational Impact: ${w.speedReduction > 0 ? '-' + w.speedReduction + '% speed' : 'No impact'} · Est. +${w.delayMin} min delay</div>
+      <span class="badge ${rBadge}" style="font-size:10px;">${w.risk}</span>
+    </div>
+    <div style="margin-top:8px;font-size:10px;color:var(--text-muted);text-align:right;">📡 Live · Open-Meteo API · Updated ${w.fetchedAt}</div>
+  `;
+
+  // ── Also populate the hero "Live Route Weather" panel ──
+  const rwc = document.getElementById('route-weather-container');
+  if (rwc) {
+    const isLight2 = document.documentElement.getAttribute('data-theme') === 'light';
+    const bg = isLight2 ? 'rgba(241,245,249,0.9)' : 'rgba(255,255,255,0.05)';
+    rwc.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:30px;">${w.icon}</span>
+          <div>
+            <div style="font-size:16px;font-weight:900;color:var(--cyan);">${w.temp}°C</div>
+            <div style="font-size:11px;color:var(--text-muted);">Feels ${w.feelsLike}°C</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;">${w.condition}</div>
+          <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Near ${w.station}</div>
+          <span class="badge ${w.risk === 'LOW' ? 'badge-green' : w.risk === 'MEDIUM' ? 'badge-amber' : 'badge-red'}" style="font-size:9px;margin-top:4px;display:inline-block;">${w.risk} RISK</span>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px;">
+        <div style="padding:6px 8px;border-radius:8px;background:${bg};text-align:center;">
+          <div style="font-size:13px;">💨</div>
+          <div style="font-size:12px;font-weight:700;">${w.windKmh} km/h</div>
+          <div style="font-size:9px;color:var(--text-muted);">${w.windDir} Wind</div>
+        </div>
+        <div style="padding:6px 8px;border-radius:8px;background:${bg};text-align:center;">
+          <div style="font-size:13px;">💧</div>
+          <div style="font-size:12px;font-weight:700;">${w.humidity}%</div>
+          <div style="font-size:9px;color:var(--text-muted);">Humidity</div>
+        </div>
+        <div style="padding:6px 8px;border-radius:8px;background:${bg};text-align:center;">
+          <div style="font-size:13px;">👁️</div>
+          <div style="font-size:12px;font-weight:700;">${w.visKm} km</div>
+          <div style="font-size:9px;color:var(--text-muted);">Visibility</div>
+        </div>
+      </div>
+      ${w.rain > 0 ? `<div style="font-size:11px;color:var(--amber);margin-bottom:6px;">🌧️ Precipitation: ${w.rain} mm</div>` : ''}
+      <div style="font-size:10px;color:var(--text-muted);">
+        ${w.speedReduction > 0
+          ? `⚠️ Ops impact: −${w.speedReduction}% speed · est. +${w.delayMin} min delay`
+          : '✅ No significant operational impact'}
+      </div>
+      <div style="font-size:9px;color:var(--text-muted);margin-top:4px;opacity:0.7;">Updated ${w.fetchedAt}</div>
+    `;
+  }
+}
+
+setInterval(fetchLiveWeather, 15000);
+
+
+// ══════════════════════════════════════════════════════════════════
+// ROLE-BASED ACCESS SYSTEM
+// ══════════════════════════════════════════════════════════════════
+const ROLE_KEYS = {
+  'STAFF2024':  'staff',    // Station Master / Staff
+  'DRIVER9901': 'driver',   // Loco Pilot / Driver
+};
+const ROLE_TAB_ACCESS = {
+  passenger: ['passenger', 'map', 'complaints'],  // Passenger has live map and complaints (Analytics removed)
+  staff:     ['passenger', 'map', 'complaints', 'driver', 'controller', 'controlroom', 'weather', 'analytics'], // Station Master
+  driver:    ['passenger', 'map', 'driver', 'complaints'], // Loco Pilot
+};
+let currentRole = 'passenger';
+
+function initRoleGate() {
+  // Build and inject login modal
+  const modal = document.createElement('div');
+  modal.id = 'role-modal';
+  modal.style = 'position:fixed;inset:0;background:rgba(7,11,22,0.92);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;';
+  modal.innerHTML = `
+    <div style="background:var(--card-elevated);border:1px solid var(--border-focus);border-radius:var(--radius-xl);padding:36px 40px;max-width:420px;width:90%;box-shadow:0 0 60px rgba(56,189,248,0.15);">
+      <div style="text-align:center;margin-bottom:28px;">
+        <div style="font-size:40px;margin-bottom:10px;">🚆</div>
+        <h2 style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#38BDF8,#10B981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-.5px;">PRAVAAH</h2>
+        <p style="font-size:11px;font-weight:600;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.1em;">Intelligent Railway Operations</p>
+        <p style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Select your role to continue</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+        <button onclick="loginAsPassenger()" style="padding:16px;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(56,189,248,0.15),rgba(56,189,248,0.05));border:1.5px solid rgba(56,189,248,0.4);color:var(--cyan);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;text-align:left;display:flex;align-items:center;gap:14px;width:100%;" onmouseenter="this.style.borderColor='rgba(56,189,248,0.8)';this.style.transform='translateY(-1px)'" onmouseleave="this.style.borderColor='rgba(56,189,248,0.4)';this.style.transform=''">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(56,189,248,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🧑‍💺</div>
+          <div style="flex:1;">
+            <div style="font-size:15px;font-weight:800;">Passenger</div>
+            <div style="font-size:11px;color:var(--text-muted);font-weight:400;margin-top:3px;">Live tracking · Complaints · Train info</div>
+          </div>
+          <span style="opacity:0.5;font-size:18px;">→</span>
+        </button>
+        <div style="position:relative;">
+          <button onclick="toggleStaffLogin()" style="width:100%;padding:16px;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(16,185,129,0.12),rgba(16,185,129,0.04));border:1.5px solid rgba(16,185,129,0.35);color:var(--emerald);font-size:14px;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all .2s;" onmouseenter="this.style.borderColor='rgba(16,185,129,0.7)'" onmouseleave="this.style.borderColor='rgba(16,185,129,0.35)'">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="width:44px;height:44px;border-radius:12px;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🏛️</div>
+              <div><div style="font-size:15px;font-weight:800;">Station Staff</div><div style="font-size:11px;color:var(--text-muted);font-weight:400;margin-top:3px;">Station Master · TTE · Control Room · Analytics</div></div>
+            </div>
+            <span id="staff-chevron" style="font-size:12px;transition:.2s;opacity:0.6;">▼</span>
+          </button>
+          <div id="staff-key-input" style="display:none;margin-top:8px;display:none;">
+            <div style="display:flex;gap:8px;">
+              <input type="password" id="staff-key-field" placeholder="Enter access key..." style="flex:1;padding:10px 14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-primary);font-size:13px;" onkeydown="if(event.key==='Enter')loginAsStaff()"/>
+              <button onclick="loginAsStaff()" class="btn-action" style="padding:10px 16px;font-size:12px;white-space:nowrap;">Login</button>
+            </div>
+            <div id="staff-key-error" style="color:var(--rose);font-size:11px;margin-top:6px;display:none;">Invalid key. Try again.</div>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <button onclick="toggleDriverLogin()" style="width:100%;padding:16px;border-radius:var(--radius-lg);background:linear-gradient(135deg,rgba(245,158,11,0.12),rgba(245,158,11,0.04));border:1.5px solid rgba(245,158,11,0.35);color:var(--amber);font-size:14px;font-weight:700;cursor:pointer;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:12px;transition:all .2s;" onmouseenter="this.style.borderColor='rgba(245,158,11,0.7)'" onmouseleave="this.style.borderColor='rgba(245,158,11,0.35)'">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="width:44px;height:44px;border-radius:12px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">🚂</div>
+              <div><div style="font-size:15px;font-weight:800;">Loco Pilot</div><div style="font-size:11px;color:var(--text-muted);font-weight:400;margin-top:3px;">Cab controls · Speed advisories · Live map</div></div>
+            </div>
+            <span id="driver-chevron" style="font-size:12px;transition:.2s;opacity:0.6;">▼</span>
+          </button>
+          <div id="driver-key-input" style="display:none;">
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <input type="password" id="driver-key-field" placeholder="Enter access key..." style="flex:1;padding:10px 14px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.06);border:1px solid var(--border-subtle);color:var(--text-primary);font-size:13px;" onkeydown="if(event.key==='Enter')loginAsDriver()"/>
+              <button onclick="loginAsDriver()" class="btn-action" style="padding:10px 16px;font-size:12px;white-space:nowrap;">Login</button>
+            </div>
+            <div id="driver-key-error" style="color:var(--rose);font-size:11px;margin-top:6px;display:none;">Invalid key. Try again.</div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:4px;">
+        <div style="font-size:10px;color:var(--text-muted);">Indian Railways · PRAVAAH ETS System · SIH 2026</div>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+}
+
+function toggleStaffLogin() {
+  const el = document.getElementById('staff-key-input');
+  const ch = document.getElementById('staff-chevron');
+  const show = el.style.display === 'none' || el.style.display === '';
+  el.style.display = show ? 'block' : 'none';
+  if(ch) ch.textContent = show ? '▲' : '▼';
+}
+function toggleDriverLogin() {
+  const el = document.getElementById('driver-key-input');
+  const ch = document.getElementById('driver-chevron');
+  const show = el.style.display === 'none' || el.style.display === '';
+  el.style.display = show ? 'block' : 'none';
+  if(ch) ch.textContent = show ? '▲' : '▼';
+}
+function loginAsPassenger() {
+  currentRole = 'passenger';
+  applyRoleAccess();
+  document.getElementById('role-modal').remove();
+  showToast('Welcome! Viewing Passenger Dashboard.', 'cyan');
+  switchTab('passenger');
+}
+function loginAsStaff() {
+  const key = (document.getElementById('staff-key-field').value || '').trim().toUpperCase();
+  if (ROLE_KEYS[key] === 'staff') {
+    currentRole = 'staff';
+    applyRoleAccess();
+    document.getElementById('role-modal').remove();
+    showToast('Staff login successful. All dashboards unlocked.', 'green');
+    switchTab('passenger');
+  } else {
+    const err = document.getElementById('staff-key-error');
+    if(err) { err.style.display='block'; setTimeout(()=>err.style.display='none',3000); }
+  }
+}
+function loginAsDriver() {
+  const key = (document.getElementById('driver-key-field').value || '').trim().toUpperCase();
+  if (ROLE_KEYS[key] === 'driver') {
+    currentRole = 'driver';
+    applyRoleAccess();
+    document.getElementById('role-modal').remove();
+    showToast('Loco Pilot login successful. Cab interface unlocked.', 'amber');
+    switchTab('driver');
+  } else {
+    const err = document.getElementById('driver-key-error');
+    if(err) { err.style.display='block'; setTimeout(()=>err.style.display='none',3000); }
+  }
+}
+function applyRoleAccess() {
+  const allowed = ROLE_TAB_ACCESS[currentRole] || ROLE_TAB_ACCESS.passenger;
+  const allTabNames = ['passenger','map','complaints','driver','controller','controlroom','weather','analytics'];
+  allTabNames.forEach(t => {
+    const btn = document.getElementById('tab-' + t);
+    if (!btn) return;
+    if (allowed.includes(t)) {
+      btn.style.display = '';
+      btn.style.opacity = '1';
+      btn.style.pointerEvents = '';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+  // Add role badge in header
+  const existing = document.getElementById('role-badge');
+  if(existing) existing.remove();
+  const badge = document.createElement('span');
+  badge.id = 'role-badge';
+  const roleColors = {passenger:'badge-cyan', staff:'badge-green', driver:'badge-amber'};
+  const roleLabels = {passenger:'Passenger View', staff:'Staff / Station Master', driver:'Loco Pilot'};
+  badge.className = 'badge ' + (roleColors[currentRole]||'badge-cyan');
+  badge.style = 'font-size:10px;cursor:pointer;';
+  badge.title = 'Click to switch role';
+  badge.textContent = roleLabels[currentRole];
+  badge.onclick = () => { location.reload(); };
+  const headerRight = document.querySelector('header > div:last-child');
+  if(headerRight) headerRight.prepend(badge);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRAIN TOGGLE BAR
+// ══════════════════════════════════════════════════════════════════
+const TOGGLE_TRAINS = [
+  { n:'12301', label:'Howrah Rajdhani',      type:'Rajdhani'    },
+  { n:'12951', label:'Mumbai Rajdhani',      type:'Rajdhani'    },
+  { n:'22436', label:'Vande Bharat',         type:'Vande Bharat'},
+  { n:'12002', label:'Bhopal Shatabdi',      type:'Shatabdi'    },
+  { n:'12004', label:'Lucknow Shatabdi',     type:'Shatabdi'    },
+  { n:'12621', label:'Tamil Nadu SF',        type:'Superfast'   },
+  { n:'22691', label:'Bengaluru Rajdhani',   type:'Rajdhani'    },
+  { n:'12424', label:'Dibrugarh Rajdhani',   type:'Rajdhani'    },
+  { n:'12259', label:'Sealdah Duronto',      type:'Duronto'     },
+  { n:'20817', label:'Bhubaneswar Rajdhani', type:'Rajdhani'    },
+];
+const TYPE_COLORS = {
+  'Rajdhani':   '#38BDF8',
+  'Vande Bharat':'#10B981',
+  'Shatabdi':   '#F59E0B',
+  'Superfast':  '#A78BFA',
+  'Duronto':    '#F43F5E',
+  'Express':    '#94A3B8',
+};
+const TYPE_LABELS = {
+  'Rajdhani':   'RJD',
+  'Vande Bharat':'VB',
+  'Shatabdi':   'SHB',
+  'Superfast':  'SF',
+  'Duronto':    'DRT',
+  'Express':    'EXP',
+};
+
+function initTrainToggleBar() {
+  const bar = document.getElementById('train-toggle-bar');
+  if (!bar) return;
+  bar.innerHTML = '';
+  activeTrainNumber = String(activeTrainNumber); // always string for comparison
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  TOGGLE_TRAINS.forEach(tr => {
+    const pill = document.createElement('button');
+    const isActive = (tr.n === activeTrainNumber);
+    const color = TYPE_COLORS[tr.type] || '#94A3B8';
+
+    pill.id = 'toggle-pill-' + tr.n;
+    pill.title = tr.label + ' · ' + tr.n;
+    pill.onclick = () => selectToggleTrain(tr.n);
+
+    // Pill style — active vs inactive, light vs dark
+    const activeBg   = 'rgba(' + hexToRgb(color) + ',0.18)';
+    const inactiveBg = isLight ? 'rgba(241,245,249,0.95)' : 'rgba(255,255,255,0.05)';
+    const activeBdr  = color;
+    const inactiveBdr= isLight ? 'rgba(100,116,139,0.3)' : 'rgba(255,255,255,0.12)';
+    const activeClr  = color;
+    const inactiveClr= isLight ? '#334155' : 'var(--text-secondary)';
+
+    pill.style.cssText = [
+      'display:inline-flex', 'align-items:center', 'gap:7px',
+      'padding:6px 14px', 'border-radius:20px', 'flex-shrink:0',
+      'cursor:pointer', 'white-space:nowrap', 'transition:all 0.18s ease',
+      'font-size:12px', 'font-family:inherit',
+      'border:1.5px solid ' + (isActive ? activeBdr : inactiveBdr),
+      'background:' + (isActive ? activeBg : inactiveBg),
+      'color:' + (isActive ? activeClr : inactiveClr),
+      'font-weight:' + (isActive ? '800' : '600'),
+      'box-shadow:' + (isActive ? '0 0 10px rgba(' + hexToRgb(color) + ',0.28)' : 'none'),
+    ].join(';');
+
+    // Dot indicator + number + crisp label (clear font, no washed-out opacity)
+    pill.innerHTML =
+      '<span style="width:7px;height:7px;border-radius:50%;flex-shrink:0;background:' +
+        (isActive ? color : (isLight ? '#64748B' : 'rgba(148,163,184,0.6)')) + ';"></span>' +
+      '<strong>' + tr.n + '</strong>' +
+      '<span style="opacity:0.95;font-weight:600;">' + tr.label + '</span>';
+
+    bar.appendChild(pill);
+  });
+
+  // Attach scroll listener to hide/show navigation arrows dynamically
+  bar.removeEventListener('scroll', updateToggleScrollArrows);
+  bar.addEventListener('scroll', updateToggleScrollArrows, { passive: true });
+  window.addEventListener('resize', updateToggleScrollArrows, { passive: true });
+  setTimeout(updateToggleScrollArrows, 50);
+}
+
+function updateToggleScrollArrows() {
+  const bar = document.getElementById('train-toggle-bar');
+  const leftBtn = document.getElementById('toggle-scroll-left');
+  const rightBtn = document.getElementById('toggle-scroll-right');
+  if (!bar || !leftBtn || !rightBtn) return;
+
+  const scrollLeft = bar.scrollLeft;
+  const maxScroll = Math.max(0, bar.scrollWidth - bar.clientWidth);
+
+  // Left arrow: hide if at start
+  if (scrollLeft <= 4) {
+    leftBtn.style.opacity = '0';
+    leftBtn.style.pointerEvents = 'none';
+  } else {
+    leftBtn.style.opacity = '1';
+    leftBtn.style.pointerEvents = 'auto';
+  }
+
+  // Right arrow: hide if scrolled to end so it never obscures the last train
+  if (scrollLeft >= maxScroll - 4 || maxScroll === 0) {
+    rightBtn.style.opacity = '0';
+    rightBtn.style.pointerEvents = 'none';
+  } else {
+    rightBtn.style.opacity = '1';
+    rightBtn.style.pointerEvents = 'auto';
+  }
+}
+
+function selectToggleTrain(num) {
+  activeTrainNumber = String(num);
+  // Sync the search input box
+  const inp = document.getElementById('train-search-input');
+  if (inp) inp.value = activeTrainNumber;
+  // Re-render the toggle bar so the new pill highlights
+  initTrainToggleBar();
+  // Re-render all dynamic UI for the new train
+  initPills();
+  renderDynamicUI();
+  // Reset weather so it fetches for the new train location
+  liveWeatherLastFetch = 0;
+  liveWeatherCache = null;
+  // Clear weather panels to show loading state
+  const lw = document.getElementById('live-weather-hero');
+  if (lw) lw.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:8px;color:var(--text-muted);font-size:12px;"><span style="font-size:20px;">📡</span><span>Fetching weather for Train ' + activeTrainNumber + '…</span></div>';
+  const rw = document.getElementById('route-weather-container');
+  if (rw) rw.innerHTML = '<div style="display:flex;align-items:center;gap:10px;padding:8px;color:var(--text-muted);font-size:12px;"><span style="font-size:20px;">📡</span><span>Loading weather…</span></div>';
+  // Fetch weather for new train
+  setTimeout(fetchLiveWeather, 300);
+  // Update mini map if visible
+  if (typeof renderPassengerMiniMap === 'function') renderPassengerMiniMap(activeTrainNumber);
+  // Toast
+  const tname = (TOGGLE_TRAINS.find(t => t.n === activeTrainNumber) || {label: activeTrainNumber}).label;
+  showToast('Train ' + activeTrainNumber + ' · ' + tname, 'cyan');
+}
+
+function scrollTrainBar(delta) {
+  const bar = document.getElementById('train-toggle-bar');
+  if (bar) {
+    bar.scrollBy({ left: delta, behavior: 'smooth' });
+    setTimeout(updateToggleScrollArrows, 150);
+    setTimeout(updateToggleScrollArrows, 350);
+  }
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+  return r+','+g+','+b;
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ANALYTICS DASHBOARD RENDER
+// ══════════════════════════════════════════════════════════════════
+function renderAnalyticsDashboard() {
+  const curMin = getEffectiveMinutes();
+  const trainNums = Object.keys(MASTER_TRAINS);
+
+  // KPIs
+  const totalComplaints = complaintsDB.length;
+  const highSev = complaintsDB.filter(c => c.severity === 'high').length;
+  const escalated = complaintsDB.filter(c => c.status === 'Escalated' || c.escalationLevel > 1).length;
+  const resolved = complaintsDB.filter(c => c.status === 'Resolved');
+  const avgRes = resolved.length > 0 ? Math.round(resolved.length * 22.4 / resolved.length * 10) : 28; // mock avg minutes
+  const intCount = interventionLogDB.length;
+
+  const setEl = (id, val) => { const e = document.getElementById(id); if(e) e.textContent = val; };
+  setEl('anl-total-complaints', totalComplaints);
+  setEl('anl-high-sev', highSev);
+  setEl('anl-escalated', Math.max(0, escalated));
+  setEl('anl-avg-res', avgRes);
+  setEl('anl-interventions', Math.max(0, intCount));
+
+  // Complaint status bars
+  const statusBar = document.getElementById('anl-complaint-status-bars');
+  if (statusBar) {
+    const statuses = {Open:0, Escalated:0, Resolved:0};
+    complaintsDB.forEach(c => {
+      if (statuses[c.status] !== undefined) statuses[c.status]++;
+    });
+    const total = Math.max(1, complaintsDB.length);
+    const stColors = { Open:'var(--amber)', Escalated:'var(--rose)', Resolved:'var(--emerald)' };
+    statusBar.innerHTML = Object.entries(statuses).map(([s, cnt]) => `
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;">
+          <span style="font-weight:600;color:${stColors[s]}">${s}</span>
+          <span class="mono" style="color:var(--text-secondary);">${cnt}</span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+          <div style="height:100%;background:${stColors[s]};width:${Math.round(cnt/total*100)}%;border-radius:3px;transition:width .5s;"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Category bars
+  const catBars = document.getElementById('anl-category-bars');
+  if (catBars) {
+    const cats = {};
+    complaintsDB.forEach(c => { cats[c.category] = (cats[c.category]||0)+1; });
+    const maxCat = Math.max(1, ...Object.values(cats));
+    catBars.innerHTML = Object.entries(cats).sort((a,b)=>b[1]-a[1]).map(([cat,cnt]) => `
+      <div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
+          <span style="color:var(--text-secondary);">${cat}</span>
+          <span class="mono" style="font-weight:700;color:var(--text-primary);">${cnt}</span>
+        </div>
+        <div style="height:5px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;">
+          <div style="height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));width:${Math.round(cnt/maxCat*100)}%;border-radius:3px;"></div>
+        </div>
+      </div>`).join('');
+  }
+
+  // Severity trend (mock 7 days)
+  const sev = document.getElementById('anl-severity-trend');
+  if (sev) {
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const vals = [3,5,4,8,6,2,highSev||1];
+    const maxV = Math.max(...vals,1);
+    sev.innerHTML = days.map((d,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;font-size:11px;">
+        <span style="width:28px;color:var(--text-muted);">${d}</span>
+        <div style="flex:1;height:8px;background:rgba(255,255,255,0.05);border-radius:4px;overflow:hidden;">
+          <div style="height:100%;background:${vals[i]>5?'var(--rose)':vals[i]>3?'var(--amber)':'var(--emerald)'};width:${Math.round(vals[i]/maxV*100)}%;border-radius:4px;"></div>
+        </div>
+        <span class="mono" style="width:16px;text-align:right;color:var(--text-secondary);">${vals[i]}</span>
+      </div>`).join('');
+  }
+
+  // Weather impact table
+  const tBody = document.getElementById('anl-weather-table-body');
+  if (tBody && typeof WEATHER_REGIONS_DATA !== 'undefined') {
+    tBody.innerHTML = WEATHER_REGIONS_DATA.map(r => {
+      const rColor = r.risk==='CRITICAL'||r.risk==='HIGH' ? 'var(--rose)' : r.risk==='MEDIUM'?'var(--amber)':'var(--emerald)';
+      return `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+        <td style="padding:8px 10px;">${r.icon} ${r.name}</td>
+        <td style="padding:8px 10px;color:var(--text-secondary);">${r.condLabel}</td>
+        <td style="padding:8px 10px;text-align:center;"><span class="badge ${r.risk==='CRITICAL'||'HIGH'===r.risk?'badge-red':r.risk==='MEDIUM'?'badge-amber':'badge-green'}" style="font-size:10px;">${r.risk}</span></td>
+        <td style="padding:8px 10px;text-align:center;color:var(--amber);" class="mono">${r.speed_reduction}%</td>
+        <td style="padding:8px 10px;text-align:center;color:var(--rose);" class="mono">${r.delay_range} min</td>
+        <td style="padding:8px 10px;text-align:center;" class="mono">${r.trains}</td>
+        <td style="padding:8px 10px;font-size:11px;color:var(--text-secondary);">${r.action}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Train performance
+  const trainPerf = document.getElementById('anl-train-performance');
+  if (trainPerf) {
+    const states = trainNums.slice(0,8).map(n => calculateTrainDynamicState(n, curMin));
+    trainPerf.innerHTML = states.map(s => {
+      const dColor = s.finalDelay > 15 ? 'var(--rose)' : s.finalDelay > 5 ? 'var(--amber)' : 'var(--emerald)';
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border-inner);">
+        <div>
+          <span class="mono" style="font-size:12px;font-weight:700;color:var(--cyan);">${s.trainNumber}</span>
+          <span style="font-size:11px;color:var(--text-secondary);margin-left:8px;">${s.trainName.substring(0,22)}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:11px;color:var(--text-muted);">${s.progressPct}%</span>
+          <span class="mono" style="font-size:12px;font-weight:700;color:${dColor};">${Math.max(0,s.finalDelay)>0?'+'+Math.max(0,s.finalDelay)+'m':'On Time'}</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // Intervention stats
+  const intStats = document.getElementById('anl-intervention-stats');
+  if (intStats) {
+    const accepted = interventionLogDB.filter(i => i.action && i.action.includes('Accepted')).length;
+    const total = Math.max(1, interventionLogDB.length);
+    const items = [
+      { label: 'Total Logged', val: interventionLogDB.length, color: 'var(--cyan)' },
+      { label: 'AI Accepted', val: accepted, color: 'var(--emerald)' },
+      { label: 'Human Override', val: interventionLogDB.filter(i=>i.operator&&i.operator.includes('Human')).length, color: 'var(--amber)' },
+      { label: 'Acceptance Rate', val: Math.round(accepted/total*100)+'%', color: 'var(--violet)' },
+    ];
+    intStats.innerHTML = items.map(it=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border-inner);">
+        <span style="font-size:12px;color:var(--text-secondary);">${it.label}</span>
+        <span class="mono" style="font-size:15px;font-weight:800;color:${it.color};">${it.val}</span>
+      </div>`).join('');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// AI CHATBOT (English Only)
+// ══════════════════════════════════════════════════════════════════
+const CHAT_LANGUAGES = [
+  { code:'en', label:'English', greeting:'Hello! I am PRAVAAH Assistant. How can I help you today? You can ask about train status, ETA, delays, or file a complaint.' }
+];
+let chatLanguage = 'en';
+
+const CHAT_RESPONSES = {
+  en: {
+    status: (s) => `Train ${s.trainNumber} (${s.trainName}) is currently ${s.status === 'running' ? 'running live' : s.status}. It is in the ${s.curSectionLabel} section running at ${s.curSpeed} km/h. Next scheduled halt: ${s.nextHalt.name} (${s.nextHalt.code}).`,
+    delay: (s) => s.finalDelay > 0 ? `Train ${s.trainNumber} (${s.trainName}) is running ${s.finalDelay} minutes behind schedule. Predicted destination arrival: ${s.destETA} IST.` : `Train ${s.trainNumber} (${s.trainName}) is running on time. Expected arrival: ${s.destETA} IST.`,
+    eta: (s) => `Estimated Time of Arrival at ${s.destName} (${s.destCode}): ${s.destETA} IST. Current progress: ${s.progressPct}% (${s.curKm}/${s.totalKm} km completed).`,
+    location: (s) => `Train ${s.trainNumber} is currently at km ${s.curKm} in the ${s.curSectionLabel} section. Next stop is ${s.nextHalt.name} (${s.nextHalt.code}).`,
+    complaint: () => 'To file a complaint or service request, use the Passenger Complaints form below. Select your coach, seat number, and issue category for immediate assistance by on-board staff.',
+    default: () => 'I am your English AI railway assistant. I can help with live train status, ETA, delay information, current location, or filing a passenger complaint. What would you like to know?'
+  }
+};
+
+function getChatResponse(userMsg) {
+  const curMin = getEffectiveMinutes();
+  const state = calculateTrainDynamicState(activeTrainNumber, curMin);
+  const lc = userMsg.toLowerCase();
+  const resp = CHAT_RESPONSES.en;
+
+  if (lc.includes('location') || lc.includes('where'))
+    return resp.location(state);
+  if (lc.includes('status'))
+    return resp.status(state);
+  if (lc.includes('delay') || lc.includes('late') || lc.includes('behind'))
+    return resp.delay(state);
+  if (lc.includes('eta') || lc.includes('arrive') || lc.includes('arrival') || lc.includes('time') || lc.includes('reach'))
+    return resp.eta(state);
+  if (lc.includes('complaint') || lc.includes('report') || lc.includes('issue') || lc.includes('dirty') || lc.includes('clean') || lc.includes('washroom') || lc.includes('coach'))
+    return resp.complaint();
+  if (lc.includes('next') || lc.includes('halt') || lc.includes('station'))
+    return `Next station is ${state.nextHalt.name} (${state.nextHalt.code}) on Platform ${state.nextHalt.pf}, scheduled for ${state.nextHalt.arrM ? minToHHMM(state.nextHalt.arrM) : minToHHMM(state.nextHalt.depM)} IST.`;
+  return resp.default();
+}
+
+function initChatLanguageSelector() {
+  const container = document.getElementById('chat-lang-selector');
+  if (container) container.innerHTML = '';
+}
+
+function addChatMessage(type, text) {
+  const win = document.getElementById('chatbot-window');
+  if (!win) return;
+  const msg = document.createElement('div');
+  msg.className = type === 'bot' ? 'chat-msg-bot' : 'chat-msg-user';
+  msg.style = `padding:10px 14px;border-radius:${type==='bot'?'4px 14px 14px 14px':'14px 4px 14px 14px'};margin:6px 0;max-width:88%;font-size:13px;line-height:1.5;${type==='bot'?'background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.15);color:var(--text-primary);align-self:flex-start;':'background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.2);color:var(--text-primary);align-self:flex-end;margin-left:auto;'}`;
+  msg.textContent = text;
+  win.appendChild(msg);
+  win.scrollTop = win.scrollHeight;
+}
+
+function sendChatMessage() {
+  const inp = document.getElementById('chat-input');
+  if (!inp || !inp.value.trim()) return;
+  const userText = inp.value.trim();
+  inp.value = '';
+  addChatMessage('user', userText);
+  setTimeout(() => {
+    const resp = getChatResponse(userText);
+    addChatMessage('bot', resp);
+  }, 500);
+}
+
+function chatQuickAction(action) {
+  const prompts = {
+    status: 'What is the current train status?',
+    location: 'Where is my train right now?',
+    eta: 'What is the ETA at destination?',
+    complaint: 'How do I file a complaint?',
+    delay: 'Check train delay status',
+    next: 'What is the next station halt?'
+  };
+  const inp = document.getElementById('chat-input');
+  if (inp) inp.value = prompts[action] || action;
+  sendChatMessage();
+}
+
+
+
+// ══════════════════════════════════════════════════════════════════
+
+// ══════════════════════════════════════════════════════════════════
+// DEEP INLINE STYLE SWAPPER — fixes hardcoded dark rgba values
+// ponytail: DOM style walker bridges hardcoded inline styles. Extract to CSS vars if full rewrite needed.
+// that CSS attribute selectors can't reach due to specificity
+// ══════════════════════════════════════════════════════════════════
+const DARK_TO_LIGHT_BG = [
+  // Most opaque darks → clean white
+  [/rgba\(7\s*,\s*11\s*,\s*22\s*,\s*0\.9[0-9]*\)/g,   'rgba(255,255,255,0.97)'],
+  [/rgba\(11\s*,\s*17\s*,\s*36\s*,\s*0\.9[0-9]*\)/g,  'rgba(255,255,255,0.97)'],
+  [/rgba\(15\s*,\s*23\s*,\s*42\s*,\s*0\.9[0-9]*\)/g,  'rgba(255,255,255,0.97)'],
+  [/rgba\(22\s*,\s*33\s*,\s*58\s*,\s*0\.9[0-9]*\)/g,  'rgba(255,255,255,0.97)'],
+  [/rgba\(26\s*,\s*40\s*,\s*72\s*,\s*0\.9[0-9]*\)/g,  'rgba(255,255,255,0.97)'],
+  // Semi-transparent darks → light equivalents
+  [/rgba\(7\s*,\s*11\s*,\s*22\s*,\s*0\.[678][0-9]*\)/g,  'rgba(248,250,252,0.92)'],
+  [/rgba\(11\s*,\s*17\s*,\s*36\s*,\s*0\.[678][0-9]*\)/g, 'rgba(241,245,249,0.90)'],
+  [/rgba\(15\s*,\s*23\s*,\s*42\s*,\s*0\.[678][0-9]*\)/g, 'rgba(238,244,255,0.90)'],
+  [/rgba\(22\s*,\s*33\s*,\s*58\s*,\s*0\.[678][0-9]*\)/g, 'rgba(234,242,255,0.90)'],
+  [/rgba\(26\s*,\s*40\s*,\s*72\s*,\s*0\.[678][0-9]*\)/g, 'rgba(229,239,255,0.90)'],
+  // Any remaining darks → fallback light
+  [/rgba\(7\s*,\s*11\s*,\s*22[^)]*\)/g,   'rgba(245,248,255,0.88)'],
+  [/rgba\(11\s*,\s*17\s*,\s*36[^)]*\)/g,  'rgba(241,245,249,0.88)'],
+  [/rgba\(15\s*,\s*23\s*,\s*42[^)]*\)/g,  'rgba(238,244,255,0.88)'],
+  [/rgba\(22\s*,\s*33\s*,\s*58[^)]*\)/g,  'rgba(234,242,255,0.88)'],
+  // Hex values
+  [/#070B16/gi,  '#F8FAFF'],
+  [/#0B1124/gi,  '#EEF3FF'],
+  [/#0F172A/gi,  '#E8EEF8'],
+  [/#1E293B/gi,  '#E2EAF8'],
+  [/#131E3D/gi,  '#EAF0FF'],
+  [/#162035/gi,  '#ECF2FF'],
+  [/#25344F/gi,  '#DDE7F8'],
+];
+
+const DARK_TO_LIGHT_COLOR = [
+  [/#F1F5F9/gi, '#0F172A'],
+  [/#94A3B8/gi, '#475569'],
+  [/#64748B/gi, '#64748B'],
+  [/#FFFFFF/gi, '#0F172A'],
+  [/rgba\(255\s*,\s*255\s*,\s*255\s*,\s*0\.[0-9]+\)/g, 'rgba(15,23,42,0.75)'],
+];
+
+// Store original inline styles so we can restore on dark mode
+const _origStyles = new Map();
+
+function deepApplyLightInlineStyles() {
+  // Walk every element with an inline background style
+  document.querySelectorAll('[style]').forEach(el => {
+    const orig = el.getAttribute('style');
+    if (!orig) return;
+
+    // Skip elements that explicitly set their own bg via CSS vars
+    if (orig.includes('var(--canvas)') || orig.includes('var(--card-bg)')) return;
+
+    let modified = orig;
+    let changed = false;
+
+    // Swap backgrounds
+    for (const [pattern, replacement] of DARK_TO_LIGHT_BG) {
+      if (pattern.test(modified)) {
+        modified = modified.replace(pattern, replacement);
+        changed = true;
+      }
+      pattern.lastIndex = 0; // reset regex state
+    }
+
+    if (changed) {
+      if (!_origStyles.has(el)) _origStyles.set(el, orig); // save original
+      el.setAttribute('style', modified);
+    }
+  });
+}
+
+function deepRestoreDarkInlineStyles() {
+  _origStyles.forEach((origStyle, el) => {
+    if (el.isConnected) el.setAttribute('style', origStyle);
+  });
+  _origStyles.clear();
+}
+
+// Also fix any dynamically-created elements (called from renderXxx functions)
+function patchDynamicElements() {
+  if (currentTheme !== 'light') return;
+  // Re-run the swapper on any new elements
+  setTimeout(deepApplyLightInlineStyles, 50);
+}
+
+
+// LIGHT / DARK MODE TOGGLE
+// ══════════════════════════════════════════════════════════════════
+let currentTheme = localStorage.getItem('pravaah-theme') || 'dark';
+
+function applyTheme(theme) {
+  currentTheme = theme;
+  const html = document.documentElement;
+  const icon  = document.getElementById('theme-icon');
+  const label = document.getElementById('theme-label');
+
+  if (theme === 'light') {
+    html.setAttribute('data-theme', 'light');
+    if (icon)  icon.textContent  = '☀️';
+    if (label) label.textContent = 'Light';
+    // Deep-swap all hardcoded dark inline styles
+    setTimeout(deepApplyLightInlineStyles, 30);
+    // Re-style Google Maps to light mode
+    if (typeof google !== 'undefined' && googleMap) {
+      googleMap.setOptions({ styles: null });
+      googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    }
+    if (typeof google !== 'undefined' && passengerMiniMap) {
+      passengerMiniMap.setOptions({ styles: null });
+    }
+  } else {
+    html.removeAttribute('data-theme');
+    if (icon)  icon.textContent  = '🌙';
+    if (label) label.textContent = 'Dark';
+    // Restore all original dark inline styles
+    deepRestoreDarkInlineStyles();
+    // Restore dark map style
+    if (typeof google !== 'undefined' && googleMap) {
+      googleMap.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
+      googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
+    }
+    if (typeof google !== 'undefined' && passengerMiniMap) {
+      passengerMiniMap.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
+    }
+  }
+  localStorage.setItem('pravaah-theme', theme);
+}
+
+function toggleTheme() {
+  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+  showToast(currentTheme === 'light' ? '☀️ Light mode activated' : '🌙 Dark mode activated', 'cyan');
+}
+
+// Apply saved theme immediately (before DOMContentLoaded to avoid flash)
+(function() {
+  const saved = localStorage.getItem('pravaah-theme') || 'dark';
+  if (saved === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Initialize journey date picker with today's local date
+  const datePicker = document.getElementById('journey-date-picker');
+  if (datePicker) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    datePicker.value = `${yyyy}-${mm}-${dd}`;
+    updateJourneyDateBadge();
+  }
+  if (typeof updateSyncButtons === 'function') updateSyncButtons();
+  initPills();
+  populateComplaintTrainDropdown();
+  initInterventionTrainSelect();
+  initMapTrainSelect();
+  initTrainToggleBar();
+  initChatLanguageSelector();
+  selectSeverity('medium');
+  selectDriverSev('medium');
+  renderDynamicUI();
+  renderFleetTable();
+  renderStationMasterSuggestions();
+  renderAIRecommendations();
+  renderControlRoomKPIs();
+  renderInterventionLog();
+  renderPassengerLPBroadcast();
+  renderCrewComms();
+  renderSMAuthorizationModule();
+  renderWeatherIntelligence();
+  fetchLiveWeather();
+  renderChainPullingRisks();
+  renderComplaintList();
+  renderDriverReports();
+  renderDriverMessages();
+  initPassengerMapClickCatchers();
+  // Initialize passenger mini-map after short delay (allow Google Maps API to be ready)
+  setTimeout(() => {
+    if (typeof google !== 'undefined' && google.maps) {
+      renderPassengerMiniMap(activeTrainNumber);
+    }
+  }, 1500);
+  // Show role login modal on startup
+  setTimeout(() => initRoleGate(), 200);
+  showToast('🚆 <strong>PRAVAAH</strong> ETS Railway Operations System loaded successfully!', 'green');
+});

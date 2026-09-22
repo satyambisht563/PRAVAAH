@@ -1,0 +1,1845 @@
+{
+  "12002": {
+    "number": "12002",
+    "name": "New Delhi - Rani Kamlapati Shatabdi",
+    "type": "Shatabdi Express",
+    "corridorName": "North-Central Trunk (New Delhi - Bhopal)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 360,
+    "durationMin": 520,
+    "halts": [
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 0,
+        "arrM": 360,
+        "depM": 360,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "MTJ",
+        "name": "Mathura Jn",
+        "km": 141,
+        "arrM": 439,
+        "depM": 440,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 195,
+        "arrM": 470,
+        "depM": 475,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "DHO",
+        "name": "Dholpur",
+        "km": 248,
+        "arrM": 519,
+        "depM": 520,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "MRA",
+        "name": "Morena",
+        "km": 275,
+        "arrM": 537,
+        "depM": 538,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "GWL",
+        "name": "Gwalior Jn",
+        "km": 313,
+        "arrM": 563,
+        "depM": 568,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "VGLJ",
+        "name": "V Lakshmibai Jhansi",
+        "km": 411,
+        "arrM": 645,
+        "depM": 650,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "LAR",
+        "name": "Lalitpur Jn",
+        "km": 501,
+        "arrM": 702,
+        "depM": 703,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "BINA",
+        "name": "Bina Jn",
+        "km": 564,
+        "arrM": 760,
+        "depM": 762,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "BPL",
+        "name": "Bhopal Jn",
+        "km": 702,
+        "arrM": 847,
+        "depM": 852,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "RKMP",
+        "name": "Rani Kamlapati",
+        "km": 708,
+        "arrM": 880,
+        "depM": 880,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "12004": {
+    "number": "12004",
+    "name": "New Delhi - Lucknow Jn Shatabdi",
+    "type": "Shatabdi Express",
+    "corridorName": "Awadh Corridor (New Delhi - Lucknow)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 370,
+    "durationMin": 390,
+    "halts": [
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 0,
+        "arrM": 370,
+        "depM": 370,
+        "pf": "6",
+        "type": "major"
+      },
+      {
+        "code": "GZB",
+        "name": "Ghaziabad Jn",
+        "km": 25,
+        "arrM": 402,
+        "depM": 404,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "ALJN",
+        "name": "Aligarh Jn",
+        "km": 131,
+        "arrM": 467,
+        "depM": 469,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "TDL",
+        "name": "Tundla Jn",
+        "km": 209,
+        "arrM": 520,
+        "depM": 522,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "ETW",
+        "name": "Etawah Jn",
+        "km": 301,
+        "arrM": 580,
+        "depM": 582,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central Jn",
+        "km": 436,
+        "arrM": 680,
+        "depM": 685,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "LJN",
+        "name": "Lucknow Jn",
+        "km": 511,
+        "arrM": 760,
+        "depM": 760,
+        "pf": "2",
+        "type": "major"
+      }
+    ]
+  },
+  "12259": {
+    "number": "12259",
+    "name": "Sealdah - Bikaner AC Duronto Express",
+    "type": "Duronto Express",
+    "corridorName": "East-West Trans-India (Sealdah - Bikaner)",
+    "runningDays": [
+      "MON",
+      "WED",
+      "THU",
+      "SUN"
+    ],
+    "depOffsetMin": 1020,
+    "durationMin": 1560,
+    "halts": [
+      {
+        "code": "SDAH",
+        "name": "Sealdah",
+        "km": 0,
+        "arrM": 1020,
+        "depM": 1020,
+        "pf": "12",
+        "type": "major"
+      },
+      {
+        "code": "ASN",
+        "name": "Asansol Jn",
+        "km": 213,
+        "arrM": 1175,
+        "depM": 1180,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "DHN",
+        "name": "Dhanbad Jn",
+        "km": 266,
+        "arrM": 1248,
+        "depM": 1253,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "DDU",
+        "name": "Pt. DD Upadhyaya Jn",
+        "km": 670,
+        "arrM": 1525,
+        "depM": 1535,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central",
+        "km": 1014,
+        "arrM": 1770,
+        "depM": 1775,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 1454,
+        "arrM": 2100,
+        "depM": 2115,
+        "pf": "11",
+        "type": "major"
+      },
+      {
+        "code": "DEC",
+        "name": "Delhi Cantt",
+        "km": 1469,
+        "arrM": 2148,
+        "depM": 2150,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "GGN",
+        "name": "Gurgaon",
+        "km": 1486,
+        "arrM": 2166,
+        "depM": 2168,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "RE",
+        "name": "Rewari",
+        "km": 1537,
+        "arrM": 2223,
+        "depM": 2225,
+        "pf": "5",
+        "type": "intermediate"
+      },
+      {
+        "code": "LHU",
+        "name": "Loharu",
+        "km": 1629,
+        "arrM": 2295,
+        "depM": 2300,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "SDLP",
+        "name": "Sadulpur Jn",
+        "km": 1679,
+        "arrM": 2335,
+        "depM": 2340,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "CUR",
+        "name": "Churu",
+        "km": 1736,
+        "arrM": 2385,
+        "depM": 2390,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "RTGH",
+        "name": "Ratangarh Jn",
+        "km": 1779,
+        "arrM": 2430,
+        "depM": 2435,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "SDGH",
+        "name": "Sri Dungargarh",
+        "km": 1843,
+        "arrM": 2481,
+        "depM": 2483,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BKN",
+        "name": "Bikaner Jn",
+        "km": 1917,
+        "arrM": 2580,
+        "depM": 2580,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "12301": {
+    "number": "12301",
+    "name": "Howrah - New Delhi Rajdhani Express",
+    "type": "Rajdhani Express",
+    "corridorName": "Eastern Trunk (Howrah - New Delhi)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT"
+    ],
+    "depOffsetMin": 1010,
+    "durationMin": 1035,
+    "halts": [
+      {
+        "code": "HWH",
+        "name": "Howrah Jn",
+        "km": 0,
+        "arrM": 1010,
+        "depM": 1010,
+        "pf": "9",
+        "type": "major"
+      },
+      {
+        "code": "BWN",
+        "name": "Barddhaman Jn",
+        "km": 95,
+        "arrM": 1076,
+        "depM": 1078,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "ASN",
+        "name": "Asansol Jn",
+        "km": 199,
+        "arrM": 1137,
+        "depM": 1140,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "DHN",
+        "name": "Dhanbad Jn",
+        "km": 257,
+        "arrM": 1190,
+        "depM": 1195,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "PNME",
+        "name": "Parasnath",
+        "km": 305,
+        "arrM": 1230,
+        "depM": 1232,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "KQR",
+        "name": "Koderma Jn",
+        "km": 380,
+        "arrM": 1284,
+        "depM": 1286,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "GAYA",
+        "name": "Gaya Jn",
+        "km": 458,
+        "arrM": 1339,
+        "depM": 1342,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "DOS",
+        "name": "Dehri On Sone",
+        "km": 543,
+        "arrM": 1400,
+        "depM": 1402,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "SSM",
+        "name": "Sasaram Jn",
+        "km": 561,
+        "arrM": 1414,
+        "depM": 1416,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "DDU",
+        "name": "Pt. DD Upadhyaya Jn",
+        "km": 663,
+        "arrM": 1485,
+        "depM": 1495,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "PRYJ",
+        "name": "Prayagraj Jn",
+        "km": 816,
+        "arrM": 1593,
+        "depM": 1595,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central Jn",
+        "km": 1010,
+        "arrM": 1720,
+        "depM": 1725,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "ALJN",
+        "name": "Aligarh Jn",
+        "km": 1319,
+        "arrM": 1928,
+        "depM": 1930,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 1451,
+        "arrM": 2045,
+        "depM": 2045,
+        "pf": "12",
+        "type": "major"
+      }
+    ]
+  },
+  "12424": {
+    "number": "12424",
+    "name": "New Delhi - Dibrugarh Rajdhani Express",
+    "type": "Rajdhani Express",
+    "corridorName": "Northeast Trunk (New Delhi - Dibrugarh)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 980,
+    "durationMin": 2455,
+    "halts": [
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 0,
+        "arrM": 980,
+        "depM": 980,
+        "pf": "16",
+        "type": "major"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central",
+        "km": 440,
+        "arrM": 1300,
+        "depM": 1305,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "PRYJ",
+        "name": "Prayagraj Jn",
+        "km": 635,
+        "arrM": 1431,
+        "depM": 1433,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "DDU",
+        "name": "Pt. DD Upadhyaya Jn",
+        "km": 787,
+        "arrM": 1525,
+        "depM": 1535,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "DNR",
+        "name": "Danapur",
+        "km": 989,
+        "arrM": 1668,
+        "depM": 1670,
+        "pf": "1A",
+        "type": "intermediate"
+      },
+      {
+        "code": "PPTA",
+        "name": "Patliputra Jn",
+        "km": 995,
+        "arrM": 1695,
+        "depM": 1705,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "BJU",
+        "name": "Barauni Jn",
+        "km": 1103,
+        "arrM": 1840,
+        "depM": 1850,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "NNA",
+        "name": "Naugachia",
+        "km": 1225,
+        "arrM": 1944,
+        "depM": 1946,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "KIR",
+        "name": "Katihar Jn",
+        "km": 1284,
+        "arrM": 2015,
+        "depM": 2025,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "KNE",
+        "name": "KishanGanj",
+        "km": 1380,
+        "arrM": 2105,
+        "depM": 2107,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "NJP",
+        "name": "New Jalpaiguri Jn",
+        "km": 1454,
+        "arrM": 2200,
+        "depM": 2210,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "NCB",
+        "name": "New Cooch Behar",
+        "km": 1584,
+        "arrM": 2441,
+        "depM": 2445,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "KOJ",
+        "name": "Kokrajhar",
+        "km": 1686,
+        "arrM": 2515,
+        "depM": 2517,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "NBQ",
+        "name": "New Bongaigaon",
+        "km": 1705,
+        "arrM": 2575,
+        "depM": 2585,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "RNY",
+        "name": "Rangiya Jn",
+        "km": 1814,
+        "arrM": 2690,
+        "depM": 2692,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "GHY",
+        "name": "Guwahati",
+        "km": 1895,
+        "arrM": 2780,
+        "depM": 2795,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "LMG",
+        "name": "Lumding Jn",
+        "km": 2076,
+        "arrM": 2990,
+        "depM": 2995,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "DMV",
+        "name": "Dimapur",
+        "km": 2145,
+        "arrM": 3075,
+        "depM": 3082,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "MXN",
+        "name": "Mariani Jn",
+        "km": 2254,
+        "arrM": 3195,
+        "depM": 3200,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "NTSK",
+        "name": "New Tinsukia",
+        "km": 2410,
+        "arrM": 3350,
+        "depM": 3360,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "DBRG",
+        "name": "Dibrugarh",
+        "km": 2434,
+        "arrM": 3435,
+        "depM": 3435,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "12434": {
+    "number": "12434",
+    "name": "Hazrat Nizamuddin - MGR Chennai Rajdhani",
+    "type": "Rajdhani Express",
+    "corridorName": "North-South Capital Trunk (Delhi - Chennai)",
+    "runningDays": [
+      "WED",
+      "FRI"
+    ],
+    "depOffsetMin": 935,
+    "durationMin": 1715,
+    "halts": [
+      {
+        "code": "NZM",
+        "name": "Hazrat Nizamuddin",
+        "km": 0,
+        "arrM": 935,
+        "depM": 935,
+        "pf": "7",
+        "type": "major"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 188,
+        "arrM": 1070,
+        "depM": 1072,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "GWL",
+        "name": "Gwalior Jn",
+        "km": 306,
+        "arrM": 1162,
+        "depM": 1164,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "VGLJ",
+        "name": "V Lakshmibai Jhansi",
+        "km": 403,
+        "arrM": 1250,
+        "depM": 1255,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "BPL",
+        "name": "Bhopal Jn",
+        "km": 695,
+        "arrM": 1535,
+        "depM": 1545,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "NGP",
+        "name": "Nagpur Jn",
+        "km": 1085,
+        "arrM": 1915,
+        "depM": 1920,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "WL",
+        "name": "Warangal",
+        "km": 1536,
+        "arrM": 2328,
+        "depM": 2330,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "BZA",
+        "name": "Vijayawada Jn",
+        "km": 1743,
+        "arrM": 2540,
+        "depM": 2550,
+        "pf": "6",
+        "type": "major"
+      },
+      {
+        "code": "MAS",
+        "name": "MGR Chennai Central",
+        "km": 2175,
+        "arrM": 2810,
+        "depM": 2810,
+        "pf": "2",
+        "type": "major"
+      }
+    ]
+  },
+  "12621": {
+    "number": "12621",
+    "name": "Tamil Nadu Superfast Express",
+    "type": "Superfast Express",
+    "corridorName": "Grand Trunk Corridor (Chennai - New Delhi)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 1320,
+    "durationMin": 1950,
+    "halts": [
+      {
+        "code": "MAS",
+        "name": "MGR Chennai Central",
+        "km": 0,
+        "arrM": 1320,
+        "depM": 1320,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "BZA",
+        "name": "Vijayawada Jn",
+        "km": 431,
+        "arrM": 1660,
+        "depM": 1670,
+        "pf": "7",
+        "type": "major"
+      },
+      {
+        "code": "KMT",
+        "name": "Khammam",
+        "km": 530,
+        "arrM": 1744,
+        "depM": 1745,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "WL",
+        "name": "Warangal",
+        "km": 638,
+        "arrM": 1853,
+        "depM": 1855,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "BPQ",
+        "name": "Balharshah",
+        "km": 881,
+        "arrM": 2070,
+        "depM": 2075,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "NGP",
+        "name": "Nagpur Jn",
+        "km": 1090,
+        "arrM": 2265,
+        "depM": 2270,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "ET",
+        "name": "Itarsi Jn",
+        "km": 1388,
+        "arrM": 2550,
+        "depM": 2555,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BPL",
+        "name": "Bhopal Jn",
+        "km": 1480,
+        "arrM": 2650,
+        "depM": 2660,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "VGLJ",
+        "name": "V Lakshmibai Jhansi",
+        "km": 1772,
+        "arrM": 2906,
+        "depM": 2911,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "GWL",
+        "name": "Gwalior Jn",
+        "km": 1869,
+        "arrM": 2972,
+        "depM": 2974,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 1987,
+        "arrM": 3065,
+        "depM": 3067,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "NZM",
+        "name": "Hazrat Nizamuddin",
+        "km": 2175,
+        "arrM": 3242,
+        "depM": 3244,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 2182,
+        "arrM": 3270,
+        "depM": 3270,
+        "pf": "5",
+        "type": "major"
+      }
+    ]
+  },
+  "12951": {
+    "number": "12951",
+    "name": "Mumbai Central - New Delhi Tejas Rajdhani",
+    "type": "Rajdhani Express",
+    "corridorName": "Western Trunk (Mumbai - New Delhi)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 1020,
+    "durationMin": 932,
+    "halts": [
+      {
+        "code": "MMCT",
+        "name": "Mumbai Central",
+        "km": 0,
+        "arrM": 1020,
+        "depM": 1020,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "BVI",
+        "name": "Borivali",
+        "km": 29,
+        "arrM": 1042,
+        "depM": 1044,
+        "pf": "6",
+        "type": "major"
+      },
+      {
+        "code": "VAPI",
+        "name": "Vapi",
+        "km": 168,
+        "arrM": 1127,
+        "depM": 1129,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BL",
+        "name": "Valsad",
+        "km": 194,
+        "arrM": 1150,
+        "depM": 1152,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "ST",
+        "name": "Surat",
+        "km": 263,
+        "arrM": 1183,
+        "depM": 1188,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "BH",
+        "name": "Bharuch Jn",
+        "km": 322,
+        "arrM": 1225,
+        "depM": 1227,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "BRC",
+        "name": "Vadodara Jn",
+        "km": 393,
+        "arrM": 1266,
+        "depM": 1276,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "RTM",
+        "name": "Ratlam Jn",
+        "km": 653,
+        "arrM": 1465,
+        "depM": 1468,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "NAD",
+        "name": "Nagda Jn",
+        "km": 694,
+        "arrM": 1508,
+        "depM": 1510,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BWM",
+        "name": "Bhawani Mandi",
+        "km": 820,
+        "arrM": 1578,
+        "depM": 1580,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "RMA",
+        "name": "Ramganj Mandi Jn",
+        "km": 848,
+        "arrM": 1598,
+        "depM": 1600,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "KOTA",
+        "name": "Kota Jn",
+        "km": 920,
+        "arrM": 1635,
+        "depM": 1640,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "SWM",
+        "name": "Sawai Madhopur Jn",
+        "km": 1028,
+        "arrM": 1703,
+        "depM": 1705,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "MTJ",
+        "name": "Mathura Jn",
+        "km": 1244,
+        "arrM": 1840,
+        "depM": 1842,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "NZM",
+        "name": "Hazrat Nizamuddin",
+        "km": 1377,
+        "arrM": 1932,
+        "depM": 1934,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 1384,
+        "arrM": 1952,
+        "depM": 1952,
+        "pf": "3",
+        "type": "major"
+      }
+    ]
+  },
+  "13239": {
+    "number": "13239",
+    "name": "Patna - Kota Express",
+    "type": "Express",
+    "corridorName": "East to West-Central (Patna - Kota)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 705,
+    "durationMin": 1450,
+    "halts": [
+      {
+        "code": "PNBE",
+        "name": "Patna Junction",
+        "km": 0,
+        "arrM": 705,
+        "depM": 705,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "ARA",
+        "name": "Ara Junction",
+        "km": 49,
+        "arrM": 753,
+        "depM": 755,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "BXR",
+        "name": "Buxar",
+        "km": 118,
+        "arrM": 801,
+        "depM": 803,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "DDU",
+        "name": "Pt. DD Upadhyaya Jn",
+        "km": 212,
+        "arrM": 930,
+        "depM": 940,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "BSB",
+        "name": "Varanasi Junction",
+        "km": 230,
+        "arrM": 995,
+        "depM": 1005,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "LKO",
+        "name": "Lucknow Charbagh",
+        "km": 513,
+        "arrM": 1385,
+        "depM": 1395,
+        "pf": "6",
+        "type": "major"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central",
+        "km": 585,
+        "arrM": 1510,
+        "depM": 1515,
+        "pf": "7",
+        "type": "major"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 860,
+        "arrM": 1750,
+        "depM": 1755,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "MTJ",
+        "name": "Mathura Junction",
+        "km": 914,
+        "arrM": 1840,
+        "depM": 1870,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "KOTA",
+        "name": "Kota Junction",
+        "km": 1238,
+        "arrM": 2155,
+        "depM": 2155,
+        "pf": "3",
+        "type": "major"
+      }
+    ]
+  },
+  "13240": {
+    "number": "13240",
+    "name": "Kota - Patna Express",
+    "type": "Express",
+    "corridorName": "West-Central to East Trunk (Kota - Patna)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 1090,
+    "durationMin": 1520,
+    "halts": [
+      {
+        "code": "KOTA",
+        "name": "Kota Junction",
+        "km": 0,
+        "arrM": 1090,
+        "depM": 1090,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "SWM",
+        "name": "Sawai Madhopur Jn",
+        "km": 108,
+        "arrM": 1178,
+        "depM": 1180,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "GGC",
+        "name": "Gangapur City",
+        "km": 172,
+        "arrM": 1220,
+        "depM": 1225,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BXN",
+        "name": "Bayana Jn",
+        "km": 249,
+        "arrM": 1303,
+        "depM": 1305,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BTE",
+        "name": "Bharatpur Jn",
+        "km": 291,
+        "arrM": 1333,
+        "depM": 1335,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "MTJ",
+        "name": "Mathura Junction",
+        "km": 324,
+        "arrM": 1365,
+        "depM": 1395,
+        "pf": "7",
+        "type": "major"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 378,
+        "arrM": 1445,
+        "depM": 1450,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "ETW",
+        "name": "Etawah Jn",
+        "km": 514,
+        "arrM": 1585,
+        "depM": 1587,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central",
+        "km": 653,
+        "arrM": 1720,
+        "depM": 1725,
+        "pf": "9",
+        "type": "major"
+      },
+      {
+        "code": "LKO",
+        "name": "Lucknow Charbagh",
+        "km": 725,
+        "arrM": 1855,
+        "depM": 1865,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "SLN",
+        "name": "Sultanpur Junction",
+        "km": 865,
+        "arrM": 2080,
+        "depM": 2085,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BSB",
+        "name": "Varanasi Junction",
+        "km": 1008,
+        "arrM": 2310,
+        "depM": 2320,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "DDU",
+        "name": "Pt. DD Upadhyaya Jn",
+        "km": 1026,
+        "arrM": 2375,
+        "depM": 2385,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "BXR",
+        "name": "Buxar",
+        "km": 1120,
+        "arrM": 2456,
+        "depM": 2458,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "ARA",
+        "name": "Ara Junction",
+        "km": 1172,
+        "arrM": 2513,
+        "depM": 2515,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "DNR",
+        "name": "Danapur",
+        "km": 1211,
+        "arrM": 2550,
+        "depM": 2552,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "PNBE",
+        "name": "Patna Junction",
+        "km": 1221,
+        "arrM": 2610,
+        "depM": 2610,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "15104": {
+    "number": "15104",
+    "name": "Banaras - Gorakhpur Intercity Express",
+    "type": "Intercity Express",
+    "corridorName": "Purvanchal Trunk (Banaras - Gorakhpur)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 330,
+    "durationMin": 340,
+    "halts": [
+      {
+        "code": "BSBS",
+        "name": "Banaras",
+        "km": 0,
+        "arrM": 330,
+        "depM": 330,
+        "pf": "8",
+        "type": "major"
+      },
+      {
+        "code": "BSB",
+        "name": "Varanasi Jn",
+        "km": 4,
+        "arrM": 340,
+        "depM": 345,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "MAU",
+        "name": "Mau Jn",
+        "km": 106,
+        "arrM": 460,
+        "depM": 465,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "BTT",
+        "name": "Bhatni Jn",
+        "km": 175,
+        "arrM": 560,
+        "depM": 565,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "DEOS",
+        "name": "Deoria Sadar",
+        "km": 196,
+        "arrM": 586,
+        "depM": 590,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "GKP",
+        "name": "Gorakhpur Jn",
+        "km": 235,
+        "arrM": 670,
+        "depM": 670,
+        "pf": "2",
+        "type": "major"
+      }
+    ]
+  },
+  "20817": {
+    "number": "20817",
+    "name": "Bhubaneswar - New Delhi Tejas Rajdhani",
+    "type": "Rajdhani Express",
+    "corridorName": "East Coast to Capital (Bhubaneswar - New Delhi)",
+    "runningDays": [
+      "SAT"
+    ],
+    "depOffsetMin": 435,
+    "durationMin": 1645,
+    "halts": [
+      {
+        "code": "BBS",
+        "name": "Bhubaneswar",
+        "km": 0,
+        "arrM": 435,
+        "depM": 435,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "CTC",
+        "name": "Cuttack Jn",
+        "km": 28,
+        "arrM": 465,
+        "depM": 467,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "JJKR",
+        "name": "Jajpur Keonjhar Road",
+        "km": 100,
+        "arrM": 512,
+        "depM": 514,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "BHC",
+        "name": "Bhadrak",
+        "km": 144,
+        "arrM": 568,
+        "depM": 570,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "BLS",
+        "name": "Balasore",
+        "km": 206,
+        "arrM": 613,
+        "depM": 615,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "HIJ",
+        "name": "Hijli (Kharagpur)",
+        "km": 318,
+        "arrM": 695,
+        "depM": 700,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "TATA",
+        "name": "Tatanagar Jn",
+        "km": 453,
+        "arrM": 800,
+        "depM": 805,
+        "pf": "3",
+        "type": "major"
+      },
+      {
+        "code": "CKP",
+        "name": "Chakradharpur",
+        "km": 515,
+        "arrM": 858,
+        "depM": 860,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "ROU",
+        "name": "Rourkela Jn",
+        "km": 616,
+        "arrM": 945,
+        "depM": 953,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "JSG",
+        "name": "Jharsuguda Jn",
+        "km": 717,
+        "arrM": 1043,
+        "depM": 1045,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BSP",
+        "name": "Bilaspur Jn",
+        "km": 922,
+        "arrM": 1205,
+        "depM": 1220,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "APR",
+        "name": "Anuppur Jn",
+        "km": 1074,
+        "arrM": 1365,
+        "depM": 1367,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "KTE",
+        "name": "Katni Murwara",
+        "km": 1241,
+        "arrM": 1540,
+        "depM": 1550,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "VGLJ",
+        "name": "V Lakshmibai Jhansi",
+        "km": 1650,
+        "arrM": 1845,
+        "depM": 1850,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "GWL",
+        "name": "Gwalior Jn",
+        "km": 1748,
+        "arrM": 1908,
+        "depM": 1910,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 2061,
+        "arrM": 2080,
+        "depM": 2080,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "22436": {
+    "number": "22436",
+    "name": "New Delhi - Varanasi Vande Bharat Express",
+    "type": "Vande Bharat Express",
+    "corridorName": "Northern High-Speed (New Delhi - Varanasi)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 360,
+    "durationMin": 480,
+    "halts": [
+      {
+        "code": "NDLS",
+        "name": "New Delhi",
+        "km": 0,
+        "arrM": 360,
+        "depM": 360,
+        "pf": "16",
+        "type": "major"
+      },
+      {
+        "code": "GZB",
+        "name": "Ghaziabad Jn",
+        "km": 25,
+        "arrM": 390,
+        "depM": 392,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "ALJN",
+        "name": "Aligarh Jn",
+        "km": 131,
+        "arrM": 450,
+        "depM": 452,
+        "pf": "3",
+        "type": "intermediate"
+      },
+      {
+        "code": "TDL",
+        "name": "Tundla Jn",
+        "km": 209,
+        "arrM": 498,
+        "depM": 500,
+        "pf": "5",
+        "type": "intermediate"
+      },
+      {
+        "code": "CNB",
+        "name": "Kanpur Central Jn",
+        "km": 440,
+        "arrM": 608,
+        "depM": 610,
+        "pf": "5",
+        "type": "major"
+      },
+      {
+        "code": "PRYJ",
+        "name": "Prayagraj Jn",
+        "km": 634,
+        "arrM": 728,
+        "depM": 730,
+        "pf": "6",
+        "type": "major"
+      },
+      {
+        "code": "BSB",
+        "name": "Varanasi Jn",
+        "km": 759,
+        "arrM": 840,
+        "depM": 840,
+        "pf": "1",
+        "type": "major"
+      }
+    ]
+  },
+  "22691": {
+    "number": "22691",
+    "name": "KSR Bengaluru - Hazrat Nizamuddin Rajdhani",
+    "type": "Rajdhani Express",
+    "corridorName": "Deccan to Capital Trunk (Bengaluru - Delhi)",
+    "runningDays": [
+      "MON",
+      "TUE",
+      "WED",
+      "THU",
+      "FRI",
+      "SAT",
+      "SUN"
+    ],
+    "depOffsetMin": 1200,
+    "durationMin": 2010,
+    "halts": [
+      {
+        "code": "SBC",
+        "name": "KSR Bengaluru",
+        "km": 0,
+        "arrM": 1200,
+        "depM": 1200,
+        "pf": "8",
+        "type": "major"
+      },
+      {
+        "code": "SSPN",
+        "name": "Sri Sathya Sai P.N.",
+        "km": 160,
+        "arrM": 1343,
+        "depM": 1345,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "DHNE",
+        "name": "Dhone Jn",
+        "km": 263,
+        "arrM": 1490,
+        "depM": 1495,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "GTL",
+        "name": "Guntakal Jn",
+        "km": 294,
+        "arrM": 1530,
+        "depM": 1535,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "RC",
+        "name": "Raichur Jn",
+        "km": 416,
+        "arrM": 1628,
+        "depM": 1630,
+        "pf": "2",
+        "type": "intermediate"
+      },
+      {
+        "code": "SC",
+        "name": "Secunderabad Jn",
+        "km": 706,
+        "arrM": 1860,
+        "depM": 1875,
+        "pf": "10",
+        "type": "major"
+      },
+      {
+        "code": "KZJ",
+        "name": "Kazipet Jn",
+        "km": 838,
+        "arrM": 1968,
+        "depM": 1970,
+        "pf": "1",
+        "type": "intermediate"
+      },
+      {
+        "code": "BPQ",
+        "name": "Balharshah",
+        "km": 1073,
+        "arrM": 2180,
+        "depM": 2185,
+        "pf": "4",
+        "type": "intermediate"
+      },
+      {
+        "code": "NGP",
+        "name": "Nagpur Jn",
+        "km": 1281,
+        "arrM": 2335,
+        "depM": 2340,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "ET",
+        "name": "Itarsi Jn",
+        "km": 1580,
+        "arrM": 2620,
+        "depM": 2625,
+        "pf": "1",
+        "type": "major"
+      },
+      {
+        "code": "BPL",
+        "name": "Bhopal Jn",
+        "km": 1672,
+        "arrM": 2695,
+        "depM": 2705,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "VGLJ",
+        "name": "V Lakshmibai Jhansi",
+        "km": 1963,
+        "arrM": 2925,
+        "depM": 2930,
+        "pf": "4",
+        "type": "major"
+      },
+      {
+        "code": "GWL",
+        "name": "Gwalior Jn",
+        "km": 2061,
+        "arrM": 2993,
+        "depM": 2995,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "AGC",
+        "name": "Agra Cantt",
+        "km": 2179,
+        "arrM": 3078,
+        "depM": 3080,
+        "pf": "2",
+        "type": "major"
+      },
+      {
+        "code": "NZM",
+        "name": "Hazrat Nizamuddin",
+        "km": 2367,
+        "arrM": 3210,
+        "depM": 3210,
+        "pf": "5",
+        "type": "major"
+      }
+    ]
+  }
+}
