@@ -80,17 +80,6 @@
       <button id="btn-sync-custom" class="sync-inactive" onclick="setRealtimeSync(false)" style="padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600;" title="Slide to preview train status at any time of day">
         🕒 Custom Time Slider
       </button>
-      <!-- Live Simulation Play/Pause Controls -->
-      <button id="btn-play-sim" onclick="toggleSimulationPlay()" style="padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 800; background: linear-gradient(135deg, #10B981, #06B6D4); color: #070B16; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px;" title="Animate train movement along route">
-        <span id="play-sim-icon">▶</span>
-        <span id="play-sim-label">Play Movement</span>
-      </button>
-      <select id="sim-speed-select" onchange="setSimulationSpeed(this.value)" style="width: auto; padding: 5px 8px; font-size: 11px; font-weight: 700; border-radius: var(--radius-sm); background: rgba(15,23,42,0.9); color: var(--cyan); border: 1px solid var(--border-subtle); cursor: pointer;" title="Simulation playback speed">
-        <option value="2">2x</option>
-        <option value="5" selected>5x Fast</option>
-        <option value="15">15x</option>
-        <option value="30">30x Warp</option>
-      </select>
     </div>
     <div id="time-scrubber-box" style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 440px; opacity: 0.5;">
       <span style="font-size: 11px; color: var(--text-muted);" class="mono">00:00</span>
