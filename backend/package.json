@@ -16,6 +16,16 @@
     "sih2026"
   ],
   "author": "Team OASIS",
+  "contributors": [
+    {
+      "name": "Satyam Bisht",
+      "url": "https://github.com/satyambisht563"
+    },
+    {
+      "name": "Samentha Massey",
+      "url": "https://github.com/samenthamassey127-hue"
+    }
+  ],
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

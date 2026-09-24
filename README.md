@@ -1,7 +1,8 @@
 # PRAVAAH 4.0 — Intelligent ETS Railway Operations Platform
 
 > **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS**  
-> *Dynamic Forecast of Expected Time of Arrival (ETA), Human-in-the-Loop Operations & Multi-Stakeholder Intelligence*
+> *Dynamic Forecast of Expected Time of Arrival (ETA), Human-in-the-Loop Operations & Multi-Stakeholder Intelligence*  
+> **Collaborators:** Satyam Bisht ([@satyambisht563](https://github.com/satyambisht563)) · Samentha Massey ([@samenthamassey127-hue](https://github.com/samenthamassey127-hue))
 
 ---
 
@@ -118,3 +119,11 @@ Verifies all 8 core API capabilities:
 * **Backend**: Node.js, Express 4, CORS, JSON data persistence, Dotenv
 * **ML Intelligence**: Python 3, XGBoost (`xgb_model.pkl`), Scikit-learn, Pandas
 * **Frontend**: Decoupled HTML5, CSS3 Variables, ES6 Modules/API Clients, SVG Vector Graphics, Google Maps API, Web Audio API
+
+---
+
+## 👥 Team OASIS & Collaborators
+
+* **Satyam Bisht** ([@satyambisht563](https://github.com/satyambisht563)) — Core System Architecture & Full-Stack Platform Development
+* **Samentha Massey** ([@samenthamassey127-hue](https://github.com/samenthamassey127-hue)) — Machine Learning Models, ETA Forecasting Intelligence & Collaborative Development
+
