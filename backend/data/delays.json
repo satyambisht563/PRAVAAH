@@ -1,17 +1,87 @@
 {
-  "__comment": "Historical average delay in minutes per train. Edit avgDelayMin to tune ETA accuracy.",
-  "12301": {"avgDelayMin": 15, "peakDelayMin": 30, "minDelayMin": 5},
-  "12302": {"avgDelayMin": 12, "peakDelayMin": 25, "minDelayMin": 3},
-  "12423": {"avgDelayMin": 20, "peakDelayMin": 45, "minDelayMin": 5},
-  "12424": {"avgDelayMin": 18, "peakDelayMin": 40, "minDelayMin": 5},
-  "22691": {"avgDelayMin": 14, "peakDelayMin": 35, "minDelayMin": 0},
-  "22692": {"avgDelayMin": 14, "peakDelayMin": 35, "minDelayMin": 0},
-  "20817": {"avgDelayMin": 10, "peakDelayMin": 25, "minDelayMin": 0},
-  "20818": {"avgDelayMin": 10, "peakDelayMin": 25, "minDelayMin": 0},
-  "22436": {"avgDelayMin": 5,  "peakDelayMin": 15, "minDelayMin": 0},
-  "22435": {"avgDelayMin": 5,  "peakDelayMin": 15, "minDelayMin": 0},
-  "12951": {"avgDelayMin": 8,  "peakDelayMin": 20, "minDelayMin": 0},
-  "12952": {"avgDelayMin": 8,  "peakDelayMin": 20, "minDelayMin": 0},
-  "12309": {"avgDelayMin": 12, "peakDelayMin": 30, "minDelayMin": 0},
-  "12310": {"avgDelayMin": 12, "peakDelayMin": 30, "minDelayMin": 0}
+  "12301": {
+    "avgDelayMin": 38,
+    "name": "Howrah Rajdhani",
+    "terminal": "NDLS",
+    "actualArrTime": "10:43"
+  },
+  "12302": {
+    "avgDelayMin": 25,
+    "name": "Howrah Rajdhani",
+    "terminal": "HWH",
+    "actualArrTime": "10:20"
+  },
+  "12309": {
+    "avgDelayMin": 22,
+    "name": "Patna Rajdhani",
+    "terminal": "NDLS",
+    "actualArrTime": "08:02"
+  },
+  "12310": {
+    "avgDelayMin": 20,
+    "name": "Patna Rajdhani",
+    "terminal": "RJPB",
+    "actualArrTime": "05:35"
+  },
+  "12423": {
+    "avgDelayMin": 45,
+    "name": "Dibrugarh Rajdhani",
+    "terminal": "NDLS",
+    "actualArrTime": "11:15"
+  },
+  "12424": {
+    "avgDelayMin": 50,
+    "name": "Dibrugarh Rajdhani",
+    "terminal": "DBRG",
+    "actualArrTime": "07:10"
+  },
+  "12951": {
+    "avgDelayMin": 12,
+    "name": "Mumbai Rajdhani",
+    "terminal": "NDLS",
+    "actualArrTime": "08:44"
+  },
+  "12952": {
+    "avgDelayMin": 10,
+    "name": "Mumbai Rajdhani",
+    "terminal": "MMCT",
+    "actualArrTime": "08:45"
+  },
+  "20817": {
+    "avgDelayMin": 30,
+    "name": "BBS Rajdhani",
+    "terminal": "NDLS",
+    "actualArrTime": "10:25"
+  },
+  "20818": {
+    "avgDelayMin": 25,
+    "name": "BBS Rajdhani",
+    "terminal": "BBS",
+    "actualArrTime": "20:35"
+  },
+  "22435": {
+    "avgDelayMin": 0,
+    "name": "Vande Bharat",
+    "terminal": "NDLS",
+    "actualArrTime": "23:00"
+  },
+  "22436": {
+    "avgDelayMin": 0,
+    "name": "Vande Bharat",
+    "terminal": "BSB",
+    "actualArrTime": "14:00"
+  },
+  "22691": {
+    "avgDelayMin": 25,
+    "name": "Bengaluru Rajdhani",
+    "terminal": "NZM",
+    "actualArrTime": "05:55"
+  },
+  "22692": {
+    "avgDelayMin": 25,
+    "name": "Bengaluru Rajdhani",
+    "terminal": "SBC",
+    "actualArrTime": "05:45"
+  },
+  "__comment": "NTES Verified Terminal Delays & Punctuality. Vande Bharat runs Right Time (0m delay). Long-distance trains accumulate realistic progressive delays."
 }

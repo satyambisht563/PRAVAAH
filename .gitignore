@@ -33,3 +33,10 @@ npm-debug.log*
 
 # Build output
 frontend/dist/
+
+# Local backups and scratch scripts
+LAPPY/
+xcopy_exclude.txt
+verify_*.js
+check_*.js
+audit_*.js

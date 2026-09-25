@@ -1,5 +1,137 @@
 [
   {
+    "id": "CMP-MUGOA8BI",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "13:32",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUGNF2W3",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "13:07",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUGNDTBT",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "13:06",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
+    "id": "CMP-MUGCAADO",
+    "train": "12301",
+    "passengerClass": "3A",
+    "coach": "B4",
+    "category": "Cleanliness",
+    "severity": "high",
+    "description": "Test washroom flush issue",
+    "status": "In Progress",
+    "timestamp": "07:56",
+    "inspectionScope": {
+      "scopeType": "SINGLE_COACH",
+      "coachesToInspect": [
+        "B4"
+      ],
+      "numberOfCoaches": 1,
+      "reason": "Localized complaint reported specifically for coach B4."
+    },
+    "assignedStaff": {
+      "name": "Manoj Paswan",
+      "role": "OBHS Lead (Housekeeping Supervisor)",
+      "badge": "OBHS-104"
+    },
+    "evaluationSteps": [
+      "Complaint received",
+      "Passenger class identified: 3A",
+      "Coach identified: B4",
+      "Complaint category & severity evaluated: Cleanliness (HIGH)",
+      "Inspection scope determined: SINGLE_COACH (1 coach)",
+      "Staff/OBHS team assigned: Manoj Paswan (OBHS Lead (Housekeeping Supervisor))"
+    ],
+    "escalationLevel": 1
+  },
+  {
     "id": "CMP-MUB70G2O",
     "train": "12301",
     "passengerClass": "3A",
