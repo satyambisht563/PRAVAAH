@@ -1,0 +1,17 @@
+{
+  "__comment": "Historical average delay in minutes per train. Edit avgDelayMin to tune ETA accuracy.",
+  "12301": {"avgDelayMin": 15, "peakDelayMin": 30, "minDelayMin": 5},
+  "12302": {"avgDelayMin": 12, "peakDelayMin": 25, "minDelayMin": 3},
+  "12423": {"avgDelayMin": 20, "peakDelayMin": 45, "minDelayMin": 5},
+  "12424": {"avgDelayMin": 18, "peakDelayMin": 40, "minDelayMin": 5},
+  "22691": {"avgDelayMin": 14, "peakDelayMin": 35, "minDelayMin": 0},
+  "22692": {"avgDelayMin": 14, "peakDelayMin": 35, "minDelayMin": 0},
+  "20817": {"avgDelayMin": 10, "peakDelayMin": 25, "minDelayMin": 0},
+  "20818": {"avgDelayMin": 10, "peakDelayMin": 25, "minDelayMin": 0},
+  "22436": {"avgDelayMin": 5,  "peakDelayMin": 15, "minDelayMin": 0},
+  "22435": {"avgDelayMin": 5,  "peakDelayMin": 15, "minDelayMin": 0},
+  "12951": {"avgDelayMin": 8,  "peakDelayMin": 20, "minDelayMin": 0},
+  "12952": {"avgDelayMin": 8,  "peakDelayMin": 20, "minDelayMin": 0},
+  "12309": {"avgDelayMin": 12, "peakDelayMin": 30, "minDelayMin": 0},
+  "12310": {"avgDelayMin": 12, "peakDelayMin": 30, "minDelayMin": 0}
+}
