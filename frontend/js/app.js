@@ -1901,20 +1901,20 @@ const STATION_WEATHER_DB = {
   "GGC": { temp: 32, condition: "Sunny", icon: "☀️", visibility: "9 km", humidity: "45%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Clear lines" },
   "BTE": { temp: 30, condition: "Clear", icon: "☀️", visibility: "8 km", humidity: "50%", rainfall: "0 mm", wind: "10 km/h W", severity: "None", impact: "Bird sanctuary perimeter clear" },
   "BXN": { temp: 31, condition: "Clear", icon: "☀️", visibility: "9 km", humidity: "48%", rainfall: "0 mm", wind: "11 km/h W", severity: "None", impact: "Normal junction ops" },
-  "HWH": { temp: 27, condition: "Rain", icon: "🌧️", visibility: "4 km", humidity: "88%", rainfall: "14 mm", wind: "18 km/h S", severity: "Moderate", impact: "Wet rail adhesion caution · braking distance extended" },
-  "BWN": { temp: 28, condition: "Light Rain", icon: "🌦️", visibility: "6 km", humidity: "80%", rainfall: "3 mm", wind: "14 km/h S", severity: "Low", impact: "Mild spray on windscreen · normal braking" },
-  "ASN": { temp: 29, condition: "Cloudy", icon: "☁️", visibility: "7 km", humidity: "72%", rainfall: "0 mm", wind: "12 km/h SE", severity: "Low", impact: "Normal visibility · clear track conditions" },
-  "DHN": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "10 km", humidity: "58%", rainfall: "0 mm", wind: "8 km/h E", severity: "None", impact: "Optimal traction & clear line visibility" },
-  "PNME": { temp: 26, condition: "Partly Cloudy", icon: "⛅", visibility: "9 km", humidity: "62%", rainfall: "0 mm", wind: "10 km/h NE", severity: "None", impact: "Clear signal sighting across plateau" },
-  "KQR": { temp: 25, condition: "Haze", icon: "🌫️", visibility: "5 km", humidity: "68%", rainfall: "0 mm", wind: "7 km/h N", severity: "Low", impact: "Moderate visibility in ghat section" },
-  "GAYA": { temp: 24, condition: "Fog", icon: "🌫️", visibility: "2 km", humidity: "85%", rainfall: "0 mm", wind: "5 km/h NW", severity: "High", impact: "Fog signal protocol active · cautionary cab aspect" },
-  "DOS": { temp: 26, condition: "Mist", icon: "🌫️", visibility: "3.5 km", humidity: "74%", rainfall: "0 mm", wind: "6 km/h W", severity: "Medium", impact: "River bridge approach sighting reduced" },
-  "SSM": { temp: 26, condition: "Partly Cloudy", icon: "⛅", visibility: "6 km", humidity: "66%", rainfall: "0 mm", wind: "9 km/h W", severity: "Low", impact: "Standard operations in section" },
-  "DDU": { temp: 27, condition: "Hazy Sunshine", icon: "🌤️", visibility: "5 km", humidity: "64%", rainfall: "0 mm", wind: "11 km/h W", severity: "Low", impact: "Standard yard visibility · normal shunt" },
-  "PRYJ": { temp: 28, condition: "Clear Sky", icon: "☀️", visibility: "9 km", humidity: "52%", rainfall: "0 mm", wind: "10 km/h NW", severity: "None", impact: "Optimal line conditions · double green" },
-  "CNB": { temp: 29, condition: "Dust Haze", icon: "🌤️", visibility: "4.5 km", humidity: "46%", rainfall: "0 mm", wind: "14 km/h W", severity: "Low", impact: "Fair visibility in industrial junction belt" },
-  "ALJN": { temp: 27, condition: "Partly Cloudy", icon: "⛅", visibility: "8 km", humidity: "58%", rainfall: "0 mm", wind: "12 km/h NW", severity: "None", impact: "Clear signal sighting" },
-  "NDLS": { temp: 28, condition: "Shallow Fog / Haze", icon: "🌫️", visibility: "3 km", humidity: "65%", rainfall: "0 mm", wind: "8 km/h NW", severity: "Medium", impact: "Terminal approach vigilance" },
+  "HWH": { temp: 29, condition: "Clear Sky", icon: "🌙", visibility: "8 km", humidity: "82%", rainfall: "0 mm", wind: "4 km/h S", severity: "None", impact: "Optimal track traction & clear signals" },
+  "BWN": { temp: 28, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "80%", rainfall: "0 mm", wind: "4 km/h S", severity: "None", impact: "Clear signal aspects" },
+  "ASN": { temp: 27, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "80%", rainfall: "0 mm", wind: "3 km/h SE", severity: "None", impact: "Optimal visibility · clear track conditions" },
+  "DHN": { temp: 27, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "78%", rainfall: "0 mm", wind: "7 km/h E", severity: "None", impact: "Optimal traction & clear line visibility" },
+  "PNME": { temp: 25, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "75%", rainfall: "0 mm", wind: "6 km/h NE", severity: "None", impact: "Clear signal sighting across plateau" },
+  "KQR": { temp: 25, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "72%", rainfall: "0 mm", wind: "5 km/h N", severity: "None", impact: "Clear lines in ghat section" },
+  "GAYA": { temp: 26, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "74%", rainfall: "0 mm", wind: "4 km/h NW", severity: "None", impact: "Optimal line conditions · clear sighting" },
+  "DOS": { temp: 26, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "72%", rainfall: "0 mm", wind: "5 km/h W", severity: "None", impact: "River bridge approach clear" },
+  "SSM": { temp: 26, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "70%", rainfall: "0 mm", wind: "5 km/h W", severity: "None", impact: "Standard operations in section" },
+  "DDU": { temp: 27, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "72%", rainfall: "0 mm", wind: "5 km/h W", severity: "None", impact: "Yard visibility optimal · normal movements" },
+  "PRYJ": { temp: 27, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "70%", rainfall: "0 mm", wind: "3 km/h NW", severity: "None", impact: "Optimal line conditions · double green" },
+  "CNB": { temp: 28, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "68%", rainfall: "0 mm", wind: "3 km/h W", severity: "None", impact: "Clear signal aspects · dry rails" },
+  "ALJN": { temp: 26, condition: "Clear Sky", icon: "🌙", visibility: "9 km", humidity: "65%", rainfall: "0 mm", wind: "5 km/h NW", severity: "None", impact: "Clear signal sighting" },
+  "NDLS": { temp: 24, condition: "Clear Sky", icon: "🌙", visibility: "10 km", humidity: "75%", rainfall: "0 mm", wind: "5 km/h NW", severity: "None", impact: "Terminal approach optimal & clear" },
   "MMCT": { temp: 30, condition: "Heavy Rain", icon: "🌧️", visibility: "3.5 km", humidity: "92%", rainfall: "26 mm", wind: "24 km/h WSW", severity: "High", impact: "Track drainage caution · TSR 75 km/h" },
   "BVI": { temp: 30, condition: "Heavy Rain", icon: "🌧️", visibility: "3 km", humidity: "94%", rainfall: "28 mm", wind: "22 km/h WSW", severity: "High", impact: "Suburban line speed restriction active" },
   "VAPI": { temp: 29, condition: "Moderate Rain", icon: "🌧️", visibility: "4 km", humidity: "89%", rainfall: "16 mm", wind: "20 km/h W", severity: "Medium", impact: "Waterlogged cess caution in curves" },
@@ -2010,32 +2010,117 @@ const STATION_WEATHER_DB = {
 };
 
 const stationWeatherCache = {};
+let routeWeatherBatchActive = false;
+
 function getStationWeather(stationCode) {
   const code = String(stationCode).toUpperCase();
   if (stationWeatherCache[code]) {
     return { ...stationWeatherCache[code], isAvailable: true };
   }
   if (typeof STATION_WEATHER_DB !== 'undefined' && STATION_WEATHER_DB[code]) {
-    return { ...STATION_WEATHER_DB[code], isAvailable: true };
+    const isNight = (new Date().getHours() < 6 || new Date().getHours() >= 18);
+    const base = STATION_WEATHER_DB[code];
+    const icon = isNight && base.icon === '☀️' ? '🌙' : base.icon;
+    return { ...base, icon, isAvailable: true };
   }
-  // Generate realistic weather for station from its coordinates
+  // Generate realistic seasonal baseline from coordinates
   const gps = (typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[code]) || [24.0, 82.0];
-  const lat = gps[0];
-  const isNorth = lat > 24;
-  const temp = isNorth ? 27 : 29;
+  const isNight = (new Date().getHours() < 6 || new Date().getHours() >= 18);
+  const temp = Math.round(26 + Math.sin(gps[0] * 3.14) * 2);
   const generated = {
     temp: temp,
-    condition: "Clear",
-    icon: "☀️",
-    visibility: "8.0 km",
-    humidity: "62%",
+    condition: "Clear Sky",
+    icon: isNight ? "🌙" : "☀️",
+    visibility: "10 km",
+    humidity: "72%",
     rainfall: "0 mm",
-    wind: "10 km/h NW",
+    wind: "6 km/h NW",
     severity: "None",
     impact: "Optimal visibility & traction",
     isAvailable: true
   };
   return generated;
+}
+
+// Batch fetch live weather for all stations along train route from Open-Meteo
+async function fetchRouteStationsWeather(trainNo) {
+  if (routeWeatherBatchActive) return;
+  const tNo = trainNo || activeTrainNumber;
+  const train = (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[tNo]) || (typeof resolveOrCreateTrain === 'function' ? resolveOrCreateTrain(tNo) : null);
+  if (!train || !train.halts || !train.halts.length) return;
+
+  const halts = train.halts;
+  const coords = [];
+  const now = Date.now();
+
+  for (const h of halts) {
+    const c = h.code.toUpperCase();
+    if (!stationWeatherCache[c] || (now - (stationWeatherCache[c]._fetchedAt || 0) > 15 * 60 * 1000)) {
+      if (typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[c]) {
+        if (!coords.some(x => x.code === c)) {
+          coords.push({ code: c, lat: STN_REAL_GPS[c][0], lon: STN_REAL_GPS[c][1] });
+        }
+      }
+    }
+  }
+
+  if (coords.length === 0) return; // All stations cached and fresh
+
+  routeWeatherBatchActive = true;
+  try {
+    const latStr = coords.map(c => c.lat.toFixed(4)).join(',');
+    const lonStr = coords.map(c => c.lon.toFixed(4)).join(',');
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latStr}&longitude=${lonStr}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m,precipitation,visibility&wind_speed_unit=kmh&timezone=Asia%2FKolkata`;
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    let resp;
+    try {
+      resp = await fetch(url, { signal: controller.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!resp.ok) return;
+    const json = await resp.json();
+    const items = Array.isArray(json) ? json : [json];
+
+    coords.forEach((coord, idx) => {
+      const cur = items[idx] && items[idx].current;
+      if (!cur) return;
+      const wmo = cur.weather_code ?? 0;
+      const isDay = cur.is_day === 1;
+      const windKmh = cur.wind_speed_10m ?? 0;
+      const windDir = cur.wind_direction_10m ?? 0;
+      const rain = cur.precipitation ?? 0;
+      const visKm = ((cur.visibility ?? 10000) / 1000).toFixed(1);
+      const interp = interpretWMO(wmo, windKmh, rain, isDay);
+      const windDirLabel = ['N','NE','E','SE','S','SW','W','NW'][Math.round(windDir / 45) % 8];
+
+      const weatherObj = {
+        temp: Math.round(cur.temperature_2m),
+        condition: interp.label,
+        icon: interp.icon,
+        visibility: visKm + ' km',
+        humidity: Math.round(cur.relative_humidity_2m) + '%',
+        rainfall: rain + ' mm',
+        wind: Math.round(windKmh) + ' km/h ' + windDirLabel,
+        severity: interp.risk === 'CRITICAL' ? 'Critical' : interp.risk === 'HIGH' ? 'High' : interp.risk === 'MEDIUM' ? 'Moderate' : 'None',
+        impact: interp.label === 'Clear Sky' ? 'Optimal traction & clear signals' : (interp.risk === 'LOW' ? 'Normal running' : interp.label),
+        isAvailable: true,
+        _fetchedAt: now
+      };
+      stationWeatherCache[coord.code] = weatherObj;
+
+      const span = document.getElementById(`tl-weather-${coord.code}`);
+      if (span) {
+        span.innerHTML = `<span title="${weatherObj.condition} · Humidity: ${weatherObj.humidity} · Wind: ${weatherObj.wind} · Rain: ${weatherObj.rainfall}">${weatherObj.icon} ${weatherObj.temp}°C ${weatherObj.condition} · Vis ${weatherObj.visibility}</span>`;
+      }
+    });
+  } catch (err) {
+    console.warn('[fetchRouteStationsWeather] API failed:', err.message);
+  } finally {
+    routeWeatherBatchActive = false;
+  }
 }
 
 // ─── SCHEDULE & RUNNING DAYS LOGIC ───────────────────────────────────────
@@ -2985,12 +3070,16 @@ function renderDynamicUI() {
     ? `${majorCount} Major Stations`
     : `${totalCount} All Stations (${majorCount} Major)`;
 
+  if (typeof fetchRouteStationsWeather === 'function') {
+    fetchRouteStationsWeather(state.trainNumber || activeTrainNumber);
+  }
+
   displayHalts.forEach(st => {
     // Station-specific weather lookup
     const w = getStationWeather(st.code);
     const weatherHtml = w.isAvailable
-      ? `<span title="${w.condition} · Humidity: ${w.humidity} · Wind: ${w.wind} · Rain: ${w.rainfall}">${w.icon} ${w.temp}°C ${w.condition} · Vis ${w.visibility}</span>`
-      : `<span style="color:var(--text-muted);font-style:italic;">Weather data unavailable</span>`;
+      ? `<span id="tl-weather-${st.code}" title="${w.condition} · Humidity: ${w.humidity} · Wind: ${w.wind} · Rain: ${w.rainfall}">${w.icon} ${w.temp}°C ${w.condition} · Vis ${w.visibility}</span>`
+      : `<span id="tl-weather-${st.code}" style="color:var(--text-muted);font-style:italic;">Weather data unavailable</span>`;
 
     const node = document.createElement('div');
     node.className = 'tl-node';
@@ -6544,14 +6633,13 @@ function filterComplaints(mode) {
 
 // ─── 13. WEATHER INTELLIGENCE ─────────────────────────────────────────────
 const WEATHER_REGIONS_DATA = [
-  { name: 'Delhi NCR', zone: 'NR/NCR', condition: 'fog_moderate', icon: '🌫️', condLabel: 'Fog (Moderate)', impact: 65, risk: 'HIGH', speed_reduction: 35, delay_range: '15-45', trains: 8, action: 'Speed restriction active' },
-  { name: 'Mumbai Division', zone: 'CR/WR', condition: 'heavy_rain', icon: '🌧️', condLabel: 'Heavy Rain', impact: 72, risk: 'HIGH', speed_reduction: 20, delay_range: '12-22', trains: 12, action: 'Track monitoring active' },
-  { name: 'Kolkata/Howrah', zone: 'ER/SER', condition: 'light_rain', icon: '🌦️', condLabel: 'Light Rain', impact: 25, risk: 'LOW', speed_reduction: 5, delay_range: '2-8', trains: 6, action: 'Normal ops with vigilance' },
-  { name: 'Patna/Bihar', zone: 'ECR', condition: 'fog_dense', icon: '🌫️', condLabel: 'Dense Fog', impact: 82, risk: 'CRITICAL', speed_reduction: 60, delay_range: '30-90', trains: 5, action: 'Absolute block working' },
-  { name: 'Varanasi/Prayagraj', zone: 'ECR/NCR', condition: 'fog_moderate', icon: '🌫️', condLabel: 'Fog (Moderate)', impact: 55, risk: 'HIGH', speed_reduction: 35, delay_range: '15-45', trains: 7, action: 'Fog devices deployed' },
-  { name: 'Kanpur/Lucknow', zone: 'NCR/NER', condition: 'partly_cloudy', icon: '⛅', condLabel: 'Partly Cloudy', impact: 10, risk: 'LOW', speed_reduction: 0, delay_range: '0-2', trains: 9, action: 'Normal operations' },
-  { name: 'Nagpur/Central India', zone: 'CR/SECR', condition: 'extreme_heat', icon: '🔥', condLabel: 'Extreme Heat', impact: 38, risk: 'MEDIUM', speed_reduction: 10, delay_range: '5-15', trains: 4, action: 'Track temp monitoring' },
-  { name: 'Chennai/Southern', zone: 'SR/SCR', condition: 'heavy_rain', icon: '🌧️', condLabel: 'Heavy Rain', impact: 68, risk: 'HIGH', speed_reduction: 20, delay_range: '12-22', trains: 6, action: 'Speed restriction — 75km/h' }
+  { name: 'Delhi NCR', zone: 'NR/NCR', condition: 'clear_sky', icon: '☀️', condLabel: 'Clear Sky / Pleasant', impact: 8, risk: 'LOW', speed_reduction: 0, delay_range: '0-2', trains: 8, action: 'Normal line clearance · optimal traction' },
+  { name: 'Mumbai Division', zone: 'CR/WR', condition: 'partly_cloudy', icon: '⛅', condLabel: 'Coastal Humid / Moderate Breeze', impact: 14, risk: 'LOW', speed_reduction: 0, delay_range: '0-5', trains: 12, action: 'Monsoon receding · standard running' },
+  { name: 'Kolkata/Howrah', zone: 'ER/SER', condition: 'clear_sky', icon: '☀️', condLabel: 'Clear Sky / Mild Humid', impact: 10, risk: 'LOW', speed_reduction: 0, delay_range: '0-3', trains: 6, action: 'Optimal line speed & signal sighting' },
+  { name: 'Patna / Bihar & Grand Chord', zone: 'ECR', condition: 'clear_sky', icon: '☀️', condLabel: 'Clear / Stable Track', impact: 12, risk: 'LOW', speed_reduction: 0, delay_range: '0-3', trains: 5, action: 'High-speed 130 km/h running cleared' },
+  { name: 'Varanasi / Prayagraj / Kanpur', zone: 'ECR/NCR', condition: 'clear_sky', icon: '☀️', condLabel: 'Clear Sky / Dry Rails', impact: 10, risk: 'LOW', speed_reduction: 0, delay_range: '0-2', trains: 7, action: 'Double green aspects cleared' },
+  { name: 'Nagpur / Central India', zone: 'CR/SECR', condition: 'mainly_clear', icon: '🌤️', condLabel: 'Dry / Pleasant', impact: 12, risk: 'LOW', speed_reduction: 0, delay_range: '0-2', trains: 4, action: 'Optimal trunk operations' },
+  { name: 'Southern Peninsula (Bengaluru/SC)', zone: 'SWR/SCR', condition: 'partly_cloudy', icon: '⛅', condLabel: 'Mild Breeze / Pleasant', impact: 15, risk: 'LOW', speed_reduction: 0, delay_range: '0-3', trains: 6, action: 'Ideal cruising conditions' }
 ];
 
 function renderWeatherIntelligence() {
@@ -7143,25 +7231,67 @@ let liveWeatherLastFetch = 0;       // timestamp of last fetch
 let liveWeatherFetching = false;    // prevents concurrent fetches
 
 // Map Open-Meteo WMO weather codes → { label, icon, risk }
-function interpretWMO(code, windKmh, rain) {
+function interpretWMO(code, windKmh, rain, isDay) {
   let label, icon, risk;
-  if      (code === 0)                    { label = 'Clear Sky';          icon = '☀️';  risk = 'LOW'; }
-  else if (code <= 2)                     { label = 'Partly Cloudy';      icon = '⛅';  risk = 'LOW'; }
-  else if (code === 3)                    { label = 'Overcast';           icon = '☁️';  risk = 'LOW'; }
-  else if (code <= 49)                    { label = 'Fog / Mist';         icon = '🌫️'; risk = windKmh > 30 ? 'HIGH' : 'MEDIUM'; }
-  else if (code <= 57)                    { label = 'Drizzle';            icon = '🌦️'; risk = 'LOW'; }
-  else if (code <= 65)                    { label = 'Rain';               icon = '🌧️'; risk = rain > 10 ? 'HIGH' : 'MEDIUM'; }
-  else if (code <= 77)                    { label = 'Snow / Sleet';       icon = '❄️';  risk = 'HIGH'; }
-  else if (code <= 82)                    { label = 'Rain Showers';       icon = '🌦️'; risk = 'MEDIUM'; }
-  else if (code <= 86)                    { label = 'Snow Showers';       icon = '🌨️'; risk = 'HIGH'; }
-  else if (code <= 99)                    { label = 'Thunderstorm';       icon = '⛈️';  risk = 'CRITICAL'; }
-  else                                    { label = 'Unknown';            icon = '🌡️'; risk = 'LOW'; }
+  const day = (isDay !== undefined && isDay !== null)
+    ? (isDay === 1 || isDay === true)
+    : (new Date().getHours() >= 6 && new Date().getHours() < 18);
+
+  if (code === 0) {
+    label = 'Clear Sky';
+    icon = day ? '☀️' : '🌙';
+    risk = 'LOW';
+  } else if (code === 1) {
+    label = 'Mainly Clear';
+    icon = day ? '🌤️' : '🌙';
+    risk = 'LOW';
+  } else if (code === 2) {
+    label = 'Partly Cloudy';
+    icon = day ? '⛅' : '☁️';
+    risk = 'LOW';
+  } else if (code === 3) {
+    label = 'Overcast';
+    icon = '☁️';
+    risk = 'LOW';
+  } else if (code <= 49) {
+    label = 'Fog / Mist';
+    icon = '🌫️';
+    risk = windKmh > 30 ? 'HIGH' : 'MEDIUM';
+  } else if (code <= 57) {
+    label = 'Drizzle';
+    icon = '🌦️';
+    risk = 'LOW';
+  } else if (code <= 65) {
+    label = 'Rain';
+    icon = '🌧️';
+    risk = rain > 10 ? 'HIGH' : 'MEDIUM';
+  } else if (code <= 77) {
+    label = 'Snow / Sleet';
+    icon = '❄️';
+    risk = 'HIGH';
+  } else if (code <= 82) {
+    label = 'Rain Showers';
+    icon = '🌦️';
+    risk = 'MEDIUM';
+  } else if (code <= 86) {
+    label = 'Snow Showers';
+    icon = '🌨️';
+    risk = 'HIGH';
+  } else if (code <= 99) {
+    label = 'Thunderstorm';
+    icon = '⛈️';
+    risk = 'CRITICAL';
+  } else {
+    label = 'Clear Sky';
+    icon = day ? '☀️' : '🌙';
+    risk = 'LOW';
+  }
 
   // Override risk for extreme wind
   if (windKmh > 60) risk = 'CRITICAL';
   else if (windKmh > 40 && risk === 'LOW') risk = 'MEDIUM';
 
-  return { label, icon, risk };
+  return { label, icon, risk, isDay: day };
 }
 
 // Calculate speed reduction % from weather conditions
@@ -7179,42 +7309,82 @@ function calcSpeedReduction(wmo, windKmh, rain, visibilityKm) {
 }
 
 function getTrainCurrentGPS(trainNo) {
-  const state = calculateTrainDynamicState(trainNo);
+  const curMin = (typeof getEffectiveMinutes === 'function') ? getEffectiveMinutes() : null;
+  const state = (typeof calculateTrainDynamicState === 'function')
+    ? calculateTrainDynamicState(trainNo, curMin)
+    : null;
   if (!state) return null;
 
-  // state.halts[] has { code, status:'passed'/'current'/'upcoming' }
-  if (state.halts && state.halts.length) {
-    // 1. Try 'current' status halt first
-    const cur = state.halts.find(h => h.status === 'current');
-    if (cur && STN_REAL_GPS[cur.code])
-      return { lat: STN_REAL_GPS[cur.code][0], lng: STN_REAL_GPS[cur.code][1], name: cur.code };
+  const train = (typeof MASTER_TRAINS !== 'undefined' && MASTER_TRAINS[trainNo])
+    || (typeof resolveOrCreateTrain === 'function' ? resolveOrCreateTrain(trainNo) : null);
+  const halts = (train && train.halts) || state.halts;
 
-    // 2. Last passed halt
-    const passed = state.halts.filter(h => h.status === 'passed');
-    if (passed.length) {
-      const last = passed[passed.length - 1];
-      if (STN_REAL_GPS[last.code])
-        return { lat: STN_REAL_GPS[last.code][0], lng: STN_REAL_GPS[last.code][1], name: last.code };
-    }
-
-    // 3. First upcoming halt
-    const upcoming = state.halts.find(h => h.status === 'upcoming');
-    if (upcoming && STN_REAL_GPS[upcoming.code])
-      return { lat: STN_REAL_GPS[upcoming.code][0], lng: STN_REAL_GPS[upcoming.code][1], name: upcoming.code };
-
-    // 4. Any halt with GPS
-    for (const h of state.halts) {
-      if (STN_REAL_GPS[h.code])
-        return { lat: STN_REAL_GPS[h.code][0], lng: STN_REAL_GPS[h.code][1], name: h.code };
+  // 1. If train is in transit and has valid kilometer position, compute EXACT geographic track coordinates
+  if (halts && halts.length && typeof getTrainGeographicPosition === 'function' && typeof state.curKm === 'number' && state.status === 'in_transit') {
+    const geo = getTrainGeographicPosition(halts, state.curKm);
+    if (geo && typeof geo.lat === 'number' && !isNaN(geo.lat)) {
+      const segH1 = halts[geo.segIdx] || halts[0];
+      const segH2 = halts[geo.segIdx + 1] || halts[halts.length - 1];
+      const h1Name = segH1.name || segH1.code;
+      const h2Name = segH2.name || segH2.code;
+      let locLabel;
+      if (geo.frac < 0.04) {
+        locLabel = `At ${h1Name}`;
+      } else if (geo.frac > 0.96) {
+        locLabel = `Approaching ${h2Name}`;
+      } else {
+        locLabel = `${h1Name} → ${h2Name} (km ${Math.round(state.curKm)})`;
+      }
+      return {
+        lat: geo.lat,
+        lng: geo.lng,
+        name: locLabel,
+        locationLabel: locLabel,
+        curKm: state.curKm,
+        atStation: (geo.frac < 0.04 ? segH1.code : (geo.frac > 0.96 ? segH2.code : null))
+      };
     }
   }
 
-  // 5. Use origin GPS as absolute fallback
-  if (state.originCode && STN_REAL_GPS[state.originCode])
-    return { lat: STN_REAL_GPS[state.originCode][0], lng: STN_REAL_GPS[state.originCode][1], name: state.originCode };
+  // 2. If stopped at a station
+  if (state.halts && state.halts.length) {
+    const cur = state.halts.find(h => h.status === 'current' || h.status === 'at_station');
+    if (cur && typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[cur.code]) {
+      const name = cur.name || cur.code;
+      return { lat: STN_REAL_GPS[cur.code][0], lng: STN_REAL_GPS[cur.code][1], name: `At ${name}`, locationLabel: `At ${name} (Platform ${cur.platform || '—'})` };
+    }
+  }
 
-  // 6. Hard fallback: Delhi (central India)
-  return { lat: 28.6431, lng: 77.2209, name: 'NDLS' };
+  // 3. Not yet departed -> Origin
+  if (state.status === 'not_departed' && state.originCode && typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[state.originCode]) {
+    const name = state.originName || state.originCode;
+    return { lat: STN_REAL_GPS[state.originCode][0], lng: STN_REAL_GPS[state.originCode][1], name: `At ${name}`, locationLabel: `At ${name} (Origin)` };
+  }
+
+  // 4. Arrived -> Destination
+  if (state.status === 'arrived' && state.destCode && typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[state.destCode]) {
+    const name = state.destName || state.destCode;
+    return { lat: STN_REAL_GPS[state.destCode][0], lng: STN_REAL_GPS[state.destCode][1], name: `At ${name}`, locationLabel: `Arrived at ${name}` };
+  }
+
+  // 5. Fallback: Last passed or first halt
+  if (state.halts && state.halts.length) {
+    const passed = state.halts.filter(h => h.status === 'passed');
+    if (passed.length) {
+      const last = passed[passed.length - 1];
+      if (typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[last.code]) {
+        const name = last.name || last.code;
+        return { lat: STN_REAL_GPS[last.code][0], lng: STN_REAL_GPS[last.code][1], name: `Near ${name}`, locationLabel: `Near ${name}` };
+      }
+    }
+    for (const h of state.halts) {
+      if (typeof STN_REAL_GPS !== 'undefined' && STN_REAL_GPS[h.code]) {
+        return { lat: STN_REAL_GPS[h.code][0], lng: STN_REAL_GPS[h.code][1], name: h.name || h.code, locationLabel: h.name || h.code };
+      }
+    }
+  }
+
+  return { lat: 28.6419, lng: 77.2195, name: 'NDLS', locationLabel: 'New Delhi' };
 }
 
 async function fetchLiveWeather() {
@@ -7231,7 +7401,7 @@ async function fetchLiveWeather() {
 
   liveWeatherFetching = true;
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${gps.lat.toFixed(4)}&longitude=${gps.lng.toFixed(4)}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,precipitation,visibility&wind_speed_unit=kmh&timezone=Asia%2FKolkata`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${gps.lat.toFixed(4)}&longitude=${gps.lng.toFixed(4)}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m,precipitation,visibility&wind_speed_unit=kmh&timezone=Asia%2FKolkata`;
     // Safe timeout (AbortSignal.timeout not in all browsers)
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 10000);
@@ -7246,27 +7416,30 @@ async function fetchLiveWeather() {
     const cur = data.current;
 
     const wmo = cur.weather_code ?? 0;
-    const temp = cur.temperature_2m ?? '--';
-    const feelsLike = cur.apparent_temperature ?? '--';
-    const humidity = cur.relative_humidity_2m ?? '--';
+    const isDay = cur.is_day === 1;
+    const temp = cur.temperature_2m !== undefined ? Math.round(cur.temperature_2m) : '--';
+    const feelsLike = cur.apparent_temperature !== undefined ? Math.round(cur.apparent_temperature) : temp;
+    const humidity = cur.relative_humidity_2m !== undefined ? Math.round(cur.relative_humidity_2m) : '--';
     const windKmh = cur.wind_speed_10m ?? 0;
     const windDir = cur.wind_direction_10m ?? 0;
     const rain = cur.precipitation ?? 0;
     const visRaw = cur.visibility ?? 10000;
     const visKm = (visRaw / 1000).toFixed(1);
 
-    const interp = interpretWMO(wmo, windKmh, rain);
+    const interp = interpretWMO(wmo, windKmh, rain, isDay);
     const speedRed = calcSpeedReduction(wmo, windKmh, rain, visRaw / 1000);
     const delayMin = Math.round(speedRed * 0.6);
     const windDirLabel = ['N','NE','E','SE','S','SW','W','NW'][Math.round(windDir / 45) % 8];
 
     liveWeatherCache = {
       station: gps.name,
+      locationLabel: gps.locationLabel || gps.name,
       lat: gps.lat, lng: gps.lng,
       temp, feelsLike, humidity,
       windKmh: windKmh.toFixed(1), windDir: windDirLabel,
       rain: rain.toFixed(1),
       visKm,
+      isDay,
       wmo, condition: interp.label, icon: interp.icon,
       risk: interp.risk,
       speedReduction: speedRed,
@@ -7304,23 +7477,25 @@ function renderLiveWeatherCard() {
     // update hero badge
     const heroBadge = document.getElementById('hero-live-weather');
     if (heroBadge && w) {
-      heroBadge.style.display = 'flex';
+      heroBadge.style.display = 'inline-flex';
       heroBadge.style.alignItems = 'center';
       heroBadge.style.gap = '8px';
-      heroBadge.innerHTML = `<span>${w.icon}</span><span style="font-weight:600;">${w.condition}</span><span style="color:var(--text-muted);">·</span><span>${w.temp}°C</span><span style="color:var(--text-muted);">·</span><span>${w.windKmh} km/h wind</span><span style="color:var(--text-muted);">·</span><span style="font-size:10px;color:var(--text-muted);">${w.fetchedAt}</span>`;
+      heroBadge.title = `Live Trackside Weather: ${w.locationLabel} · Updated ${w.fetchedAt}`;
+      heroBadge.innerHTML = `<span>${w.icon}</span><span style="font-weight:700;">${w.condition}</span><span style="color:var(--text-muted);">·</span><span class="mono" style="font-weight:700;color:var(--cyan);">${w.temp}°C</span><span style="color:var(--text-muted);">·</span><span>${w.windKmh} km/h wind</span><span style="color:var(--text-muted);">·</span><span style="color:var(--cyan);font-weight:600;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">📍 ${w.locationLabel}</span>`;
     }
   el.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <div style="display:flex;align-items:center;gap:8px;">
-        <span style="font-size:28px;">${w.icon}</span>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:32px;">${w.icon}</span>
         <div>
-          <div style="font-size:13px;font-weight:700;">${w.condition}</div>
-          <div style="font-size:10px;color:var(--text-muted);">Near ${w.station} · ${w.fetchedAt}</div>
+          <div style="font-size:14px;font-weight:800;">${w.condition}</div>
+          <div style="font-size:11px;color:var(--cyan);font-weight:600;margin-top:1px;">📍 ${w.locationLabel}</div>
+          <div style="font-size:10px;color:var(--text-muted);">GPS: ${w.lat.toFixed(4)}°N, ${w.lng.toFixed(4)}°E · Updated ${w.fetchedAt} IST</div>
         </div>
       </div>
       <div style="text-align:right;">
-        <div style="font-size:26px;font-weight:900;color:var(--cyan);">${w.temp}°C</div>
-        <div style="font-size:10px;color:var(--text-muted);">Feels ${w.feelsLike}°C</div>
+        <div class="mono" style="font-size:28px;font-weight:900;color:var(--cyan);">${w.temp}°C</div>
+        <div style="font-size:11px;color:var(--text-muted);">Feels ${w.feelsLike}°C · Humidity ${w.humidity}%</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;">
@@ -7368,7 +7543,8 @@ function renderLiveWeatherCard() {
         </div>
         <div>
           <div style="font-size:13px;font-weight:700;">${w.condition}</div>
-          <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Near ${w.station}</div>
+          <div style="font-size:11px;color:var(--cyan);font-weight:600;margin-top:2px;">📍 ${w.locationLabel}</div>
+          <div style="font-size:9px;color:var(--text-muted);">Track GPS: ${w.lat.toFixed(3)}°N, ${w.lng.toFixed(3)}°E</div>
           <span class="badge ${w.risk === 'LOW' ? 'badge-green' : w.risk === 'MEDIUM' ? 'badge-amber' : 'badge-red'}" style="font-size:9px;margin-top:4px;display:inline-block;">${w.risk} RISK</span>
         </div>
       </div>
