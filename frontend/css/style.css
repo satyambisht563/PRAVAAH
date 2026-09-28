@@ -825,6 +825,28 @@
       background: rgba(248,250,252,0.92) !important;
     }
 
+    
+    /* Ultra-fast smooth theme transitions with zero paint latency */
+    body, .card, .card-sm, header, .tab-nav, .tab-btn, .btn-action, input, select, textarea, .complaint-card, .cp-region-row, .timeline-wrap, .tl-node-body {
+      transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease !important;
+    }
+
+    /* Universal inline dark hex backgrounds override in light mode */
+    [data-theme="light"] [style*="#070B16"],
+    [data-theme="light"] [style*="#070b16"],
+    [data-theme="light"] [style*="#0B1124"],
+    [data-theme="light"] [style*="#0b1124"],
+    [data-theme="light"] [style*="#0F172A"],
+    [data-theme="light"] [style*="#0f172a"],
+    [data-theme="light"] [style*="#1E293B"],
+    [data-theme="light"] [style*="#1e293b"],
+    [data-theme="light"] [style*="#131E3D"],
+    [data-theme="light"] [style*="#131e3d"],
+    [data-theme="light"] [style*="#162035"],
+    [data-theme="light"] [style*="#25344F"] {
+      background: rgba(241, 245, 249, 0.95) !important;
+    }
+
     /* ── Light Crew Comms & Broadcast Styling ── */
     [data-theme="light"] .crew-comms-box {
       background: rgba(248, 250, 252, 0.95) !important;

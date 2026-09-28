@@ -839,6 +839,28 @@
       background: rgba(248,250,252,0.92) !important;
     }
 
+    
+    /* Ultra-fast smooth theme transitions with zero paint latency */
+    body, .card, .card-sm, header, .tab-nav, .tab-btn, .btn-action, input, select, textarea, .complaint-card, .cp-region-row, .timeline-wrap, .tl-node-body {
+      transition: background-color 0.12s ease, border-color 0.12s ease, color 0.12s ease !important;
+    }
+
+    /* Universal inline dark hex backgrounds override in light mode */
+    [data-theme="light"] [style*="#070B16"],
+    [data-theme="light"] [style*="#070b16"],
+    [data-theme="light"] [style*="#0B1124"],
+    [data-theme="light"] [style*="#0b1124"],
+    [data-theme="light"] [style*="#0F172A"],
+    [data-theme="light"] [style*="#0f172a"],
+    [data-theme="light"] [style*="#1E293B"],
+    [data-theme="light"] [style*="#1e293b"],
+    [data-theme="light"] [style*="#131E3D"],
+    [data-theme="light"] [style*="#131e3d"],
+    [data-theme="light"] [style*="#162035"],
+    [data-theme="light"] [style*="#25344F"] {
+      background: rgba(241, 245, 249, 0.95) !important;
+    }
+
     /* ── Light Crew Comms & Broadcast Styling ── */
     [data-theme="light"] .crew-comms-box {
       background: rgba(248, 250, 252, 0.95) !important;
@@ -12098,51 +12120,20 @@ const DARK_TO_LIGHT_COLOR = [
 const _origStyles = new Map();
 
 function deepApplyLightInlineStyles() {
-  // Walk every element with an inline background style
-  document.querySelectorAll('[style]').forEach(el => {
-    const orig = el.getAttribute('style');
-    if (!orig) return;
-
-    // Skip elements that explicitly set their own bg via CSS vars
-    if (orig.includes('var(--canvas)') || orig.includes('var(--card-bg)')) return;
-
-    let modified = orig;
-    let changed = false;
-
-    // Swap backgrounds
-    for (const [pattern, replacement] of DARK_TO_LIGHT_BG) {
-      if (pattern.test(modified)) {
-        modified = modified.replace(pattern, replacement);
-        changed = true;
-      }
-      pattern.lastIndex = 0; // reset regex state
-    }
-
-    if (changed) {
-      if (!_origStyles.has(el)) _origStyles.set(el, orig); // save original
-      el.setAttribute('style', modified);
-    }
-  });
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
 function deepRestoreDarkInlineStyles() {
-  _origStyles.forEach((origStyle, el) => {
-    if (el.isConnected) el.setAttribute('style', origStyle);
-  });
-  _origStyles.clear();
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
-// Also fix any dynamically-created elements (called from renderXxx functions)
 function patchDynamicElements() {
-  if (currentTheme !== 'light') return;
-  // Re-run the swapper on any new elements
-  setTimeout(deepApplyLightInlineStyles, 50);
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
-
-// LIGHT / DARK MODE TOGGLE
+// LIGHT / DARK MODE TOGGLE (INSTANT 0MS PURE CSS SWITCHING)
 // ══════════════════════════════════════════════════════════════════
-let currentTheme = localStorage.getItem('pravaah-theme') || 'dark';
+let currentTheme = localStorage.getItem('pravaah-theme') || (document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
 function applyTheme(theme) {
   currentTheme = theme;
@@ -12154,9 +12145,6 @@ function applyTheme(theme) {
     html.setAttribute('data-theme', 'light');
     if (icon)  icon.textContent  = '☀️';
     if (label) label.textContent = 'Light';
-    // Deep-swap all hardcoded dark inline styles
-    setTimeout(deepApplyLightInlineStyles, 30);
-    // Re-style Google Maps to light mode
     if (typeof google !== 'undefined' && googleMap) {
       googleMap.setOptions({ styles: null });
       googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
@@ -12165,12 +12153,9 @@ function applyTheme(theme) {
       passengerMiniMap.setOptions({ styles: null });
     }
   } else {
-    html.setAttribute('data-theme', theme);
+    html.setAttribute('data-theme', 'dark');
     if (icon)  icon.textContent  = '🌙';
     if (label) label.textContent = 'Dark';
-    // Restore all original dark inline styles
-    deepRestoreDarkInlineStyles();
-    // Restore dark map style
     if (typeof google !== 'undefined' && googleMap) {
       googleMap.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
       googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);

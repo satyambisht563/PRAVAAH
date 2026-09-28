@@ -8464,51 +8464,20 @@ const DARK_TO_LIGHT_COLOR = [
 const _origStyles = new Map();
 
 function deepApplyLightInlineStyles() {
-  // Walk every element with an inline background style
-  document.querySelectorAll('[style]').forEach(el => {
-    const orig = el.getAttribute('style');
-    if (!orig) return;
-
-    // Skip elements that explicitly set their own bg via CSS vars
-    if (orig.includes('var(--canvas)') || orig.includes('var(--card-bg)')) return;
-
-    let modified = orig;
-    let changed = false;
-
-    // Swap backgrounds
-    for (const [pattern, replacement] of DARK_TO_LIGHT_BG) {
-      if (pattern.test(modified)) {
-        modified = modified.replace(pattern, replacement);
-        changed = true;
-      }
-      pattern.lastIndex = 0; // reset regex state
-    }
-
-    if (changed) {
-      if (!_origStyles.has(el)) _origStyles.set(el, orig); // save original
-      el.setAttribute('style', modified);
-    }
-  });
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
 function deepRestoreDarkInlineStyles() {
-  _origStyles.forEach((origStyle, el) => {
-    if (el.isConnected) el.setAttribute('style', origStyle);
-  });
-  _origStyles.clear();
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
-// Also fix any dynamically-created elements (called from renderXxx functions)
 function patchDynamicElements() {
-  if (currentTheme !== 'light') return;
-  // Re-run the swapper on any new elements
-  setTimeout(deepApplyLightInlineStyles, 50);
+  // Pure CSS attribute selectors handle all elements with 0ms latency
 }
 
-
-// LIGHT / DARK MODE TOGGLE
+// LIGHT / DARK MODE TOGGLE (INSTANT 0MS PURE CSS SWITCHING)
 // ══════════════════════════════════════════════════════════════════
-let currentTheme = localStorage.getItem('pravaah-theme') || 'dark';
+let currentTheme = localStorage.getItem('pravaah-theme') || (document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
 
 function applyTheme(theme) {
   currentTheme = theme;
@@ -8520,9 +8489,6 @@ function applyTheme(theme) {
     html.setAttribute('data-theme', 'light');
     if (icon)  icon.textContent  = '☀️';
     if (label) label.textContent = 'Light';
-    // Deep-swap all hardcoded dark inline styles
-    setTimeout(deepApplyLightInlineStyles, 30);
-    // Re-style Google Maps to light mode
     if (typeof google !== 'undefined' && googleMap) {
       googleMap.setOptions({ styles: null });
       googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
@@ -8531,12 +8497,9 @@ function applyTheme(theme) {
       passengerMiniMap.setOptions({ styles: null });
     }
   } else {
-    html.setAttribute('data-theme', theme);
+    html.setAttribute('data-theme', 'dark');
     if (icon)  icon.textContent  = '🌙';
     if (label) label.textContent = 'Dark';
-    // Restore all original dark inline styles
-    deepRestoreDarkInlineStyles();
-    // Restore dark map style
     if (typeof google !== 'undefined' && googleMap) {
       googleMap.setOptions({ styles: GOOGLE_MAPS_DARK_STYLE });
       googleMap.setMapTypeId(google.maps.MapTypeId.ROADMAP);
