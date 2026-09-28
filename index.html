@@ -1245,8 +1245,604 @@
       color: #334155 !important;
     }
 
+    /* =========================================================================
+       MOBILE RESPONSIVENESS & TOUCH ENHANCEMENTS
+       ========================================================================= */
+
+    /* Base & Wrappers */
+    @media (max-width: 768px) {
+      html, body {
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      .wrap {
+        padding: 10px 10px 84px 10px !important;
+        max-width: 100% !important;
+        overflow-x: hidden;
+      }
+
+      .card {
+        padding: 14px 14px !important;
+        border-radius: var(--radius-md) !important;
+      }
+
+      .card-sm {
+        padding: 10px 12px !important;
+      }
+
+      /* App Header Bar */
+      .app-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        margin-bottom: 14px !important;
+      }
+
+      .brand-logo-box {
+        width: 42px !important;
+        height: 42px !important;
+        font-size: 22px !important;
+      }
+
+      .brand-title {
+        font-size: 20px !important;
+      }
+
+      .app-header .card-sm#clock-display {
+        padding: 6px 10px !important;
+        font-size: 11px !important;
+      }
+
+      /* Temporal Sync Bar */
+      .temporal-sync-bar {
+        margin-bottom: 14px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+        padding: 12px 14px !important;
+      }
+
+      .temporal-date-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+
+      .temporal-date-input-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        width: 100% !important;
+        flex-wrap: wrap !important;
+      }
+
+      #journey-date-picker {
+        flex: 1 !important;
+        min-width: 130px !important;
+        padding: 6px 10px !important;
+        font-size: 12px !important;
+      }
+
+      .temporal-quick-dates {
+        display: flex !important;
+        gap: 4px !important;
+        width: 100% !important;
+      }
+
+      .temporal-quick-dates button {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 6px 4px !important;
+        font-size: 11px !important;
+      }
+
+      #journey-day-badge {
+        font-size: 10px !important;
+        padding: 3px 8px !important;
+        white-space: nowrap !important;
+      }
+
+      .temporal-mode-row {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+        width: 100% !important;
+      }
+
+      .temporal-mode-buttons {
+        display: flex !important;
+        gap: 6px !important;
+        width: 100% !important;
+      }
+
+      .temporal-mode-buttons button {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 8px 6px !important;
+        font-size: 11px !important;
+      }
+
+      #time-scrubber-box {
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-top: 4px !important;
+      }
+
+      /* Train Selector */
+      .train-search-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 8px !important;
+      }
+
+      .train-search-box {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      #train-search-input {
+        font-size: 14px !important;
+      }
+
+      #train-toggle-bar {
+        padding: 6px 8px 8px 8px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+      }
+
+      #train-toggle-bar::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      #toggle-scroll-left,
+      #toggle-scroll-right {
+        display: none !important;
+      }
+
+      .train-pill {
+        padding: 6px 12px !important;
+        font-size: 11px !important;
+      }
+
+      /* Hero Card Stacked Layout */
+      .hero-top-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+
+      .hero-train-info {
+        width: 100% !important;
+      }
+
+      #hero-train-title {
+        font-size: 18px !important;
+        line-height: 1.25 !important;
+        word-break: break-word !important;
+      }
+
+      #hero-train-route {
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+      }
+
+      .hero-dest-block {
+        width: 100% !important;
+        text-align: left !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background: rgba(56, 189, 248, 0.08) !important;
+        border: 1px solid rgba(56, 189, 248, 0.22) !important;
+        border-radius: var(--radius-md) !important;
+        padding: 10px 14px !important;
+      }
+
+      [data-theme="light"] .hero-dest-block {
+        background: rgba(2, 132, 199, 0.08) !important;
+        border-color: rgba(2, 132, 199, 0.25) !important;
+      }
+
+      .hero-dest-block-inner {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+      }
+
+      #hero-dest-time {
+        font-size: 30px !important;
+        line-height: 1 !important;
+      }
+
+      .hero-dest-badges {
+        display: flex !important;
+        gap: 6px !important;
+        margin-top: 4px !important;
+      }
+
+      .hero-stats-bottom {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px 10px !important;
+        margin-top: 12px !important;
+        padding-top: 14px !important;
+      }
+
+      .hero-stats-bottom > div:nth-child(3) {
+        grid-column: 1 / -1 !important;
+      }
+
+      #hero-current-block, #hero-next-halt, #hero-recovery-text {
+        font-size: 13px !important;
+      }
+
+      /* Top Tabs (horizontal scrolling) */
+      .tab-nav {
+        margin: 12px 0 16px !important;
+        padding: 4px !important;
+        gap: 4px !important;
+        -webkit-overflow-scrolling: touch !important;
+      }
+
+      .tab-btn {
+        padding: 7px 12px !important;
+        font-size: 11px !important;
+        gap: 5px !important;
+      }
+
+      .tab-btn svg {
+        width: 13px !important;
+        height: 13px !important;
+      }
+
+      /* Timeline Nodes */
+      .timeline-wrap {
+        max-height: 480px !important;
+        padding-right: 4px !important;
+      }
+
+      .tl-node {
+        padding-left: 26px !important;
+        padding-bottom: 16px !important;
+      }
+
+      .tl-node::before {
+        left: 6px !important;
+      }
+
+      .tl-marker {
+        left: 0 !important;
+        width: 14px !important;
+        height: 14px !important;
+      }
+
+      .tl-node-body {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 6px !important;
+      }
+
+      .tl-node-times {
+        text-align: left !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        background: rgba(56, 189, 248, 0.05) !important;
+        padding: 5px 10px !important;
+        border-radius: var(--radius-sm) !important;
+        border: 1px solid rgba(56, 189, 248, 0.12) !important;
+        width: 100% !important;
+      }
+
+      [data-theme="light"] .tl-node-times {
+        background: rgba(2, 132, 199, 0.05) !important;
+        border-color: rgba(2, 132, 199, 0.15) !important;
+      }
+
+      /* Map Container */
+      #real-google-container {
+        height: 380px !important;
+      }
+
+      #passenger-mini-map-canvas {
+        height: 270px !important;
+      }
+
+      #real-map-hud {
+        left: 8px !important;
+        right: 8px !important;
+        max-width: calc(100% - 16px) !important;
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+      }
+
+      #real-map-hud .map-hud-stat {
+        font-size: 11px !important;
+      }
+
+      /* Grid Layouts Stacked on Mobile */
+      .grid-stats {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 10px !important;
+      }
+
+      .grid-3col {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+
+      /* Loco Pilot Driver View */
+      .driver-header {
+        padding: 12px 14px !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+      }
+
+      .speed-value {
+        font-size: 38px !important;
+      }
+
+      /* Toast Notification */
+      #toast-container {
+        bottom: 72px !important;
+        right: 10px !important;
+        left: 10px !important;
+        max-width: calc(100% - 20px) !important;
+      }
+    }
+
+    /* Extra Compact Phones (< 400px like Galaxy A series, iPhone SE) */
+    @media (max-width: 400px) {
+      .wrap {
+        padding: 6px 6px 82px 6px !important;
+      }
+
+      .card {
+        padding: 12px 10px !important;
+      }
+
+      .brand-title {
+        font-size: 18px !important;
+      }
+
+      #hero-train-title {
+        font-size: 16px !important;
+      }
+
+      #hero-dest-time {
+        font-size: 26px !important;
+      }
+
+      .grid-stats {
+        grid-template-columns: 1fr !important;
+      }
+
+      #real-google-container {
+        height: 330px !important;
+      }
+    }
+
+    /* =========================================================================
+       FIXED MOBILE BOTTOM NAVIGATION & SLIDE-UP SHEET
+       ========================================================================= */
+
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    .mobile-more-overlay {
+      display: none;
+    }
+
+    .mobile-more-sheet {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        z-index: 1000;
+        background: rgba(11, 17, 36, 0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border-subtle);
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 4px;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      [data-theme="light"] .mobile-bottom-nav {
+        background: rgba(255, 255, 255, 0.96) !important;
+        border-top-color: rgba(100, 116, 139, 0.2) !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08) !important;
+      }
+
+      .mob-nav-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        background: none;
+        border: none;
+        color: var(--text-secondary);
+        font-size: 10px;
+        font-weight: 600;
+        padding: 6px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex: 1;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .mob-nav-btn svg {
+        width: 19px;
+        height: 19px;
+        stroke-width: 2.2;
+        transition: transform 0.2s ease;
+      }
+
+      .mob-nav-btn:active {
+        transform: scale(0.92);
+      }
+
+      .mob-nav-btn.active {
+        color: var(--cyan-bright) !important;
+        font-weight: 800;
+      }
+
+      [data-theme="light"] .mob-nav-btn.active {
+        color: #0284C7 !important;
+      }
+
+      .mob-nav-btn.active svg {
+        transform: translateY(-1px);
+        stroke: var(--cyan-bright);
+      }
+
+      [data-theme="light"] .mob-nav-btn.active svg {
+        stroke: #0284C7;
+      }
+
+      /* Slide-Up Sheet for "More" tabs */
+      .mobile-more-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1001;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+      }
+
+      .mobile-more-overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mobile-more-sheet {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: -100%;
+        z-index: 1002;
+        background: var(--card-elevated);
+        border-top: 1px solid var(--border-subtle);
+        border-radius: 20px 20px 0 0;
+        padding: 14px 16px 36px 16px;
+        box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6);
+        transition: bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+
+      [data-theme="light"] .mobile-more-sheet {
+        background: #FFFFFF !important;
+        border-top-color: rgba(100, 116, 139, 0.2) !important;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15) !important;
+      }
+
+      .mobile-more-sheet.open {
+        bottom: 0;
+      }
+
+      .mobile-sheet-handle {
+        width: 40px;
+        height: 4px;
+        background: var(--border-subtle);
+        border-radius: 2px;
+        margin: 0 auto 12px auto;
+      }
+
+      .mobile-sheet-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 14px;
+        text-align: center;
+      }
+
+      .mobile-sheet-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mobile-sheet-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-md);
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--text-primary);
+      }
+
+      [data-theme="light"] .mobile-sheet-item {
+        background: rgba(241, 245, 249, 0.9) !important;
+        border-color: rgba(100, 116, 139, 0.2) !important;
+        color: #0F172A !important;
+      }
+
+      .mobile-sheet-item:hover,
+      .mobile-sheet-item:active {
+        background: rgba(56, 189, 248, 0.12);
+        border-color: var(--cyan);
+      }
+
+      .sheet-icon {
+        font-size: 22px;
+        margin-bottom: 6px;
+      }
+
+      .sheet-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 2px;
+      }
+
+      [data-theme="light"] .sheet-label {
+        color: #0F172A !important;
+      }
+
+      .sheet-desc {
+        font-size: 10px;
+        color: var(--text-secondary);
+        line-height: 1.3;
+      }
+    }
+
+
     
-</style>
+  </style>
     <!-- Google Maps JavaScript API (Configured with Demo API Key) -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDYOpDtIUHpmjAXLSNvqfC9M-Em8Pcvgf8&libraries=geometry"></script>
 
@@ -1257,7 +1853,7 @@
   <!-- =========================================================================
        HEADER BAR
        ========================================================================= -->
-  <header style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 22px;">
+  <header class="app-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 22px;">
     <div style="display: flex; align-items: center; gap: 14px;">
       <div class="brand-logo-box" style="width: 52px; height: 52px; background: linear-gradient(135deg, #1E293B, #0F172A); border: 1.5px solid var(--cyan); display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 0 24px rgba(56,189,248,0.3); border-radius: var(--radius-md);">
         🚆
@@ -1287,36 +1883,40 @@
   <!-- =========================================================================
        TEMPORAL SYNC BAR
        ========================================================================= -->
-  <div class="card-sm" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: rgba(11,17,36,0.75);">
+  <div class="card-sm temporal-sync-bar" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: rgba(11,17,36,0.75);">
 
     <!-- Journey Date Selection -->
-    <div style="display: flex; align-items: center; gap: 8px;">
+    <div class="temporal-date-row" style="display: flex; align-items: center; gap: 8px;">
+      <div class="temporal-date-input-group" style="display: flex; align-items: center; gap: 8px;">
       <span style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Journey Date:
       </span>
       <input type="date" id="journey-date-picker" onchange="onJourneyDateChange(this.value)" style="width: auto; padding: 6px 12px; font-size: 12px; border-radius: var(--radius-sm); background: rgba(15,23,42,0.85); color: var(--text-primary); border: 1px solid var(--border-subtle); cursor: pointer; font-weight: 600;" />
-      <div style="display: flex; align-items: center; gap: 4px;">
+      <span id="journey-day-badge" class="badge badge-cyan" style="font-size: 11px; font-weight: 700;">TODAY</span>
+      </div>
+      <div class="temporal-quick-dates" style="display: flex; align-items: center; gap: 4px;">
         <button type="button" onclick="selectQuickJourneyDate(-1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Track train that departed Yesterday (Day 2 en route)">Yesterday</button>
         <button type="button" onclick="selectQuickJourneyDate(0)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-primary); font-weight: 700; cursor: pointer;" title="Track train departing Today (Day 1)">Today</button>
         <button type="button" onclick="selectQuickJourneyDate(1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Preview Tomorrow's departure">Tomorrow</button>
       </div>
-      <span id="journey-day-badge" class="badge badge-cyan" style="font-size: 11px; font-weight: 700;">TODAY</span>
     </div>
 
-    <div style="display: flex; align-items: center; gap: 10px;">
+    <div class="temporal-mode-row" style="display: flex; align-items: center; gap: 10px;">
       <span style="font-size: 13px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         Time Mode:
       </span>
+      <div class="temporal-mode-buttons" style="display: flex; align-items: center; gap: 6px;">
       <button id="btn-sync-realtime" onclick="setRealtimeSync(true)" style="padding: 6px 12px; border-radius: var(--radius-sm); background: linear-gradient(135deg, #38BDF8, #10B981); color: #070B16; font-size: 11px; font-weight: 800;">
         ● Live Current Time
       </button>
       <button id="btn-sync-custom" class="sync-inactive" onclick="setRealtimeSync(false)" style="padding: 6px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600;" title="Slide to preview train status at any time of day">
         🕒 Custom Time Slider
       </button>
+      </div>
     </div>
-    <div id="time-scrubber-box" style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 440px; opacity: 0.5;">
+    <div id="time-scrubber-box" class="temporal-scrubber-row" style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 440px; opacity: 0.5;">
       <span style="font-size: 11px; color: var(--text-muted);" class="mono">00:00</span>
       <input type="range" min="0" max="1439" value="540" id="time-slider" class="range-slider" disabled oninput="onTimeScrubberChange(this.value)" />
       <span id="scrubber-time-label" class="mono" style="font-size: 12px; font-weight: 700; color: var(--cyan-bright); min-width: 60px;">09:00 IST</span>
@@ -1326,10 +1926,10 @@
   <!-- =========================================================================
        TRAIN SELECTOR — SCROLLABLE TOGGLE BAR
        ========================================================================= -->
-  <div style="margin-bottom: 22px;">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
+  <div class="train-selector-section" style="margin-bottom: 22px;">
+    <div class="train-search-row" style="display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap;">
       <span style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;">Select Train</span>
-      <div style="flex:1;max-width:340px;display:flex;gap:8px;">
+      <div class="train-search-box" style="flex:1;max-width:340px;display:flex;gap:8px;">
         <input type="text" id="train-search-input" list="train-suggestions" placeholder="Enter train number..." value="12301"
           onkeydown="if(event.key==='Enter') searchCustomTrain()"
           style="flex:1;padding:7px 12px;font-size:13px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.05);border:1px solid var(--border-subtle);color:var(--text-primary);" />
@@ -1368,19 +1968,21 @@
        ========================================================================= -->
   <div class="grid-hero">
     <div class="card" id="hero-card-container" style="border-left: 4px solid var(--cyan-bright);">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
-        <div>
+      <div class="hero-top-row" style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px;">
+        <div class="hero-train-info">
           <span id="hero-train-status-badge" class="badge badge-green" style="margin-bottom: 8px;">🟢 RUNNING LIVE</span>
           <h2 id="hero-train-title" style="font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">12301 — Howrah Rajdhani Express</h2>
           <p id="hero-train-route" style="color: var(--text-secondary); font-size: 13px; margin-top: 4px;">Live corridor: <strong>Howrah (HWH) → New Delhi (NDLS)</strong></p>
         </div>
-        <div style="text-align: right;">
-          <div id="hero-dest-label" style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Destination ETA</div>
-          <div id="hero-dest-time" class="mono" style="font-size: 38px; font-weight: 800; color: var(--cyan-bright); line-height: 1.05; letter-spacing: -0.02em;">10:14</div>
-          <div style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px;">
-            <span id="hero-delay-badge" class="badge badge-amber">+9m delay</span>
-            <span class="badge badge-cyan" id="hero-conf-badge">±3.5m Conf</span>
+        <div class="hero-dest-block" style="text-align: right;">
+          <div class="hero-dest-block-inner">
+            <div id="hero-dest-label" style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700;">Destination ETA</div>
+            <div class="hero-dest-badges" style="display: flex; gap: 6px; justify-content: flex-end; margin-top: 6px;">
+              <span id="hero-delay-badge" class="badge badge-amber">+9m delay</span>
+              <span class="badge badge-cyan" id="hero-conf-badge">±3.5m Conf</span>
+            </div>
           </div>
+          <div id="hero-dest-time" class="mono" style="font-size: 38px; font-weight: 800; color: var(--cyan-bright); line-height: 1.05; letter-spacing: -0.02em;">10:14</div>
         </div>
       </div>
       <div class="corridor-track-container">
@@ -1390,7 +1992,7 @@
         </div>
         <div class="progress-bar"><div id="progress-bar-fill" class="progress-fill" style="width: 0%;"></div></div>
       </div>
-      <div style="margin-top: 14px; padding-top: 16px; border-top: 1px solid var(--border-inner); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+      <div class="hero-stats-bottom" style="margin-top: 14px; padding-top: 16px; border-top: 1px solid var(--border-inner); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
         <div>
           <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">GPS Location</div>
           <div id="hero-current-block" style="font-size: 14px; font-weight: 700; margin-top: 3px; display: flex; align-items: center; gap: 8px;">
@@ -2985,8 +3587,7 @@
 </div>
 
   <!-- PRAVAAH Decoupled API & Presentation Layer -->
-  
-<script>
+  <script>
 /**
  * config.js
  * Centralized API configuration for PRAVAAH frontend
@@ -2999,7 +3600,7 @@ const CONFIG = {
 };
 
 </script>
-<script>
+  <script>
 /**
  * trainApi.js
  * Client-side API layer for Train Metadata, Schedules, Stations & Dynamic Live Status
@@ -3080,7 +3681,7 @@ const TrainAPI = {
 };
 
 </script>
-<script>
+  <script>
 /**
  * stationApi.js
  * Client-side API layer for Stations Directory and Platform Assignments
@@ -3123,7 +3724,7 @@ const StationAPI = {
 };
 
 </script>
-<script>
+  <script>
 /**
  * weatherApi.js
  * Client-side API layer for Station-specific Weather
@@ -3146,7 +3747,7 @@ const WeatherAPI = {
 };
 
 </script>
-<script>
+  <script>
 /**
  * complaintApi.js
  * Client-side API layer for Passenger Complaints & Inspection Scope Intelligence
@@ -3204,7 +3805,7 @@ const ComplaintAPI = {
 };
 
 </script>
-<script>
+  <script>
 
 // =========================================================================
 // PRAVAAH — COMPLETE JAVASCRIPT ENGINE
@@ -6210,7 +6811,7 @@ function renderDynamicUI() {
 
     node.innerHTML = `
       <div class="tl-marker ${markerClass}" style="${!isMajor ? 'width:12px;height:12px;left:3px;' : ''}; ${isNotRunning ? 'border-color:#64748B;background:#1E293B;' : ''}"></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+      <div class="tl-node-body" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
         <div>
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <span class="mono" style="font-size:${!isMajor ? '12px' : '14px'};font-weight:700;color:${isCurrent ? 'var(--cyan-bright)' : (!isMajor ? 'var(--text-muted)' : 'var(--text-primary)')}">${st.code}</span>
@@ -10020,6 +10621,22 @@ function switchTab(tabName) {
     return;
   }
   const allTabs = ['passenger', 'map', 'complaints', 'driver', 'controller', 'controlroom', 'weather', 'analytics'];
+  // Sync mobile bottom navigation bar active states
+  const mobNavTabs = ['passenger', 'map', 'complaints', 'driver'];
+  mobNavTabs.forEach(t => {
+    const mobBtn = document.getElementById('mob-nav-' + t);
+    if (mobBtn) {
+      if (t === tabName) mobBtn.classList.add('active');
+      else mobBtn.classList.remove('active');
+    }
+  });
+  const mobMoreBtn = document.getElementById('mob-nav-more');
+  if (mobMoreBtn) {
+    if (!mobNavTabs.includes(tabName)) mobMoreBtn.classList.add('active');
+    else mobMoreBtn.classList.remove('active');
+  }
+  if (typeof toggleMobileMoreMenu === 'function') toggleMobileMoreMenu(false);
+
   allTabs.forEach(t => {
     const view = document.getElementById('view-' + t);
     const btn = document.getElementById('tab-' + t);
@@ -11368,8 +11985,23 @@ window.addEventListener('DOMContentLoaded', () => {
   showToast('🚆 <strong>PRAVAAH</strong> ETS Railway Operations System loaded successfully!', 'green');
 });
 
-</script>
+// ── Mobile More Menu Drawer Toggle ──
+function toggleMobileMoreMenu(forceState) {
+  const sheet = document.getElementById('mobile-more-sheet');
+  const overlay = document.getElementById('mobile-more-overlay');
+  if (!sheet || !overlay) return;
+  const isOpen = (forceState !== undefined) ? forceState : !sheet.classList.contains('open');
+  if (isOpen) {
+    sheet.classList.add('open');
+    overlay.classList.add('open');
+  } else {
+    sheet.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+}
+window.toggleMobileMoreMenu = toggleMobileMoreMenu;
 
+</script>
 
 
   <!-- =========================================================================
@@ -11377,4 +12009,56 @@ window.addEventListener('DOMContentLoaded', () => {
        ========================================================================= -->
   
 
+  <!-- Fixed Mobile Bottom Navigation Bar -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <button class="mob-nav-btn active" id="mob-nav-passenger" onclick="switchTab('passenger')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Passenger</span>
+    </button>
+    <button class="mob-nav-btn" id="mob-nav-map" onclick="switchTab('map')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+      <span>Live Map</span>
+    </button>
+    <button class="mob-nav-btn" id="mob-nav-complaints" onclick="switchTab('complaints')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Complaints</span>
+    </button>
+    <button class="mob-nav-btn" id="mob-nav-driver" onclick="switchTab('driver')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Loco Pilot</span>
+    </button>
+    <button class="mob-nav-btn" id="mob-nav-more" onclick="toggleMobileMoreMenu()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/><circle cx="5" cy="12" r="1.5"/></svg>
+      <span>More</span>
+    </button>
+  </nav>
+
+  <!-- Mobile More Menu Drawer / Sheet -->
+  <div class="mobile-more-overlay" id="mobile-more-overlay" onclick="toggleMobileMoreMenu(false)"></div>
+  <div class="mobile-more-sheet" id="mobile-more-sheet">
+    <div class="mobile-sheet-handle"></div>
+    <div class="mobile-sheet-title">More Railway Operations Views</div>
+    <div class="mobile-sheet-grid">
+      <button class="mobile-sheet-item" onclick="switchTab('controller'); toggleMobileMoreMenu(false)">
+        <span class="sheet-icon">🚉</span>
+        <span class="sheet-label">Station Master</span>
+        <span class="sheet-desc">Platform occupancy & signals</span>
+      </button>
+      <button class="mobile-sheet-item" onclick="switchTab('controlroom'); toggleMobileMoreMenu(false)">
+        <span class="sheet-icon">⚡</span>
+        <span class="sheet-label">Control Room</span>
+        <span class="sheet-desc">Section controller dispatch & AI loop</span>
+      </button>
+      <button class="mobile-sheet-item" onclick="switchTab('weather'); toggleMobileMoreMenu(false)">
+        <span class="sheet-icon">🌦️</span>
+        <span class="sheet-label">Weather Intel</span>
+        <span class="sheet-desc">Regional rain, fog & wind live feeds</span>
+      </button>
+      <button class="mobile-sheet-item" onclick="switchTab('analytics'); toggleMobileMoreMenu(false)">
+        <span class="sheet-icon">📊</span>
+        <span class="sheet-label">Analytics</span>
+        <span class="sheet-desc">Punctuality, delay recovery & KPIs</span>
+      </button>
+    </div>
+  </div>
 </body>

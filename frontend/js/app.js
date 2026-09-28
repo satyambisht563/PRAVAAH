@@ -3003,7 +3003,7 @@ function renderDynamicUI() {
 
     node.innerHTML = `
       <div class="tl-marker ${markerClass}" style="${!isMajor ? 'width:12px;height:12px;left:3px;' : ''}; ${isNotRunning ? 'border-color:#64748B;background:#1E293B;' : ''}"></div>
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
+      <div class="tl-node-body" style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;">
         <div>
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <span class="mono" style="font-size:${!isMajor ? '12px' : '14px'};font-weight:700;color:${isCurrent ? 'var(--cyan-bright)' : (!isMajor ? 'var(--text-muted)' : 'var(--text-primary)')}">${st.code}</span>
@@ -6813,6 +6813,22 @@ function switchTab(tabName) {
     return;
   }
   const allTabs = ['passenger', 'map', 'complaints', 'driver', 'controller', 'controlroom', 'weather', 'analytics'];
+  // Sync mobile bottom navigation bar active states
+  const mobNavTabs = ['passenger', 'map', 'complaints', 'driver'];
+  mobNavTabs.forEach(t => {
+    const mobBtn = document.getElementById('mob-nav-' + t);
+    if (mobBtn) {
+      if (t === tabName) mobBtn.classList.add('active');
+      else mobBtn.classList.remove('active');
+    }
+  });
+  const mobMoreBtn = document.getElementById('mob-nav-more');
+  if (mobMoreBtn) {
+    if (!mobNavTabs.includes(tabName)) mobMoreBtn.classList.add('active');
+    else mobMoreBtn.classList.remove('active');
+  }
+  if (typeof toggleMobileMoreMenu === 'function') toggleMobileMoreMenu(false);
+
   allTabs.forEach(t => {
     const view = document.getElementById('view-' + t);
     const btn = document.getElementById('tab-' + t);
@@ -8160,3 +8176,19 @@ window.addEventListener('DOMContentLoaded', () => {
   setTimeout(() => initRoleGate(), 200);
   showToast('🚆 <strong>PRAVAAH</strong> ETS Railway Operations System loaded successfully!', 'green');
 });
+
+// ── Mobile More Menu Drawer Toggle ──
+function toggleMobileMoreMenu(forceState) {
+  const sheet = document.getElementById('mobile-more-sheet');
+  const overlay = document.getElementById('mobile-more-overlay');
+  if (!sheet || !overlay) return;
+  const isOpen = (forceState !== undefined) ? forceState : !sheet.classList.contains('open');
+  if (isOpen) {
+    sheet.classList.add('open');
+    overlay.classList.add('open');
+  } else {
+    sheet.classList.remove('open');
+    overlay.classList.remove('open');
+  }
+}
+window.toggleMobileMoreMenu = toggleMobileMoreMenu;
