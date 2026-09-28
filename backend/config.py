@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Configuration
+PRAVAAH — Configuration
 All settings are loaded from environment variables or .env file.
 """
 from pydantic_settings import BaseSettings
@@ -8,7 +8,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     # ── App ────────────────────────────────────────────────────────────────
-    APP_NAME: str = "PRAVAAH 3.0"
+    APP_NAME: str = "PRAVAAH"
     DEBUG: bool = False
     HOST: str = "0.0.0.0"
     PORT: int = 8000

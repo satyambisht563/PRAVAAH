@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — In-memory cache with TTL support.
+PRAVAAH — In-memory cache with TTL support.
 """
 import time
 from typing import Any, Optional

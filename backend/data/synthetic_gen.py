@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Synthetic Training Data Generator
+PRAVAAH — Synthetic Training Data Generator
 
 Generates 500,000 realistic train delay records based on Indian Railways
 punctuality statistics for training the XGBoost model.

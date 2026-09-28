@@ -1,5 +1,5 @@
 """
-PRAVAAH 4.0 — High-Performance FastAPI Application with Complete ETS Operations
+PRAVAAH — High-Performance FastAPI Application with Complete ETS Operations
 
 Endpoints:
   Core:
@@ -47,7 +47,7 @@ from data.weather_regions import (
 from data.staff_roster import get_staff_for_coach_and_category, SYNTHETIC_STAFF_MEMBERS
 
 app = FastAPI(
-    title="PRAVAAH 4.0 API",
+    title="PRAVAAH API",
     description="Intelligent ETS Railway Operations, Explainable AI & Human-in-the-Loop Management",
     version="4.0.0"
 )

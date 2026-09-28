@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Live Weather Client (Open-Meteo Integration)
+PRAVAAH — Live Weather Client (Open-Meteo Integration)
 
 Fetches 100% REAL LIVE weather conditions (temperature, precipitation, fog,
 weather codes, wind speed) for stations along Indian Railways corridors.
@@ -59,7 +59,7 @@ class LiveWeatherClient:
     def __init__(self, timeout: int = 6):
         self.timeout = timeout
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "PRAVAAH-Rail/3.0"})
+        self.session.headers.update({"User-Agent": "PRAVAAH-Rail"})
         self.cache: Dict[str, Any] = {}
 
     def get_station_weather(self, station_code: str) -> Dict[str, Any]:

@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Live Train Telemetry Ingestion Engine
+PRAVAAH — Live Train Telemetry Ingestion Engine
 Fetches 100% REAL LIVE train tracking telemetry from Indian Railways public feeds (RailRadar / NTES).
 """
 import logging

@@ -1,7 +1,7 @@
 @echo off
-title PRAVAAH 4.0 — Live Train ETA Intelligence
+title PRAVAAH — Live Train ETA Intelligence
 echo ========================================================
-echo   PRAVAAH 4.0: ETS Intelligent Railway Operations Platform
+echo   PRAVAAH: ETS Intelligent Railway Operations Platform
 echo   Powered by Express API + XGBoost + Live Weather
 echo ========================================================
 echo.

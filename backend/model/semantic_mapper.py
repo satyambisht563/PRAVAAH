@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Semantic Feature Mapper & Missing-Value Robustness Engine
+PRAVAAH — Semantic Feature Mapper & Missing-Value Robustness Engine
 
 Allows the XGBoost model to ingest datasets or API payloads where feature
 names differ from standard names (e.g., 'dist_km' instead of 'section_km')

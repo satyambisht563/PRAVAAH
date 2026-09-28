@@ -1,4 +1,4 @@
-# PRAVAAH 4.0 — Intelligent ETS Railway Operations Platform
+# PRAVAAH — Intelligent ETS Railway Operations Platform
 
 > **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS**  
 > *Dynamic Forecast of Expected Time of Arrival (ETA), Human-in-the-Loop Operations & Multi-Stakeholder Intelligence*  

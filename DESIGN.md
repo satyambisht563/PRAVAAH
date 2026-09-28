@@ -1,4 +1,4 @@
-# PRAVAAH 3.0 — Stitch AI Design System Specification (`DESIGN.md`)
+# PRAVAAH — Stitch AI Design System Specification (`DESIGN.md`)
 *Generated under Google Stitch AI Design System Standards for Indian Railways Dynamic ETA*
 
 ## 1. Brand Identity & Design Vibe

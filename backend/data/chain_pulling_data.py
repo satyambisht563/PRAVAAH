@@ -1,5 +1,5 @@
 """
-PRAVAAH 4.0 — Chain Pulling / Alarm Chain Pulling (ACP) Incident Dataset
+PRAVAAH — Chain Pulling / Alarm Chain Pulling (ACP) Incident Dataset
 
 ⚠️  SYNTHETIC / DEMO DATA — NOT REAL RAILWAY OPERATIONAL DATA
 ─────────────────────────────────────────────────────────────
@@ -323,7 +323,7 @@ INCIDENT_SUMMARY = {
 
 if __name__ == "__main__":
     import json
-    print("=== PRAVAAH 4.0 — Chain Pulling Dataset ===")
+    print("=== PRAVAAH — Chain Pulling Dataset ===")
     print(f"⚠️  SYNTHETIC DATA — for demonstration only")
     print(json.dumps(INCIDENT_SUMMARY, indent=2))
     print("\nSample records:")

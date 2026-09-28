@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — Robust XGBoost Training with Missing-Value Immunity
+PRAVAAH — Robust XGBoost Training with Missing-Value Immunity
 
 Trains XGBoost delay predictor with synthetic data where random feature
 dropout/masking is injected, teaching XGBoost optimal default directions
@@ -32,7 +32,7 @@ METRICS_PATH  = ARTIFACT_DIR / "metrics.json"
 IMPORTANCES_PATH = ARTIFACT_DIR / "feature_importances.csv"
 
 def train():
-    logger.info("=== PRAVAAH 3.0: Training Robust Missing-Value Tolerant XGBoost ===")
+    logger.info("=== PRAVAAH: Training Robust Missing-Value Tolerant XGBoost ===")
     
     # 1. Generate training data
     df = generate_training_data(n_samples=250_000, random_seed=42)

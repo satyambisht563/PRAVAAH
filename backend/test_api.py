@@ -1,5 +1,5 @@
 """
-Test script for PRAVAAH 4.0 FastAPI endpoints using TestClient.
+Test script for PRAVAAH FastAPI endpoints using TestClient.
 """
 import sys
 from pathlib import Path
@@ -75,4 +75,4 @@ r = client.get("/api/analytics/network")
 assert r.status_code == 200, f"Analytics failed: {r.status_code}"
 print("[OK] GET /api/analytics/network passed. Punctuality:", r.json()["network_punctuality_pct"])
 
-print("\nALL PRAVAAH 4.0 BACKEND API TESTS PASSED SUCCESSFULLY!")
+print("\nALL PRAVAAH BACKEND API TESTS PASSED SUCCESSFULLY!")

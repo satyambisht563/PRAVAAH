@@ -1,5 +1,5 @@
 """
-PRAVAAH 4.0 — Regional Weather Impact Model
+PRAVAAH — Regional Weather Impact Model
 
 ⚠️  SYNTHETIC / DEMO DATA — Weather impact values are MODELLED,
 not derived from real-time Indian Railways operational data.
@@ -279,7 +279,7 @@ CONDITION_ICONS = {
 
 if __name__ == "__main__":
     import json
-    print("=== PRAVAAH 4.0 — Weather Impact Model ===")
+    print("=== PRAVAAH — Weather Impact Model ===")
     print("⚠️  MODELLED/DEMO DATA")
     result = calculate_weather_impact("Mumbai Division", "heavy_rain", "Rajdhani Express")
     print(json.dumps(result, indent=2))

@@ -1,5 +1,5 @@
 """
-PRAVAAH 4.0 — Train & Station Master Data
+PRAVAAH — Train & Station Master Data
 Synchronized Master Data for all Fleet Trains with Running Days, Halts, and Platforms.
 """
 from typing import Optional, List, Dict, Any

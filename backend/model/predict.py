@@ -1,5 +1,5 @@
 """
-PRAVAAH 3.0 — XGBoost Inference Engine with Semantic Mapping & What-If Simulation
+PRAVAAH — XGBoost Inference Engine with Semantic Mapping & What-If Simulation
 """
 import json
 import logging

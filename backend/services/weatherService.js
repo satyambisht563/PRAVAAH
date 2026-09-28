@@ -1,5 +1,5 @@
 /**
- * weatherService.js - PRAVAAH Live Weather Service v5.1
+ * weatherService.js - PRAVAAH Live Weather Service
  * Live Open-Meteo API integration with trackside GPS coordinates,
  * day/night astronomical awareness, and caching.
  */
