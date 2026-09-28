@@ -1895,11 +1895,6 @@
       <input type="date" id="journey-date-picker" onchange="onJourneyDateChange(this.value)" style="width: auto; padding: 6px 12px; font-size: 12px; border-radius: var(--radius-sm); background: rgba(15,23,42,0.85); color: var(--text-primary); border: 1px solid var(--border-subtle); cursor: pointer; font-weight: 600;" />
       <span id="journey-day-badge" class="badge badge-cyan" style="font-size: 11px; font-weight: 700;">TODAY</span>
       </div>
-      <div class="temporal-quick-dates" style="display: flex; align-items: center; gap: 4px;">
-        <button type="button" onclick="selectQuickJourneyDate(-1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Track train that departed Yesterday (Day 2 en route)">Yesterday</button>
-        <button type="button" onclick="selectQuickJourneyDate(0)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-primary); font-weight: 700; cursor: pointer;" title="Track train departing Today (Day 1)">Today</button>
-        <button type="button" onclick="selectQuickJourneyDate(1)" style="padding: 4px 8px; font-size: 11px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); background: rgba(15,23,42,0.6); color: var(--text-secondary); cursor: pointer;" title="Preview Tomorrow's departure">Tomorrow</button>
-      </div>
     </div>
 
     <div class="temporal-mode-row" style="display: flex; align-items: center; gap: 10px;">
@@ -2087,15 +2082,6 @@
             <button id="btn-tl-major" onclick="setTimelineFilter('major')" class="quick-btn" style="padding: 4px 10px; font-size: 11px; font-weight: 600; background: transparent; color: var(--text-secondary); border-radius: 4px;">MAJOR STATIONS</button>
           </div>
           <span id="timeline-count-badge" class="badge badge-cyan">— Stations</span>
-        </div>
-      </div>
-            <!-- Station Classification Guide -->
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;padding:9px 12px;background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.18);border-radius:var(--radius-sm);font-size:11px;color:var(--text-secondary);line-height:1.4;">
-        <span style="font-size:15px;flex-shrink:0;">ℹ️</span>
-        <div>
-          <strong style="color:var(--text-primary);">Station Guide:</strong> 
-          <span style="color:var(--cyan);font-weight:700;">⭐ Major Junctions</span> are primary divisional railway hubs & terminals. 
-          <span style="color:#94A3B8;font-weight:700;">📍 Scheduled Halts</span> (Intermediate Stations) are commercial passenger stops along the route. The train stops at all stations listed below.
         </div>
       </div>
       <div class="timeline-wrap" id="timeline-container"></div>
@@ -6009,30 +5995,220 @@ let passengerMessagesDB = [
   }
 ];
 
-// Live Loco Pilot Passenger Broadcast State (Visible to Passengers)
-let locoPilotPassengerBroadcast = {
-  active: true,
-  train: "12301",
-  locoPilot: "LP-2847",
-  reason: "Red Home Signal — Standing between Buxar & Ara awaiting section line clearance",
-  duration: "~5-7 minutes",
-  timestamp: "08:20 IST",
-  status: "Signal Clearance in Progress"
-};
-
-// Station Master ⇄ Loco Pilot Operational Communications State (Internal Crew Only)
+// Live Loco Pilot Passenger Broadcast State (Per-Train Dynamic Registry)
 const TRAIN_CREW_REGISTRY = {
   "12301": { lp: "LP-2847", lpName: "R. K. Sharma", channel: 4, mps: 130, shortName: "Howrah Rajdhani" },
+  "12302": { lp: "LP-2848", lpName: "A. K. Banerjee", channel: 4, mps: 130, shortName: "Howrah Rajdhani" },
+  "12309": { lp: "LP-5412", lpName: "Rajeshwar Singh", channel: 3, mps: 130, shortName: "Patna Tejas Rajdhani" },
+  "12310": { lp: "LP-5413", lpName: "D. N. Pandey", channel: 3, mps: 130, shortName: "Patna Tejas Rajdhani" },
+  "12423": { lp: "LP-8819", lpName: "J. K. Baruah", channel: 8, mps: 130, shortName: "Dibrugarh Rajdhani" },
+  "12424": { lp: "LP-8820", lpName: "B. K. Gogoi", channel: 8, mps: 130, shortName: "Dibrugarh Rajdhani" },
   "12951": { lp: "LP-4102", lpName: "S. K. Verma", channel: 2, mps: 130, shortName: "Mumbai Rajdhani" },
-  "22436": { lp: "LP-1098", lpName: "Anil Tiwari", channel: 1, mps: 160, shortName: "Vande Bharat" },
+  "12952": { lp: "LP-4103", lpName: "H. M. Solanki", channel: 2, mps: 130, shortName: "Mumbai Rajdhani" },
+  "20817": { lp: "LP-9041", lpName: "P. C. Nayak", channel: 10, mps: 130, shortName: "Bhubaneswar Rajdhani" },
+  "20818": { lp: "LP-9042", lpName: "S. K. Mohapatra", channel: 10, mps: 130, shortName: "Bhubaneswar Rajdhani" },
+  "22435": { lp: "LP-1097", lpName: "Arvind Upadhyay", channel: 1, mps: 160, shortName: "Vande Bharat Express" },
+  "22436": { lp: "LP-1098", lpName: "Anil Tiwari", channel: 1, mps: 160, shortName: "Vande Bharat Express" },
+  "22691": { lp: "LP-7714", lpName: "V. S. Rao", channel: 7, mps: 130, shortName: "Bengaluru Rajdhani" },
+  "22692": { lp: "LP-7715", lpName: "M. Nagarajan", channel: 7, mps: 130, shortName: "Bengaluru Rajdhani" },
   "12002": { lp: "LP-3341", lpName: "M. P. Singh", channel: 3, mps: 130, shortName: "Bhopal Shatabdi" },
   "12004": { lp: "LP-5219", lpName: "Deepak Yadav", channel: 5, mps: 130, shortName: "Lucknow Shatabdi" },
   "12621": { lp: "LP-6084", lpName: "K. Ramanathan", channel: 6, mps: 130, shortName: "Tamil Nadu SF" },
-  "22691": { lp: "LP-7714", lpName: "V. S. Rao", channel: 7, mps: 130, shortName: "Bengaluru Rajdhani" },
-  "12424": { lp: "LP-8820", lpName: "B. K. Gogoi", channel: 8, mps: 130, shortName: "Dibrugarh Rajdhani" },
-  "12259": { lp: "LP-3912", lpName: "Subhash Roy", channel: 9, mps: 130, shortName: "Sealdah Duronto" },
-  "20817": { lp: "LP-9041", lpName: "P. C. Nayak", channel: 10, mps: 130, shortName: "Bhubaneswar Rajdhani" }
+  "12259": { lp: "LP-3912", lpName: "Subhash Roy", channel: 9, mps: 130, shortName: "Sealdah Duronto" }
 };
+
+// Route-specific, train-accurate Loco Pilot broadcasts shown to passengers
+const TRAIN_LP_BROADCASTS = {
+  "12301": {
+    active: true,
+    train: "12301",
+    locoPilot: "R. K. Sharma (LP-2847)",
+    reason: "Red Home Signal — Regulated between Buxar & Pt. Deen Dayal Upadhyaya awaiting platform line clearance",
+    duration: "~5-7 minutes",
+    timestamp: "08:20 IST",
+    status: "Active Stoppage Advisory"
+  },
+  "12302": {
+    active: true,
+    train: "12302",
+    locoPilot: "A. K. Banerjee (LP-2848)",
+    reason: "Caution Order — Track renewal work between Prayagraj & DDU; operating under regulated 30 km/h speed",
+    duration: "~4-6 minutes",
+    timestamp: "08:18 IST",
+    status: "Caution Order Active"
+  },
+  "22436": {
+    active: true,
+    train: "22436",
+    locoPilot: "Anil Tiwari (LP-1098)",
+    reason: "Precedence Mainline Clearance — High-speed section track circuit green through Kanpur Central outer; proceeding on Double Green aspect",
+    duration: "Nominal Running (~2m Slack)",
+    timestamp: "08:22 IST",
+    status: "Mainline Priority Run"
+  },
+  "22435": {
+    active: true,
+    train: "22435",
+    locoPilot: "Arvind Upadhyay (LP-1097)",
+    reason: "Automatic Signal Headway Check — Speed regulation between Prayagraj & Fatehpur section for headway safety",
+    duration: "~3-5 minutes",
+    timestamp: "08:15 IST",
+    status: "Headway Regulation"
+  },
+  "12951": {
+    active: true,
+    train: "12951",
+    locoPilot: "S. K. Verma (LP-4102)",
+    reason: "Overhead Equipment (OHE) Inspection — Power block voltage check between Surat & Vadodara",
+    duration: "~6-8 minutes",
+    timestamp: "08:12 IST",
+    status: "OHE Inspection"
+  },
+  "12952": {
+    active: true,
+    train: "12952",
+    locoPilot: "H. M. Solanki (LP-4103)",
+    reason: "Loop Line Regulation — Standing at Kota outer for down freight rake crossover clearance",
+    duration: "~5-7 minutes",
+    timestamp: "08:14 IST",
+    status: "Crossover Clearance"
+  },
+  "12309": {
+    active: true,
+    train: "12309",
+    locoPilot: "Rajeshwar Singh (LP-5412)",
+    reason: "Platform Allotment Hold — Awaiting platform clearance at Pt. Deen Dayal Upadhyaya Junction",
+    duration: "~4-6 minutes",
+    timestamp: "08:16 IST",
+    status: "Platform Reception Hold"
+  },
+  "12310": {
+    active: true,
+    train: "12310",
+    locoPilot: "D. N. Pandey (LP-5413)",
+    reason: "Section Speed Regulation — Caution aspect between Kanpur Central & Prayagraj Junction",
+    duration: "~5-8 minutes",
+    timestamp: "08:19 IST",
+    status: "Section Speed Regulation"
+  },
+  "12423": {
+    active: true,
+    train: "12423",
+    locoPilot: "J. K. Baruah (LP-8819)",
+    reason: "Fog Safety Protocol — Automated reduced speed clearance in foggy section near Katihar",
+    duration: "~8-10 minutes",
+    timestamp: "08:10 IST",
+    status: "Fog Precaution Mode"
+  },
+  "12424": {
+    active: true,
+    train: "12424",
+    locoPilot: "B. K. Gogoi (LP-8820)",
+    reason: "Goods Train Crossover Precedence — Loop line hold between Sasaram & Dehri-on-Sone",
+    duration: "~6-9 minutes",
+    timestamp: "08:21 IST",
+    status: "Loop Line Precedence"
+  },
+  "20817": {
+    active: true,
+    train: "20817",
+    locoPilot: "P. C. Nayak (LP-9041)",
+    reason: "Scheduled Brake Pressure Integrity Verification & Crew Changeover at Cuttack outer",
+    duration: "~4-5 minutes",
+    timestamp: "08:15 IST",
+    status: "Operational Integrity Check"
+  },
+  "20818": {
+    active: true,
+    train: "20818",
+    locoPilot: "S. K. Mohapatra (LP-9042)",
+    reason: "Interlocking Route Relay Inspection between Gomoh & Bokaro Steel City",
+    duration: "~5-7 minutes",
+    timestamp: "08:17 IST",
+    status: "Interlocking Check"
+  },
+  "22691": {
+    active: true,
+    train: "22691",
+    locoPilot: "V. S. Rao (LP-7714)",
+    reason: "Automatic Block Signaling Inspection — Caution aspect between Secunderabad & Kazipet",
+    duration: "~5-6 minutes",
+    timestamp: "08:13 IST",
+    status: "Block Signaling Check"
+  },
+  "22692": {
+    active: true,
+    train: "22692",
+    locoPilot: "M. Nagarajan (LP-7715)",
+    reason: "Section Clearance Hold — Waiting for cross-corridor line clearance at Nagpur Junction outer",
+    duration: "~6-8 minutes",
+    timestamp: "08:18 IST",
+    status: "Corridor Line Hold"
+  },
+  "12004": {
+    active: true,
+    train: "12004",
+    locoPilot: "Deepak Yadav (LP-5219)",
+    reason: "Outer Home Signal at Danger — Approaching Ghaziabad Junction; awaiting platform line clearance",
+    duration: "~5-7 minutes",
+    timestamp: "08:11 IST",
+    status: "Signal Clearance"
+  },
+  "12002": {
+    active: true,
+    train: "12002",
+    locoPilot: "M. P. Singh (LP-3341)",
+    reason: "Engineering Restriction — Temporary 30 km/h caution order near Mathura Junction",
+    duration: "~3-5 minutes",
+    timestamp: "08:14 IST",
+    status: "Engineering Restriction"
+  },
+  "12621": {
+    active: true,
+    train: "12621",
+    locoPilot: "K. Ramanathan (LP-6084)",
+    reason: "Station Yard Reception Hold — Awaiting platform clearance at Vijayawada Junction",
+    duration: "~7-9 minutes",
+    timestamp: "08:15 IST",
+    status: "Reception Line Hold"
+  },
+  "12259": {
+    active: true,
+    train: "12259",
+    locoPilot: "Subhash Roy (LP-3912)",
+    reason: "Fog Safety & Signal Visibility Protocol between Dhanbad & Asansol section",
+    duration: "~6-8 minutes",
+    timestamp: "08:19 IST",
+    status: "Fog Safety Advisory"
+  }
+};
+
+let locoPilotPassengerBroadcasts = {};
+
+function getLocoPilotBroadcast(tNum) {
+  const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
+  if (locoPilotPassengerBroadcasts[num]) {
+    return locoPilotPassengerBroadcasts[num];
+  }
+  if (TRAIN_LP_BROADCASTS[num]) {
+    return TRAIN_LP_BROADCASTS[num];
+  }
+  const crew = getTrainCrewInfo(num);
+  const curMin = (typeof getEffectiveMinutes === 'function') ? getEffectiveMinutes() : 540;
+  const state = (typeof calculateTrainDynamicState === 'function') ? calculateTrainDynamicState(num, curMin) : null;
+  const sec = (state && state.curSectionLabel) ? state.curSectionLabel : `Section en route to ${state?.destName || 'destination'}`;
+  return {
+    active: true,
+    train: num,
+    locoPilot: `${crew.lpName} (${crew.lp})`,
+    reason: `Section Headway Regulation — Operating under automated cab signaling protocol in ${sec}`,
+    duration: "~4-6 minutes",
+    timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + " IST",
+    status: "Active Stoppage Advisory"
+  };
+}
+
+let locoPilotPassengerBroadcast = getLocoPilotBroadcast('12301');
 
 function getTrainCrewInfo(tNum) {
   const num = String(tNum || (typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301'));
@@ -6839,6 +7015,8 @@ function renderDynamicUI() {
 
   // Synchronize Driver Dashboard (internal view keeps operational speed)
   renderDriverDashboard(state);
+  // Synchronize Loco Pilot Live Passenger Broadcast for the active train
+  renderPassengerLPBroadcast();
   // Synchronize Map Network Snapshot
   renderNetworkSnapshot();
   // Synchronize Station Master & Loco Pilot Comms and AI Speed Advisory
@@ -7684,6 +7862,7 @@ function renderFleetTable() {
 
 function selectTrain(num) {
   activeTrainNumber = num;
+  renderPassengerLPBroadcast();
   document.getElementById('train-search-input').value = num;
   switchTab('passenger');
   initPills();
@@ -9339,6 +9518,12 @@ function renderDriverDashboard(state) {
   if (drvTrainId) drvTrainId.innerHTML = `Train <span id="driver-train-no">${s.trainNumber}</span> · ${crew.lp}`;
   const trainNoEl = document.getElementById('driver-train-no');
   if (trainNoEl) trainNoEl.textContent = s.trainNumber;
+  const curBcast = getLocoPilotBroadcast(s.trainNumber);
+  const rInput = document.getElementById("lp-broadcast-reason");
+  if (rInput && (!rInput.value || rInput.value.includes("Buxar & Ara") || rInput.dataset.train !== s.trainNumber)) {
+    rInput.value = curBcast.reason;
+    rInput.dataset.train = s.trainNumber;
+  }
   const routeLbl = document.getElementById('driver-route-label');
   if (routeLbl) routeLbl.textContent = crew.shortName + ' · ' + s.originCode + ' → ' + s.destCode;
 
@@ -9624,37 +9809,45 @@ function escalatePassengerMsg(id) {
 function renderPassengerLPBroadcast() {
   const container = document.getElementById('passenger-lp-broadcast-banner');
   if (!container) return;
-  const b = locoPilotPassengerBroadcast;
+  const curTrain = String(typeof activeTrainNumber !== 'undefined' ? activeTrainNumber : '12301');
+  const b = getLocoPilotBroadcast(curTrain);
+  const crew = getTrainCrewInfo(curTrain);
+
   if (!b || !b.active) {
     container.innerHTML = `
       <div class="card" style="margin-bottom:12px;background:rgba(16,185,129,0.06);border-left:4px solid var(--emerald);padding:10px 14px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
           <div style="display:flex;align-items:center;gap:8px;">
-            <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Train in Transit</span>
-            <span style="font-size:12px;font-weight:700;">Normal Operating Conditions — No Stoppage Advisories Active</span>
+            <span class="badge badge-green"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#10B981;"></span> Train ${curTrain} in Transit</span>
+            <span style="font-size:12px;font-weight:700;">Normal Operating Conditions — Proceeding on Clear Track Aspect</span>
           </div>
-          <span style="font-size:11px;color:var(--text-muted);">Cabin Telemetry Active</span>
+          <span style="font-size:11px;color:var(--text-muted);">${crew.lpName} (${crew.lp}) · Cabin Telemetry Active</span>
         </div>
       </div>`;
     return;
   }
+
+  const lpDisplay = b.locoPilot || `${crew.lpName} (${crew.lp})`;
 
   container.innerHTML = `
     <div class="card" style="margin-bottom:12px;background:rgba(245,158,11,0.08);border-left:5px solid var(--amber);border-color:rgba(245,158,11,0.3);padding:14px 16px;">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:8px;">
           <span class="badge badge-amber"><span class="live-pulse" style="width:6px;height:6px;border-radius:50%;background:#F59E0B;"></span> 📢 LOCO PILOT LIVE CREW ADVISORY</span>
-          <span style="font-size:13px;font-weight:800;">Train ${b.train} · Official Crew Announcement</span>
+          <span style="font-size:13px;font-weight:800;">Train ${curTrain} (${crew.shortName}) · Official Crew Announcement</span>
         </div>
-        <span class="mono" style="font-size:11px;color:var(--text-muted);font-weight:700;">${b.timestamp}</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="badge badge-cyan" style="font-size:10px;font-weight:700;">👨‍✈️ ${lpDisplay}</span>
+          <span class="mono" style="font-size:11px;color:var(--text-muted);font-weight:700;">${b.timestamp}</span>
+        </div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:12px;">
         <div style="background:rgba(7,11,22,0.4);padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-inner);">
-          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Why The Train Has Stopped</div>
+          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Why The Train Has Stopped / Regulated</div>
           <div style="font-size:13px;font-weight:700;color:var(--rose);margin-top:4px;">${b.reason}</div>
         </div>
         <div style="background:rgba(7,11,22,0.4);padding:10px 14px;border-radius:var(--radius-sm);border:1px solid var(--border-inner);">
-          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Expected Stoppage Duration</div>
+          <div style="font-size:10px;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Expected Wait Duration</div>
           <div style="font-size:14px;font-weight:800;color:var(--amber);margin-top:4px;">⏱️ ${b.duration}</div>
         </div>
       </div>
@@ -9669,37 +9862,54 @@ function setBroadcastPreset(reason, duration) {
 }
 
 function publishLocoPilotBroadcast(reason, duration) {
-  const r = reason || document.getElementById('lp-broadcast-reason')?.value || "Red Home Signal — Standing between Buxar & Ara awaiting section line clearance";
-  const d = duration || document.getElementById('lp-broadcast-duration')?.value || "~5-7 minutes";
-  const tNo = document.getElementById('driver-train-no')?.textContent || "12301";
+  const tNo = String(document.getElementById('driver-train-no')?.textContent || activeTrainNumber || "12301");
+  const crew = getTrainCrewInfo(tNo);
+  const def = getLocoPilotBroadcast(tNo);
+  const r = reason || document.getElementById('lp-broadcast-reason')?.value || def.reason || "Section Regulation — Awaiting line clearance";
+  const d = duration || document.getElementById('lp-broadcast-duration')?.value || def.duration || "~5-7 minutes";
 
-  locoPilotPassengerBroadcast = {
+  locoPilotPassengerBroadcasts[tNo] = {
     active: true,
     train: tNo,
-    locoPilot: "LP-2847",
+    locoPilot: `${crew.lpName} (${crew.lp})`,
     reason: r,
     duration: d,
     timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + " IST",
     status: "Active Stoppage Advisory"
   };
+  locoPilotPassengerBroadcast = locoPilotPassengerBroadcasts[tNo];
 
   complaintsDB.forEach(c => {
-    const isStoppage = c.category.includes("Stoppage") || c.category.includes("Halt") || c.category.includes("Delay");
-    if (isStoppage && c.status !== "Resolved") {
-      c.status = "Addressed by Loco Pilot";
-      c.locoPilotResponse = `${r} (${d})`;
+    if (String(c.train) === String(tNo)) {
+      const isStoppage = c.category.includes("Stoppage") || c.category.includes("Halt") || c.category.includes("Delay");
+      if (isStoppage && c.status !== "Resolved") {
+        c.status = "Addressed by Loco Pilot";
+        c.locoPilotResponse = `${r} (${d})`;
+        c.assignedStaff = `${crew.lpName} (Loco Pilot ${crew.lp})`;
+      }
     }
   });
 
   renderPassengerLPBroadcast();
   renderComplaintList();
-  showToast("📢 Stoppage explanation broadcasted to Passenger View!", "green");
+  showToast(`📢 Stoppage explanation broadcasted to Train ${tNo} Passenger View!`, "green");
 }
 
 function clearLocoPilotBroadcast() {
-  locoPilotPassengerBroadcast.active = false;
+  const tNo = String(document.getElementById('driver-train-no')?.textContent || activeTrainNumber || "12301");
+  const crew = getTrainCrewInfo(tNo);
+  locoPilotPassengerBroadcasts[tNo] = {
+    active: false,
+    train: tNo,
+    locoPilot: `${crew.lpName} (${crew.lp})`,
+    reason: "Track clear — proceeding on schedule",
+    duration: "None (Moving)",
+    timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + " IST",
+    status: "Clear"
+  };
+  locoPilotPassengerBroadcast = locoPilotPassengerBroadcasts[tNo];
   renderPassengerLPBroadcast();
-  showToast("✓ Stoppage advisory cleared. Train in normal motion.", "cyan");
+  showToast(`✓ Stoppage advisory cleared for Train ${tNo}. Marked in transit.`, "cyan");
 }
 
 function openBroadcastModalForMsg(msgId) {
