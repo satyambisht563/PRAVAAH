@@ -27,16 +27,44 @@ const weatherApiJs = fs.readFileSync(path.join(FRONTEND_DIR, 'js', 'api', 'weath
 const complaintApiJs = fs.readFileSync(path.join(FRONTEND_DIR, 'js', 'api', 'complaintApi.js'), 'utf8');
 const appJs = fs.readFileSync(path.join(FRONTEND_DIR, 'js', 'app.js'), 'utf8');
 
-// Read current template (using root index.html structure or base)
+// Read current template (using root index.html structure)
 let template = fs.readFileSync(ROOT_INDEX, 'utf8');
 
 // Replace stylesheet block with latest style.css
-const styleOpen = template.indexOf('<style>');
-const styleClose = template.indexOf('</style>');
-if (styleOpen !== -1 && styleClose !== -1) {
-  template = template.slice(0, styleOpen) + '<style>\n' + css + '\n  ' + template.slice(styleClose);
-} else {
-  template = template.replace('<link rel="stylesheet" href="css/style.css">', '<style>\n' + css + '\n  </style>');
+const styleRegex = /<style>[\s\S]*?<\/style>/;
+if (styleRegex.test(template)) {
+  template = template.replace(styleRegex, '<style>\n' + css + '\n  </style>');
+}
+
+// Replace modular scripts with latest source code
+const configRegex = /<script>\s*\/\*\*[\s\S]*?config\.js[\s\S]*?<\/script>/;
+if (configRegex.test(template)) {
+  template = template.replace(configRegex, '<script>\n' + configJs + '\n</script>');
+}
+
+const trainApiRegex = /<script>\s*\/\*\*[\s\S]*?trainApi\.js[\s\S]*?<\/script>/;
+if (trainApiRegex.test(template)) {
+  template = template.replace(trainApiRegex, '<script>\n' + trainApiJs + '\n</script>');
+}
+
+const stationApiRegex = /<script>\s*\/\*\*[\s\S]*?stationApi\.js[\s\S]*?<\/script>/;
+if (stationApiRegex.test(template)) {
+  template = template.replace(stationApiRegex, '<script>\n' + stationApiJs + '\n</script>');
+}
+
+const weatherApiRegex = /<script>\s*\/\*\*[\s\S]*?weatherApi\.js[\s\S]*?<\/script>/;
+if (weatherApiRegex.test(template)) {
+  template = template.replace(weatherApiRegex, '<script>\n' + weatherApiJs + '\n</script>');
+}
+
+const complaintApiRegex = /<script>\s*\/\*\*[\s\S]*?complaintApi\.js[\s\S]*?<\/script>/;
+if (complaintApiRegex.test(template)) {
+  template = template.replace(complaintApiRegex, '<script>\n' + complaintApiJs + '\n</script>');
+}
+
+const appRegex = /<script>\s*\/\/\s*={10,}\s*\n\/\/\s*PRAVAAH — COMPLETE JAVASCRIPT ENGINE[\s\S]*?<\/script>/;
+if (appRegex.test(template)) {
+  template = template.replace(appRegex, '<script>\n' + appJs + '\n</script>');
 }
 
 // Write to root index.html
@@ -53,6 +81,15 @@ if (fs.existsSync(scratchRoot)) {
   fs.writeFileSync(path.join(scratchRoot, 'index.html'), template, 'utf8');
   if (fs.existsSync(path.join(scratchRoot, 'frontend'))) {
     fs.writeFileSync(path.join(scratchRoot, 'frontend', 'index.html'), template, 'utf8');
+  }
+  // Sync data and app.js as well
+  const scratchTrains = path.join(scratchRoot, 'backend', 'data', 'trains.json');
+  if (fs.existsSync(scratchTrains)) {
+    fs.writeFileSync(scratchTrains, fs.readFileSync(path.join(ROOT_DIR, 'backend', 'data', 'trains.json'), 'utf8'), 'utf8');
+  }
+  const scratchApp = path.join(scratchRoot, 'frontend', 'js', 'app.js');
+  if (fs.existsSync(scratchApp)) {
+    fs.writeFileSync(scratchApp, appJs, 'utf8');
   }
   console.log('✓ Synced to scratch directory');
 }

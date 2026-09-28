@@ -3589,166 +3589,6 @@
   <!-- PRAVAAH Decoupled API & Presentation Layer -->
   <script>
 /**
- * config.js
- * Centralized API configuration for PRAVAAH frontend
- */
-const CONFIG = {
-  API_BASE_URL: (window.location.port === '5000' || window.location.port === '8000')
-    ? window.location.origin + '/api'
-    : 'http://localhost:5000/api',
-  SYNC_INTERVAL_MS: 3000
-};
-
-</script>
-  <script>
-/**
- * trainApi.js
- * Client-side API layer for Train Metadata, Schedules, Stations & Dynamic Live Status
- */
-const TrainAPI = {
-  async getAllTrains() {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/trains`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.trains || [];
-    } catch (err) {
-      console.warn('[TrainAPI] getAllTrains fallback:', err.message);
-      return [];
-    }
-  },
-
-  async getTrain(trainNo) {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/trains/${trainNo}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.train || null;
-    } catch (err) {
-      console.warn('[TrainAPI] getTrain fallback:', err.message);
-      return null;
-    }
-  },
-
-  async getSchedule(trainNo, dateStr) {
-    try {
-      const q = dateStr ? `?date=${encodeURIComponent(dateStr)}` : '';
-      const res = await fetch(`${CONFIG.API_BASE_URL}/trains/${trainNo}/schedule${q}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.schedule || null;
-    } catch (err) {
-      console.warn('[TrainAPI] getSchedule fallback:', err.message);
-      return null;
-    }
-  },
-
-  async getStations(trainNo) {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/trains/${trainNo}/stations`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.stations || [];
-    } catch (err) {
-      console.warn('[TrainAPI] getStations fallback:', err.message);
-      return [];
-    }
-  },
-
-  async getDynamicStatus(trainNo, dateStr, timeMin, envParams = {}) {
-    try {
-      const params = new URLSearchParams();
-      if (dateStr) params.append('date', dateStr);
-      if (timeMin !== undefined && timeMin !== null) params.append('timeMin', timeMin);
-      if (envParams.fog !== undefined) params.append('fog', envParams.fog);
-      if (envParams.cong !== undefined) params.append('cong', envParams.cong);
-      if (envParams.headway !== undefined) params.append('headway', envParams.headway);
-      if (envParams.tsr !== undefined) params.append('tsr', envParams.tsr ? '1' : '0');
-
-      const url = `${CONFIG.API_BASE_URL}/trains/${trainNo}/status?${params.toString()}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.dynamicState || null;
-    } catch (err) {
-      console.warn('[TrainAPI] getDynamicStatus fallback to client calculation:', err.message);
-      if (typeof calculateTrainDynamicState === 'function') {
-        return calculateTrainDynamicState(trainNo, timeMin, dateStr);
-      }
-      return null;
-    }
-  }
-};
-
-</script>
-  <script>
-/**
- * stationApi.js
- * Client-side API layer for Stations Directory and Platform Assignments
- */
-const StationAPI = {
-  async getAllStations() {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/stations`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.stations || [];
-    } catch (err) {
-      console.warn('[StationAPI] getAllStations fallback:', err.message);
-      return [];
-    }
-  },
-
-  async getStation(code) {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/stations/${code}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.station || null;
-    } catch (err) {
-      console.warn('[StationAPI] getStation fallback:', err.message);
-      return null;
-    }
-  },
-
-  async getPlatform(stationCode, trainNumber, defaultPf = '1') {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/stations/${stationCode}/platform?train=${trainNumber}&defaultPf=${defaultPf}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.assignedPlatform || defaultPf;
-    } catch (err) {
-      return defaultPf;
-    }
-  }
-};
-
-</script>
-  <script>
-/**
- * weatherApi.js
- * Client-side API layer for Station-specific Weather
- */
-const WeatherAPI = {
-  async getStationWeather(stationCode) {
-    try {
-      const res = await fetch(`${CONFIG.API_BASE_URL}/weather/${stationCode}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      return data.weather || { isAvailable: false, error: 'Weather unavailable' };
-    } catch (err) {
-      console.warn('[WeatherAPI] getStationWeather fallback:', err.message);
-      if (typeof getStationWeather === 'function') {
-        return getStationWeather(stationCode);
-      }
-      return { isAvailable: false, error: 'Weather unavailable' };
-    }
-  }
-};
-
-</script>
-  <script>
-/**
  * complaintApi.js
  * Client-side API layer for Passenger Complaints & Inspection Scope Intelligence
  */
@@ -3928,20 +3768,11 @@ const MASTER_TRAINS = {
         "type": "major"
       },
       {
-        "code": "BWN",
-        "name": "Barddhaman Jn",
-        "km": 106,
-        "arrM": 1101,
-        "depM": 1103,
-        "pf": "1",
-        "type": "intermediate"
-      },
-      {
         "code": "ASN",
         "name": "Asansol Jn",
         "km": 200,
-        "arrM": 1157,
-        "depM": 1160,
+        "arrM": 1127,
+        "depM": 1129,
         "pf": "4",
         "type": "major"
       },
@@ -3949,54 +3780,63 @@ const MASTER_TRAINS = {
         "code": "DHN",
         "name": "Dhanbad Jn",
         "km": 259,
-        "arrM": 1218,
-        "depM": 1220,
-        "pf": "1",
+        "arrM": 1195,
+        "depM": 1200,
+        "pf": "3",
         "type": "major"
+      },
+      {
+        "code": "PNME",
+        "name": "Parasnath",
+        "km": 306,
+        "arrM": 1230,
+        "depM": 1232,
+        "pf": "3",
+        "type": "intermediate"
       },
       {
         "code": "GAYA",
         "name": "Gaya Jn",
         "km": 458,
-        "arrM": 1356,
-        "depM": 1359,
+        "arrM": 1352,
+        "depM": 1355,
         "pf": "1",
         "type": "major"
       },
       {
         "code": "DDU",
         "name": "Pt. Deen Dayal Upadhyaya Jn",
-        "km": 662,
-        "arrM": 1485,
-        "depM": 1495,
-        "pf": "6",
+        "km": 663,
+        "arrM": 1483,
+        "depM": 1490,
+        "pf": "7",
         "type": "major"
       },
       {
         "code": "PRYJ",
         "name": "Prayagraj Jn",
-        "km": 814,
+        "km": 816,
         "arrM": 1603,
         "depM": 1605,
-        "pf": "6",
+        "pf": "1",
         "type": "major"
       },
       {
         "code": "CNB",
         "name": "Kanpur Central",
-        "km": 1008,
-        "arrM": 1730,
-        "depM": 1735,
+        "km": 1010,
+        "arrM": 1725,
+        "depM": 1730,
         "pf": "1",
         "type": "major"
       },
       {
         "code": "NDLS",
         "name": "New Delhi",
-        "km": 1449,
+        "km": 1451,
         "arrM": 2045,
         "depM": 2045,
-        "pf": "16",
+        "pf": "14",
         "type": "major"
       }
     ]
