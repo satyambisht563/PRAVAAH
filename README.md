@@ -1,6 +1,6 @@
 # PRAVAAH — Intelligent ETS Railway Operations Platform
 
-> **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS**  
+> **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS_6**  | **Team ID: 136344**
 > *Dynamic Forecast of Expected Time of Arrival (ETA), Human-in-the-Loop Operations & Multi-Stakeholder Intelligence*  
 > **Collaborators:** Satyam Bisht ([@satyambisht563@gmail.com](https://github.com/satyambisht563)) · Samentha Massey ([@samenthamassey127-hue@gmail.com](https://github.com/samenthamassey127-hue)) ·  Hardik Kumar Maurya ([@hardikkmaurya@gmail.com](https://github.com/hardikkmaurya)) · Mansi Singh ([@mansisinghkld@gmail.com](https://github.com/Mansicode-spec)) · Shashwat Rai ([@shashraiwat72@gmail.com](https://github.com/shashwatrai01)) · Varchasva Singh Yadav ([@varchasva.s.yadav@gmail.com](https://github.com/Varchasva-ai))
 
