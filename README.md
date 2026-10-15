@@ -1,9 +1,31 @@
 # PRAVAAH — Intelligent ETS Railway Operations Platform
 
-> **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS_6**  | **Team ID: 136344**
+<div align="center">
+
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-pravaah--smoky.vercel.app-00DC82?style=for-the-badge&logo=vercel&logoColor=white)](https://pravaah-smoky.vercel.app/)
+[![Status](https://img.shields.io/badge/Status-Online_&_Active-brightgreen?style=for-the-badge)](https://pravaah-smoky.vercel.app/)
+
+</div>
+
+> [!IMPORTANT]
+> ### 🌐 Live Deployment
+> **Experience PRAVAAH live in your browser:**  
+> 👉 **[https://pravaah-smoky.vercel.app/](https://pravaah-smoky.vercel.app/)** 👈
+
+> **Smart India Hackathon 2026** | **Problem Statement ID: 26028** | **Team OASIS_6**  | **Team ID: 136344**  
 > *Dynamic Forecast of Expected Time of Arrival (ETA), Human-in-the-Loop Operations & Multi-Stakeholder Intelligence*  
-> **Collaborators:** Satyam Bisht ([@satyambisht563@gmail.com](https://github.com/satyambisht563)) · Samentha Massey ([@samenthamassey127@gmail.com](https://github.com/samenthamassey127-hue)) ·  Hardik Kumar Maurya ([@hardikkmaurya@gmail.com](https://github.com/hardikkmaurya)) · Mansi Singh ([@mansisinghkld@gmail.com](https://github.com/Mansicode-spec)) · Shashwat Rai ([@shashraiwat72@gmail.com](https://github.com/shashwatrai01)) · Varchasva Singh Yadav ([@varchasva.s.yadav@gmail.com](https://github.com/Varchasva-ai))
+> **Collaborators:** Satyam Bisht ([@satyambisht563@gmail.com](https://github.com/satyambisht563)) · Samentha Massey ([@samenthamassey127@gmail.com](https://github.com/samenthamassey127-hue)) · Hardik Kumar Maurya ([@hardikkmaurya@gmail.com](https://github.com/hardikkmaurya)) · Mansi Singh ([@mansisinghkld@gmail.com](https://github.com/Mansicode-spec)) · Shashwat Rai ([@shashraiwat72@gmail.com](https://github.com/shashwatrai01)) · Varchasva Singh Yadav ([@varchasva.s.yadav@gmail.com](https://github.com/Varchasva-ai))
  
+---
+
+## 📖 About PRAVAAH
+
+**PRAVAAH** is an advanced, AI-driven Intelligent ETS (Expected Time of Arrival) Railway Operations Platform developed for Indian Railways operations. It delivers dynamic ETA predictions, human-in-the-loop decision intelligence, real-time fleet tracking across zones and divisions, automated platform assignments, and meteorological risk assessments.
+
+* 🌐 **Live Web Application:** [**https://pravaah-smoky.vercel.app/**](https://pravaah-smoky.vercel.app/)
+* 🎯 **Problem Statement ID:** 26028 (Smart India Hackathon 2026)
+* 👥 **Team:** OASIS_6 (Team ID: 136344)
+
 ---
 
 ## 🌟 System Architecture: Clean Separation of Concerns
@@ -67,7 +89,11 @@ PRAVAAH/
 
 ## 🚀 How to Run
 
-### Method 1: Instant Standalone Run
+### Method 0: Live Cloud Web App (No Setup Required)
+Directly open the live production deployment:  
+👉 **[https://pravaah-smoky.vercel.app/](https://pravaah-smoky.vercel.app/)**
+
+### Method 1: Instant Standalone Run (Local Frontend)
 1. Double-click **`run_website.bat`** (or open `frontend/index.html` in Chrome/Edge/Firefox).
 2. The frontend boots immediately with local caching and connects to the backend as soon as it is online.
 

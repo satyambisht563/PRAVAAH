@@ -1,5 +1,9 @@
 # PRAVAAH Railway Operations Backend
 
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-pravaah--smoky.vercel.app-00DC82?style=for-the-badge&logo=vercel&logoColor=white)](https://pravaah-smoky.vercel.app/)
+
+> 🌐 **Live Web Application:** [**https://pravaah-smoky.vercel.app/**](https://pravaah-smoky.vercel.app/)
+
 High-performance, decoupled Express/Node.js RESTful API server for Indian Railways real-time fleet tracking, timetable schedules, multi-station jurisdiction, weather profiles, and passenger complaint inspection intelligence.
 
 ---
